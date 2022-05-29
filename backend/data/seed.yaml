@@ -1,15 +1,52 @@
-# Id is just the most simple possible
-
 userCredentials:
-  - id: "00000000-0000-0000-0000-000000000000"
-    username: "admin"
+  - username: "admin"
     # password is "admin"
-    passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" 
-  - id: "00000000-0000-0000-0000-000000000001"
-    username: "user"
+    passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+  - username: "user"
     # password is "password"
     passwordHash: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
-  - id: "00000000-0000-0000-0000-000000000002"
-    username: "a"
+  - username: "a"
     # password is "a"
     passwordHash: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+
+# I have NO idea how much crabs/fats/... one should eat
+userDetails:
+  - username: "admin"
+    name: "Adam"
+    surname: "The Admin"
+    weight: 0
+    height: 0
+    year_born: "2000-01-01T12:00:00.000Z"
+    # True male chad
+    sex: 1
+    email: "nothing.here@empty.null"
+    desired_carbs: 0
+    desired_proteins: 0
+    desired_fats: 0
+    desired_fiber: 0
+
+  - username: "user"
+    name: "Black"
+    surname: "Hole"
+    weight: 290
+    height: 175
+    year_born: "1975-01-01T12:00:00.000Z"
+    sex: 0.5
+    email: give.mefood@hung.ry
+    desired_carbs: 350
+    desired_proteins: 69
+    desired_fats: 960
+    desired_fiber: 540
+
+  - username: "a"
+    name: "a"
+    surname: "a"
+    weight: 87
+    height: 180
+    year_born: "1979-12-01T12:00:00.000Z"
+    sex: 0
+    email: "mail.mail@mail.com"
+    desired_carbs: 150
+    desired_proteins: 150
+    desired_fats: 150
+    desired_fiber: 150

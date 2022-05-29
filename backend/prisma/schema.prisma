@@ -3,13 +3,30 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
-    url = "file:./database.db"
+  provider = "sqlite"
+  url      = "file:./database.db"
 }
 
-// TODO
 model UserCredentials {
-  id              String         @id @default(uuid())
-  username        String
-  passwordHash    String
+  username     String       @id
+  passwordHash String
+  details      UserDetails?
+}
+
+model UserDetails {
+  username         String          @id
+  credentials      UserCredentials @relation(fields: [userLink], references: [username])
+  userLink         String         
+  name             String
+  surname          String
+  weight           Float
+  height           Float
+  year_born        DateTime
+  sex              Float
+  email            String
+  desired_carbs    Float
+  desired_proteins Float
+  desired_fats     Float
+  desired_fiber    Float
+
 }

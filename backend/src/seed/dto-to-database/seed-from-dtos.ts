@@ -11,6 +11,15 @@ const seedDB = async (yamlParsed: SeedFileStructure): Promise<Result<boolean>> =
             ...single,
           },
         });
+      }),
+
+      ...yamlParsed.userDetails.map((single) => {
+        return prisma.userDetails.create({
+          data: {
+            ...single,
+            userLink: single.username
+          }
+        })
       })
     ])
     return Result.ok(true);
