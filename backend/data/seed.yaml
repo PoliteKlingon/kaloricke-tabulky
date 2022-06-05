@@ -1,0 +1,104 @@
+userCredentials:
+  - username: "admin"
+    # password is "admin"
+    passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+  - username: "user"
+    # password is "password"
+    passwordHash: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+  - username: "a"
+    # password is "a"
+    passwordHash: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+
+# I have NO idea how much crabs/fats/... one should eat
+userDetails:
+  - username: "admin"
+    name: "Adam"
+    surname: "The Admin"
+    weight: 0
+    height: 0
+    year_born: "2000-01-01T12:00:00.000Z"
+    # True male chad
+    sex: 1
+    email: "nothing.here@empty.null"
+    goalsLink: "03489d70-7895-488f-ae3c-2324f014000e"
+
+  - username: "user"
+    name: "Black"
+    surname: "Hole"
+    weight: 290
+    height: 175
+    year_born: "1975-01-01T12:00:00.000Z"
+    sex: 0.5
+    email: give.mefood@hung.ry
+    goalsLink: "99989d70-7895-488f-ae3c-2324f014000e"
+
+  - username: "a"
+    name: "a"
+    surname: "a"
+    weight: 87
+    height: 180
+    year_born: "1979-12-01T12:00:00.000Z"
+    sex: 0
+    email: "mail.mail@mail.com"
+    goalsLink: "88889d70-7895-488f-ae3c-2324f014000e"
+
+userGoals:
+  - id:  "03489d70-7895-488f-ae3c-2324f014000e"
+    carbs: 0
+    proteins: 0
+    fats: 0
+    fiber: 0
+    salt: 0
+
+  - id:  "99989d70-7895-488f-ae3c-2324f014000e"
+    carbs: 350
+    proteins: 69
+    fats: 960
+    fiber: 540
+    salt: 0
+
+  - id:  "88889d70-7895-488f-ae3c-2324f014000e"
+    carbs: 150
+    proteins: 150
+    fats: 150
+    fiber: 150
+    salt: 20
+
+food:
+  - id: "03489d70-4662-488f-ae3c-2324f014000e"
+    name: "Banana"
+    description: "A Banana"
+    calories: 88
+    proteins: 1.2
+    carbs: 20.9   
+    fats: 0.1    
+    fiber: 1.1   
+    salt: 0  
+
+  - id: "66689d70-4662-488f-ae3c-2324f014000f"
+    name: "Mango"
+    description: "A Mango"
+    calories: 59
+    proteins: 0.7
+    carbs: 13.8   
+    fats: 0.2    
+    fiber: 2.6   
+    salt: 0    
+
+eaten:
+  - id: "00089d70-8000-488f-ae3c-2324f014000e"
+    foodLink: "03489d70-4662-488f-ae3c-2324f014000e"
+    quantity: 875.8
+
+meal:
+  - id: "00089d70-4662-488f-ae3c-2324f014000f"
+    food:
+      - id: "00089d70-8000-488f-ae3c-2324f014000e"
+    type: "Breakfast"
+
+day:
+  - id: "11189d70-8000-488f-ae3c-2324f014000e"
+    userLink: "user"
+    date: "2022-06-05T12:00:00.000Z"
+    meals: 
+      - id: "00089d70-4662-488f-ae3c-2324f014000f"
