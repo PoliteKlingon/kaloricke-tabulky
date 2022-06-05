@@ -1,22 +1,21 @@
-// I spam here whichever small part of code i need to "test" quickly
+import express from "express";
+import { food } from "./resources"
 
-import prisma from "./client";
 
-// Testing if incredibly intuitive connections in prisma do really work
-const pokus = async () => {
-  var pokus = await prisma.userDetails.findUnique({
-    where: {
-      username: "admin",
-    },
-    select: {
-      credentials: {
-        select: {
-          passwordHash: true,
-        }
-      }
-    }
-  })
-  console.log(pokus);
-}
+const api = express();
+api.use(express.json());
+api.use(express.urlencoded({ extended: true }));
 
-pokus()
+api.use(express.static("public"));
+
+
+api.get('/', (_, res) => res.send({
+  status: "success",
+  data: {},
+  message: "Welcome to our API"
+}));
+
+api.get("/food", food.get);
+api.get("/food/:id", food.getById);
+
+api.listen(3000)
