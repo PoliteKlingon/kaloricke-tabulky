@@ -5,15 +5,16 @@ export default interface SeedFileStructure {
   food: FoodDTO[];
   eaten: EatenDTO[];
   meal: MealDTO[];
-  day: DayDTO[];
 }
 
 export interface UserCredentialsDTO {
-  username: string;
+  uuid: string;
+  userId: string;
   passwordHash: string;
 }
 
 export interface UserDetailsDTO {
+  uuid: string;
   username: string;
   name: string;
   surname: string;
@@ -22,11 +23,11 @@ export interface UserDetailsDTO {
   year_born: Date;
   sex: number;
   email: string;
-  goalsLink: string
 }
 
 export interface UserGoalsDTO {
   id: string;
+  userId: string;
   carbs: number;
   proteins: number;
   fats: number;
@@ -48,23 +49,16 @@ export interface FoodDTO {
 
 export interface EatenDTO {
   id: string;
-  foodLink: string;
+  foodId: string;
   quantity: number;
 }
 
 export interface MealDTO {
   id: string;
+  userId: string;
   food: {
     id: string
   }[];
   type: string;
-}
-
-export interface DayDTO {
-  id: string;
-  userLink: string;
   date: Date;
-  meals: {
-    id: string
-  }[];
 }

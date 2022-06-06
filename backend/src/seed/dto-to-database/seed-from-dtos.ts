@@ -12,19 +12,17 @@ const seedDB = async (yamlParsed: SeedFileStructure): Promise<Result<boolean>> =
           },
         });
       }),
-      ...yamlParsed.userGoals.map((single) => {
-        return prisma.userGoals.create({
-          data: {
-            ...single,
-          }
-        })
-      }),
+       ...yamlParsed.userGoals.map((single) => {
+         return prisma.userGoals.create({
+           data: {
+             ...single,
+           }
+         })
+       }),
       ...yamlParsed.userDetails.map((single) => {
         return prisma.userDetails.create({
           data: {
             ...single,
-            credentialsLink: single.username,
-            goalsLink: single.goalsLink
           }
         })
       }),
@@ -41,7 +39,7 @@ const seedDB = async (yamlParsed: SeedFileStructure): Promise<Result<boolean>> =
         return prisma.eaten.create({
           data: {
             ...single,
-            foodLink: single.foodLink
+            foodId: single.foodId
           }
         })
       }),
@@ -57,22 +55,7 @@ const seedDB = async (yamlParsed: SeedFileStructure): Promise<Result<boolean>> =
             }
           },
         })
-      }),
-
-
-      ...yamlParsed.day.map((single) => {
-        return prisma.day.create({
-          data: {
-            ...single,
-            userLink: single.userLink,
-            meals: {
-              connect: single.meals.map((singleMeal) => ({
-                id: singleMeal.id
-              }))
-            }
-          }
-        })
-      }),
+      })
     ])
     return Result.ok(true);
   } catch (e) {

@@ -8,45 +8,40 @@ datasource db {
 }
 
 model UserCredentials {
-  username     String       @id
+  id           String       @id @default(uuid())
+  userId       String       @unique
   passwordHash String
   details      UserDetails?
 }
 
 model UserGoals {
-  id          String @id @default(uuid())
-  userId      UserDetails?
-  carbs       Float
-  proteins    Float
-  fats        Float
-  fiber       Float
-  salt        Float
+  id       String       @id @default(uuid())
+  userId   String       @unique
+  details  UserDetails?
+  carbs    Float
+  proteins Float
+  fats     Float
+  fiber    Float
+  salt     Float
 }
 
 model UserDetails {
-  username         String          @id
-  credentialsLink  String 
-  credentials      UserCredentials @relation(fields: [credentialsLink], references: [username])
-  goalsLink        String  
-  goals            UserGoals       @relation(fields: [goalsLink], references: [id]) 
-  days             Day[]
-  name             String
-  surname          String
-  weight           Float
-  height           Float
-  year_born        DateTime
-  sex              Float
-  email            String
+  id            String          @id @default(uuid())
+  username      String
+  credentials   UserCredentials @relation(fields: [id], references: [userId])
+  goals         UserGoals       @relation(fields: [id], references: [userId])
+  name          String
+  surname       String
+  weight        Float
+  height        Float
+  year_born     DateTime
+  sex           Float
+  email         String
+  meals         Meal[]
 }
 
-// Enums are not supported by sqlite btw
-// enum ToodType {
-//   BREAKFAST
-//   LUNCH  
-// }
-
 model Food {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   description String
   calories    Float
@@ -59,25 +54,18 @@ model Food {
 }
 
 model Eaten {
-  id          String @id @default(uuid())
-  foodLink    String
-  food        Food   @relation(fields: [foodLink], references: [id])
-  quantity    Float
-  meal        Meal[]
+  id       String @id @default(uuid())
+  foodId   String
+  food     Food   @relation(fields: [foodId], references: [id])
+  quantity Float
+  meal     Meal[]
 }
 
 model Meal {
-  id          String @id @default(uuid())
-  food        Eaten[]
-  day         Day[]
-  type        String
-}
-
-// Key could be userLink + date ?
-model Day {
-  id          String @id @default(uuid())
-  userLink    String
-  user        UserDetails @relation(fields: [userLink], references: [username])
-  date        DateTime
-  meals       Meal[]
+  id     String      @id @default(uuid())
+  userId String
+  user   UserDetails @relation(fields: [userId], references: [id])
+  food   Eaten[]
+  date   DateTime
+  type   String
 }

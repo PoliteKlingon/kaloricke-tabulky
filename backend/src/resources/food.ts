@@ -41,7 +41,6 @@ export const store = async (req: Request, res: Response) => {
   }
 }
 
-
 export const get = async (_: Request, res: Response) => {
   try {
     const foods = await prisma.food.findMany();
@@ -117,6 +116,7 @@ const updateFoodSchema = object({
   fiber: number(),
   salt: number(),
 })
+
 export const update = async (req: Request, res: Response) => {
   try {
     const data = await updateFoodSchema.validate(req.body);
@@ -136,7 +136,6 @@ export const update = async (req: Request, res: Response) => {
         fats: data.fats || original!.fats,
         fiber: data.fiber || original!.fiber,
         salt: data.salt || original!.salt,
-
       },
       where: {
         id: data.id
