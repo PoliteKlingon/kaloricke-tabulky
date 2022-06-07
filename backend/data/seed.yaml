@@ -22,7 +22,7 @@ userDetails:
     surname: "The Admin"
     weight: 0
     height: 0
-    year_born: "2000-01-01T12:00:00.000Z"
+    birthdate: "2000-01-01T12:00:00.000Z"
     # True male chad
     sex: 1
     email: "nothing.here@empty.null"
@@ -33,7 +33,7 @@ userDetails:
     surname: "Hole"
     weight: 290
     height: 175
-    year_born: "1975-01-01T12:00:00.000Z"
+    birthdate: "1975-01-01T12:00:00.000Z"
     sex: 0.5
     email: give.mefood@hung.ry
 
@@ -43,7 +43,7 @@ userDetails:
     surname: "a"
     weight: 87
     height: 180
-    year_born: "1979-12-01T12:00:00.000Z"
+    birthdate: "1979-12-01T12:00:00.000Z"
     sex: 0
     email: "mail.mail@mail.com"
 
@@ -55,6 +55,7 @@ userGoals:
     fats: 0
     fiber: 0
     salt: 0
+    calories: 0
 
   - id:  "99989d70-7895-488f-ae3c-2324f014000e"
     userId: "03489d70-7895-488f-eeee-2324f014000e"
@@ -63,6 +64,7 @@ userGoals:
     fats: 960
     fiber: 540
     salt: 0
+    calories: 2790
 
   - id:  "88889d70-7895-488f-ae3c-2324f014000e"
     userId: "03489d70-7895-488f-dddd-2324f014000e"
@@ -71,10 +73,11 @@ userGoals:
     fats: 150
     fiber: 150
     salt: 20
+    calories: 1850
 
 food:
   - id: "03489d70-4662-488f-ae3c-2324f014000e"
-    name: "Banana"
+    name: "banana"
     description: "A Banana"
     calories: 88
     proteins: 1.2
@@ -84,7 +87,7 @@ food:
     salt: 0  
 
   - id: "66689d70-4662-488f-ae3c-2324f014000f"
-    name: "Mango"
+    name: "mango"
     description: "A Mango"
     calories: 59
     proteins: 0.7

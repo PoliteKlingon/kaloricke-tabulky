@@ -1,4 +1,4 @@
-import { object, string, number, ValidationError } from 'yup';
+import { object, string, number,ValidationError } from 'yup';
 import { Request, Response } from 'express'
 import prisma from "../client";
 
@@ -24,7 +24,7 @@ export const store = async (req: Request, res: Response) => {
       data: food,
       message: "Food created successfully"
     })
-  } catch (e) {
+  } catch (e: any) {
     if (e instanceof ValidationError) {
       return res.status(400).send({
         status: "error",
@@ -36,7 +36,7 @@ export const store = async (req: Request, res: Response) => {
     return res.status(500).send({
       status: "error",
       data: {},
-      message: "Internal server error"
+      message: "internal server error"
     })
   }
 }
@@ -81,8 +81,8 @@ export const getById = async (req: Request, res: Response) => {
 }
 
 export const getByName = async (req: Request, res: Response) => {
-  const name = req.params['name']!.toLowerCase();
   try {
+    const name = req.params['name']!.toLowerCase();
     const foods = await prisma.food.findMany({
       where: {
         name: {
@@ -105,37 +105,37 @@ export const getByName = async (req: Request, res: Response) => {
 }
 
 
-const updateFoodSchema = object({
-  id: string().required(),
-  name: string(),
-  description: string(),
-  calories: number(),
-  proteins: number(),
-  carbs: number(),
-  fats: number(),
-  fiber: number(),
-  salt: number(),
-})
-
 export const update = async (req: Request, res: Response) => {
   try {
-    const data = await updateFoodSchema.validate(req.body);
-    const original = await prisma.food.findUnique({
-      where: {
-        id: data.id
-      }
-    })
+    const data = req.body;
+    
+    await string().uuid().validate(data.id)
+    console.log("kurva kokot")
+    if (data.name) {
+      data.name = data.name.toLowerCase();
+    }
+    if (data.carbs) {
+      await number().positive().validate(data.carbs)
+    }
+    if (data.proteins) {
+      await number().positive().validate(data.proteins)
+    }
+    if (data.fats) {
+      await number().positive().validate(data.fats)
+    }
+    if (data.fiber) {
+      await number().positive().validate(data.fiber)
+    }
+    if (data.salt) {
+      await number().positive().validate(data.salt)
+    }
+    if (data.calories) {
+      await number().positive().validate(data.calories)
+    }
 
     const request = await prisma.food.update({
       data: {
-        name: data.name != null ? data.name.toLowerCase() : original!.name,
-        description: data.description || original!.description,
-        calories: data.calories || original!.calories,
-        proteins: data.proteins || original!.proteins,
-        carbs: data.carbs || original!.carbs,
-        fats: data.fats || original!.fats,
-        fiber: data.fiber || original!.fiber,
-        salt: data.salt || original!.salt,
+        ...data,
       },
       where: {
         id: data.id
@@ -146,12 +146,44 @@ export const update = async (req: Request, res: Response) => {
       data: request,
       message: "Request updated"
     })
-  } catch (error) {
+  } catch (e) {
+    if (e instanceof ValidationError) {
+      return res.status(400).send({
+        status: "error",
+        message: "Invalid data",
+        data: e.errors
+      })
+    }
+
     return res.status(500).send({
       status: "error",
       data: {},
       message: "Internal server error"
     })
   }
-    
+}
+
+export const deleteFood = async (req: Request, res: Response) => {
+  const id = req.params['id']!;
+  try {
+    const request = await prisma.food.update({
+      where: {
+        id: id
+      },
+      data: {
+        deleted: true
+      }
+    })
+    return res.send({
+      status: "sucess",
+      data: request,
+      message: "Request updated"
+    })
+  } catch (e) {
+    return res.status(500).send({
+      status: "error",
+      data: {},
+      message: "Internal server error"
+    })
+  }
 }

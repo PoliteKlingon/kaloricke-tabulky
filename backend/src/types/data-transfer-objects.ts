@@ -20,7 +20,7 @@ export interface UserDetailsDTO {
   surname: string;
   weight: number;
   height: number;
-  year_born: Date;
+  birthdate: Date;
   sex: number;
   email: string;
 }
@@ -33,6 +33,7 @@ export interface UserGoalsDTO {
   fats: number;
   fiber: number;
   salt: number;
+  calories: number;
 }
 
 export interface FoodDTO {

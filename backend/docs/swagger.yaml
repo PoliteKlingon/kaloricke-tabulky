@@ -1,0 +1,207 @@
+openapi: 3.0.1
+info:
+  description: "This is documentation for Kalorické tabulky, describing its REST API"
+  version: 1.0.0
+  title: "Kalorické tabulky"
+  contact:
+    email: "514017@mail.muni.cz"
+    email: "514143@mail.muni.cz"
+servers:
+  - url: "http://localhost:3000/"
+tags:
+  - name: "Food"
+    description: "Provides information about food"
+  - name: "User"
+    description: "Provides information about user"
+paths:
+  /api/food:
+    get:
+      tags:
+        - "Food"
+      summary: "Get all foods from database"
+      operationId: "getFood"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FoodResponse"
+        "500":
+          description: "internal error"
+    post:
+      tags:
+        - "Food"
+      summary: "Add new food to database"
+      operationId: "storeFood"
+      requestBody:
+        description: "Food to be added"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FoodResponse"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FoodResponse"
+        "500":
+          description: "internal error"
+      put:
+        tags:
+          - "Food"
+        summary: "Update food in database"
+        operationId: "updateFood"
+        requestBody:
+          description: "Food to be updated"
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FoodUpdate"
+        responses:
+          "200":
+            description: "successful operation"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/FoodResponse"
+          "500":
+            description: "internal error"
+    /api/food/{id}:
+    get:
+      tags:
+        - "Food"
+      summary: "Get all food by uuid from database"
+      operationId: "getFoodById"
+      parameters:
+        - in: "query"
+          name: "id"
+          schema:
+            type: "string"
+          description: "id of food"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FoodResponse"
+        '400':
+          description: invalid filter arguments
+        '500':
+          description: internal error
+  /api/food/{name}:
+    get:
+      tags:
+        - "Food"
+      summary: "Get all food which contains name, regardles of case from database"
+      operationId: "getFoodByName"
+      parameters:
+        - in: "query"
+          name: "name"
+          schema:
+            type: "string"
+          description: "name to look for of food"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FoodResponse"
+        '400':
+          description: invalid filter arguments
+        '500':
+          description: internal error
+components:
+  schemas:
+    FoodResponse:
+      required:
+        - name
+        - calories
+        - proteins
+        - carbs
+        - fats
+        - fiber
+        - salt
+      type: object
+      properties:
+        id:
+          type: "string"
+          format: uuid
+        name:
+          type: string
+          example: "Banana"
+        description:
+          type: string
+          example: A Yellow Banana
+        calories:
+          type: number
+          example: 124.8
+          description: Calories of the food (in kcal)
+        proteins:
+          type: number
+          example: 36.7
+          description: Proteins in the food (in g)
+        carbs:
+          type: number
+          example: 78.0
+          description: Carbohydrates in the food (in g)
+        fats:
+          type: number
+          example: 4.1
+          description: Fats in the food (in g)
+        fiber:
+          type: number
+          example: 14.3
+          description: Fiber in the food (in g)
+        salt:
+          type: number
+          example: 0.8
+          description: Salt in the food (in g)
+    FoodUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Banana"
+        description:
+          type: string
+          example: A Yellow Banana
+        calories:
+          type: number
+          example: 124.8
+          description: Calories of the food (in kcal)
+        proteins:
+          type: number
+          example: 36.7
+          description: Proteins in the food (in g)
+        carbs:
+          type: number
+          example: 78.0
+          description: Carbohydrates in the food (in g)
+        fats:
+          type: number
+          example: 4.1
+          description: Fats in the food (in g)
+        fiber:
+          type: number
+          example: 14.3
+          description: Fiber in the food (in g)
+        salt:
+          type: number
+          example: 0.8
+          description: Salt in the food (in g)
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        data:
+          type: object
+        message:
+          type: string

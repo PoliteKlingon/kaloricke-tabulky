@@ -13,7 +13,8 @@ CREATE TABLE "UserGoals" (
     "proteins" REAL NOT NULL,
     "fats" REAL NOT NULL,
     "fiber" REAL NOT NULL,
-    "salt" REAL NOT NULL
+    "salt" REAL NOT NULL,
+    "calories" REAL NOT NULL
 );
 
 -- CreateTable
@@ -24,7 +25,7 @@ CREATE TABLE "UserDetails" (
     "surname" TEXT NOT NULL,
     "weight" REAL NOT NULL,
     "height" REAL NOT NULL,
-    "year_born" DATETIME NOT NULL,
+    "birthdate" DATETIME NOT NULL,
     "sex" REAL NOT NULL,
     "email" TEXT NOT NULL,
     CONSTRAINT "UserDetails_id_fkey" FOREIGN KEY ("id") REFERENCES "UserCredentials" ("userId") ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -41,7 +42,8 @@ CREATE TABLE "Food" (
     "carbs" REAL NOT NULL,
     "fats" REAL NOT NULL,
     "fiber" REAL NOT NULL,
-    "salt" REAL NOT NULL
+    "salt" REAL NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false
 );
 
 -- CreateTable

@@ -23,6 +23,7 @@ model UserGoals {
   fats     Float
   fiber    Float
   salt     Float
+  calories Float
 }
 
 model UserDetails {
@@ -34,7 +35,7 @@ model UserDetails {
   surname       String
   weight        Float
   height        Float
-  year_born     DateTime
+  birthdate     DateTime
   sex           Float
   email         String
   meals         Meal[]
@@ -51,6 +52,7 @@ model Food {
   fiber       Float
   salt        Float
   eaten       Eaten[]
+  deleted     Boolean @default(false)
 }
 
 model Eaten {
