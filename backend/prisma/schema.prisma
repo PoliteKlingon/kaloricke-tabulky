@@ -2,82 +2,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "sqlite"
-  url      = "file:./database.db"
+datasource db{
+    provider = "sqlite"
+    url = "file:./database.db"
 }
 
-model UserCredentials {
-  username     String       @id
-  passwordHash String
-  details      UserDetails?
-}
-
-model UserGoals {
-  id          String @id @default(uuid())
-  userId      UserDetails?
-  carbs       Float
-  proteins    Float
-  fats        Float
-  fiber       Float
-  salt        Float
-}
-
-model UserDetails {
-  username         String          @id
-  credentialsLink  String 
-  credentials      UserCredentials @relation(fields: [credentialsLink], references: [username])
-  goalsLink        String  
-  goals            UserGoals       @relation(fields: [goalsLink], references: [id]) 
-  days             Day[]
-  name             String
-  surname          String
-  weight           Float
-  height           Float
-  year_born        DateTime
-  sex              Float
-  email            String
-}
-
-// Enums are not supported by sqlite btw
-// enum ToodType {
-//   BREAKFAST
-//   LUNCH  
-// }
-
-model Food {
-  id          String @id @default(uuid())
-  name        String
-  description String
-  calories    Float
-  proteins    Float
-  carbs       Float
-  fats        Float
-  fiber       Float
-  salt        Float
-  eaten       Eaten[]
-}
-
-model Eaten {
-  id          String @id @default(uuid())
-  foodLink    String
-  food        Food   @relation(fields: [foodLink], references: [id])
-  quantity    Float
-  meal        Meal[]
-}
-
-model Meal {
-  id          String @id @default(uuid())
-  food        Eaten[]
-  day         Day[]
-  type        String
-}
-
-// Key could be userLink + date ?
-model Day {
-  id          String @id @default(uuid())
-  userLink    String
-  user        UserDetails @relation(fields: [userLink], references: [username])
-  date        DateTime
-  meals       Meal[]
-}
+// TODO
