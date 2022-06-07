@@ -2,9 +2,80 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource db{
-    provider = "sqlite"
-    url = "file:./database.db"
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.db"
 }
 
-// TODO
+model User{
+  id String @id @default(uuid())
+  credentials UserCredentials?
+  details UserDetails?
+  goals UserGoals?
+  meals         Meal[]
+}
+
+model UserCredentials {
+  email           String       @id 
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  passwordHash String
+}
+
+model UserGoals {
+  id       String       @id @default(uuid())
+  carbs    Float
+  proteins Float
+  fats     Float
+  fiber    Float
+  salt     Float
+  calories Float
+  userId   String       @unique
+  user User @relation(fields: [userId], references: [id])
+}
+
+model UserDetails {
+  id            String          @id @default(uuid())
+  username      String
+  name          String
+  surname       String
+  weight        Float
+  height        Float
+  birthdate     DateTime
+  sex           Float
+  email         String
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Food {
+  id          String  @id @default(uuid())
+  name        String
+  description String
+  calories    Float
+  proteins    Float
+  carbs       Float
+  fats        Float
+  fiber       Float
+  salt        Float
+  eaten       Eaten[]
+  deleted     Boolean @default(false)
+}
+
+model Eaten {
+  id       String @id @default(uuid())
+  foodId   String
+  food     Food   @relation(fields: [foodId], references: [id])
+  quantity Float
+  meal     Meal[]
+}
+
+model Meal {
+  id     String      @id @default(uuid())
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+  food   Eaten[]
+  date   DateTime
+  type   String
+}
