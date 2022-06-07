@@ -253,13 +253,6 @@ paths:
       operationId: "getUserGoals"
       parameters:
         - in: path
-          name: id  
-          required: true
-          schema:
-            type: uuid
-          description: The user UUID
-      parameters:
-        - in: path
           name: userId  
           required: true
           schema:
