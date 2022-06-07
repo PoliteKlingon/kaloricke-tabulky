@@ -7,30 +7,36 @@ datasource db {
   url      = "file:./database.db"
 }
 
+model User{
+  id String @id @default(uuid())
+  credentials UserCredentials?
+  details UserDetails?
+  goals UserGoals?
+  meals         Meal[]
+}
+
 model UserCredentials {
-  id           String       @id @default(uuid())
-  userId       String       @unique
+  email           String       @id 
+  userId String
+  user User @relation(fields: [userId], references: [id])
   passwordHash String
-  details      UserDetails?
 }
 
 model UserGoals {
   id       String       @id @default(uuid())
-  userId   String       @unique
-  details  UserDetails?
   carbs    Float
   proteins Float
   fats     Float
   fiber    Float
   salt     Float
   calories Float
+  userId   String       @unique
+  user User @relation(fields: [userId], references: [id])
 }
 
 model UserDetails {
   id            String          @id @default(uuid())
   username      String
-  credentials   UserCredentials @relation(fields: [id], references: [userId])
-  goals         UserGoals       @relation(fields: [id], references: [userId])
   name          String
   surname       String
   weight        Float
@@ -38,7 +44,9 @@ model UserDetails {
   birthdate     DateTime
   sex           Float
   email         String
-  meals         Meal[]
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Food {
@@ -66,7 +74,7 @@ model Eaten {
 model Meal {
   id     String      @id @default(uuid())
   userId String
-  user   UserDetails @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id])
   food   Eaten[]
   date   DateTime
   type   String

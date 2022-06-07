@@ -5,6 +5,13 @@ import type SeedFileStructure from "../../types/data-transfer-objects";
 const seedDB = async (yamlParsed: SeedFileStructure): Promise<Result<boolean>> => {
   try {
     prisma.$transaction([
+      ...yamlParsed.user.map((single) => {
+        return prisma.user.create({
+          data: {
+            ...single,
+          },
+        });
+      }),
       ...yamlParsed.userCredentials.map((single) => {
         return prisma.userCredentials.create({
           data: {

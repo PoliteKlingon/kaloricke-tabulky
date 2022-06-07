@@ -1,20 +1,25 @@
+user:
+  - id: "1"
+  - id: "2"
+  - id: "3"
+
 userCredentials:
-  - id:  "03489d70-7895-ffff-ffff-2324f014000e"
-    userId: "03489d70-7895-488f-ffff-2324f014000e"
-    # password is "admin"
-    passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+   - email: "tvojeMama@haha.com"
+     userId: "1"
+     # password is "admin"
+     passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
 
-  - id:  "03489d70-7895-eeee-eeee-2324f014000e"
-    userId: "03489d70-7895-488f-eeee-2324f014000e"
+   - email : "jedunakoni@paneboze.cz"
+     userId: "2"
     # password is "password"
-    passwordHash: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+     passwordHash: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
 
-  - id:  "03489d70-7895-dddd-dddd-2324f014000e"
-    userId: "03489d70-7895-488f-dddd-2324f014000e"
+   - email: "kolokolomlynsky@zactyrirynsky.de"
+     userId: "3"
     # password is "a"
-    passwordHash: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+     passwordHash: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 
-# I have NO idea how much crabs/fats/... one should eat
+# # I have NO idea how much crabs/fats/... one should eat
 userDetails:
   - id:  "03489d70-7895-488f-ffff-2324f014000e"
     username: "admin"
@@ -25,6 +30,7 @@ userDetails:
     birthdate: "2000-01-01T12:00:00.000Z"
     # True male chad
     sex: 1
+    userId: "1"
     email: "nothing.here@empty.null"
 
   - id:  "03489d70-7895-488f-eeee-2324f014000e"
@@ -36,6 +42,7 @@ userDetails:
     birthdate: "1975-01-01T12:00:00.000Z"
     sex: 0.5
     email: give.mefood@hung.ry
+    userId: "2"
 
   - id:  "03489d70-7895-488f-dddd-2324f014000e"
     username: "a"
@@ -46,10 +53,11 @@ userDetails:
     birthdate: "1979-12-01T12:00:00.000Z"
     sex: 0
     email: "mail.mail@mail.com"
+    userId: "3"
 
 userGoals:
   - id:  "03489d70-7895-488f-ae3c-2324f014000e"
-    userId: "03489d70-7895-488f-ffff-2324f014000e"
+    userId: "1"
     carbs: 0
     proteins: 0
     fats: 0
@@ -58,7 +66,7 @@ userGoals:
     calories: 0
 
   - id:  "99989d70-7895-488f-ae3c-2324f014000e"
-    userId: "03489d70-7895-488f-eeee-2324f014000e"
+    userId: "2"
     carbs: 350
     proteins: 69
     fats: 960
@@ -67,7 +75,7 @@ userGoals:
     calories: 2790
 
   - id:  "88889d70-7895-488f-ae3c-2324f014000e"
-    userId: "03489d70-7895-488f-dddd-2324f014000e"
+    userId: "3"
     carbs: 150
     proteins: 150
     fats: 150
@@ -103,7 +111,7 @@ eaten:
 
 meal:
   - id: "00089d70-4662-488f-ae3c-2324f014000f"
-    userId: "03489d70-7895-488f-eeee-2324f014000e"
+    userId: "1"
     food:
       - id: "00089d70-8000-488f-ae3c-2324f014000e"
     type: "Breakfast"
