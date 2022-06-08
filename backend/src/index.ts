@@ -1,5 +1,5 @@
 import express from "express";
-import { food, goals, user } from "./resources";
+import { food, user, userDetails, userGoals } from "./resources";
 import YAML from "yamljs";
 import swaggerUi from "swagger-ui-express";
 
@@ -20,7 +20,6 @@ api.get("/", (_, res) =>
 );
 
 // ENDPOINTS FOR FOOD //
-// maybe pass params for endpoints inside body instead of part of URL
 api.put("/api/food", food.store);
 
 api.post("/api/food", food.update);
@@ -33,7 +32,8 @@ api.delete("/api/food/:id", food.deleteFood);
 
 // END OINTS FOR USER //
 
-// api.put('/api/user', user.store);
+api.post("/api/user/details", userDetails.update);
+api.get("/api/user/details", userDetails.get);
 
 // END POINTS FOR GOALS //
 api.post("/api/goals", userGoals.update);
