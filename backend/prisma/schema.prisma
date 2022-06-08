@@ -35,7 +35,6 @@ model UserGoals {
 }
 
 model UserDetails {
-  id        String   @id @default(uuid())
   username  String
   name      String
   surname   String
@@ -45,7 +44,7 @@ model UserDetails {
   sex       Float
   email     String
 
-  userId String @unique
+  userId String @id @unique
   user   User   @relation(fields: [userId], references: [id])
 }
 
@@ -78,4 +77,9 @@ model Meal {
   food   Eaten[]
   date   DateTime
   type   String
+}
+
+model Sessions {
+  id     String @id @default(uuid())
+  userId String
 }
