@@ -35,11 +35,12 @@ api.delete("/api/food/:id", food.deleteFood);
 
 // api.put('/api/user', user.store);
 
-api.post("/api/user", user.updateDetails);
-api.get("/api/user", user.get);
+api.post("/api/user/details", user.updateDetails);
+api.get("/api/user/details", user.get);
 
 // END OINTS FOR GOALS //
 // userId as a param is not ok here
+// FIXME - to use userId in body, autorize, etc
 api.put("/api/goals/:userId", goals.store);
 
 api.post("/api/goals/:userId", goals.update);
