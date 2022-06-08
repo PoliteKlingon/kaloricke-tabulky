@@ -35,17 +35,9 @@ api.delete("/api/food/:id", food.deleteFood);
 
 // api.put('/api/user', user.store);
 
-api.post("/api/user/details", user.updateDetails);
-api.get("/api/user/details", user.get);
-
-// END OINTS FOR GOALS //
-// userId as a param is not ok here
-// FIXME - to use userId in body, autorize, etc
-api.put("/api/goals/:userId", goals.store);
-
-api.post("/api/goals/:userId", goals.update);
-
-api.get("/api/goals/:userId", goals.get);
+// END POINTS FOR GOALS //
+api.post("/api/goals", userGoals.update);
+api.get("/api/goals", userGoals.get);
 
 // END POINTS FOR LOGIN AND REGISTRATION
 api.post("/api/register", user.register);
