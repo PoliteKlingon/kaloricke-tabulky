@@ -167,6 +167,17 @@ export const login = async (req: Request, res: Response) => {
     status: "failed",
     data: {},
     message: "Login unsuccessfull",
+    });
+  const session = await prisma.sessions.create({
+    data: {
+      userId: credentials.userId,
+    },
+  });
+
+  return res.status(200).send({
+    status: "success",
+    data: { sessionId: session.id, userId: credentials.userId },
+    message: "Login successfull",
   });
 };
 
