@@ -19,7 +19,7 @@ const userDetailsSchema = object({
   userId: string().required(),
 });
 
-export const store = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
   const credentialsReq = await userCredentialsSchema.validate(
     req.body.credentials
   );
@@ -46,7 +46,8 @@ export const store = async (req: Request, res: Response) => {
     });
     // TODO check whether credentials created successfully
 
-    const details = await userDetailsSchema.validate(req.body);
+    req.body.details.userId = user.id;
+    const details = await userDetailsSchema.validate(req.body.details);
 
     const result = await prisma.userDetails.create({
       data: {
@@ -63,7 +64,7 @@ export const store = async (req: Request, res: Response) => {
 
     return res.status(201).send({
       status: "success",
-      data: { sessionId: session.id },
+      data: { sessionId: session.id, userId: user.id },
       message: "User created successfully",
     });
   } catch (e: any) {
@@ -92,7 +93,8 @@ export const updateDetails = async (req: Request, res: Response) => {
     });
 
   try {
-    const details = await userDetailsSchema.validate(req.body);
+    req.body.details.userId = req.body.userId;
+    const details = await userDetailsSchema.validate(req.body.details);
 
     const result = await prisma.userDetails.update({
       where: {
@@ -157,16 +159,11 @@ export const login = async (req: Request, res: Response) => {
   const credentials = await prisma.userCredentials.findUnique({
     where: { email: data.email },
   });
-  if (credentials?.passwordHash === data.passwordHash)
-    return res.status(200).send({
-      status: "success",
-      data: { sessionToken: randomBytes(16).toString("base64") },
-      message: "Login success",
-    });
-  return res.status(401).send({
-    status: "failed",
-    data: {},
-    message: "Login unsuccessfull",
+  if (credentials === null || !credentials.passwordHash === data.passwordHash)
+    return res.status(401).send({
+      status: "failed",
+      data: {},
+      message: "Login unsuccessfull",
     });
   const session = await prisma.sessions.create({
     data: {
