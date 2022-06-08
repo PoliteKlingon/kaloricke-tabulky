@@ -178,7 +178,10 @@ export const login = async (req: Request, res: Response) => {
   });
 };
 
-const validateAuthorization = async (sessionId: string, userId: string) => {
+export const validateAuthorization = async (
+  sessionId: string,
+  userId: string
+) => {
   const session = await prisma.sessions.findUnique({
     where: { id: sessionId },
   });
