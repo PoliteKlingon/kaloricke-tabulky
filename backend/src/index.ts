@@ -3,7 +3,7 @@ import { food, goals, user } from "./resources";
 import YAML from "yamljs";
 import swaggerUi from "swagger-ui-express";
 
-const swaggerDocument = YAML.load(__dirname + "./../docs/swagger.yaml");
+const swaggerDocument = YAML.load(__dirname + "/../docs/swagger.yaml");
 const api = express();
 api.use(express.json());
 api.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
