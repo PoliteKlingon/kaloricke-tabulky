@@ -4,25 +4,25 @@ user:
   - id: "3"
 
 userCredentials:
-   - email: "tvojeMama@haha.com"
-     userId: "1"
-     # password is "admin"
-     passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+  - email: "tvojeMama@haha.com"
+    userId: "1"
+    # password is "admin"
+    passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
 
-   - email : "jedunakoni@paneboze.cz"
-     userId: "2"
+  - email: "jedunakoni@paneboze.cz"
+    userId: "2"
     # password is "password"
-     passwordHash: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+    passwordHash: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
 
-   - email: "kolokolomlynsky@zactyrirynsky.de"
-     userId: "3"
+  - email: "kolokolomlynsky@zactyrirynsky.de"
+    userId: "3"
     # password is "a"
-     passwordHash: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+    passwordHash: "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 
 # # I have NO idea how much crabs/fats/... one should eat
 userDetails:
-  - id:  "03489d70-7895-488f-ffff-2324f014000e"
-    username: "admin"
+  # - id:  "03489d70-7895-488f-ffff-2324f014000e"
+  - username: "admin"
     name: "Adam"
     surname: "The Admin"
     weight: 0
@@ -33,7 +33,7 @@ userDetails:
     userId: "1"
     email: "nothing.here@empty.null"
 
-  - id:  "03489d70-7895-488f-eeee-2324f014000e"
+  - # id: "03489d70-7895-488f-eeee-2324f014000e"
     username: "user"
     name: "Black"
     surname: "Hole"
@@ -44,7 +44,7 @@ userDetails:
     email: give.mefood@hung.ry
     userId: "2"
 
-  - id:  "03489d70-7895-488f-dddd-2324f014000e"
+  - # id: "03489d70-7895-488f-dddd-2324f014000e"
     username: "a"
     name: "a"
     surname: "a"
@@ -56,7 +56,7 @@ userDetails:
     userId: "3"
 
 userGoals:
-  - id:  "03489d70-7895-488f-ae3c-2324f014000e"
+  - id: "03489d70-7895-488f-ae3c-2324f014000e"
     userId: "1"
     carbs: 0
     proteins: 0
@@ -65,7 +65,7 @@ userGoals:
     salt: 0
     calories: 0
 
-  - id:  "99989d70-7895-488f-ae3c-2324f014000e"
+  - id: "99989d70-7895-488f-ae3c-2324f014000e"
     userId: "2"
     carbs: 350
     proteins: 69
@@ -74,7 +74,7 @@ userGoals:
     salt: 0
     calories: 2790
 
-  - id:  "88889d70-7895-488f-ae3c-2324f014000e"
+  - id: "88889d70-7895-488f-ae3c-2324f014000e"
     userId: "3"
     carbs: 150
     proteins: 150
@@ -89,19 +89,19 @@ food:
     description: "A Banana (per 100g)"
     calories: 88
     proteins: 1.2
-    carbs: 20.9   
-    fats: 0.1    
-    fiber: 1.1   
-    salt: 0  
+    carbs: 20.9
+    fats: 0.1
+    fiber: 1.1
+    salt: 0
 
   - id: "66689d70-4662-488f-ae3c-2324f014000f"
     name: "mango"
     description: "A Mango (per 100g)"
     calories: 59
     proteins: 0.7
-    carbs: 13.8   
-    fats: 0.2    
-    fiber: 2.6   
+    carbs: 13.8
+    fats: 0.2
+    fiber: 2.6
     salt: 0
 
   - id: "f39e907c-0c73-43e3-b7a3-7182d173a7b5"
@@ -109,10 +109,10 @@ food:
     description: "An Apple (per 100g)"
     calories: 74
     proteins: 0.9
-    carbs: 12.8   
-    fats: 0.1    
-    fiber: 5.7   
-    salt: 0  
+    carbs: 12.8
+    fats: 0.1
+    fiber: 5.7
+    salt: 0
 
   - id: "e02fb1a5-b4bf-4377-ab62-e44cebd0e043"
     name: "grape"
@@ -133,57 +133,56 @@ food:
     fats: 0.1
     fiber: 0
     salt: 0
-    
 
   - id: "3574e631-d279-4384-b186-b9c658ecd272"
     name: "ananas"
     description: "Ananas (per 100g)"
     calories: 50
     proteins: 0.5
-    carbs: 13   
-    fats: 0.1    
-    fiber: 2.6   
-    salt: 0  
+    carbs: 13
+    fats: 0.1
+    fiber: 2.6
+    salt: 0
 
   - id: "fcea9ff1-20be-43c2-b506-e6d3f1d99424"
     name: "Watermelon"
     description: "Watermelon (per 100g)"
     calories: 30
     proteins: 0.6
-    carbs: 8   
-    fats: 0.2    
-    fiber: 0.4   
-    salt: 0   
+    carbs: 8
+    fats: 0.2
+    fiber: 0.4
+    salt: 0
 
   - id: "55d93088-f337-4026-9d2f-8baf3e71e2cc"
     name: "steak"
     description: "Steak (per 100g)"
     calories: 270
     proteins: 23.8
-    carbs: 0   
-    fats: 19    
-    fiber: 0   
-    salt: 2    
+    carbs: 0
+    fats: 19
+    fiber: 0
+    salt: 2
 
   - id: "3b7b39e8-f8f7-4927-beb8-e371415b258b"
     name: "pasta"
     description: "Pasta (per 100g)"
     calories: 131
     proteins: 5.9
-    carbs: 25  
-    fats: 1.1    
-    fiber: 0   
-    salt: 1 
+    carbs: 25
+    fats: 1.1
+    fiber: 0
+    salt: 1
 
   - id: "53648e05-7519-4a94-b836-49e19764dfcc"
     name: "yoghurt (white)"
     description: "White Yoghurt (per 100g)"
     calories: 58
     proteins: 10
-    carbs: 3.6  
-    fats: 0.4   
-    fiber: 0   
-    salt: 0.1   
+    carbs: 3.6
+    fats: 0.4
+    fiber: 0
+    salt: 0.1
 
 eaten:
   # Breakfast user 2 day 1
@@ -227,8 +226,6 @@ eaten:
     foodId: "03489d70-4662-488f-ae3c-2324f014000e"
     quantity: 85
 
-  
-
 meal:
   - id: "00089d70-4662-488f-ae3c-2324f014000f"
     userId: "2"
@@ -242,7 +239,7 @@ meal:
     userId: "2"
     food:
       - id: "a982ec9f-1e98-45e1-86b2-d8190c62bb4f"
-      - id: "99e28e40-48fb-4698-bbfc-8af19e2a3a13" 
+      - id: "99e28e40-48fb-4698-bbfc-8af19e2a3a13"
     type: "Lunch"
     date: "2022-06-05T12:00:00.000Z"
 
@@ -253,7 +250,7 @@ meal:
       - id: "b023133e-4813-4f8f-8c65-efd3bd42e7ac"
     type: "Dinner"
     date: "2022-06-05T12:00:00.000Z"
-  
+
   - id: "1c65849a-c4b4-4cc8-a12c-15839a524828"
     userId: "2"
     food:
