@@ -13,6 +13,18 @@ const foodSchema = object({
   salt: number().required(),
 });
 
+const foodUpdateSchema = object({
+  name: string().optional(),
+  // description: string().optional(),
+  // calories: number().optional(),
+  // proteins: number().optional(),
+  // carbs: number().optional(),
+  // fats: number().optional(),
+  // fiber: number().optional(),
+  // salt: number().optional(),
+  id: string().required(),
+});
+
 export const store = async (req: Request, res: Response) => {
   try {
     const data = await foodSchema.validate(req.body);
@@ -43,7 +55,7 @@ export const store = async (req: Request, res: Response) => {
 
 export const get = async (_: Request, res: Response) => {
   try {
-    const foods = await prisma.food.findMany();
+    const foods = await prisma.food.findMany({ where: { deleted: false } });
     return res.status(200).send({
       status: "success",
       data: foods,
@@ -61,14 +73,21 @@ export const get = async (_: Request, res: Response) => {
 export const getById = async (req: Request, res: Response) => {
   const id = req.params["id"]!;
   try {
-    const foods = await prisma.food.findUnique({
+    const food = await prisma.food.findUnique({
       where: {
         id: id,
       },
     });
+    if (food === null || food.deleted)
+      return res.status(404).send({
+        status: "error",
+        data: {},
+        message: `Food with id ${id} not found`,
+      });
+
     return res.status(200).send({
       status: "success",
-      data: foods,
+      data: food,
       message: "Foods retrieved successfully",
     });
   } catch (e) {
@@ -106,35 +125,34 @@ export const getByName = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   try {
-    const data = req.body;
+    const data = await foodUpdateSchema.validate(req.body);
 
-    await string().uuid().validate(data.id);
-    console.log("kurva kokot");
-    if (data.name) {
-      data.name = data.name.toLowerCase();
-    }
-    if (data.carbs) {
-      await number().positive().validate(data.carbs);
-    }
-    if (data.proteins) {
-      await number().positive().validate(data.proteins);
-    }
-    if (data.fats) {
-      await number().positive().validate(data.fats);
-    }
-    if (data.fiber) {
-      await number().positive().validate(data.fiber);
-    }
-    if (data.salt) {
-      await number().positive().validate(data.salt);
-    }
-    if (data.calories) {
-      await number().positive().validate(data.calories);
-    }
+    // await string().uuid().validate(data.id);
+    // if (data.name) {
+    //   data.name = data.name.toLowerCase();
+    // }
+    // if (data.carbs) {
+    //   await number().positive().validate(data.carbs);
+    // }
+    // if (data.proteins) {
+    //   await number().positive().validate(data.proteins);
+    // }
+    // if (data.fats) {
+    //   await number().positive().validate(data.fats);
+    // }
+    // if (data.fiber) {
+    //   await number().positive().validate(data.fiber);
+    // }
+    // if (data.salt) {
+    //   await number().positive().validate(data.salt);
+    // }
+    // if (data.calories) {
+    //   await number().positive().validate(data.calories);
+    // }
 
     const request = await prisma.food.update({
       data: {
-        ...data,
+        name: undefined,
       },
       where: {
         id: data.id,
