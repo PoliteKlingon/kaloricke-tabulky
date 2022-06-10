@@ -1,7 +1,7 @@
 import { styled } from "@mui/system";
 import { CssBaseline } from "@mui/material";
-import Header from "./Header";
-import Features from "./Features";
+import Header from "../components/Header";
+import Features from "../components/Features";
 
 
 

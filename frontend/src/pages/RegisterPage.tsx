@@ -1,4 +1,4 @@
-import Register from "./Register";
+import Register from "../components/Register";
 import { CssBaseline } from "@mui/material";
 
 
