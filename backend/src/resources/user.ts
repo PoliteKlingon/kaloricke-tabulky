@@ -9,12 +9,10 @@ const userCredentialsSchema = object({
 });
 
 export const register = async (req: Request, res: Response) => {
-  const credentialsReq = await userCredentialsSchema.validate(
-    req.body.credentials
-  );
+  const data = await userCredentialsSchema.validate(req.body.credentials);
   try {
     const duplicate = await prisma.userCredentials.findUnique({
-      where: { email: credentialsReq.email },
+      where: { email: data.email },
     });
     if (duplicate != null) {
       return res.status(409).send({
@@ -29,7 +27,7 @@ export const register = async (req: Request, res: Response) => {
     });
     const credentials = await prisma.userCredentials.create({
       data: {
-        ...credentialsReq,
+        ...data,
         userId: user.id,
       },
     });
@@ -101,7 +99,7 @@ export const validateAuthorization = async (
   const session = await prisma.sessions.findUnique({
     where: { id: sessionId },
   });
-  return session?.userId === userId;
+  return session != null && session.userId === userId;
 };
 
 const calculateGoals = (
