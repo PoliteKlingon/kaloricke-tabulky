@@ -28,7 +28,16 @@ const foodUpdateSchema = object({
 export const store = async (req: Request, res: Response) => {
   try {
     const data = await foodSchema.validate(req.body);
-    data.name = data.name.toLowerCase();
+    const duplicate = await prisma.food.findUnique({
+      where: { name: data.name },
+    });
+    if (duplicate != null) {
+      return res.status(401).send({
+        status: "error",
+        message: `Food with name '${data.name}' already exists`,
+        data: {},
+      });
+    }
     const food = await prisma.food.create({ data });
 
     return res.status(201).send({
