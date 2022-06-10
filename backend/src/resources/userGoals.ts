@@ -21,7 +21,7 @@ const goalsUpdateSchema = object({
   fiber: number().optional().positive(),
   salt: number().optional().positive(),
 });
-// TODO test these methods in Postman
+
 export const store = async (data: any, userId: string) => {
   data.userId = userId;
   const goals = await goalsSchema.validate(data);
