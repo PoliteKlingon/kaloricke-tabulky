@@ -3,8 +3,8 @@ import { Request, Response } from "express";
 import prisma from "../client";
 
 const foodSchema = object({
-  name: string().required(),
-  description: string().default("Food"),
+  name: string().required().trim(),
+  description: string().default("Food").trim(),
   calories: number().required(),
   proteins: number().required(),
   carbs: number().required(),
