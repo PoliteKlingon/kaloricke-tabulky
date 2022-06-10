@@ -1,24 +1,20 @@
-import React from 'react';
-import { styled } from "@mui/system";
-import { CssBaseline } from '@mui/material';
-import Header from './components/Header';
-import Features from './components/Features';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-const Hero = styled("div")({
-  minHeight: "100vh",
-  backgroundImage: `url(${import.meta.env.VITE_PUBLIC_URL + "/assets/background.jpg"})`,
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-});
+import MainPage from "./components/MainPage";
+import LoginPage from "./components/LoginPage";
+import RegisterPage from "./components/RegisterPage";
+
+
 
 const App = () => {
   return (
-    <Hero>
-        <CssBaseline />
-        <Header />
-        <Features />
-    </Hero>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
