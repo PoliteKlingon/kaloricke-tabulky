@@ -40,7 +40,7 @@ api.post("/api/goals", userGoals.update);
 api.get("/api/goals", userGoals.get);
 
 // END POINTS FOR LOGIN AND REGISTRATION
-api.post("/api/register", user.register);
+api.put("/api/register", user.register);
 api.get("/api/login", user.login);
 
 api.listen(process.env["PORT"] || 3000, () => {
