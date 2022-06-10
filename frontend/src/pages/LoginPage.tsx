@@ -1,4 +1,4 @@
-import Login from "./Login";
+import Login from "../components/Login";
 import { CssBaseline } from "@mui/material";
 
 const LoginPage = () => {
