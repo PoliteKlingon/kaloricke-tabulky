@@ -42,7 +42,7 @@ api.get("/api/user/goals", userGoals.get);
 // END POINTS FOR LOGIN AND REGISTRATION
 // TODO END point for changing password
 api.put("/api/register", user.register);
-api.get("/api/login", user.login);
+api.post("/api/login", user.login);
 
 api.listen(process.env["PORT"] || 3000, () => {
   console.log(
