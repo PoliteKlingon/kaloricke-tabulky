@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import prisma from "../client";
 import { validateAuthorization } from "./user";
 
-const createGoalsSchema = object({
+const goalsSchema = object({
   userId: string().required().uuid(),
   calories: number().required().positive(),
   proteins: number().required().positive(),
@@ -12,10 +12,19 @@ const createGoalsSchema = object({
   fiber: number().required().positive(),
   salt: number().required().positive(),
 });
+const goalsUpdateSchema = object({
+  userId: string().required().uuid(),
+  calories: number().optional().positive(),
+  proteins: number().optional().positive(),
+  carbs: number().optional().positive(),
+  fats: number().optional().positive(),
+  fiber: number().optional().positive(),
+  salt: number().optional().positive(),
+});
 // TODO test these methods in Postman
 export const store = async (data: any, userId: string) => {
   data.userId = userId;
-  const goals = await createGoalsSchema.validate(data);
+  const goals = await goalsSchema.validate(data);
   await prisma.userGoals.create({
     data: {
       ...goals,
@@ -32,10 +41,10 @@ export const update = async (req: Request, res: Response) => {
     });
   try {
     req.body.goals.userId = req.body.userId;
-    const data = await createGoalsSchema.validate(req.body.goals);
+    const data = await goalsUpdateSchema.validate(req.body.goals);
     const result = await prisma.userGoals.update({
       where: {
-        userId: req.body.userId,
+        userId: data.userId,
       },
       data: {
         ...data,
@@ -47,6 +56,7 @@ export const update = async (req: Request, res: Response) => {
       message: "Goals updated successfully",
     });
   } catch (e: any) {
+    // TODO add response for validationError
     return res.status(500).send({
       status: "error",
       data: {},
