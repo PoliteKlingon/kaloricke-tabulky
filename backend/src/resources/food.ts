@@ -113,9 +113,14 @@ export const getByName = async (req: Request, res: Response) => {
     const name = req.params["name"]!.toLowerCase();
     const foods = await prisma.food.findMany({
       where: {
+        AND: [
+          { deleted: false },
+          {
         name: {
           contains: name,
         },
+          },
+        ],
       },
     });
     return res.status(200).send({
