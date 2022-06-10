@@ -42,7 +42,7 @@ model UserDetails {
   height    Float
   birthdate DateTime
   sex       Float
-  email     String
+  email     String   @unique
 
   userId String @id @unique
   user   User   @relation(fields: [userId], references: [id])
