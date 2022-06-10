@@ -40,6 +40,7 @@ api.post("/api/user/goals", userGoals.update);
 api.get("/api/user/goals", userGoals.get);
 
 // END POINTS FOR LOGIN AND REGISTRATION
+// TODO END point for changing password
 api.put("/api/register", user.register);
 api.get("/api/login", user.login);
 
