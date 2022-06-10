@@ -45,6 +45,13 @@ export const update = async (req: Request, res: Response) => {
         ...details,
       },
     });
+
+    if (data.email) {
+      prisma.userCredentials.update({
+        where: { userId: data.userId },
+        data: { email: data.email },
+      });
+    }
     return res.status(200).send({
       status: "success",
       data: result,
