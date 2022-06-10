@@ -14,14 +14,14 @@ const foodSchema = object({
 });
 
 const foodUpdateSchema = object({
-  name: string().optional(),
-  // description: string().optional(),
-  // calories: number().optional(),
-  // proteins: number().optional(),
-  // carbs: number().optional(),
-  // fats: number().optional(),
-  // fiber: number().optional(),
-  // salt: number().optional(),
+  name: string().optional().trim(),
+  description: string().optional().trim(),
+  calories: number().optional(),
+  proteins: number().optional(),
+  carbs: number().optional(),
+  fats: number().optional(),
+  fiber: number().optional(),
+  salt: number().optional(),
   id: string().required(),
 });
 
@@ -116,9 +116,9 @@ export const getByName = async (req: Request, res: Response) => {
         AND: [
           { deleted: false },
           {
-        name: {
-          contains: name,
-        },
+            name: {
+              contains: name,
+            },
           },
         ],
       },
@@ -141,32 +141,9 @@ export const update = async (req: Request, res: Response) => {
   try {
     const data = await foodUpdateSchema.validate(req.body);
 
-    // await string().uuid().validate(data.id);
-    // if (data.name) {
-    //   data.name = data.name.toLowerCase();
-    // }
-    // if (data.carbs) {
-    //   await number().positive().validate(data.carbs);
-    // }
-    // if (data.proteins) {
-    //   await number().positive().validate(data.proteins);
-    // }
-    // if (data.fats) {
-    //   await number().positive().validate(data.fats);
-    // }
-    // if (data.fiber) {
-    //   await number().positive().validate(data.fiber);
-    // }
-    // if (data.salt) {
-    //   await number().positive().validate(data.salt);
-    // }
-    // if (data.calories) {
-    //   await number().positive().validate(data.calories);
-    // }
-
     const request = await prisma.food.update({
       data: {
-        name: undefined,
+        ...data,
       },
       where: {
         id: data.id,
