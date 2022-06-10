@@ -36,8 +36,8 @@ api.post("/api/user/details", userDetails.update);
 api.get("/api/user/details", userDetails.get);
 
 // END POINTS FOR GOALS //
-api.post("/api/goals", userGoals.update);
-api.get("/api/goals", userGoals.get);
+api.post("/api/user/goals", userGoals.update);
+api.get("/api/user/goals", userGoals.get);
 
 // END POINTS FOR LOGIN AND REGISTRATION
 api.put("/api/register", user.register);
