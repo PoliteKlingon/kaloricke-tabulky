@@ -35,7 +35,19 @@ export const update = async (req: Request, res: Response) => {
 
   try {
     req.body.details.userId = req.body.userId;
-    const details = await userDetailsSchema.validate(req.body.details);
+
+    if (data.email) {
+      const duplicate = await prisma.userDetails.findUnique({
+        where: { email: data.email },
+      });
+      if (duplicate && duplicate.userId != data.userId) {
+        return res.status(409).send({
+          status: "error",
+          message: "User with given email already exists",
+          data: {},
+        });
+      }
+    }
 
     const result = await prisma.userDetails.update({
       where: {
@@ -45,13 +57,6 @@ export const update = async (req: Request, res: Response) => {
         ...details,
       },
     });
-
-    if (data.email) {
-      prisma.userCredentials.update({
-        where: { userId: data.userId },
-        data: { email: data.email },
-      });
-    }
     return res.status(200).send({
       status: "success",
       data: result,
