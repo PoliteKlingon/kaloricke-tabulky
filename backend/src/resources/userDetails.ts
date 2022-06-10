@@ -2,6 +2,13 @@ import prisma from "../client";
 import { Request, Response } from "express";
 import { date, number, object, string, ValidationError } from "yup";
 import { validateAuthorization } from "./user";
+import {
+  sendAuthorizationError,
+  sendDuplicateError,
+  sendInternalServerError,
+  sendSuccess,
+  sendValidationError,
+} from "./universalResponses";
 
 const detailsSchema = object({
   username: string().required().trim(),
@@ -27,24 +34,19 @@ const detailsUpdateSchema = object({
   userId: string().required(),
 });
 
+/* This is used only by `user` module in method `register` */
 export const store = async (data: any, userId: string) => {
   data.userId = userId;
   const details = await detailsSchema.validate(data);
+
   return await prisma.userDetails.create({
-    data: {
-      ...details,
-    },
+    data: { ...details },
   });
 };
 
 export const update = async (req: Request, res: Response) => {
   if (!(await validateAuthorization(req.body.sessionId, req.body.userId)))
-    return res.status(401).send({
-      status: "error",
-      message: "User is not authorized for that change",
-      data: {},
-    });
-
+    return sendAuthorizationError(res);
   try {
     req.body.details.userId = req.body.userId;
     const data = await detailsUpdateSchema.validate(req.body.details);
@@ -54,21 +56,13 @@ export const update = async (req: Request, res: Response) => {
         where: { email: data.email },
       });
       if (duplicate && duplicate.userId != data.userId) {
-        return res.status(409).send({
-          status: "error",
-          message: "User with given email already exists",
-          data: {},
-        });
+        return sendDuplicateError(res, "User with given email already exists");
       }
     }
 
     const result = await prisma.userDetails.update({
-      where: {
-        userId: data.userId,
-      },
-      data: {
-        ...data,
-      },
+      where: { userId: data.userId },
+      data: { ...data },
     });
 
     if (data.email) {
@@ -77,35 +71,20 @@ export const update = async (req: Request, res: Response) => {
         data: { email: data.email },
       });
     }
-    return res.status(200).send({
-      status: "success",
-      data: result,
-      message: "User data updated successfully",
-    });
+
+    return sendSuccess(res, "User data updated successfully", result);
   } catch (e) {
     if (e instanceof ValidationError) {
-      return res.status(400).send({
-        status: "error",
-        message: "Invalid data",
-        data: e.errors,
-      });
+      return sendValidationError(res, e);
     }
 
-    return res.status(500).send({
-      status: "error",
-      data: {},
-      message: "Internal server error",
-    });
+    return sendInternalServerError(res);
   }
 };
 
 export const get = async (req: Request, res: Response) => {
   if (!(await validateAuthorization(req.body.sessionId, req.body.userId)))
-    return res.status(401).send({
-      status: "error",
-      message: "User is not authorized for that change",
-      data: {},
-    });
+    return sendInternalServerError(res);
 
   try {
     const user = await prisma.userDetails.findUnique({
@@ -113,16 +92,8 @@ export const get = async (req: Request, res: Response) => {
         userId: req.body.userId,
       },
     });
-    return res.status(200).send({
-      status: "success",
-      data: user,
-      message: "User data retrieved successfully",
-    });
+    return sendSuccess(res, "User data retrieved successfully", user);
   } catch (error) {
-    return res.status(500).send({
-      status: "error",
-      data: {},
-      message: "Internal server error",
-    });
+    return sendInternalServerError(res);
   }
 };

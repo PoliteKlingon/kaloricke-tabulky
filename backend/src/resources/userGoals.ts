@@ -2,6 +2,12 @@ import { object, string, number, ValidationError } from "yup";
 import { Request, Response } from "express";
 import prisma from "../client";
 import { validateAuthorization } from "./user";
+import {
+  sendAuthorizationError,
+  sendInternalServerError,
+  sendSuccess,
+  sendValidationError,
+} from "./universalResponses";
 
 const goalsSchema = object({
   userId: string().required().uuid(),
@@ -22,6 +28,7 @@ const goalsUpdateSchema = object({
   salt: number().optional().positive(),
 });
 
+/* This is used only by `user` module in method `register` */
 export const store = async (data: any, userId: string) => {
   data.userId = userId;
   const goals = await goalsSchema.validate(data);
@@ -34,60 +41,34 @@ export const store = async (data: any, userId: string) => {
 
 export const update = async (req: Request, res: Response) => {
   if (!(await validateAuthorization(req.body.sessionId, req.body.userId)))
-    return res.status(401).send({
-      status: "error",
-      message: "User is not authorized for that change",
-      data: {},
-    });
+    return sendAuthorizationError(res);
+
   try {
     req.body.goals.userId = req.body.userId;
     const data = await goalsUpdateSchema.validate(req.body.goals);
     const result = await prisma.userGoals.update({
-      where: {
-        userId: data.userId,
-      },
-      data: {
-        ...data,
-      },
+      where: { userId: data.userId },
+      data: { ...data },
     });
-    return res.status(200).send({
-      status: "success",
-      data: result,
-      message: "Goals updated successfully",
-    });
+
+    return sendSuccess(res, "Goals updated successfully", result);
   } catch (e: any) {
-    // TODO add response for validationError
-    return res.status(500).send({
-      status: "error",
-      data: {},
-      message: e.message,
-    });
+    if (e instanceof ValidationError) return sendValidationError(res, e);
+    return sendInternalServerError(res);
   }
 };
 
 export const get = async (req: Request, res: Response) => {
   if (!(await validateAuthorization(req.body.sessionId, req.body.userId)))
-    return res.status(401).send({
-      status: "error",
-      message: "User is not authorized for that change",
-      data: {},
-    });
+    return sendAuthorizationError(res);
+
   try {
     const result = await prisma.userGoals.findUnique({
-      where: {
-        userId: req.body.userId,
-      },
+      where: { userId: req.body.userId },
     });
-    return res.status(200).send({
-      status: "success",
-      data: result,
-      message: "Goals retrieved successfully",
-    });
+
+    return sendSuccess(res, "Goals retreived successfully", result);
   } catch (e) {
-    return res.status(500).send({
-      status: "error",
-      data: {},
-      message: "internal server error",
-    });
+    return sendInternalServerError(res);
   }
 };

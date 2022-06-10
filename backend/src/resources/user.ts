@@ -2,6 +2,14 @@ import { object, string, ValidationError } from "yup";
 import { Request, Response } from "express";
 import prisma from "../client";
 import { userDetails, userGoals } from "../resources";
+import {
+  sendAuthorizationError,
+  sendCreatedSuccessfully,
+  sendDuplicateError,
+  sendInternalServerError,
+  sendSuccess,
+  sendValidationError,
+} from "./universalResponses";
 
 const userCredentialsSchema = object({
   passwordHash: string().required(),
@@ -9,87 +17,74 @@ const userCredentialsSchema = object({
 });
 
 export const register = async (req: Request, res: Response) => {
-  const data = await userCredentialsSchema.validate(req.body.credentials);
   try {
+    const data = await userCredentialsSchema.validate(req.body.credentials);
     const duplicate = await prisma.userCredentials.findUnique({
       where: { email: data.email },
     });
-    if (duplicate != null) {
-      return res.status(409).send({
-        status: "error",
-        message: "User with given email already exists",
-        data: {},
-      });
+    if (duplicate) {
+      return sendDuplicateError(res, "User with given email already exists");
     }
 
-    const user = await prisma.user.create({
-      data: {},
-    });
+    const user = await prisma.user.create({ data: {} });
+
     const credentials = await prisma.userCredentials.create({
-      data: {
-        ...data,
-        userId: user.id,
-      },
+      data: { ...data, userId: user.id },
     });
 
     const details = await userDetails.store(req.body.details, user.id);
 
     const age = getAge(new Date(details.birthdate));
-    let goals =
+    let goalsData =
       req.body.goals ||
       calculateGoals(age, details.height, details.sex, details.weight);
-    await userGoals.store(goals, user.id);
+    const goals = await userGoals.store(goalsData, user.id);
 
-    const session = await prisma.sessions.create({
-      data: {
-        userId: user.id,
-      },
-    });
+    const session = await prisma.sessions.create({ data: { userId: user.id } });
 
-    return res.status(201).send({
-      status: "success",
-      data: { sessionId: session.id, userId: user.id },
-      message: "User created successfully",
-    });
+    const responseData = {
+      sessionId: session.id,
+      userId: user.id,
+      details: details,
+      goals: goals,
+    };
+
+    return sendCreatedSuccessfully(
+      res,
+      "User created successfully",
+      responseData
+    );
   } catch (e: any) {
     if (e instanceof ValidationError) {
-      return res.status(400).send({
-        status: "error",
-        message: "Invalid data",
-        data: e.errors,
-      });
+      return sendValidationError(res, e);
     }
 
-    return res.status(500).send({
-      status: "error",
-      data: {},
-      message: e.message,
-    });
+    return sendInternalServerError;
   }
 };
 
 export const login = async (req: Request, res: Response) => {
-  const data = req.body;
-  const credentials = await prisma.userCredentials.findUnique({
-    where: { email: data.email },
-  });
-  if (credentials === null || !credentials.passwordHash === data.passwordHash)
-    return res.status(401).send({
-      status: "failed",
-      data: {},
-      message: "Login unsuccessfull",
-    });
-  const session = await prisma.sessions.create({
-    data: {
-      userId: credentials.userId,
-    },
-  });
+  try {
+    const data = await userCredentialsSchema.validate(req.body);
 
-  return res.status(200).send({
-    status: "success",
-    data: { sessionId: session.id, userId: credentials.userId },
-    message: "Login successfull",
-  });
+    const credentials = await prisma.userCredentials.findUnique({
+      where: { email: data.email },
+    });
+
+    if (credentials === null || credentials.passwordHash != data.passwordHash)
+      return sendAuthorizationError(res, "Login failed");
+
+    const session = await prisma.sessions.create({
+      data: { userId: credentials.userId },
+    });
+
+    const responseData = { sessionId: session.id, userId: credentials.userId };
+    return sendSuccess(res, "Login success", responseData);
+  } catch (e) {
+    if (e instanceof ValidationError) return sendValidationError(res, e);
+
+    return sendInternalServerError(res);
+  }
 };
 
 export const validateAuthorization = async (
@@ -119,7 +114,6 @@ const calculateGoals = (
   };
 };
 
-// TODO check whether working
 const getAge = (birthDate: Date) =>
   Math.floor(
     (new Date().getTime() - new Date(birthDate).getTime()) / 3.15576e10
