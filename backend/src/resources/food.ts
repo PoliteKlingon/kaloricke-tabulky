@@ -141,6 +141,19 @@ export const update = async (req: Request, res: Response) => {
   try {
     const data = await foodUpdateSchema.validate(req.body);
 
+    if (data.name) {
+      const duplicate = await prisma.food.findUnique({
+        where: { name: data.name },
+      });
+      if (duplicate && duplicate.id != data.id) {
+        return res.status(409).send({
+          status: "error",
+          message: "Food with given name already exists",
+          data: {},
+        });
+      }
+    }
+
     const request = await prisma.food.update({
       data: {
         ...data,
