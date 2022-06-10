@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { date, number, object, string, ValidationError } from "yup";
 import { validateAuthorization } from "./user";
 
-const userDetailsSchema = object({
+const detailsSchema = object({
   username: string().required().trim(),
   name: string().required().trim(),
   surname: string().required().trim(),
@@ -15,9 +15,21 @@ const userDetailsSchema = object({
   userId: string().required(),
 });
 
+const detailsUpdateSchema = object({
+  username: string().optional().trim(),
+  name: string().optional().trim(),
+  surname: string().optional().trim(),
+  height: number().optional().positive(),
+  weight: number().optional().positive(),
+  birthdate: date().optional().min("1940-01-01T00:00:00.000Z"),
+  sex: number().optional().min(0).max(1),
+  email: string().email().optional().trim(),
+  userId: string().required(),
+});
+
 export const store = async (data: any, userId: string) => {
   data.userId = userId;
-  const details = await userDetailsSchema.validate(data);
+  const details = await detailsSchema.validate(data);
   return await prisma.userDetails.create({
     data: {
       ...details,
@@ -35,6 +47,7 @@ export const update = async (req: Request, res: Response) => {
 
   try {
     req.body.details.userId = req.body.userId;
+    const data = await detailsUpdateSchema.validate(req.body.details);
 
     if (data.email) {
       const duplicate = await prisma.userDetails.findUnique({
@@ -51,10 +64,10 @@ export const update = async (req: Request, res: Response) => {
 
     const result = await prisma.userDetails.update({
       where: {
-        userId: details.userId,
+        userId: data.userId,
       },
       data: {
-        ...details,
+        ...data,
       },
     });
     return res.status(200).send({
