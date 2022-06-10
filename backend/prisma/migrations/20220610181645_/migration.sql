@@ -90,7 +90,13 @@ CREATE UNIQUE INDEX "UserCredentials_userId_key" ON "UserCredentials"("userId");
 CREATE UNIQUE INDEX "UserGoals_userId_key" ON "UserGoals"("userId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "UserDetails_email_key" ON "UserDetails"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "UserDetails_userId_key" ON "UserDetails"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Food_name_key" ON "Food"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_EatenToMeal_AB_unique" ON "_EatenToMeal"("A", "B");
