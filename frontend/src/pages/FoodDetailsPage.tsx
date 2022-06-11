@@ -1,9 +1,7 @@
 import { styled } from "@mui/system";
-import {CssBaseline, Typography} from "@mui/material";
-import Header from "../components/Header";
-import Features from "../components/Features";
-import {Hero} from "./MainPage";
-import {FC} from "react";
+import {CssBaseline} from "@mui/material";
+import {MainAppBar} from "../components/Header";
+import FoodDetails from "../components/FoodDetails"
 
 interface FoodDetailsPageProps {
     calories?: number
