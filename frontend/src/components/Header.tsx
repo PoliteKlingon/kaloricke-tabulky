@@ -179,6 +179,6 @@ const Header = () => {
       </Container>
     </Root>
   );
-};
+}
 
 export default Header;
