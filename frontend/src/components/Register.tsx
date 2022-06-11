@@ -65,9 +65,6 @@ const Register = () => {
 
   const updateSex = (e:any, data:any) => {
     setSex(data / 100.0);
-    console.log(
-      date?.getFullYear() + "-" + (date?.getMonth()! + 1) + "-" + date?.getDate()
-    );
   };
 
   const updateMedia = () => {
