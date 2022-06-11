@@ -1,7 +1,7 @@
 import { styled } from "@mui/system";
 import {CssBaseline} from "@mui/material";
 import {MainAppBar} from "../components/Header";
-import FoodDetails from "../components/FoodDetails"
+import FoodDetails from "../components/FoodDetails";
 import {Hero} from "./MainPage";
 
 const FlexedHero = styled(Hero)({
