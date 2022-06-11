@@ -1,5 +1,9 @@
 import {styled} from "@mui/system";
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
+import {Box, Button, Grid, IconButton, TextField, Typography} from "@mui/material";
+import {ArrowDropDown} from "@mui/icons-material";
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 interface Food {
   name: string,
@@ -26,14 +30,108 @@ const Container = styled("div")({
   backgroundColor: "white",
   margin: "10%",
   minWidth: "60vw",
-  display: "flex"
+  display: "flex",
+  flexDirection: "column",
 });
+
+const PaddedDiv = styled(Box)({
+  padding: "1.25rem",
+  // display: "flex",
+  // flexDirection: "row",
+});
+
+const CategoryDiv = styled(PaddedDiv)({
+  fontSize: "0.75rem",
+});
+
+const InfoDiv = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  padding: "1.25rem"
+});
+
+const FoodImg = styled("img")({
+  maxHeight: "10rem",
+  width: "auto",
+
+});
+
+const ValuesDiv = styled("div")({
+  fontSize: "1.25rem",
+});
+
+const AddButton = styled(Button)({
+  variant: "contained",
+  backgroundColor: "#eb9b34",
+  color: "white",
+  ":hover": {
+    backgroundColor: "#edc48c",
+  },
+});
+
 
 const FoodDetails:FoodDetailsType = ({food}) => {
   return (
       <Container>
-        {food.name}
-        bla cla dadkjfi fh YXH
+        <CategoryDiv>
+          ovocie
+        </CategoryDiv>
+        <InfoDiv>
+          <PaddedDiv>
+            <PaddedDiv>
+              {food.name}
+            </PaddedDiv>
+            <PaddedDiv sx={{display:"flex", flexDirection: "row", alignItems: "baseline", gap: "0.5rem"}}>
+              <Typography>
+                Množství
+              </Typography>
+              <TextField
+                label={100}
+                variant="standard"
+                margin="none"
+              />
+              x 1g
+              <AddButton>
+                Zapsat potravinu do jídelnčku
+              </AddButton>
+            </PaddedDiv>
+          </PaddedDiv>
+          <FoodImg src={food.photo} alt={food.name}/>
+        </InfoDiv>
+        <PaddedDiv>
+          <Grid container>
+            <Grid item xs={4}>
+              Energicka hodnota
+              <ValuesDiv>
+                {food.caloric_value} kcal
+              </ValuesDiv>
+            </Grid>
+            <Grid item xs={2}>
+              Bíloviny
+              <ValuesDiv>
+                {food.proteins} g
+              </ValuesDiv>
+            </Grid>
+            <Grid item xs={2}>
+              Sacharidy
+              <ValuesDiv>
+                {food.carbs} g
+              </ValuesDiv>
+            </Grid>
+            <Grid item xs={2}>
+              Tuky
+              <ValuesDiv>
+                {food.fats} g
+              </ValuesDiv>
+            </Grid>
+            <Grid item xs={2}>
+              Vláknina
+              <ValuesDiv>
+                {food.fiber} g
+              </ValuesDiv>
+            </Grid>
+          </Grid>
+        </PaddedDiv>
       </Container>
     )
 };
