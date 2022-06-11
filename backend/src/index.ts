@@ -30,17 +30,17 @@ api.get("/api/food/name/:name", food.getByName);
 
 api.delete("/api/food/:id", food.deleteFood);
 
-// END OINTS FOR USER //
+// ENDPOINTS FOR USER //
 
 api.post("/api/user/details", userDetails.update);
 api.get("/api/user/details", userDetails.get);
 
-// END POINTS FOR GOALS //
+// ENDPOINTS FOR GOALS //
 api.post("/api/user/goals", userGoals.update);
 api.get("/api/user/goals", userGoals.get);
 
-// END POINTS FOR LOGIN AND REGISTRATION
-// TODO END point for changing password
+// ENDPOINTS FOR LOGIN AND REGISTRATION
+// TODO endpoint for changing password
 api.put("/api/register", user.register);
 api.post("/api/login", user.login);
 
