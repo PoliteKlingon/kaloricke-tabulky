@@ -20,7 +20,6 @@ const InputContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   maxWidth: "500px",
-  minWidth: "300px",
 });
 
 const FillDiv = styled("div")({
@@ -76,9 +75,9 @@ const Login = () => {
   return success ? (
     <Navigate to="/" />
   ) : (
-    <div>
+    <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ minHeight: "50vh" }}>
           <ChangingImage slides={slides} interval={5000} />
         </Grid>
         <Grid

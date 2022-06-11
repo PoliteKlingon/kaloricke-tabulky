@@ -12,6 +12,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { styled } from "@mui/system";
 import { AccountCircle, Lock } from "@mui/icons-material";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
@@ -22,6 +24,16 @@ import ChangingImage from "./ChangingImage";
 
 import axios from "../api/axios";
 import sha256 from "crypto-js/sha256";
+const marks = [
+  {
+    value: 5,
+    label: "Female",
+  },
+  {
+    value: 95,
+    label: "Male",
+  },
+];
 
 const LogoImage = styled("img")({
   width: 200,
@@ -31,7 +43,6 @@ const InputContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   maxWidth: "800px",
-  minWidth: "300px",
   justifyContent: "center",
   justifySelf: "center",
   alignContent: "center",
@@ -43,19 +54,37 @@ const FillDiv = styled("div")({
 
 const Register = () => {
   const [seconds, setSeconds] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds(seconds => seconds + 1);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
   const [ownGoals, setOwnGoals] = useState(false);
   // @ts-ignore
   const { setAuth } = useContext(AuthContext);
-
   const [success, setSuccess] = useState(false);
+  const [date, setDate] = useState<Date | null>(new Date());
+  const [sex, setSex] = useState(50);
+
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 800);
+
+  const updateSex = (e:any, data:any) => {
+    setSex(data / 100.0);
+    console.log(
+      date?.getFullYear() + "-" + (date?.getMonth()! + 1) + "-" + date?.getDate()
+    );
+  };
+
+  const updateMedia = () => {
+    setDesktop(window.innerWidth > 800);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((seconds) => seconds + 1);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   const {
     register,
@@ -77,12 +106,8 @@ const Register = () => {
             height: +getValues("height"),
             weight: +getValues("weight"),
             birthdate:
-              getValues("year") +
-              "-" +
-              getValues("month") +
-              "-" +
-              getValues("day"),
-            sex: 0.5,
+              date?.getFullYear() + "-" + (date?.getMonth()! + 1) + "-" + date?.getDate(),
+            sex: sex,
             email: getValues("email"),
           },
           goals: {
@@ -106,12 +131,8 @@ const Register = () => {
             height: +getValues("height"),
             weight: +getValues("weight"),
             birthdate:
-              getValues("year") +
-              "-" +
-              getValues("month") +
-              "-" +
-              getValues("day"),
-            sex: 0.5,
+              date?.getFullYear() + "-" + (date?.getMonth()! + 1) + "-" + date?.getDate(),
+            sex: sex,
             email: getValues("email"),
           },
         };
@@ -143,8 +164,8 @@ const Register = () => {
   ) : (
     <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>
-        <Grid item xs={12} sm={6}>
-          <ChangingImage slides={slides} interval={5000}/>
+        <Grid item xs={12} sm={6} sx={{ minHeight: "50vh" }}>
+          <ChangingImage slides={slides} interval={5000} />
         </Grid>
         <Grid
           container
@@ -169,8 +190,8 @@ const Register = () => {
                 />
               </Grid>
 
-              <Grid container rowSpacing={2} columnSpacing={2}>
-                <Grid item xs={6} sm={6}>
+              <Grid container columnSpacing={2}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Email"
                     fullWidth={true}
@@ -194,7 +215,7 @@ const Register = () => {
                     helperText={errors?.email ? errors.email.message : null}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Username"
                     fullWidth={true}
@@ -214,7 +235,7 @@ const Register = () => {
                     }
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Password"
                     fullWidth={true}
@@ -235,8 +256,7 @@ const Register = () => {
                     }
                   />
                 </Grid>
-
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Password Again"
                     fullWidth={true}
@@ -265,7 +285,7 @@ const Register = () => {
                     }
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Name"
                     fullWidth={true}
@@ -278,7 +298,7 @@ const Register = () => {
                     helperText={errors?.name ? errors.name.message : null}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Surname"
                     fullWidth={true}
@@ -291,7 +311,7 @@ const Register = () => {
                     helperText={errors?.surname ? errors.surname.message : null}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Height"
                     fullWidth={true}
@@ -309,7 +329,7 @@ const Register = () => {
                     helperText={errors?.height ? errors.height.message : null}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Weight"
                     fullWidth={true}
@@ -327,83 +347,44 @@ const Register = () => {
                     helperText={errors?.weight ? errors.weight.message : null}
                   />
                 </Grid>
-                <Grid item xs={4} sm={2}>
-                  <TextField
-                    label="Day"
-                    fullWidth={true}
-                    margin="normal"
-                    variant="standard"
-                    type="number"
-                    {...register("day", {
-                      required: "Required field",
-                      min: {
-                        value: 1,
-                        message: "Day must be between 1 and 12",
-                      },
-                      max: {
-                        value: 31,
-                        message: "Day must be between 1 and 12",
-                      },
-                    })}
-                    error={!!errors?.day}
-                    helperText={errors?.day ? errors.day.message : null}
-                  />
+                <Grid item xs={12} sm={6} sx={{ pt: 3 }}>
+                  {isDesktop ? (
+                    <DesktopDatePicker
+                      label="Birthdate"
+                      value={date}
+                      minDate={new Date("1900-01-01")}
+                      onChange={(newValue) => {
+                        setDate(newValue);
+                      }}
+                      renderInput={(params: any) => (
+                        <TextField {...params} fullWidth />
+                      )}
+                    />
+                  ) : (
+                    <MobileDatePicker
+                      label="Birthdate"
+                      value={date}
+                      minDate={new Date("1900-01-01")}
+                      onChange={(newValue) => {
+                        setDate(newValue);
+                      }}
+                      renderInput={(params: any) => (
+                        <TextField {...params} fullWidth />
+                      )}
+                    />
+                  )}
                 </Grid>
-                <Grid item xs={4} sm={2}>
-                  <TextField
-                    label="Month"
-                    fullWidth={true}
-                    margin="normal"
-                    variant="standard"
-                    type="number"
-                    {...register("month", {
-                      required: "Required field",
-                      min: {
-                        value: 1,
-                        message: "Month must be between 1 and 12",
-                      },
-                      max: {
-                        value: 12,
-                        message: "Month must be between 1 and 12",
-                      },
-                    })}
-                    error={!!errors?.month}
-                    helperText={errors?.month ? errors.month.message : null}
-                  />
-                </Grid>
-                <Grid item xs={4} sm={2}>
-                  <TextField
-                    label="Year"
-                    fullWidth={true}
-                    margin="normal"
-                    variant="standard"
-                    type="number"
-                    {...register("year", {
-                      required: "Required field",
-                      min: {
-                        value: 1900,
-                        message: "Year must be greater than 1900",
-                      },
-                      max: {
-                        value: new Date().getFullYear(),
-                        message:
-                          "Year must be less than " + new Date().getFullYear(),
-                      },
-                    })}
-                    error={!!errors?.year}
-                    helperText={errors?.year ? errors.year.message : null}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6} sx={{ pt: 2 }}>
                   <Typography>Gender</Typography>
                   <Slider
-                    size="medium"
+                    size="small"
                     defaultValue={50}
                     valueLabelDisplay="auto"
                     aria-label="Sex slider"
+                    marks={marks}
+                    onChange={updateSex}
                   />
                 </Grid>
-
                 <Grid item>
                   <Collapse
                     sx={{ width: "100%" }}
