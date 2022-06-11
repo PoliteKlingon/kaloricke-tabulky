@@ -7,9 +7,11 @@ import {
   sendCreatedSuccessfully,
   sendDuplicateError,
   sendInternalServerError,
+  sendNotFound,
   sendSuccess,
   sendValidationError,
 } from "./universalResponses";
+import { UserDetails, UserGoals } from "@prisma/client";
 
 const userCredentialsSchema = object({
   passwordHash: string().required(),
@@ -27,7 +29,6 @@ export const register = async (req: Request, res: Response) => {
     }
 
     const user = await prisma.user.create({ data: {} });
-
     const credentials = await prisma.userCredentials.create({
       data: { ...data, userId: user.id },
     });
@@ -87,6 +88,13 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
+export const getUserIdFromSessionId = async (sessionId: string) => {
+  const session = await prisma.sessions.findUnique({
+    where: { id: sessionId },
+  });
+  return session ? session.userId : null;
+};
+
 export const validateAuthorization = async (
   sessionId: string,
   userId: string
@@ -95,6 +103,54 @@ export const validateAuthorization = async (
     where: { id: sessionId },
   });
   return session != null && session.userId === userId;
+};
+
+// TODO test updates
+export const update = async (req: Request, res: Response) => {
+  try {
+    const userId = await getUserIdFromSessionId(req.body.sessionId);
+    if (!userId) return sendNotFound(res, "User not found");
+
+    if (req.body.details?.email) {
+      const duplicate = await prisma.userDetails.findUnique({
+        where: { email: req.body.details.email },
+      });
+      if (duplicate && duplicate.userId != userId) {
+        return sendDuplicateError(res, "User with given email already exists");
+      }
+    }
+
+    interface ResponseData {
+      details?: UserDetails;
+      goals?: UserGoals;
+    }
+
+    const passwordHash = req.body.details.passwordHash || undefined;
+    const responseData: ResponseData = {};
+
+    if (req.body.details) {
+      if (req.body.details.passwordHash) delete req.body.details.passwordHash;
+      responseData.details = await userDetails.update(userId, req.body.details);
+    }
+
+    if (req.body.goals)
+      responseData.goals = await userGoals.update(userId, req.body.goals);
+
+    if (passwordHash || req.body.details?.email) {
+      await prisma.userCredentials.update({
+        where: { userId: userId },
+        data: {
+          passwordHash: passwordHash,
+          email: req.body.details.email || undefined,
+        },
+      });
+    }
+
+    return sendSuccess(res, "User data updated successfully", responseData);
+  } catch (e) {
+    if (e instanceof ValidationError) return sendValidationError(res, e);
+    return sendInternalServerError(res);
+  }
 };
 
 const calculateGoals = (

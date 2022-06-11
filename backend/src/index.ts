@@ -21,28 +21,25 @@ api.get("/", (_, res) =>
 
 // ENDPOINTS FOR FOOD //
 api.put("/api/food", food.store);
-
 api.post("/api/food", food.update);
-
 api.get("/api/food", food.get);
 api.get("/api/food/id/:id", food.getById);
 api.get("/api/food/name/:name", food.getByName);
 
 api.delete("/api/food/:id", food.deleteFood);
 
-// ENDPOINTS FOR USER //
-
-api.post("/api/user/details", userDetails.update);
+// ENDPOINTS FOR DETAILS //
 api.get("/api/user/details", userDetails.get);
 
 // ENDPOINTS FOR GOALS //
-api.post("/api/user/goals", userGoals.update);
 api.get("/api/user/goals", userGoals.get);
 
-// ENDPOINTS FOR LOGIN AND REGISTRATION
-// TODO endpoint for changing password
+// ENDPOINTS FOR LOGIN AND REGISTRATION //
 api.put("/api/register", user.register);
 api.post("/api/login", user.login);
+
+// ENDPOINT FOR UPDATING USER DATA //
+api.post("/api/user", user.update);
 
 api.listen(process.env["PORT"] || 3000, () => {
   console.log(

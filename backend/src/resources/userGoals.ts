@@ -6,7 +6,6 @@ import {
   sendAuthorizationError,
   sendInternalServerError,
   sendSuccess,
-  sendValidationError,
 } from "./universalResponses";
 
 const goalsSchema = object({
@@ -17,46 +16,46 @@ const goalsSchema = object({
   fats: number().required().positive(),
   fiber: number().required().positive(),
   salt: number().required().positive(),
-});
+})
+  .noUnknown(true)
+  .strict();
 const goalsUpdateSchema = object({
-  userId: string().required().uuid(),
   calories: number().optional().positive(),
   proteins: number().optional().positive(),
   carbs: number().optional().positive(),
   fats: number().optional().positive(),
   fiber: number().optional().positive(),
   salt: number().optional().positive(),
-});
-
+})
+  .noUnknown(true)
+  .strict();
 /* This is used only by `user` module in method `register` */
 export const store = async (data: any, userId: string) => {
   data.userId = userId;
   const goals = await goalsSchema.validate(data);
   await prisma.userGoals.create({
-    data: {
-      ...goals,
-    },
+    data: { ...goals },
   });
 };
 
-export const update = async (req: Request, res: Response) => {
-  if (!(await validateAuthorization(req.body.sessionId, req.body.userId)))
-    return sendAuthorizationError(res);
+// export const update = async (req: Request, res: Response) => {
+//   if (!(await validateAuthorization(req.body.sessionId, req.body.userId)))
+//     return sendAuthorizationError(res);
 
-  try {
-    req.body.goals.userId = req.body.userId;
-    const data = await goalsUpdateSchema.validate(req.body.goals);
-    const result = await prisma.userGoals.update({
-      where: { userId: data.userId },
-      data: { ...data },
-    });
+//   try {
+//     req.body.goals.userId = req.body.userId;
+//     const data = await goalsUpdateSchema.validate(req.body.goals);
+//     const result = await prisma.userGoals.update({
+//       where: { userId: data.userId },
+//       data: { ...data },
+//     });
 
-    return sendSuccess(res, "Goals updated successfully", result);
-  } catch (e: any) {
-    if (e instanceof ValidationError) return sendValidationError(res, e);
-    return sendInternalServerError(res);
-  }
-};
+//     return sendSuccess(res, "Goals updated successfully", result);
+//   } catch (e: any) {
+//     if (e instanceof ValidationError) return sendValidationError(res, e);
+//     return sendInternalServerError(res);
+//   }
+// };
 
 export const get = async (req: Request, res: Response) => {
   if (!(await validateAuthorization(req.body.sessionId, req.body.userId)))
@@ -72,3 +71,12 @@ export const get = async (req: Request, res: Response) => {
     return sendInternalServerError(res);
   }
 };
+
+export async function update(userId: string, reqData: any) {
+  const data = await goalsUpdateSchema.validate(reqData);
+
+  return await prisma.userGoals.update({
+    where: { id: userId },
+    data: { ...data },
+  });
+}
