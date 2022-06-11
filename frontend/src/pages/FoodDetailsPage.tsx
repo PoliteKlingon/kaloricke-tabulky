@@ -16,6 +16,8 @@ const FoodDetailsPage = () => {
   return (
     <FlexedHero>
       <CssBaseline />
+      <MainAppBar />
+      <FoodDetails food={tempData}/>
     </FlexedHero>
   );
 };
