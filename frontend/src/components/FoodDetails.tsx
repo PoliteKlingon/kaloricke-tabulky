@@ -85,7 +85,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
         <InfoDiv>
           <PaddedDiv>
             <PaddedDiv>
-              {food.name}
+              <strong>{food.name}</strong>
             </PaddedDiv>
             <PaddedDiv sx={{display:"flex", flexDirection: "row", alignItems: "baseline", gap: "0.5rem"}}>
               <Typography>
@@ -96,7 +96,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 variant="standard"
                 margin="none"
               />
-              x 1g
+              x&nbsp;1g
               <AddButton>
                 Zapsat potravinu do jídelnčku
               </AddButton>
