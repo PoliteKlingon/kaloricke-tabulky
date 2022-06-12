@@ -59,7 +59,7 @@ const Register = () => {
   const { setAuth } = useContext(AuthContext);
   const [success, setSuccess] = useState(false);
   const [date, setDate] = useState<Date | null>(new Date());
-  const [sex, setSex] = useState(50);
+  const [sex, setSex] = useState(0.5);
 
   const [isDesktop, setDesktop] = useState(window.innerWidth > 800);
 
@@ -94,16 +94,20 @@ const Register = () => {
       ? {
           credentials: {
             email: getValues("email"),
-            password: String(sha256(getValues("password"))),
+            passwordHash: String(sha256(getValues("password"))),
           },
           details: {
-            useername: getValues("username"),
+            username: getValues("username"),
             name: getValues("name"),
             surname: getValues("surname"),
             height: +getValues("height"),
             weight: +getValues("weight"),
             birthdate:
-              date?.getFullYear() + "-" + (date?.getMonth()! + 1) + "-" + date?.getDate(),
+              date?.getFullYear() +
+              "-" +
+              (date?.getMonth()! + 1) +
+              "-" +
+              date?.getDate(),
             sex: sex,
             email: getValues("email"),
           },
@@ -119,38 +123,48 @@ const Register = () => {
       : {
           credentials: {
             email: getValues("email"),
-            password: sha256(getValues("password")),
+            passwordHash: String(sha256(getValues("password"))),
           },
           details: {
-            useername: getValues("username"),
+            username: getValues("username"),
             name: getValues("name"),
             surname: getValues("surname"),
             height: +getValues("height"),
             weight: +getValues("weight"),
             birthdate:
-              date?.getFullYear() + "-" + (date?.getMonth()! + 1) + "-" + date?.getDate(),
+              date?.getFullYear() +
+              "-" +
+              (date?.getMonth()! + 1) +
+              "-" +
+              date?.getDate(),
             sex: sex,
             email: getValues("email"),
           },
         };
-    console.log(request);
+    console.log(JSON.stringify(request));
 
     try {
-      const response = await axios.post("/login", JSON.stringify(request), {
-        headers: { "Content-Type": "application/json" },
-      });
-      const ssid = response?.data?.sessionId;
-      setAuth({
-        email: getValues("email"),
-        password: getValues("password"),
-        ssid: ssid,
-      });
-      setAuth({
-        email: getValues("email"),
-        password: getValues("password"),
-        ssid: ssid,
-      });
-      setSuccess(true);
+       await axios
+         .put("/register", JSON.stringify(request), {
+           headers: { "Content-Type": "application/json" },
+         })
+         .then((response) => {
+           const ssid = response?.data?.sessionId;
+           setAuth({
+             email: getValues("email"),
+             password: getValues("password"),
+             ssid: ssid,
+           });
+           setAuth({
+             email: getValues("email"),
+             password: getValues("password"),
+             ssid: ssid,
+           });
+          setSuccess(true);
+         })
+         .catch((error) => {
+           console.log(error.response);
+         });
     } catch (err) {
       console.log(err);
     }

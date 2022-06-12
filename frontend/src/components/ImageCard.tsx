@@ -7,9 +7,9 @@ import { Collapse } from "@mui/material";
 
 const ImageCard = (props: any) => {
   return (
-    <Collapse in={props.checked} {...(props.checked ? { timeout: 3000 } : {})}>
+    <Collapse in={props.checked} {...(props.checked ? { timeout: 2000 } : {})}>
       <Card
-        sx={{ maxWidth: 745, background: "rgba(0,0,0,0.3)", margin: "40px", borderRadius: "5%" }}
+        sx={{ maxWidth: 745, background: "rgba(0,0,0,0.3)", margin: "20px", borderRadius: "5%" }}
       >
         <CardMedia
           component="img"

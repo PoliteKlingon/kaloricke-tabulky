@@ -2,6 +2,7 @@ import {
   AppBar,
   Button,
   Collapse,
+  Grid,
   IconButton,
   Stack,
   Toolbar,
@@ -11,6 +12,13 @@ import { styled } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import Slide from "@mui/material/Slide";
+
+const HideOnScroll = ({children}:any) => {
+  const trigger = useScrollTrigger({ disableHysteresis: true });
+  return <Slide appear={false} direction="down" in={!trigger}>{children}</Slide>;
+}
 
 const AnimatedButton = styled(Button)({
   fontSize: 30,
@@ -42,49 +50,59 @@ const Header = () => {
 
   return (
     <Root id="header">
-      <AppBar elevation={0} sx={{ background: "none", pt: 5 }}>
-        <Toolbar sx={{ width: "80%", margin: "0 auto" }}>
-          <Typography
-            variant="h2"
-            component="h1"
-            sx={{ flexGrow: "1", fontFamily: "Nunito" }}
-          >
-            <span style={{ color: "#edc69f" }}>Kalorické</span> tabulky
-          </Typography>
-          <Stack direction="row" spacing={5}>
-            <Link to="/login" style={{ textDecoration: "none" }}>
-              <AnimatedButton
-                variant="text"
-                sx={{
-                  color: "#edc69f",
-                  ":active": {
-                    color: "#edd9be",
-                  },
-                }}
-                disableRipple
+      <HideOnScroll>
+        <AppBar elevation={0} sx={{ background: "none", pt: 5 }}>
+          <Toolbar sx={{ width: "100%", px: { xs: "auto", md: 5, lg: 10} }}>
+            <Grid
+              container
+              justifyContent={{ xs: "center", md: "space-between" }}
+              direction={{ xs: "column", md: "row" }}
+              alignItems={{ xs: "center", md: "normal" }}
+            >
+              <Typography
+                variant="h2"
+                component="h1"
+                sx={{ flexGrow: "1", fontFamily: "Nunito" }}
+                textAlign={{ xs: "center", md: "left" }}
               >
-                Login
-              </AnimatedButton>
-            </Link>
-            <Link to="/register" style={{ textDecoration: "none" }}>
-              <AnimatedButton
-                variant="text"
-                sx={{
-                  color: "#eb9b34",
-                  ":active": {
-                    color: "#edc48c",
-                  },
-                }}
-                disableRipple
-              >
-                Register
-              </AnimatedButton>
-            </Link>
-          </Stack>
-        </Toolbar>
-      </AppBar>
-      <Container>
-        <Collapse in={collapsed} {...{ timeout: 2000 }} collapsedSize="5px">
+                <span style={{ color: "#edc69f" }}>Kalorické</span> tabulky
+              </Typography>
+              <Stack direction="row" spacing={5}>
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                  <AnimatedButton
+                    variant="text"
+                    sx={{
+                      color: "#edc69f",
+                      ":active": {
+                        color: "#edd9be",
+                      },
+                    }}
+                    disableRipple
+                  >
+                    Login
+                  </AnimatedButton>
+                </Link>
+                <Link to="/register" style={{ textDecoration: "none" }}>
+                  <AnimatedButton
+                    variant="text"
+                    sx={{
+                      color: "#eb9b34",
+                      ":active": {
+                        color: "#edc48c",
+                      },
+                    }}
+                    disableRipple
+                  >
+                    Register
+                  </AnimatedButton>
+                </Link>
+              </Stack>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
+      <Container sx={{ pt: { xs: 80, sm: 15 } }}>
+        <Collapse in={collapsed} {...{ timeout: 2000 }} collapsedSize="0px">
           <Typography
             variant="h1"
             component="h1"

@@ -45,28 +45,36 @@ const Login = () => {
   } = useForm<FormInputs>();
   const onSubmit = async (e: any) => {
     try {
-      const response = await axios.post(
-        "/login",
-        JSON.stringify({
-          email: getValues("email"),
-          password: sha256(getValues("password")),
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const ssid = response?.data?.sessionId;
-      setAuth({
-        email: getValues("email"),
-        password: getValues("password"),
-        ssid: ssid,
-      });
-      setAuth({
-        email: getValues("email"),
-        password: getValues("password"),
-        ssid: ssid,
-      });
-      setSuccess(true);
+      await axios
+        .post(
+          "/login",
+          JSON.stringify({
+            email: getValues("email"),
+            passwordHash: String(sha256(getValues("password"))),
+          }),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          const ssid = response?.data?.sessionId;
+          setAuth({
+            email: getValues("email"),
+            password: getValues("password"),
+            ssid: ssid,
+          });
+          setAuth({
+            email: getValues("email"),
+            passwordHash: String(sha256(getValues("password"))),
+            ssid: ssid,
+          });
+          setSuccess(true);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });      
     } catch (err) {
       console.log(err);
     }

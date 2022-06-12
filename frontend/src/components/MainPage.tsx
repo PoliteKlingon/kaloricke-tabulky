@@ -5,13 +5,13 @@ import Features from "./Features";
 
 
 const Hero = styled("div")({
-  minHeight: "100vh",
   backgroundImage: `url(${
     import.meta.env.VITE_PUBLIC_URL + "/assets/background.jpg"
   })`,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   backgroundPosition: "center",
+  minHeight: "100vh"
 });
 
 const MainPage = () => {
