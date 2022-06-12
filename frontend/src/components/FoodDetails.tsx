@@ -37,9 +37,10 @@ const PaddedDiv = styled(Box)({
   // flexDirection: "row",
 });
 
+/**
 const CategoryDiv = styled(PaddedDiv)({
   fontSize: "0.75rem",
-});
+}); **/
 
 const InfoDiv = styled("div")({
   display: "flex",
@@ -70,9 +71,6 @@ const AddButton = styled(Button)({
 const FoodDetails:FoodDetailsType = ({food}) => {
   return (
       <Container>
-        <CategoryDiv>
-          ovocie
-        </CategoryDiv>
         <InfoDiv>
           <PaddedDiv>
             <PaddedDiv>
