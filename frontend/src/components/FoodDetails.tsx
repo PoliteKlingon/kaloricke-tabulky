@@ -1,9 +1,6 @@
 import {styled} from "@mui/system";
-import {FC, useEffect, useState} from "react";
-import {Box, Button, Grid, IconButton, TextField, Typography} from "@mui/material";
-import {ArrowDropDown} from "@mui/icons-material";
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import {FC} from "react";
+import {Box, Button, Grid, TextField, Typography} from "@mui/material";
 
 interface Food {
   name: string,
