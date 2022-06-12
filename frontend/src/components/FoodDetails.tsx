@@ -1,6 +1,17 @@
 import {styled} from "@mui/system";
 import {FC} from "react";
-import {Box, Button, Grid, TextField, Typography} from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography
+} from "@mui/material";
 
 interface Food {
   name: string,
@@ -126,6 +137,73 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               </ValuesDiv>
             </Grid>
           </Grid>
+        </PaddedDiv>
+        <PaddedDiv>
+          <Table>
+            <TableHead>
+              Nutricni hodnoty na 100g
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  Bílkoviny
+                </TableCell>
+                <TableCell>
+                  {food.proteins} g
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  Sacharidy
+                </TableCell>
+                <TableCell>
+                  {food.carbs} g
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  Cukry
+                </TableCell>
+                <TableCell>
+                  {food.sugar} g
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  Tuky
+                </TableCell>
+                <TableCell>
+                  {food.fats} g
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  Nasýcene tuky
+                </TableCell>
+                <TableCell>
+                  {food.saturated_fats} g
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  Vláknina
+                </TableCell>
+                <TableCell>
+                  {food.fiber} g
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  Sul
+                </TableCell>
+                <TableCell>
+                  {food.salt} g
+                </TableCell>
+              </TableRow>
+
+            </TableBody>
+          </Table>
+
         </PaddedDiv>
       </Container>
     )
