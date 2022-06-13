@@ -20,21 +20,31 @@ const userCredentialsSchema = object({
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const data = await userCredentialsSchema.validate(req.body.credentials);
+    const credentialsReq = {
+      email: req.body.details?.email,
+      passwordHash: req.body.details?.passwordHash,
+    };
+    const credentailsData = await userCredentialsSchema.validate(
+      credentialsReq
+    );
+
     const duplicate = await prisma.userCredentials.findUnique({
-      where: { email: data.email },
+      where: { email: credentailsData.email },
     });
     if (duplicate) {
       return sendDuplicateError(res, "User with given email already exists");
     }
 
     const user = await prisma.user.create({ data: {} });
-    const credentials = await prisma.userCredentials.create({
-      data: { ...data, userId: user.id },
+    await prisma.userCredentials.create({
+      data: { ...credentailsData, userId: user.id },
     });
+
+    delete req.body.details.passwordHash;
 
     const details = await userDetails.store(req.body.details, user.id);
 
+    // TODO udelat goals podle Notionu
     const age = getAge(new Date(details.birthdate));
     let goalsData =
       req.body.goals ||
