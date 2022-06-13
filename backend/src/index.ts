@@ -5,6 +5,9 @@ import swaggerUi from "swagger-ui-express";
 
 const swaggerDocument = YAML.load(__dirname + "/../docs/swagger.yaml");
 const api = express();
+// TODO figure better way how to solve CORS
+const cors = require("cors");
+api.use(cors());
 api.use(express.json());
 api.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 api.use(express.urlencoded({ extended: true }));
