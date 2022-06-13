@@ -1,5 +1,5 @@
 import { object, string, ValidationError } from "yup";
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import prisma from "../client";
 import { userDetails, userGoals } from "../resources";
 import {
@@ -157,6 +157,22 @@ export const update = async (req: Request, res: Response) => {
     }
 
     return sendSuccess(res, "User data updated successfully", responseData);
+  } catch (e) {
+    if (e instanceof ValidationError) return sendValidationError(res, e);
+    return sendInternalServerError(res);
+  }
+};
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    const sessionId = await string().required().validate(req.body.sessionId);
+    const session = await prisma.sessions.findUnique({
+      where: { id: sessionId },
+    });
+    if (!session)
+      return sendNotFound(res, "User with entered sessionId does not exist");
+    await prisma.sessions.delete({ where: { id: sessionId } });
+    return sendSuccess(res, "User successfully logged out", {});
   } catch (e) {
     if (e instanceof ValidationError) return sendValidationError(res, e);
     return sendInternalServerError(res);
