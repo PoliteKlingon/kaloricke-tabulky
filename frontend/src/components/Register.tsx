@@ -27,11 +27,11 @@ import sha256 from "crypto-js/sha256";
 const marks = [
   {
     value: 5,
-    label: "Female",
+    label: "Žena",
   },
   {
     value: 95,
-    label: "Male",
+    label: "Muž",
   },
 ];
 
@@ -92,11 +92,9 @@ const Register = () => {
   const onSubmit = async (e: any) => {
     const request = ownGoals
       ? {
-          credentials: {
+          details: {
             email: getValues("email"),
             passwordHash: String(sha256(getValues("password"))),
-          },
-          details: {
             username: getValues("username"),
             name: getValues("name"),
             surname: getValues("surname"),
@@ -109,7 +107,6 @@ const Register = () => {
               "-" +
               date?.getDate(),
             sex: sex,
-            email: getValues("email"),
           },
           goals: {
             calories: +getValues("calories"),
@@ -121,11 +118,9 @@ const Register = () => {
           },
         }
       : {
-          credentials: {
+          details: {
             email: getValues("email"),
             passwordHash: String(sha256(getValues("password"))),
-          },
-          details: {
             username: getValues("username"),
             name: getValues("name"),
             surname: getValues("surname"),
@@ -138,11 +133,9 @@ const Register = () => {
               "-" +
               date?.getDate(),
             sex: sex,
-            email: getValues("email"),
           },
         };
-    console.log(JSON.stringify(request));
-
+        
     try {
        await axios
          .put("/register", JSON.stringify(request), {
@@ -216,10 +209,10 @@ const Register = () => {
                       ),
                     }}
                     {...register("email", {
-                      required: "Required field",
+                      required: "Položka je povinná",
                       pattern: {
                         value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                        message: "Invalid email",
+                        message: "Chybný email",
                       },
                     })}
                     error={!!errors?.email}
@@ -228,7 +221,7 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Username"
+                    label="Přezdívka"
                     fullWidth={true}
                     margin="normal"
                     variant="standard"
@@ -239,7 +232,9 @@ const Register = () => {
                         </InputAdornment>
                       ),
                     }}
-                    {...register("username", { required: "Required field" })}
+                    {...register("username", {
+                      required: "Položka je povinná",
+                    })}
                     error={!!errors?.username}
                     helperText={
                       errors?.username ? errors.username.message : null
@@ -248,7 +243,7 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Password"
+                    label="Heslo"
                     fullWidth={true}
                     margin="normal"
                     variant="standard"
@@ -260,7 +255,9 @@ const Register = () => {
                         </InputAdornment>
                       ),
                     }}
-                    {...register("password", { required: "Required field" })}
+                    {...register("password", {
+                      required: "Položka je povinná",
+                    })}
                     error={!!errors?.password}
                     helperText={
                       errors?.password ? errors.password.message : null
@@ -269,7 +266,7 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Password Again"
+                    label="Heslo znovu"
                     fullWidth={true}
                     margin="normal"
                     variant="standard"
@@ -282,11 +279,11 @@ const Register = () => {
                       ),
                     }}
                     {...register("passwordAgain", {
-                      required: "Required field",
+                      required: "Položka je povinná",
                       validate: (value) =>
                         value === getValues("password")
                           ? true
-                          : "Passwords do not match",
+                          : "Hesla se neshodují",
                     })}
                     error={!!errors?.passwordAgain}
                     helperText={
@@ -298,12 +295,12 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Name"
+                    label="Jméno"
                     fullWidth={true}
                     margin="normal"
                     variant="standard"
                     {...register("name", {
-                      required: "Required field",
+                      required: "Položka je povinná",
                     })}
                     error={!!errors?.name}
                     helperText={errors?.name ? errors.name.message : null}
@@ -311,12 +308,12 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Surname"
+                    label="Příjmení"
                     fullWidth={true}
                     margin="normal"
                     variant="standard"
                     {...register("surname", {
-                      required: "Required field",
+                      required: "Položka je povinná",
                     })}
                     error={!!errors?.surname}
                     helperText={errors?.surname ? errors.surname.message : null}
@@ -324,16 +321,16 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Height"
+                    label="Výška"
                     fullWidth={true}
                     margin="normal"
                     variant="standard"
                     type="number"
                     {...register("height", {
-                      required: "Required field",
+                      required: "Položka je povinná",
                       min: {
                         value: 1,
-                        message: "Invalid value",
+                        message: "Minimální hodnota je 1",
                       },
                     })}
                     error={!!errors?.height}
@@ -342,16 +339,16 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Weight"
+                    label="Váha"
                     fullWidth={true}
                     margin="normal"
                     variant="standard"
                     type="number"
                     {...register("weight", {
-                      required: "Required field",
+                      required: "Položka je povinná",
                       min: {
                         value: 1,
-                        message: "Invalid value",
+                        message: "Minimální hodnota je 1",
                       },
                     })}
                     error={!!errors?.weight}
@@ -361,7 +358,7 @@ const Register = () => {
                 <Grid item xs={12} sm={6} sx={{ pt: 3 }}>
                   {isDesktop ? (
                     <DesktopDatePicker
-                      label="Birthdate"
+                      label="Datum narození"
                       value={date}
                       minDate={new Date("1900-01-01")}
                       onChange={(newValue) => {
@@ -373,7 +370,7 @@ const Register = () => {
                     />
                   ) : (
                     <MobileDatePicker
-                      label="Birthdate"
+                      label="Datum narození"
                       value={date}
                       minDate={new Date("1900-01-01")}
                       onChange={(newValue) => {
@@ -386,12 +383,12 @@ const Register = () => {
                   )}
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ pt: 2 }}>
-                  <Typography>Gender</Typography>
+                  <Typography>Pohlaví</Typography>
                   <Slider
                     size="small"
                     defaultValue={50}
                     valueLabelDisplay="auto"
-                    aria-label="Sex slider"
+                    aria-label="Slider pohlaví"
                     marks={marks}
                     onChange={updateSex}
                   />
@@ -412,7 +409,7 @@ const Register = () => {
                     >
                       <Grid item xs={12} sm={6}>
                         <TextField
-                          label="Desired Calories"
+                          label="Požadované Kalorie"
                           fullWidth={true}
                           margin="normal"
                           variant="standard"
@@ -420,11 +417,11 @@ const Register = () => {
                           {...register("calories", {
                             required: {
                               value: ownGoals,
-                              message: "Required field",
+                              message: "Položka je povinná",
                             },
                             min: {
                               value: 0,
-                              message: "Invalid value",
+                              message: "Minimální hodnota je 0",
                             },
                           })}
                           error={!!errors?.calories}
@@ -435,7 +432,7 @@ const Register = () => {
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <TextField
-                          label="Desired Proteins"
+                          label="Požadovaná Bílkoviny"
                           fullWidth={true}
                           margin="normal"
                           variant="standard"
@@ -443,11 +440,11 @@ const Register = () => {
                           {...register("proteins", {
                             required: {
                               value: ownGoals,
-                              message: "Required field",
+                              message: "Položka je povinná",
                             },
                             min: {
                               value: 0,
-                              message: "Invalid value",
+                              message: "Minimální hodnota je 0",
                             },
                           })}
                           error={!!errors?.proteins}
@@ -458,7 +455,7 @@ const Register = () => {
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <TextField
-                          label="Desired Carbs"
+                          label="Požadované Sacharidy"
                           fullWidth={true}
                           margin="normal"
                           variant="standard"
@@ -466,11 +463,11 @@ const Register = () => {
                           {...register("carbs", {
                             required: {
                               value: ownGoals,
-                              message: "Required field",
+                              message: "Položka je povinná",
                             },
                             min: {
                               value: 0,
-                              message: "Invalid value",
+                              message: "Minimální hodnota je 0",
                             },
                           })}
                           error={!!errors?.carbs}
@@ -481,7 +478,7 @@ const Register = () => {
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <TextField
-                          label="Desired Fats"
+                          label="Požadované Tuky"
                           fullWidth={true}
                           margin="normal"
                           variant="standard"
@@ -489,11 +486,11 @@ const Register = () => {
                           {...register("fats", {
                             required: {
                               value: ownGoals,
-                              message: "Required field",
+                              message: "Položka je povinná",
                             },
                             min: {
                               value: 0,
-                              message: "Invalid value",
+                              message: "Minimální hodnota je 0",
                             },
                           })}
                           error={!!errors?.fats}
@@ -502,7 +499,7 @@ const Register = () => {
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <TextField
-                          label="Desired Fiber"
+                          label="Požadovaná Vláknina"
                           fullWidth={true}
                           margin="normal"
                           variant="standard"
@@ -510,11 +507,11 @@ const Register = () => {
                           {...register("fiber", {
                             required: {
                               value: ownGoals,
-                              message: "Required field",
+                              message: "Položka je povinná",
                             },
                             min: {
                               value: 0,
-                              message: "Invalid value",
+                              message: "Minimální hodnota je 0",
                             },
                           })}
                           error={!!errors?.fiber}
@@ -525,7 +522,7 @@ const Register = () => {
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <TextField
-                          label="Desired Salt"
+                          label="Požadovaná Sůl"
                           fullWidth={true}
                           margin="normal"
                           variant="standard"
@@ -533,11 +530,11 @@ const Register = () => {
                           {...register("salt", {
                             required: {
                               value: ownGoals,
-                              message: "Required field",
+                              message: "Položka je povinná",
                             },
                             min: {
                               value: 0,
-                              message: "Invalid value",
+                              message: "Minimální hodnota je 0",
                             },
                           })}
                           error={!!errors?.salt}
@@ -582,7 +579,7 @@ const Register = () => {
                   }}
                   disableRipple
                 >
-                  Register
+                  Registrovat
                 </Button>
               </Stack>
 
@@ -609,7 +606,9 @@ const Register = () => {
           </form>
           <Grid container justifyContent="center">
             <Grid item>
-              <Button>Zapomněl jsi heslo?</Button>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <Button>Zpět na hlavní stránku</Button>
+              </Link>
             </Grid>
           </Grid>
         </Grid>

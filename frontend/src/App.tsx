@@ -4,10 +4,19 @@ import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { useEffect, useContext } from "react";
+import AuthContext from "./context/AuthProvider";
 
 
 
 const App = () => {
+  //@ts-ignore
+  const { setAuth } = useContext(AuthContext);
+  useEffect(() => {
+    if (localStorage.getItem("auth")) {
+      setAuth(window.localStorage.getItem("auth"));
+    }
+  }, []);
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <BrowserRouter>

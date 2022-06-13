@@ -10,10 +10,11 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Slide from "@mui/material/Slide";
+import AuthContext from "../context/AuthProvider";
 
 const HideOnScroll = ({children}:any) => {
   const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -48,11 +49,18 @@ const Header = () => {
     setCollapsed(true);
   }, []);
 
+  // @ts-ignore
+  const { auth, setAuth } = useContext(AuthContext);
+  useEffect(() => {
+    setAuthState(Object.keys(auth).length === 0 || auth === undefined)
+  }, [auth]);
+  const [authState, setAuthState] = useState(false)
+
   return (
     <Root id="header">
       <HideOnScroll>
         <AppBar elevation={0} sx={{ background: "none", pt: 5 }}>
-          <Toolbar sx={{ width: "100%", px: { xs: "auto", md: 5, lg: 10} }}>
+          <Toolbar sx={{ width: "100%", px: { xs: "auto", md: 5, lg: 10 } }}>
             <Grid
               container
               justifyContent={{ xs: "center", md: "space-between" }}
@@ -67,41 +75,83 @@ const Header = () => {
               >
                 <span style={{ color: "#edc69f" }}>Kalorické</span> tabulky
               </Typography>
-              <Stack direction="row" spacing={5}>
-                <Link to="/login" style={{ textDecoration: "none" }}>
-                  <AnimatedButton
-                    variant="text"
-                    sx={{
-                      color: "#edc69f",
-                      ":active": {
-                        color: "#edd9be",
-                      },
-                    }}
-                    disableRipple
-                  >
-                    Login
-                  </AnimatedButton>
-                </Link>
-                <Link to="/register" style={{ textDecoration: "none" }}>
-                  <AnimatedButton
-                    variant="text"
-                    sx={{
-                      color: "#eb9b34",
-                      ":active": {
-                        color: "#edc48c",
-                      },
-                    }}
-                    disableRipple
-                  >
-                    Register
-                  </AnimatedButton>
-                </Link>
+              <Stack
+                direction={{ xs: "column", md: "row" }}
+                spacing={{ xs: 0, md: 5 }}
+              >
+                {authState ? (
+                  <>
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#edc69f",
+                          ":active": {
+                            color: "#edd9be",
+                          },
+                        }}
+                        disableRipple
+                      >
+                        Přihlášení
+                      </AnimatedButton>
+                    </Link>
+                    <Link to="/register" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#eb9b34",
+                          ":active": {
+                            color: "#edc48c",
+                          },
+                        }}
+                        disableRipple
+                      >
+                        Registrace
+                      </AnimatedButton>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#edc69f",
+                          ":active": {
+                            color: "#edd9be",
+                          },
+                        }}
+                        disableRipple
+                      >
+                        XXX
+                      </AnimatedButton>
+                    </Link>
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#eb9b34",
+                          ":active": {
+                            color: "#edc48c",
+                          },
+                        }}
+                        disableRipple
+                        onClick={() => {
+                          localStorage.removeItem("auth");
+                          setAuth({});
+                        }}
+                      >
+                        Odhlásit
+                      </AnimatedButton>
+                    </Link>{" "}
+                  </>
+                )}
               </Stack>
             </Grid>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
-      <Container sx={{ pt: { xs: 80, sm: 15 } }}>
+      <Container sx={{ pt: { xs: 60, sm: 30 } }}>
         <Collapse in={collapsed} {...{ timeout: 2000 }} collapsedSize="0px">
           <Typography
             variant="h1"
@@ -112,6 +162,7 @@ const Header = () => {
               color: "white",
               textAlign: "center",
             }}
+            fontSize={{ xs: "3rem", sm: "6rem" }}
           >
             Začněte svou <br />
             cestu za hubnutím <br />

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 import { Button, Grid, InputAdornment, TextField } from "@mui/material";
@@ -42,6 +42,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
     getValues,
+    setError,
   } = useForm<FormInputs>();
   const onSubmit = async (e: any) => {
     try {
@@ -59,22 +60,32 @@ const Login = () => {
           }
         )
         .then((response) => {
-          const ssid = response?.data?.sessionId;
+          const ssid = response?.data?.data?.sessionId;
+          console.log(ssid);
           setAuth({
             email: getValues("email"),
             password: getValues("password"),
             ssid: ssid,
           });
-          setAuth({
-            email: getValues("email"),
-            passwordHash: String(sha256(getValues("password"))),
-            ssid: ssid,
-          });
+          localStorage.setItem(
+            "auth",
+            JSON.stringify({
+              email: getValues("email"),
+              password: getValues("password"),
+              ssid: ssid,
+            })
+          );
           setSuccess(true);
         })
-        .catch((error) => {
-          console.log(error.response);
-        });      
+        .catch((err) => {
+          if (!err?.response) {
+            alert("Chyba sítě, prosím zkuste to znovu.");
+          } else if (err.response?.status === 401)
+          {
+            setError("password", { message: "Špatný email nebo heslo" });
+            setError("email", { message: "Špatný email nebo heslo" });
+          }
+        });
     } catch (err) {
       console.log(err);
     }
@@ -122,17 +133,17 @@ const Login = () => {
                   ),
                 }}
                 {...register("email", {
-                  required: "Required field",
+                  required: "Položka je povinná",
                   pattern: {
                     value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    message: "Invalid email",
+                    message: "Chybný email",
                   },
                 })}
                 error={!!errors?.email}
                 helperText={errors?.email ? errors.email.message : null}
               />
               <TextField
-                label="Password"
+                label="Heslo"
                 margin="normal"
                 variant="standard"
                 type="password"
@@ -143,7 +154,7 @@ const Login = () => {
                     </InputAdornment>
                   ),
                 }}
-                {...register("password", { required: "Required field" })}
+                {...register("password", { required: "Položka je povinná" })}
                 error={!!errors?.password}
                 helperText={errors?.password ? errors.password.message : null}
               />
@@ -174,7 +185,9 @@ const Login = () => {
           </form>
           <Grid container justifyContent="center">
             <Grid item>
-              <Button>Zapomněl jsi heslo?</Button>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <Button>Zpět na hlavní stránku</Button>
+              </Link>
             </Grid>
           </Grid>
         </Grid>
