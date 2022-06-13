@@ -59,23 +59,43 @@ const Login = () => {
             },
           }
         )
-        .then((response) => {
+        .then(async (response) => {
           const ssid = response?.data?.data?.sessionId;
-          console.log(ssid);
-          setAuth({
-            email: getValues("email"),
-            password: getValues("password"),
-            ssid: ssid,
-          });
-          localStorage.setItem(
-            "auth",
-            JSON.stringify({
-              email: getValues("email"),
-              password: getValues("password"),
-              ssid: ssid,
+          const userId = response?.data?.data?.userId;
+
+          await axios
+            .post(
+              "user/details",
+              JSON.stringify({
+                sessionId: ssid,
+                userId: userId,
+              }),
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+            .then((res) => {
+              const username = res.data.data.username;
+              setAuth({
+                userId: userId,
+                ssid: ssid,
+                username: username,
+              });
+              localStorage.setItem(
+                "auth",
+                JSON.stringify({
+                  userId: userId,
+                  ssid: ssid,
+                  username: username,
+                })
+              );
+              setSuccess(true);
             })
-          );
-          setSuccess(true);
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           if (!err?.response) {

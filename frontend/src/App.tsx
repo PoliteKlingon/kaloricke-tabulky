@@ -13,8 +13,9 @@ const App = () => {
   //@ts-ignore
   const { setAuth } = useContext(AuthContext);
   useEffect(() => {
-    if (localStorage.getItem("auth")) {
-      setAuth(window.localStorage.getItem("auth"));
+    if (window.localStorage.getItem("auth")) {
+      // @ts-ignore
+      setAuth(JSON.parse(window.localStorage.getItem("auth")));
     }
   }, []);
   return (

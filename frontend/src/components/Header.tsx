@@ -43,18 +43,20 @@ const Container = styled("div")({
   textAlign: "center",
 });
 
+
+
 const Header = () => {
   const [collapsed, setCollapsed] = useState(false);
   useEffect(() => {
     setCollapsed(true);
   }, []);
 
-  // @ts-ignore
+  const [authState, setAuthState] = useState<Boolean>();
+    // @ts-ignore
   const { auth, setAuth } = useContext(AuthContext);
   useEffect(() => {
-    setAuthState(Object.keys(auth).length === 0 || auth === undefined)
+    setAuthState(!(Object.keys(auth).length === 0 || auth === undefined));
   }, [auth]);
-  const [authState, setAuthState] = useState(false)
 
   return (
     <Root id="header">
@@ -80,6 +82,41 @@ const Header = () => {
                 spacing={{ xs: 0, md: 5 }}
               >
                 {authState ? (
+                  <>
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#edc69f",
+                          ":active": {
+                            color: "#edd9be",
+                          },
+                        }}
+                        disableRipple
+                      >
+                        {auth.username}
+                      </AnimatedButton>
+                    </Link>
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#eb9b34",
+                          ":active": {
+                            color: "#edc48c",
+                          },
+                        }}
+                        disableRipple
+                        onClick={() => {
+                          localStorage.removeItem("auth");
+                          setAuth({});
+                        }}
+                      >
+                        Odhlásit
+                      </AnimatedButton>
+                    </Link>{" "}
+                  </>
+                ) : (
                   <>
                     <Link to="/login" style={{ textDecoration: "none" }}>
                       <AnimatedButton
@@ -109,41 +146,6 @@ const Header = () => {
                         Registrace
                       </AnimatedButton>
                     </Link>
-                  </>
-                ) : (
-                  <>
-                    <Link to="/login" style={{ textDecoration: "none" }}>
-                      <AnimatedButton
-                        variant="text"
-                        sx={{
-                          color: "#edc69f",
-                          ":active": {
-                            color: "#edd9be",
-                          },
-                        }}
-                        disableRipple
-                      >
-                        XXX
-                      </AnimatedButton>
-                    </Link>
-                    <Link to="/" style={{ textDecoration: "none" }}>
-                      <AnimatedButton
-                        variant="text"
-                        sx={{
-                          color: "#eb9b34",
-                          ":active": {
-                            color: "#edc48c",
-                          },
-                        }}
-                        disableRipple
-                        onClick={() => {
-                          localStorage.removeItem("auth");
-                          setAuth({});
-                        }}
-                      >
-                        Odhlásit
-                      </AnimatedButton>
-                    </Link>{" "}
                   </>
                 )}
               </Stack>
