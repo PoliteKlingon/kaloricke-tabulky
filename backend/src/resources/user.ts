@@ -70,7 +70,7 @@ export const register = async (req: Request, res: Response) => {
       return sendValidationError(res, e);
     }
 
-    return sendInternalServerError;
+    return sendInternalServerError(res);
   }
 };
 
