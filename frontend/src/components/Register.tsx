@@ -85,7 +85,6 @@ const Register = () => {
     setError
   } = useForm();
   const onSubmit = async () => {
-    console.log("NECO")
     let goals;
     const userData = {
       email: getValues("email"),
@@ -116,7 +115,6 @@ const Register = () => {
 
     // @ts-ignore
     const res = await userRegister(userData, goals);
-    console.log(res)
     // @ts-ignore
     if (res.status) {
       // @ts-ignore
@@ -124,7 +122,7 @@ const Register = () => {
       setSuccess(true);
     } else {
       // @ts-ignore
-      if (res.err) {
+      if (res.err === null) {
         // @ts-ignore
         setError("email", { message: res.message });
       }
