@@ -12,6 +12,8 @@ import ChangingImage from "./ChangingImage";
 import axios from "../api/axios";
 import sha256 from "crypto-js/sha256";
 
+import { login } from "../utils/Utils";
+
 const LogoImage = styled("img")({
   width: 200,
 });
@@ -44,70 +46,23 @@ const Login = () => {
     getValues,
     setError,
   } = useForm<FormInputs>();
-  const onSubmit = async (e: any) => {
-    try {
-      await axios
-        .post(
-          "/login",
-          JSON.stringify({
-            email: getValues("email"),
-            passwordHash: String(sha256(getValues("password"))),
-          }),
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then(async (response) => {
-          const ssid = response?.data?.data?.sessionId;
-          const userId = response?.data?.data?.userId;
-
-          await axios
-            .post(
-              "user/details",
-              JSON.stringify({
-                sessionId: ssid,
-                userId: userId,
-              }),
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            )
-            .then((res) => {
-              const username = res.data.data.username;
-              setAuth({
-                userId: userId,
-                ssid: ssid,
-                username: username,
-              });
-              localStorage.setItem(
-                "auth",
-                JSON.stringify({
-                  userId: userId,
-                  ssid: ssid,
-                  username: username,
-                })
-              );
-              setSuccess(true);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          if (!err?.response) {
-            alert("Chyba sítě, prosím zkuste to znovu.");
-          } else if (err.response?.status === 401)
-          {
-            setError("password", { message: "Špatný email nebo heslo" });
-            setError("email", { message: "Špatný email nebo heslo" });
-          }
-        });
-    } catch (err) {
-      console.log(err);
+  const onSubmit = async () => {
+    const res = await login(
+      getValues("email"),
+      String(sha256(getValues("password")))
+    );
+    if (res.status) {
+      // @ts-ignore
+      setAuth(JSON.parse(window.localStorage.getItem("auth")));
+      setSuccess(true);
+    }
+    else {
+      if (res.err == null) {
+        setError("password", { message: "Špatný email nebo heslo" });
+        setError("email", { message: "Špatný email nebo heslo" });
+      } else {
+        alert("Nastala chyba, prosím zkuste to znovu.");
+      }
     }
   };
 
