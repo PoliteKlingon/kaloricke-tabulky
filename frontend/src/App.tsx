@@ -6,6 +6,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { useEffect, useContext } from "react";
 import AuthContext from "./context/AuthProvider";
+import UserDetails from "./components/user-details/UserDetails";
+import NotFoundPage from "./components/not-found/NotFoundPage";
 
 
 
@@ -25,6 +27,8 @@ const App = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/user-details" element={<UserDetails />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </LocalizationProvider>
