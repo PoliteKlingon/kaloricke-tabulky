@@ -10,6 +10,7 @@ import {
     Toolbar,
     Typography,
   } from "@mui/material";
+  import TextField from '@mui/material/TextField';
   import { styled } from "@mui/system";
   import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
   import { useContext, useEffect, useState } from "react";
@@ -21,6 +22,8 @@ import {
   import AccordionDetails from '@mui/material/AccordionDetails';
   import AccordionSummary from '@mui/material/AccordionSummary';
   import SettingsIcon from '@mui/icons-material/Settings';
+  import CloseIcon from '@mui/icons-material/Close';
+  import { useForm, SubmitHandler } from "react-hook-form";
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -49,11 +52,23 @@ import {
     textAlign: "center",
   });
   
-  
-  
+  export interface formInput {
+    email: string
+    }
+
   export default function UserDetails() {
     const [expanded, setExpanded] = React.useState<string | false>(false);
-  
+    const [changeEmail, setChangeEmail] = useState<Boolean>(false);
+    //const [email, setEmail] = useState<String>("tvojemamka@gmail.com");
+    const [data, setData] = useState<formInput>({email:"tvojemamka@gmail.com"});
+
+    const {
+      register,
+      formState: { errors },
+      handleSubmit,
+      } = useForm<formInput>();
+      const onSubmit: SubmitHandler<formInput> = (data: formInput) => {setData(data)};
+    
     const handleChange =
       (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
@@ -180,22 +195,45 @@ import {
               container
               spacing={0}
               direction="row"
-              alignItems="center"
+              //alignItems="center"
               justifyContent="center"
-              style={{ minHeight: '100vh' }}
             >
 
               <Grid item xs={4}>
                <Typography>E-mail</Typography>
               </Grid>   
               <Grid item xs={4}>
-               <Typography>tvojemamka@gmail.com</Typography>
+               <Typography>{data.email}</Typography>
               </Grid>   
               <Grid item xs={4}>
-               <SettingsIcon />
+               {changeEmail ?
+               <CloseIcon onClick={() => setChangeEmail(!changeEmail)}/>
+               :
+               <SettingsIcon onClick={() => setChangeEmail(!changeEmail)}/>
+               }
               </Grid>   
 
             </Grid> 
+            {changeEmail &&
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4} />
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="Nový e-mail" variant="outlined" {...register("email", {})}/>
+                </Grid>   
+                <Grid item xs={4}>
+                <Button type="submit" /*onClick={()=> {setChangeEmail(!changeEmail)}}*/>Save</Button>
+                </Grid>
+              </Grid> 
+            </form>}
         
 
 
