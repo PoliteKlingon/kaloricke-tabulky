@@ -6,6 +6,7 @@ import {
     Collapse,
     Grid,
     IconButton,
+    Slider,
     Stack,
     Toolbar,
     Typography,
@@ -24,6 +25,7 @@ import {
   import SettingsIcon from '@mui/icons-material/Settings';
   import CloseIcon from '@mui/icons-material/Close';
   import { useForm, SubmitHandler } from "react-hook-form";
+import internal from 'stream';
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -51,34 +53,96 @@ import {
   const Container = styled("div")({
     textAlign: "center",
   });
-  
-  export interface formInput {
-    email: string
-    }
 
+  
   export default function UserDetails() {
     const [expanded, setExpanded] = React.useState<string | false>(false);
-    const [changeEmail, setChangeEmail] = useState<Boolean>(false);
-    //const [email, setEmail] = useState<String>("tvojemamka@gmail.com");
-    const [data, setData] = useState<formInput>({email:"tvojemamka@gmail.com"});
+    
 
     const {
-      register,
-      formState: { errors },
-      handleSubmit,
-      } = useForm<formInput>();
-      const onSubmit: SubmitHandler<formInput> = (data: formInput) => {setData(data)};
-    
-    const handleChange =
-      (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-        setExpanded(isExpanded ? panel : false);
-      };
-
-    const [collapsed, setCollapsed] = useState(false);
-    useEffect(() => {
-      setCollapsed(true);
-    }, []);
+      register: registerEmail,
+      formState: { errors: errorsEmail },
+      handleSubmit: handleSubmitEmail,
+    } = useForm();
   
+    const {
+      register: registerHeight,
+      formState: { errors: errorsHeight },
+      handleSubmit: handleSubmitHeight,
+    } = useForm();
+
+    const {
+      register: registerWeight,
+      formState: { errors: errorsWeight },
+      handleSubmit: handleSubmitWeight,
+    } = useForm();
+
+    const {
+      register: registerBirthDate,
+      formState: { errors: errorsBirthDate },
+      handleSubmit: handleSubmitBirthDate,
+    } = useForm();
+
+    const {
+      register: registerDesiredWeight,
+      formState: { errors: errorsDesiredWeight },
+      handleSubmit: handleSubmitDesiredWeight,
+    } = useForm();
+    
+    // @ts-ignore
+    const onSubmitEmail = (data) => {
+      setEmail(data.email);
+      setChangeEmail(false);
+    };
+  
+    // @ts-ignore
+    const onSubmitHeight = (data) => {
+      setHeight(data.height);
+      setChangeHeight(false);
+    };
+
+    // @ts-ignore
+    const onSubmitWeight = (data) => {
+      setWeight(data.weight);
+      setChangeWeight(false);
+    };
+
+    // @ts-ignore
+    const onSubmitBirthDate = (data) => {
+      setBirthDate(data.birthDate);
+      setChangeBirthDate(false);
+    };
+
+    // @ts-ignore
+    const onSubmitDesiredWeight = (data) => {
+      setDesiredWeight(data.desiredWeight);
+      setChangeDesiredWeight(false);
+    };
+    
+    
+
+
+
+
+    const [changeEmail, setChangeEmail] = useState<Boolean>(false);
+    const [email, setEmail] = useState<String>("puvodni-email");
+    
+    const [changeSex, setChangeSex] = useState<Boolean>(false);
+    const [sex, setSex] = useState<number>(50);
+    const [newSex, setNewSex] = useState<number>(50);
+    
+    const [changeHeight, setChangeHeight] = useState<Boolean>(false);
+    const [height, setHeight] = useState<number>(180);
+
+    const [changeWeight, setChangeWeight] = useState<Boolean>(false);
+    const [weight, setWeight] = useState<number>(75);
+
+    const [changeBirthDate, setChangeBirthDate] = useState<Boolean>(false);
+    const [birthDate, setBirthDate] = useState<string>("ahoj");
+
+    const [changeDesiredWeight, setChangeDesiredWeight] = useState<Boolean>(false);
+    const [desiredWeight, setDesiredWeight] = useState<number>(75);
+    
     const [authState, setAuthState] = useState<Boolean>();
       // @ts-ignore
     const { auth, setAuth } = useContext(AuthContext);
@@ -190,7 +254,7 @@ import {
         >
             
 
-
+          {/* EMAIL */}
             <Grid
               container
               spacing={0}
@@ -203,7 +267,7 @@ import {
                <Typography>E-mail</Typography>
               </Grid>   
               <Grid item xs={4}>
-               <Typography>{data.email}</Typography>
+               <Typography>{email}</Typography>
               </Grid>   
               <Grid item xs={4}>
                {changeEmail ?
@@ -215,7 +279,7 @@ import {
 
             </Grid> 
             {changeEmail &&
-            <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmitEmail(onSubmitEmail)}>
               <Grid
                 container
                 spacing={0}
@@ -227,16 +291,204 @@ import {
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nový e-mail" variant="outlined" {...register("email", {})}/>
+                <TextField id="outlined-basic" label="Nový e-mail" variant="outlined" {...registerEmail("email")}/>
                 </Grid>   
                 <Grid item xs={4}>
-                <Button type="submit" /*onClick={()=> {setChangeEmail(!changeEmail)}}*/>Save</Button>
+                <Button type="submit">Uložit</Button>
+                </Grid>
+              </Grid>
+              </form> 
+            }   
+
+            {/* SEX */}
+
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              //alignItems="center"
+              justifyContent="center"
+            >
+
+              <Grid item xs={4}>
+               <Typography>Pohlaví</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+              <Slider disabled value={sex} />
+              </Grid>   
+              <Grid item xs={4}>
+               {changeSex ?
+               <CloseIcon onClick={() => setChangeSex(!changeSex)}/>
+               :
+               <SettingsIcon onClick={() => setChangeSex(!changeSex)}/>
+               }
+              </Grid>   
+
+            </Grid> 
+            {changeSex &&
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4} />
+                
+                <Grid item xs={4}>
+                <Slider onChange={(e, data) => setNewSex(data)}/>
+                </Grid>   
+                <Grid item xs={4}>
+                <Button onClick={()=> {setChangeSex(!changeSex); setSex(newSex)}}>Save</Button>
                 </Grid>
               </Grid> 
-            </form>}
-        
+            }
+
+            {/* HEIGHT */}
+
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              //alignItems="center"
+              justifyContent="center"
+            >
+
+              <Grid item xs={4}>
+               <Typography>Výška</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+              <Typography>{height}</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               {changeHeight ?
+               <CloseIcon onClick={() => setChangeHeight(!changeHeight)}/>
+               :
+               <SettingsIcon onClick={() => setChangeHeight(!changeHeight)}/>
+               }
+              </Grid>   
+
+            </Grid> 
+            {changeHeight &&
+              <form onSubmit={handleSubmitHeight(onSubmitHeight)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4} />
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="Nová výška" variant="outlined" {...registerHeight("height")} />
+                </Grid>   
+                <Grid item xs={4}>
+                <Button type="submit">Save</Button>
+                </Grid>
+              </Grid> 
+              </form>
+            }
+
+            {/* WEIGHT */}
+
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              //alignItems="center"
+              justifyContent="center"
+            >
+
+              <Grid item xs={4}>
+               <Typography>Hmotnost</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+              <Typography>{weight}</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               {changeWeight ?
+               <CloseIcon onClick={() => setChangeWeight(!changeWeight)}/>
+               :
+               <SettingsIcon onClick={() => setChangeWeight(!changeWeight)}/>
+               }
+              </Grid>   
+
+            </Grid> 
+            {changeWeight &&
+              <form onSubmit={handleSubmitWeight(onSubmitWeight)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4} />
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="Nová hmotnost" variant="outlined" {...registerWeight("weight")} />
+                </Grid>   
+                <Grid item xs={4}>
+                <Button type="submit">Save</Button>
+                </Grid>
+              </Grid> 
+              </form>
+            }
+
+            
 
 
+
+            {/* DESIRED WEIGHT */}
+
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              //alignItems="center"
+              justifyContent="center"
+            >
+
+              <Grid item xs={4}>
+               <Typography>Cílová hmotnost</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+              <Typography>{desiredWeight}</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               {changeDesiredWeight ?
+               <CloseIcon onClick={() => setChangeDesiredWeight(!changeDesiredWeight)}/>
+               :
+               <SettingsIcon onClick={() => setChangeDesiredWeight(!changeDesiredWeight)}/>
+               }
+              </Grid>   
+
+            </Grid> 
+            {changeDesiredWeight &&
+              <form onSubmit={handleSubmitDesiredWeight(onSubmitDesiredWeight)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4} />
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="Nová cílová hmotnost" variant="outlined" {...registerDesiredWeight("desiredWeight")} />
+                </Grid>   
+                <Grid item xs={4}>
+                <Button type="submit">Save</Button>
+                </Grid>
+              </Grid> 
+              </form>
+            }
 
 
 
