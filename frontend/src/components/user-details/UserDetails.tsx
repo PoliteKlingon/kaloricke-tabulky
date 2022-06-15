@@ -8,6 +8,7 @@ import {
     IconButton,
     Slider,
     Stack,
+    Switch,
     Toolbar,
     Typography,
   } from "@mui/material";
@@ -54,6 +55,14 @@ import internal from 'stream';
     textAlign: "center",
   });
 
+  export interface Nutrients {
+    proteins: number,
+    carbohydrates: number,
+    fats: number,
+    fiber: number,
+    salt: number
+  }
+
   
   export default function UserDetails() {
     const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -64,30 +73,6 @@ import internal from 'stream';
       formState: { errors: errorsEmail },
       handleSubmit: handleSubmitEmail,
     } = useForm();
-  
-    const {
-      register: registerHeight,
-      formState: { errors: errorsHeight },
-      handleSubmit: handleSubmitHeight,
-    } = useForm();
-
-    const {
-      register: registerWeight,
-      formState: { errors: errorsWeight },
-      handleSubmit: handleSubmitWeight,
-    } = useForm();
-
-    const {
-      register: registerBirthDate,
-      formState: { errors: errorsBirthDate },
-      handleSubmit: handleSubmitBirthDate,
-    } = useForm();
-
-    const {
-      register: registerDesiredWeight,
-      formState: { errors: errorsDesiredWeight },
-      handleSubmit: handleSubmitDesiredWeight,
-    } = useForm();
     
     // @ts-ignore
     const onSubmitEmail = (data) => {
@@ -95,11 +80,23 @@ import internal from 'stream';
       setChangeEmail(false);
     };
   
+    const {
+      register: registerHeight,
+      formState: { errors: errorsHeight },
+      handleSubmit: handleSubmitHeight,
+    } = useForm();
+  
     // @ts-ignore
     const onSubmitHeight = (data) => {
       setHeight(data.height);
       setChangeHeight(false);
     };
+
+    const {
+      register: registerWeight,
+      formState: { errors: errorsWeight },
+      handleSubmit: handleSubmitWeight,
+    } = useForm();
 
     // @ts-ignore
     const onSubmitWeight = (data) => {
@@ -107,19 +104,40 @@ import internal from 'stream';
       setChangeWeight(false);
     };
 
+    const {
+      register: registerBirthDate,
+      formState: { errors: errorsBirthDate },
+      handleSubmit: handleSubmitBirthDate,
+    } = useForm();
+
     // @ts-ignore
     const onSubmitBirthDate = (data) => {
       setBirthDate(data.birthDate);
       setChangeBirthDate(false);
     };
 
+    const {
+      register: registerDesiredWeight,
+      formState: { errors: errorsDesiredWeight },
+      handleSubmit: handleSubmitDesiredWeight,
+    } = useForm();
+
     // @ts-ignore
     const onSubmitDesiredWeight = (data) => {
       setDesiredWeight(data.desiredWeight);
       setChangeDesiredWeight(false);
     };
-    
-    
+
+    const {
+      register: registerNutrients,
+      formState: { errors: errorsNutrients },
+      handleSubmit: handleSubmitNutrients,
+    } = useForm();
+
+    // @ts-ignore
+    const onSubmitNutrients = (data) => {
+      setNutrients(data);
+    };
 
 
 
@@ -142,6 +160,9 @@ import internal from 'stream';
 
     const [changeDesiredWeight, setChangeDesiredWeight] = useState<Boolean>(false);
     const [desiredWeight, setDesiredWeight] = useState<number>(75);
+
+    const [customNutrients, setCustomNutrients] = useState<Boolean>(false);
+    const [nutrients, setNutrients] = useState<Nutrients>({proteins: 30, carbohydates: 30, fats: 30, fiber: 30, salt: 30});
     
     const [authState, setAuthState] = useState<Boolean>();
       // @ts-ignore
@@ -443,6 +464,11 @@ import internal from 'stream';
 
 
 
+
+
+
+
+
             {/* DESIRED WEIGHT */}
 
             <Grid
@@ -490,7 +516,140 @@ import internal from 'stream';
               </form>
             }
 
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              //alignItems="center"
+              justifyContent="center"
+            >
+              <Grid item >
+              <Button
+                  variant="contained"
+                  disableRipple
+                  sx={{
+                    backgroundColor: "orange",
+                    fontWeight: "bold",
+                    transition: "transform 0.5s",
+                    ":hover": {
+                      transform: "scale(1.1)",
+                      backgroundColor: "#f29830",
+                    },
+                  }}
+                  onClick={() => setCustomNutrients(!customNutrients)}
+                >
+                  {customNutrients
+                    ? "Zrušit"
+                    : "Upravit nutrienty"}
+                </Button>
+              </Grid>
+            </Grid>
 
+            {customNutrients && 
+              /* BILKOVINY */ 
+            <form onSubmit={handleSubmitNutrients(onSubmitNutrients)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4}>
+                  <Typography>Bílkoviny</Typography>
+                </Grid>
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("proteins")} />
+                </Grid>
+                <Grid item>
+                <Typography>g</Typography>
+                </Grid>
+              </Grid> 
+
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4}>
+                  <Typography>Sacharidy</Typography>
+                </Grid>
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("carbohydrates")} />
+                </Grid>
+                <Grid item>
+                <Typography>g</Typography>
+                </Grid>
+              </Grid> 
+
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4}>
+                  <Typography>Tuky</Typography>
+                </Grid>
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("fats")} />
+                </Grid>
+                <Grid item>
+                <Typography>g</Typography>
+                </Grid>
+              </Grid> 
+
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4}>
+                  <Typography>Vláknina</Typography>
+                </Grid>
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("fiber")} />
+                </Grid>
+                <Grid item>
+                <Typography>g</Typography>
+                </Grid>
+              </Grid> 
+
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4}>
+                  <Typography>Sůl</Typography>
+                </Grid>
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("salt")} />
+                </Grid>
+                <Grid item>
+                <Typography>g</Typography>
+                </Grid>
+              </Grid> 
+              <Button type="submit">Uložit</Button>
+            </form>
+            }
 
         </Container>
       </Root>
