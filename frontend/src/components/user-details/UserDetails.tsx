@@ -63,6 +63,17 @@ import internal from 'stream';
     salt: number
   }
 
+  const marks = [
+    {
+      value: 5,
+      label: "Žena",
+    },
+    {
+      value: 95,
+      label: "Muž",
+    },
+  ];
+
   
   export default function UserDetails() {
     const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -137,13 +148,14 @@ import internal from 'stream';
     // @ts-ignore
     const onSubmitNutrients = (data) => {
       setNutrients(data);
+      console.log()
     };
 
 
 
 
     const [changeEmail, setChangeEmail] = useState<Boolean>(false);
-    const [email, setEmail] = useState<String>("puvodni-email");
+    const [email, setEmail] = useState<String>("tvojemamka@gmail.com");
     
     const [changeSex, setChangeSex] = useState<Boolean>(false);
     const [sex, setSex] = useState<number>(50);
@@ -162,7 +174,7 @@ import internal from 'stream';
     const [desiredWeight, setDesiredWeight] = useState<number>(75);
 
     const [customNutrients, setCustomNutrients] = useState<Boolean>(false);
-    const [nutrients, setNutrients] = useState<Nutrients>({proteins: 30, carbohydates: 30, fats: 30, fiber: 30, salt: 30});
+    const [nutrients, setNutrients] = useState<Nutrients>({proteins: 30, carbohydrates: 30, fats: 30, fiber: 30, salt: 30});
     
     const [authState, setAuthState] = useState<Boolean>();
       // @ts-ignore
@@ -312,7 +324,17 @@ import internal from 'stream';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nový e-mail" variant="outlined" {...registerEmail("email")}/>
+                <TextField id="outlined-basic" label="Nový e-mail" variant="outlined" 
+                  {...registerEmail("email", 
+                    {
+                      required: "Položka je povinná",
+                      pattern: {
+                        value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                        message: "Chybný email",
+                      },
+                    })}
+                  error={!!errorsEmail?.email}
+                  helperText={errorsEmail?.email ? errorsEmail.email.message : null}/>
                 </Grid>   
                 <Grid item xs={4}>
                 <Button type="submit">Uložit</Button>
@@ -335,7 +357,7 @@ import internal from 'stream';
                <Typography>Pohlaví</Typography>
               </Grid>   
               <Grid item xs={4}>
-              <Slider disabled value={sex} />
+              <Slider disabled value={sex} marks={marks}/>
               </Grid>   
               <Grid item xs={4}>
                {changeSex ?
@@ -358,10 +380,10 @@ import internal from 'stream';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <Slider onChange={(e, data) => setNewSex(data)}/>
+                <Slider defaultValue={sex} onChange={(e, data) => setNewSex(data)} marks={marks}/>
                 </Grid>   
                 <Grid item xs={4}>
-                <Button onClick={()=> {setChangeSex(!changeSex); setSex(newSex)}}>Save</Button>
+                <Button onClick={()=> {setChangeSex(!changeSex); setSex(newSex)}}>Uložit</Button>
                 </Grid>
               </Grid> 
             }
@@ -407,7 +429,7 @@ import internal from 'stream';
                 <TextField id="outlined-basic" label="Nová výška" variant="outlined" {...registerHeight("height")} />
                 </Grid>   
                 <Grid item xs={4}>
-                <Button type="submit">Save</Button>
+                <Button type="submit">Uložit</Button>
                 </Grid>
               </Grid> 
               </form>
@@ -454,7 +476,7 @@ import internal from 'stream';
                 <TextField id="outlined-basic" label="Nová hmotnost" variant="outlined" {...registerWeight("weight")} />
                 </Grid>   
                 <Grid item xs={4}>
-                <Button type="submit">Save</Button>
+                <Button type="submit">Uložit</Button>
                 </Grid>
               </Grid> 
               </form>
@@ -510,7 +532,7 @@ import internal from 'stream';
                 <TextField id="outlined-basic" label="Nová cílová hmotnost" variant="outlined" {...registerDesiredWeight("desiredWeight")} />
                 </Grid>   
                 <Grid item xs={4}>
-                <Button type="submit">Save</Button>
+                <Button type="submit">Uložit</Button>
                 </Grid>
               </Grid> 
               </form>
