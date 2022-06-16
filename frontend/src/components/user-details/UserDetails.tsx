@@ -246,6 +246,20 @@ import {
       setAuthState(!(Object.keys(auth).length === 0 || auth === undefined));
     }, [auth]);
   
+    const closeAll = () => {
+      setChangeEmail(false);
+      setChangeSex(false);
+      setChangeNick(false);
+      setChangeName(false);
+      setChangeSurname(false);
+      setChangeHeight(false);
+      setChangeWeight(false);
+      setChangeBirthDate(false);
+      setChangeDesiredWeight(false);
+      setCustomNutrients(false);
+      setChangePasswords(false);
+    }
+
     return (
       <Root id="header">
         <HideOnScroll>
@@ -348,574 +362,786 @@ import {
                 width: "90%"
         }}
         >
-          {/* EMAIL */}
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
+          <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}
+            variant="h3"
+            component="h2"
+            textAlign={"left"}
+            paddingY={5}
+            paddingX={15}
             >
+              Osobní údaje
+          </Typography>
 
-              <Grid item xs={4}>
-               <Typography>E-mail</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               <Typography>{email}</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               {changeEmail ?
-               <CloseIcon onClick={() => setChangeEmail(!changeEmail)}/>
-               :
-               <SettingsIcon onClick={() => setChangeEmail(!changeEmail)}/>
-               }
-              </Grid>   
+          <Grid container
+            justifyItems={"space-between"}
+            direction={"row"}
+          >
+            <Grid item xs={6}>
+              {/* EMAIL */}
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
 
-            </Grid> 
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changeEmail}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-              <form onSubmit={handleSubmitEmail(onSubmitEmail)}>
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>E-mail</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{email}</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  {changeEmail ?
+                  <CloseIcon onClick={() => setChangeEmail(!changeEmail)}/>
+                  :
+                  <SettingsIcon onClick={() => {closeAll(); setChangeEmail(!changeEmail)}}/>
+                  }
+                  </Grid>   
 
-                <Grid item xs={4} />
-                
-                <Grid item xs={4}>
-                <TextField  
-                  label="Nový e-mail" 
-                  variant="outlined" 
-                  {...registerEmail("email", 
-                    {
-                      required: "Položka je povinná",
-                      pattern: {
-                        value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                        message: "Chybný email",
-                      },
-                    })}
-                  error={!!errorsEmail?.email}
-                  helperText={errorsEmail?.email ? errorsEmail.email.message : null}/>
-                </Grid>   
-                <Grid item xs={4}>
-                <Button type="submit">Uložit</Button>
-                </Grid>
-              </Grid>
-              </form> 
-            </Collapse>
+                </Grid> 
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changeEmail}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
+                >
+                  <form onSubmit={handleSubmitEmail(onSubmitEmail)}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
 
-            {/* NICK */}
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
-            >
+                    <Grid item xs={4} />
+                    
+                    <Grid item xs={4}>
+                    <TextField  
+                      label="Nový e-mail" 
+                      variant="outlined" 
+                      {...registerEmail("email", 
+                        {
+                          required: "Položka je povinná",
+                          pattern: {
+                            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                            message: "Chybný email",
+                          },
+                        })}
+                      error={!!errorsEmail?.email}
+                      helperText={errorsEmail?.email ? errorsEmail.email.message : null}/>
+                    </Grid>   
+                    <Grid item xs={4}>
+                    <Button type="submit">Uložit</Button>
+                    </Grid>
+                  </Grid>
+                  </form> 
+                </Collapse>
 
-              <Grid item xs={4}>
-               <Typography>Přezdívka</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               <Typography>{nick}</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               {changeNick ?
-               <CloseIcon onClick={() => setChangeNick(!changeNick)}/>
-               :
-               <SettingsIcon onClick={() => setChangeNick(!changeNick)}/>
-               }
-              </Grid>   
+                {/* NICK */}
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
 
-            </Grid> 
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changeNick}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-              <form onSubmit={handleSubmitNick(onSubmitNick)}>
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Přezdívka</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{nick}</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  {changeNick ?
+                  <CloseIcon onClick={() => setChangeNick(!changeNick)}/>
+                  :
+                  <SettingsIcon onClick={() => {closeAll(); setChangeNick(!changeNick)}}/>
+                  }
+                  </Grid>   
 
-                <Grid item xs={4} />
-                
-                <Grid item xs={4}>
-                <TextField 
-                  label="Nová přezdívka" 
-                  variant="outlined" 
-                  {...registerNick("nick", {
-                    required: "Položka je povinná",
-                  })}
-                  error={!!errorsNick?.nick}
-                  helperText={errorsNick?.nick ? errorsNick.nick.message : null}/>
-                </Grid>   
-                <Grid item xs={4}>
-                <Button type="submit">Uložit</Button>
-                </Grid>
-              </Grid>
-              </form> 
-            </Collapse>
+                </Grid> 
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changeNick}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
+                >
+                  <form onSubmit={handleSubmitNick(onSubmitNick)}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
 
-            {/* NAME */}
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
-            >
+                    <Grid item xs={4} />
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      label="Nová přezdívka" 
+                      variant="outlined" 
+                      {...registerNick("nick", {
+                        required: "Položka je povinná",
+                      })}
+                      error={!!errorsNick?.nick}
+                      helperText={errorsNick?.nick ? errorsNick.nick.message : null}/>
+                    </Grid>   
+                    <Grid item xs={4}>
+                    <Button type="submit">Uložit</Button>
+                    </Grid>
+                  </Grid>
+                  </form> 
+                </Collapse>
 
-              <Grid item xs={4}>
-               <Typography>Jméno</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               <Typography>{name}</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               {changeName ?
-               <CloseIcon onClick={() => setChangeName(!changeName)}/>
-               :
-               <SettingsIcon onClick={() => setChangeName(!changeName)}/>
-               }
-              </Grid>   
+                {/* NAME */}
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
 
-            </Grid> 
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changeName}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-              <form onSubmit={handleSubmitName(onSubmitName)}>
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Jméno</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{name}</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  {changeName ?
+                  <CloseIcon onClick={() => setChangeName(!changeName)}/>
+                  :
+                  <SettingsIcon onClick={() => {closeAll(); setChangeName(!changeName)}}/>
+                  }
+                  </Grid>   
 
-                <Grid item xs={4} />
-                
-                <Grid item xs={4}>
-                <TextField 
-                  label="Nové jméno" 
-                  variant="outlined" 
-                  {...registerName("name", {
-                    required: "Položka je povinná",
-                  })}
-                  error={!!errorsName?.name}
-                  helperText={errorsName?.name ? errorsName.name.message : null}/>
-                </Grid>   
-                <Grid item xs={4}>
-                <Button type="submit">Uložit</Button>
-                </Grid>
-              </Grid>
-              </form> 
-            </Collapse>
+                </Grid> 
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changeName}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
+                >
+                  <form onSubmit={handleSubmitName(onSubmitName)}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
 
-            {/* SURNAME */}
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
-            >
+                    <Grid item xs={4} />
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      label="Nové jméno" 
+                      variant="outlined" 
+                      {...registerName("name", {
+                        required: "Položka je povinná",
+                      })}
+                      error={!!errorsName?.name}
+                      helperText={errorsName?.name ? errorsName.name.message : null}/>
+                    </Grid>   
+                    <Grid item xs={4}>
+                    <Button type="submit">Uložit</Button>
+                    </Grid>
+                  </Grid>
+                  </form> 
+                </Collapse>
 
-              <Grid item xs={4}>
-               <Typography>Příjmení</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               <Typography>{surname}</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               {changeSurname ?
-               <CloseIcon onClick={() => setChangeSurname(!changeSurname)}/>
-               :
-               <SettingsIcon onClick={() => setChangeSurname(!changeSurname)}/>
-               }
-              </Grid>   
+                {/* SURNAME */}
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
 
-            </Grid> 
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changeSurname}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-              <form onSubmit={handleSubmitSurname(onSubmitSurname)}>
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Příjmení</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{surname}</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  {changeSurname ?
+                  <CloseIcon onClick={() => setChangeSurname(!changeSurname)}/>
+                  :
+                  <SettingsIcon onClick={() => {closeAll(); setChangeSurname(!changeSurname)}}/>
+                  }
+                  </Grid>   
 
-                <Grid item xs={4} />
-                
-                <Grid item xs={4}>
-                <TextField 
-                  label="Nové příjmení" 
-                  variant="outlined" 
-                  {...registerSurname("surname", {
-                    required: "Položka je povinná",
-                  })}
-                  error={!!errorsSurname?.surname}
-                  helperText={errorsSurname?.surname ? errorsSurname.surname.message : null}/>
-                </Grid>   
-                <Grid item xs={4}>
-                <Button type="submit">Uložit</Button>
-                </Grid>
-              </Grid>
-              </form> 
-            </Collapse>
+                </Grid> 
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changeSurname}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
+                >
+                  <form onSubmit={handleSubmitSurname(onSubmitSurname)}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
 
-            {/* SEX */}
+                    <Grid item xs={4} />
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      label="Nové příjmení" 
+                      variant="outlined" 
+                      {...registerSurname("surname", {
+                        required: "Položka je povinná",
+                      })}
+                      error={!!errorsSurname?.surname}
+                      helperText={errorsSurname?.surname ? errorsSurname.surname.message : null}/>
+                    </Grid>   
+                    <Grid item xs={4}>
+                    <Button type="submit">Uložit</Button>
+                    </Grid>
+                  </Grid>
+                  </form> 
+                </Collapse>
 
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
-            >
+                {/* SEX */}
 
-              <Grid item xs={4}>
-               <Typography>Pohlaví</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-              <Slider disabled track={false} value={sex} marks={marks}/>
-              </Grid>   
-              <Grid item xs={4}>
-               {changeSex ?
-               <CloseIcon onClick={() => setChangeSex(!changeSex)}/>
-               :
-               <SettingsIcon onClick={() => setChangeSex(!changeSex)}/>
-               }
-              </Grid>   
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
 
-            </Grid> 
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changeSex}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Pohlaví</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  <Slider disabled track={false} value={sex} marks={marks}/>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  {changeSex ?
+                  <CloseIcon onClick={() => setChangeSex(!changeSex)}/>
+                  :
+                  <SettingsIcon onClick={() => {closeAll(); setChangeSex(!changeSex)}}/>
+                  }
+                  </Grid>   
 
-                <Grid item xs={4} />
-                
-                <Grid item xs={4}>
-                <Slider track={false} defaultValue={sex} 
-                // @ts-ignore
-                onChange={(e, data) => setNewSex(data)} marks={marks}/>
-                </Grid>   
-                <Grid item xs={4}>
-                <Button onClick={()=> {setChangeSex(!changeSex); setSex(newSex)}}>Uložit</Button>
-                </Grid>
-              </Grid> 
-            </Collapse>
+                </Grid> 
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changeSex}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
+                >
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
 
-            {/* HEIGHT */}
+                    <Grid item xs={4} />
+                    
+                    <Grid item xs={4}>
+                    <Slider track={false} defaultValue={sex} 
+                    // @ts-ignore
+                    onChange={(e, data) => setNewSex(data)} marks={marks}/>
+                    </Grid>   
+                    <Grid item xs={4}>
+                    <Button onClick={()=> {setChangeSex(!changeSex); setSex(newSex)}}>Uložit</Button>
+                    </Grid>
+                  </Grid> 
+                </Collapse>
 
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
-            >
+                {/* HEIGHT */}
 
-              <Grid item xs={4}>
-               <Typography>Výška</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-              <Typography>{height} cm</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               {changeHeight ?
-               <CloseIcon onClick={() => setChangeHeight(!changeHeight)}/>
-               :
-               <SettingsIcon onClick={() => setChangeHeight(!changeHeight)}/>
-               }
-              </Grid>   
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
 
-            </Grid> 
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changeHeight}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-              <form onSubmit={handleSubmitHeight(onSubmitHeight)}>
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Výška</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{height} cm</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  {changeHeight ?
+                  <CloseIcon onClick={() => setChangeHeight(!changeHeight)}/>
+                  :
+                  <SettingsIcon onClick={() => {closeAll(); setChangeHeight(!changeHeight)}}/>
+                  }
+                  </Grid>   
 
-                <Grid item xs={4} />
-                
-                <Grid item xs={4}>
-                <TextField  
-                  label="Nová výška" 
-                  variant="outlined" 
-                  type="number"
-                  {...registerHeight("height", {
-                      required: "Položka je povinná",
-                      min: {
-                        value: 1,
-                        message: "Minimální hodnota je 1",
-                      },
-                    })}
-                    error={!!errorsHeight?.height}
-                    helperText={errorsHeight?.height ? errorsHeight.height.message : null} />
-                </Grid>   
-                <Grid item xs={4}>
-                <Button type="submit">Uložit</Button>
-                </Grid>
-              </Grid> 
-              </form>
-            </Collapse>
+                </Grid> 
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changeHeight}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
+                >
+                  <form onSubmit={handleSubmitHeight(onSubmitHeight)}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
 
-            {/* WEIGHT */}
+                    <Grid item xs={4} />
+                    
+                    <Grid item xs={4}>
+                    <TextField  
+                      label="Nová výška" 
+                      variant="outlined" 
+                      type="number"
+                      {...registerHeight("height", {
+                          required: "Položka je povinná",
+                          min: {
+                            value: 1,
+                            message: "Minimální hodnota je 1",
+                          },
+                        })}
+                        error={!!errorsHeight?.height}
+                        helperText={errorsHeight?.height ? errorsHeight.height.message : null} />
+                    </Grid>   
+                    <Grid item xs={4}>
+                    <Button type="submit">Uložit</Button>
+                    </Grid>
+                  </Grid> 
+                  </form>
+                </Collapse>
 
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
-            >
+                {/* WEIGHT */}
 
-              <Grid item xs={4}>
-               <Typography>Hmotnost</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-              <Typography>{weight} kg</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               {changeWeight ?
-               <CloseIcon onClick={() => setChangeWeight(!changeWeight)}/>
-               :
-               <SettingsIcon onClick={() => setChangeWeight(!changeWeight)}/>
-               }
-              </Grid>   
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
 
-            </Grid> 
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changeWeight}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-              <form onSubmit={handleSubmitWeight(onSubmitWeight)}>
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Hmotnost</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{weight} kg</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  {changeWeight ?
+                  <CloseIcon onClick={() => setChangeWeight(!changeWeight)}/>
+                  :
+                  <SettingsIcon onClick={() => {closeAll(); setChangeWeight(!changeWeight)}}/>
+                  }
+                  </Grid>   
 
-                <Grid item xs={4} />
-                
-                <Grid item xs={4}>
-                <TextField
-                      label="Nová hmotnost" 
+                </Grid> 
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changeWeight}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
+                >
+                  <form onSubmit={handleSubmitWeight(onSubmitWeight)}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
+
+                    <Grid item xs={4} />
+                    
+                    <Grid item xs={4}>
+                    <TextField
+                          label="Nová hmotnost" 
+                          variant="outlined" 
+                          type= "number"
+                          {...registerWeight("weight", {
+                          required: "Položka je povinná", 
+                          min: {
+                            value: 1,
+                            message: "Minimální hodnota je 1",
+                          },
+                        })}
+                        error={!!errorsWeight?.weight}
+                        helperText={errorsWeight?.weight ? errorsWeight.weight.message : null} />
+                    </Grid>   
+                    <Grid item xs={4}>
+                    <Button type="submit">Uložit</Button>
+                    </Grid>
+                  </Grid> 
+                  </form>
+                </Collapse>
+
+                {/* BIRTHDATE */}
+
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
+
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Datum narození</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{birthDate?.toLocaleDateString() }</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  {changeBirthDate ?
+                  <CloseIcon onClick={() => setChangeBirthDate(!changeBirthDate)}/>
+                  :
+                  <SettingsIcon onClick={() => {closeAll(); setChangeBirthDate(!changeBirthDate)}}/>
+                  }
+                  </Grid>   
+
+                </Grid> 
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changeBirthDate}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
+                >
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
+
+                    <Grid item xs={4} />
+                    
+                    <Grid item xs={4}>
+                    {isDesktop ? (
+                        <DesktopDatePicker
+                          label="Datum narození"
+                          value={newBirthDate}
+                          minDate={new Date("1900-01-01")}
+                          onChange={(newValue) => {
+                            setNewBirthDate(newValue);
+                          }}
+                          renderInput={(params: any) => (
+                            <TextField {...params} fullWidth />
+                          )}
+                        />
+                      ) : (
+                        <MobileDatePicker
+                          label="Datum narození"
+                          value={newBirthDate}
+                          minDate={new Date("1900-01-01")}
+                          onChange={(newValue) => {
+                            setNewBirthDate(newValue);
+                          }}
+                          renderInput={(params: any) => (
+                            <TextField {...params} fullWidth />
+                          )}
+                        />
+                      )}
+                    </Grid>   
+                    <Grid item xs={4}>
+                      {newBirthDate?.toString() == "Invalid Date" || newBirthDate == null || newBirthDate < new Date("1900-01-01")
+                      ?
+                      <Button disabled>Uložit</Button> 
+                      : 
+                      <Button /*type="submit"*/ onClick={() => {setBirthDate(newBirthDate); setChangeBirthDate(!changeBirthDate)}}>Uložit</Button>}
+                    </Grid>
+                  </Grid>
+                </Collapse>
+
+                {/* DESIRED WEIGHT */}
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
+
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Cílová hmotnost</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{desiredWeight} kg</Typography>
+                  </Grid>   
+                  <Grid item xs={4}>
+                  {changeDesiredWeight ?
+                  <CloseIcon onClick={() => setChangeDesiredWeight(!changeDesiredWeight)}/>
+                  :
+                  <SettingsIcon onClick={() => {closeAll(); setChangeDesiredWeight(!changeDesiredWeight)}}/>
+                  }
+                  </Grid>   
+
+                </Grid> 
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changeDesiredWeight}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
+                >
+                  <form onSubmit={handleSubmitDesiredWeight(onSubmitDesiredWeight)}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
+
+                    <Grid item xs={4} />
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      label="Nová cílová hmotnost" 
                       variant="outlined" 
                       type= "number"
-                      {...registerWeight("weight", {
-                      required: "Položka je povinná", 
-                      min: {
-                        value: 1,
-                        message: "Minimální hodnota je 1",
-                      },
-                    })}
-                    error={!!errorsWeight?.weight}
-                    helperText={errorsWeight?.weight ? errorsWeight.weight.message : null} />
-                </Grid>   
-                <Grid item xs={4}>
-                <Button type="submit">Uložit</Button>
-                </Grid>
-              </Grid> 
-              </form>
-            </Collapse>
+                      {...registerDesiredWeight("desiredWeight", {
+                        required: "Položka je povinná",
+                        min: {
+                          value: 1,
+                          message: "Minimální hodnota je 1",
+                        },
+                      })}
+                      error={!!errorsDesiredWeight?.desiredWeight}
+                      helperText={errorsDesiredWeight?.desiredWeight ? errorsDesiredWeight.desiredWeight.message : null} />
+                    </Grid>   
+                    <Grid item xs={4}>
+                    <Button type="submit">Uložit</Button>
+                    </Grid>
+                  </Grid> 
+                  </form>
+                </Collapse>
 
-            {/* BIRTHDATE */}
-
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
-            >
-
-              <Grid item xs={4}>
-               <Typography>Datum narození</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-              <Typography>{birthDate?.toLocaleDateString() }</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               {changeBirthDate ?
-               <CloseIcon onClick={() => setChangeBirthDate(!changeBirthDate)}/>
-               :
-               <SettingsIcon onClick={() => setChangeBirthDate(!changeBirthDate)}/>
-               }
-              </Grid>   
-
-            </Grid> 
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changeBirthDate}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
-
-                <Grid item xs={4} />
-                
-                <Grid item xs={4}>
-                {isDesktop ? (
-                    <DesktopDatePicker
-                      label="Datum narození"
-                      value={newBirthDate}
-                      minDate={new Date("1900-01-01")}
-                      onChange={(newValue) => {
-                        setNewBirthDate(newValue);
+                {/* CUSTOM NUTRIENTS*/}
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  //alignItems="center"
+                  justifyContent="center"
+                >
+                  <Grid item >
+                  <Button
+                      variant="contained"
+                      disableRipple
+                      sx={{
+                        backgroundColor: "orange",
+                        fontWeight: "bold",
+                        transition: "transform 0.2s",
+                        ":hover": {
+                          transform: "scale(1.1)",
+                          backgroundColor: "#f29830",
+                        },
                       }}
-                      renderInput={(params: any) => (
-                        <TextField {...params} fullWidth />
-                      )}
-                    />
-                  ) : (
-                    <MobileDatePicker
-                      label="Datum narození"
-                      value={newBirthDate}
-                      minDate={new Date("1900-01-01")}
-                      onChange={(newValue) => {
-                        setNewBirthDate(newValue);
-                      }}
-                      renderInput={(params: any) => (
-                        <TextField {...params} fullWidth />
-                      )}
-                    />
-                  )}
-                </Grid>   
-                <Grid item xs={4}>
-                  {newBirthDate?.toString() == "Invalid Date" || newBirthDate == null || newBirthDate < new Date("1900-01-01")
-                  ?
-                  <Button disabled>Uložit</Button> 
-                  : 
-                  <Button /*type="submit"*/ onClick={() => {setBirthDate(newBirthDate); setChangeBirthDate(!changeBirthDate)}}>Uložit</Button>}
+                      onClick={() => {closeAll(); setCustomNutrients(!customNutrients)}}
+                    >
+                      {customNutrients
+                        ? "Skrýt nutrienty"
+                        : "Upravit nutrienty"}
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Collapse>
 
-            {/* DESIRED WEIGHT */}
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
-            >
+                <Collapse
+                        sx={{ width: "100%" }}
+                        in={customNutrients}
+                        {...{ timeout: 500 }}
+                        collapsedSize="0px"
+                      >
+                <form onSubmit={handleSubmitNutrients(onSubmitNutrients)}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
 
-              <Grid item xs={4}>
-               <Typography>Cílová hmotnost</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-              <Typography>{desiredWeight} kg</Typography>
-              </Grid>   
-              <Grid item xs={4}>
-               {changeDesiredWeight ?
-               <CloseIcon onClick={() => setChangeDesiredWeight(!changeDesiredWeight)}/>
-               :
-               <SettingsIcon onClick={() => setChangeDesiredWeight(!changeDesiredWeight)}/>
-               }
-              </Grid>   
+                    <Grid item xs={4}>
+                      <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Bílkoviny</Typography>
+                    </Grid>
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      defaultValue={nutrients.proteins} 
+                      label="" 
+                      variant="outlined" 
+                      type="number"
+                      {...registerNutrients("proteins", {
+                        required: "Položka je povinná",
+                        min: {
+                          value: 1,
+                          message: "Minimální hodnota je 1",
+                        },
+                      })}
+                      error={!!errorsNutrients?.proteins}
+                      helperText={errorsNutrients?.proteins ? errorsNutrients.proteins.message : null} />
+                    </Grid>
+                    <Grid item>
+                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
+                    </Grid>
+                  </Grid> 
 
-            </Grid> 
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changeDesiredWeight}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-              <form onSubmit={handleSubmitDesiredWeight(onSubmitDesiredWeight)}>
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
 
-                <Grid item xs={4} />
-                
-                <Grid item xs={4}>
-                <TextField 
-                  label="Nová cílová hmotnost" 
-                  variant="outlined" 
-                  type= "number"
-                  {...registerDesiredWeight("desiredWeight", {
-                    required: "Položka je povinná",
-                    min: {
-                      value: 1,
-                      message: "Minimální hodnota je 1",
-                    },
-                  })}
-                  error={!!errorsDesiredWeight?.desiredWeight}
-                  helperText={errorsDesiredWeight?.desiredWeight ? errorsDesiredWeight.desiredWeight.message : null} />
-                </Grid>   
-                <Grid item xs={4}>
-                <Button type="submit">Uložit</Button>
-                </Grid>
-              </Grid> 
-              </form>
-            </Collapse>
+                    <Grid item xs={4}>
+                      <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Sacharidy</Typography>
+                    </Grid>
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      defaultValue={nutrients.carbohydrates} 
+                      label="" 
+                      variant="outlined"  
+                      type="number"
+                      {...registerNutrients("carbohydrates", {
+                        required: "Položka je povinná",
+                        min: {
+                          value: 1,
+                          message: "Minimální hodnota je 1",
+                        },
+                      })}
+                      error={!!errorsNutrients?.carbohydrates}
+                      helperText={errorsNutrients?.carbohydrates ? errorsNutrients.carbohydrates.message : null} />
+                    </Grid>
+                    <Grid item>
+                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
+                    </Grid>
+                  </Grid> 
 
-            {/* CUSTOM NUTRIENTS*/}
-            <Grid
-              container
-              spacing={0}
-              direction="row"
-              //alignItems="center"
-              justifyContent="center"
-            >
-              <Grid item >
-              <Button
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
+
+                    <Grid item xs={4}>
+                      <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Tuky</Typography>
+                    </Grid>
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      defaultValue={nutrients.fats}
+                      label=""
+                      variant="outlined" 
+                      type="number"
+                      {...registerNutrients("fats", {
+                        required: "Položka je povinná",
+                        min: {
+                          value: 1,
+                          message: "Minimální hodnota je 1",
+                        },
+                      })}
+                      error={!!errorsNutrients?.fats}
+                      helperText={errorsNutrients?.fats ? errorsNutrients.fats.message : null} />
+                    </Grid>
+                    <Grid item>
+                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
+                    </Grid>
+                  </Grid> 
+
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
+
+                    <Grid item xs={4}>
+                      <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Vláknina</Typography>
+                    </Grid>
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      defaultValue={nutrients.fiber}
+                      label="" 
+                      variant="outlined" 
+                      type="number"
+                      {...registerNutrients("fiber", {
+                        required: "Položka je povinná",
+                        min: {
+                          value: 1,
+                          message: "Minimální hodnota je 1",
+                        },
+                      })}
+                      error={!!errorsNutrients?.fiber}
+                      helperText={errorsNutrients?.fiber ? errorsNutrients.fiber.message : null} />
+                    </Grid>
+                    <Grid item>
+                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
+                    </Grid>
+                  </Grid> 
+
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
+
+                    <Grid item xs={4}>
+                      <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Sůl</Typography>
+                    </Grid>
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      defaultValue={nutrients.salt} 
+                      label="" 
+                      variant="outlined" 
+                      type="number"
+                      {...registerNutrients("salt", {
+                        required: "Položka je povinná",
+                        min: {
+                          value: 1,
+                          message: "Minimální hodnota je 1",
+                        },
+                      })}
+                      error={!!errorsNutrients?.salt}
+                      helperText={errorsNutrients?.salt ? errorsNutrients.salt.message : null} />
+                    </Grid>
+                    <Grid item>
+                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
+                    </Grid>
+                  </Grid> 
+                  <Button type="submit">Uložit</Button>
+                </form>
+                </Collapse>
+
+              {/* CHANGE PASSWORD */}
+                <Button
                   variant="contained"
                   disableRipple
                   sx={{
@@ -927,302 +1153,109 @@ import {
                       backgroundColor: "#f29830",
                     },
                   }}
-                  onClick={() => setCustomNutrients(!customNutrients)}
+                  onClick={() => {closeAll(); setChangePasswords(!changePasswords)}}
+                >{changePasswords ? "Zrušit" : "Změnit heslo"}</Button>
+
+                <Collapse
+                  sx={{ width: "100%" }}
+                  in={changePasswords}
+                  {...{ timeout: 500 }}
+                  collapsedSize="0px"
                 >
-                  {customNutrients
-                    ? "Skrýt nutrienty"
-                    : "Upravit nutrienty"}
-                </Button>
+                <form onSubmit={handleSubmitPasswords(onSubmitPasswords)}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    //alignItems="center"
+                    justifyContent="center"
+                  >
+                    <Grid item xs={12} sm={12}>
+                      <TextField
+                        label="Aktuální heslo"
+                        fullWidth={true}
+                        margin="normal"
+                        variant="standard"
+                        type="password"
+                        /*InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Lock />
+                            </InputAdornment>
+                          ),
+                        }}*/
+                        {...registerPasswords("oldPassword", {
+                          required: "Položka je povinná",
+                        })}
+                        error={!!errorsPasswords?.oldPassword}
+                        helperText={
+                          errorsPasswords?.oldPassword ? errorsPasswords.oldPassword.message : null
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                      <TextField
+                        label="Nové heslo"
+                        fullWidth={true}
+                        margin="normal"
+                        variant="standard"
+                        type="password"
+                        /*InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Lock />
+                            </InputAdornment>
+                          ),
+                        }}*/
+                        {...registerPasswords("password", {
+                          required: "Položka je povinná",
+                        })}
+                        error={!!errorsPasswords?.password}
+                        helperText={
+                          errorsPasswords?.password ? errorsPasswords.password.message : null
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                      <TextField
+                        label="Nové heslo znovu"
+                        fullWidth={true}
+                        margin="normal"
+                        variant="standard"
+                        type="password"
+                        /*InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Lock />
+                            </InputAdornment>
+                          ),
+                        }}*/
+                        {...registerPasswords("passwordAgain", {
+                          required: "Položka je povinná",
+                          validate: (value) =>
+                            value === getValues("password")
+                              ? true
+                              : "Hesla se neshodují",
+                        })}
+                        error={!!errorsPasswords?.passwordAgain}
+                        helperText={
+                          errorsPasswords?.passwordAgain
+                            ? errorsPasswords.passwordAgain.message
+                            : null
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                      <Button type="submit">Uložit</Button>
+                    </Grid>
+                  </Grid>
+                  </form>        
+                </Collapse>
+              </Grid>
+              <Grid item xs={6}>
+                <img src="https://www.budgetbytes.com/wp-content/uploads/2013/07/How-to-Calculate-Recipe-Costs-H.jpg" alt="" />
               </Grid>
             </Grid>
-
-            <Collapse
-                    sx={{ width: "100%" }}
-                    in={customNutrients}
-                    {...{ timeout: 500 }}
-                    collapsedSize="0px"
-                  >
-            <form onSubmit={handleSubmitNutrients(onSubmitNutrients)}>
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
-
-                <Grid item xs={4}>
-                  <Typography>Bílkoviny</Typography>
-                </Grid>
-                
-                <Grid item xs={4}>
-                <TextField 
-                  defaultValue={nutrients.proteins} 
-                  label="" 
-                  variant="outlined" 
-                  type="number"
-                  {...registerNutrients("proteins", {
-                    required: "Položka je povinná",
-                    min: {
-                      value: 1,
-                      message: "Minimální hodnota je 1",
-                    },
-                  })}
-                  error={!!errorsNutrients?.proteins}
-                  helperText={errorsNutrients?.proteins ? errorsNutrients.proteins.message : null} />
-                </Grid>
-                <Grid item>
-                <Typography>g</Typography>
-                </Grid>
-              </Grid> 
-
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
-
-                <Grid item xs={4}>
-                  <Typography>Sacharidy</Typography>
-                </Grid>
-                
-                <Grid item xs={4}>
-                <TextField 
-                  defaultValue={nutrients.carbohydrates} 
-                  label="" 
-                  variant="outlined"  
-                  type="number"
-                  {...registerNutrients("carbohydrates", {
-                    required: "Položka je povinná",
-                    min: {
-                      value: 1,
-                      message: "Minimální hodnota je 1",
-                    },
-                  })}
-                  error={!!errorsNutrients?.carbohydrates}
-                  helperText={errorsNutrients?.carbohydrates ? errorsNutrients.carbohydrates.message : null} />
-                </Grid>
-                <Grid item>
-                <Typography>g</Typography>
-                </Grid>
-              </Grid> 
-
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
-
-                <Grid item xs={4}>
-                  <Typography>Tuky</Typography>
-                </Grid>
-                
-                <Grid item xs={4}>
-                <TextField 
-                  defaultValue={nutrients.fats}
-                  label=""
-                  variant="outlined" 
-                  type="number"
-                  {...registerNutrients("fats", {
-                    required: "Položka je povinná",
-                    min: {
-                      value: 1,
-                      message: "Minimální hodnota je 1",
-                    },
-                  })}
-                  error={!!errorsNutrients?.fats}
-                  helperText={errorsNutrients?.fats ? errorsNutrients.fats.message : null} />
-                </Grid>
-                <Grid item>
-                <Typography>g</Typography>
-                </Grid>
-              </Grid> 
-
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
-
-                <Grid item xs={4}>
-                  <Typography>Vláknina</Typography>
-                </Grid>
-                
-                <Grid item xs={4}>
-                <TextField 
-                  defaultValue={nutrients.fiber}
-                  label="" 
-                  variant="outlined" 
-                  type="number"
-                  {...registerNutrients("fiber", {
-                    required: "Položka je povinná",
-                    min: {
-                      value: 1,
-                      message: "Minimální hodnota je 1",
-                    },
-                  })}
-                  error={!!errorsNutrients?.fiber}
-                  helperText={errorsNutrients?.fiber ? errorsNutrients.fiber.message : null} />
-                </Grid>
-                <Grid item>
-                <Typography>g</Typography>
-                </Grid>
-              </Grid> 
-
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
-
-                <Grid item xs={4}>
-                  <Typography>Sůl</Typography>
-                </Grid>
-                
-                <Grid item xs={4}>
-                <TextField 
-                  defaultValue={nutrients.salt} 
-                  label="" 
-                  variant="outlined" 
-                  type="number"
-                  {...registerNutrients("salt", {
-                    required: "Položka je povinná",
-                    min: {
-                      value: 1,
-                      message: "Minimální hodnota je 1",
-                    },
-                  })}
-                  error={!!errorsNutrients?.salt}
-                  helperText={errorsNutrients?.salt ? errorsNutrients.salt.message : null} />
-                </Grid>
-                <Grid item>
-                <Typography>g</Typography>
-                </Grid>
-              </Grid> 
-              <Button type="submit">Uložit</Button>
-            </form>
-            </Collapse>
-
-          {/* CHANGE PASSWORD */}
-            <Button
-              variant="contained"
-              disableRipple
-              sx={{
-                backgroundColor: "orange",
-                fontWeight: "bold",
-                transition: "transform 0.2s",
-                ":hover": {
-                  transform: "scale(1.1)",
-                  backgroundColor: "#f29830",
-                },
-              }}
-              onClick={() => setChangePasswords(!changePasswords)}
-            >{changePasswords ? "Zrušit" : "Změnit heslo"}</Button>
-
-            <Collapse
-              sx={{ width: "100%" }}
-              in={changePasswords}
-              {...{ timeout: 500 }}
-              collapsedSize="0px"
-            >
-            <form onSubmit={handleSubmitPasswords(onSubmitPasswords)}>
-              <Grid
-                container
-                spacing={0}
-                direction="row"
-                //alignItems="center"
-                justifyContent="center"
-              >
-                <Grid item xs={12} sm={12}>
-                  <TextField
-                    label="Aktuální heslo"
-                    fullWidth={true}
-                    margin="normal"
-                    variant="standard"
-                    type="password"
-                    /*InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Lock />
-                        </InputAdornment>
-                      ),
-                    }}*/
-                    {...registerPasswords("oldPassword", {
-                      required: "Položka je povinná",
-                    })}
-                    error={!!errorsPasswords?.oldPassword}
-                    helperText={
-                      errorsPasswords?.oldPassword ? errorsPasswords.oldPassword.message : null
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <TextField
-                    label="Nové heslo"
-                    fullWidth={true}
-                    margin="normal"
-                    variant="standard"
-                    type="password"
-                    /*InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Lock />
-                        </InputAdornment>
-                      ),
-                    }}*/
-                    {...registerPasswords("password", {
-                      required: "Položka je povinná",
-                    })}
-                    error={!!errorsPasswords?.password}
-                    helperText={
-                      errorsPasswords?.password ? errorsPasswords.password.message : null
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <TextField
-                    label="Nové heslo znovu"
-                    fullWidth={true}
-                    margin="normal"
-                    variant="standard"
-                    type="password"
-                    /*InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Lock />
-                        </InputAdornment>
-                      ),
-                    }}*/
-                    {...registerPasswords("passwordAgain", {
-                      required: "Položka je povinná",
-                      validate: (value) =>
-                        value === getValues("password")
-                          ? true
-                          : "Hesla se neshodují",
-                    })}
-                    error={!!errorsPasswords?.passwordAgain}
-                    helperText={
-                      errorsPasswords?.passwordAgain
-                        ? errorsPasswords.passwordAgain.message
-                        : null
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <Button type="submit">Uložit</Button>
-                </Grid>
-              </Grid>
-              </form>        
-            </Collapse>
-
         </Container>
       </Root>
     );
