@@ -383,14 +383,15 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 1 }}
                   justifyContent="center"
                 >
 
                   <Grid item xs={4}>
                   <Typography 
-                    justifyContent={"left"}
-                    sx={{ flexGrow: "1", fontFamily: "Nunito" }}
+                    sx={{ 
+                      fontFamily: "Nunito",
+                    }}
                   >E-mail</Typography>
                   </Grid>   
                   <Grid item xs={4}>
@@ -416,7 +417,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -449,7 +450,7 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 1 }}
                   justifyContent="center"
                 >
 
@@ -479,7 +480,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -507,7 +508,7 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 1 }}
                   justifyContent="center"
                 >
 
@@ -537,7 +538,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -565,7 +566,7 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 1 }}
                   justifyContent="center"
                 >
 
@@ -595,7 +596,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -624,7 +625,7 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 1 }}
                   justifyContent="center"
                 >
 
@@ -653,7 +654,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -676,7 +677,7 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 1 }}
                   justifyContent="center"
                 >
 
@@ -706,7 +707,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -740,7 +741,7 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 1 }}
                   justifyContent="center"
                 >
 
@@ -770,7 +771,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -804,7 +805,7 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 1 }}
                   justifyContent="center"
                 >
 
@@ -833,7 +834,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -881,7 +882,7 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 1 }}
                   justifyContent="center"
                 >
 
@@ -911,7 +912,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -944,7 +945,7 @@ import {
                   container
                   spacing={0}
                   direction="row"
-                  //alignItems="center"
+                  sx={{ margin: 0 }}
                   justifyContent="center"
                 >
                   <Grid item >
@@ -956,6 +957,7 @@ import {
                         backgroundColor: "orange",
                         fontWeight: "bold",
                         margin: 1,
+                        width: 250,
                         transition: "transform 0.2s",
                         ":hover": {
                           transform: "scale(1.1)",
@@ -982,7 +984,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -1015,7 +1017,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -1048,7 +1050,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -1081,7 +1083,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -1114,7 +1116,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
 
@@ -1154,6 +1156,7 @@ import {
                     backgroundColor: "orange",
                     fontWeight: "bold",
                     margin: 1,
+                    width: 250,
                     transition: "transform 0.2s",
                     ":hover": {
                       transform: "scale(1.1)",
@@ -1174,7 +1177,7 @@ import {
                     container
                     spacing={0}
                     direction="row"
-                    //alignItems="center"
+                    sx={{ margin: 1 }}
                     justifyContent="center"
                   >
                     <Grid item xs={12} sm={12}>
