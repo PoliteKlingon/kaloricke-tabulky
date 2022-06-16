@@ -5,32 +5,22 @@ import {
     Button,
     Collapse,
     Grid,
-    IconButton,
-    InputAdornment,
     Slider,
     Stack,
-    Switch,
     Toolbar,
     Typography,
   } from "@mui/material";
   import TextField from '@mui/material/TextField';
   import { styled } from "@mui/system";
-  import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
   import { useContext, useEffect, useState } from "react";
   import { Link } from "react-router-dom";
   import useScrollTrigger from "@mui/material/useScrollTrigger";
   import Slide from "@mui/material/Slide";
   import AuthContext from "../../context/AuthProvider";
-  import Accordion from '@mui/material/Accordion';
-  import AccordionDetails from '@mui/material/AccordionDetails';
-  import AccordionSummary from '@mui/material/AccordionSummary';
   import SettingsIcon from '@mui/icons-material/Settings';
   import CloseIcon from '@mui/icons-material/Close';
   import { useForm, SubmitHandler } from "react-hook-form";
-  import internal from 'stream';
   import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
-  import { setDate } from 'date-fns';
-  import { date } from 'yup';
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
