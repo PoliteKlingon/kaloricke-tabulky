@@ -21,6 +21,7 @@ import {
   import CloseIcon from '@mui/icons-material/Close';
   import { useForm, SubmitHandler } from "react-hook-form";
   import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
+  import './UserDetails.css'
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -365,7 +366,7 @@ import {
           <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}
             variant="h3"
             component="h2"
-            textAlign={"left"}
+            textAlign={isDesktop ? "left" : "center"}
             paddingY={5}
             paddingX={15}
             >
@@ -373,10 +374,10 @@ import {
           </Typography>
 
           <Grid container
-            justifyItems={"space-between"}
+            justifyItems={"space-around"}
             direction={"row"}
           >
-            <Grid item xs={6}>
+            <Grid item xs={isDesktop ? 6 : 12 }>
               {/* EMAIL */}
                 <Grid
                   container
@@ -387,7 +388,10 @@ import {
                 >
 
                   <Grid item xs={4}>
-                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>E-mail</Typography>
+                  <Typography 
+                    justifyContent={"left"}
+                    sx={{ flexGrow: "1", fontFamily: "Nunito" }}
+                  >E-mail</Typography>
                   </Grid>   
                   <Grid item xs={4}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{email}</Typography>
@@ -947,9 +951,11 @@ import {
                   <Button
                       variant="contained"
                       disableRipple
+                      
                       sx={{
                         backgroundColor: "orange",
                         fontWeight: "bold",
+                        margin: 1,
                         transition: "transform 0.2s",
                         ":hover": {
                           transform: "scale(1.1)",
@@ -1147,6 +1153,7 @@ import {
                   sx={{
                     backgroundColor: "orange",
                     fontWeight: "bold",
+                    margin: 1,
                     transition: "transform 0.2s",
                     ":hover": {
                       transform: "scale(1.1)",
@@ -1252,9 +1259,11 @@ import {
                   </form>        
                 </Collapse>
               </Grid>
+              {isDesktop &&
               <Grid item xs={6}>
                 <img src="https://www.budgetbytes.com/wp-content/uploads/2013/07/How-to-Calculate-Recipe-Costs-H.jpg" alt="" />
               </Grid>
+              }         
             </Grid>
         </Container>
       </Root>
