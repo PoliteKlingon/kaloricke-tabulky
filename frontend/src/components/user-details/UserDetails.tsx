@@ -31,7 +31,7 @@ import {
     fontSize: 30,
     fontFamily: "Nunito",
     fontWeight: "bold",
-    transition: "transform 0.5s",
+    transition: "transform 0.2s",
     ":hover": {
       backgroundColor: "transparent",
       transform: "scale(1.3)",
@@ -203,42 +203,42 @@ import {
 
 
 
-    const [changeEmail, setChangeEmail] = useState<Boolean>(false);
+    const [changeEmail, setChangeEmail] = useState<boolean>(false);
     const [email, setEmail] = useState<String>("tvojemamka@gmail.com");
 
-    const [changeNick, setChangeNick] = useState<Boolean>(false);
+    const [changeNick, setChangeNick] = useState<boolean>(false);
     const [nick, setNick] = useState<String>("debílek");
 
-    const [changeName, setChangeName] = useState<Boolean>(false);
+    const [changeName, setChangeName] = useState<boolean>(false);
     const [name, setName] = useState<String>("Pepa");
 
-    const [changeSurname, setChangeSurname] = useState<Boolean>(false);
+    const [changeSurname, setChangeSurname] = useState<boolean>(false);
     const [surname, setSurname] = useState<String>("Novák");
     
-    const [changeSex, setChangeSex] = useState<Boolean>(false);
+    const [changeSex, setChangeSex] = useState<boolean>(false);
     const [sex, setSex] = useState<number>(50);
     const [newSex, setNewSex] = useState<number>(50);
     
-    const [changeHeight, setChangeHeight] = useState<Boolean>(false);
+    const [changeHeight, setChangeHeight] = useState<boolean>(false);
     const [height, setHeight] = useState<number>(180);
 
-    const [changeWeight, setChangeWeight] = useState<Boolean>(false);
+    const [changeWeight, setChangeWeight] = useState<boolean>(false);
     const [weight, setWeight] = useState<number>(75);
 
-    const [changeBirthDate, setChangeBirthDate] = useState<Boolean>(false);
+    const [changeBirthDate, setChangeBirthDate] = useState<boolean>(false);
     const [birthDate, setBirthDate] = useState<Date | null>(new Date());
     const [newBirthDate, setNewBirthDate] = useState<Date | null>(new Date());
 
-    const [changeDesiredWeight, setChangeDesiredWeight] = useState<Boolean>(false);
+    const [changeDesiredWeight, setChangeDesiredWeight] = useState<boolean>(false);
     const [desiredWeight, setDesiredWeight] = useState<number>(75);
 
-    const [customNutrients, setCustomNutrients] = useState<Boolean>(false);
+    const [customNutrients, setCustomNutrients] = useState<boolean>(false);
     const [nutrients, setNutrients] = useState<Nutrients>({proteins: 30, carbohydrates: 30, fats: 30, fiber: 30, salt: 30});
 
-    const [changePasswords, setChangePasswords] = useState<Boolean>(false);
+    const [changePasswords, setChangePasswords] = useState<boolean>(false);
     const [Passwords, setPasswords] = useState<Passwords>({oldPassword: "", password: "", passwordAgain: ""});
     
-    const [authState, setAuthState] = useState<Boolean>();
+    const [authState, setAuthState] = useState<boolean>();
     const [isDesktop, setDesktop] = useState(window.innerWidth > 800);
       // @ts-ignore
     const { auth, setAuth } = useContext(AuthContext);
@@ -372,7 +372,12 @@ import {
               </Grid>   
 
             </Grid> 
-            {changeEmail &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changeEmail}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
               <form onSubmit={handleSubmitEmail(onSubmitEmail)}>
               <Grid
                 container
@@ -385,7 +390,9 @@ import {
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nový e-mail" variant="outlined" 
+                <TextField  
+                  label="Nový e-mail" 
+                  variant="outlined" 
                   {...registerEmail("email", 
                     {
                       required: "Položka je povinná",
@@ -402,7 +409,7 @@ import {
                 </Grid>
               </Grid>
               </form> 
-            }   
+            </Collapse>
 
             {/* NICK */}
             <Grid
@@ -428,7 +435,12 @@ import {
               </Grid>   
 
             </Grid> 
-            {changeNick &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changeNick}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
               <form onSubmit={handleSubmitNick(onSubmitNick)}>
               <Grid
                 container
@@ -441,7 +453,9 @@ import {
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nová přezdívka" variant="outlined" 
+                <TextField 
+                  label="Nová přezdívka" 
+                  variant="outlined" 
                   {...registerNick("nick", {
                     required: "Položka je povinná",
                   })}
@@ -453,7 +467,7 @@ import {
                 </Grid>
               </Grid>
               </form> 
-            } 
+            </Collapse>
 
             {/* NAME */}
             <Grid
@@ -479,7 +493,12 @@ import {
               </Grid>   
 
             </Grid> 
-            {changeName &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changeName}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
               <form onSubmit={handleSubmitName(onSubmitName)}>
               <Grid
                 container
@@ -492,7 +511,9 @@ import {
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nové jméno" variant="outlined" 
+                <TextField 
+                  label="Nové jméno" 
+                  variant="outlined" 
                   {...registerName("name", {
                     required: "Položka je povinná",
                   })}
@@ -504,7 +525,7 @@ import {
                 </Grid>
               </Grid>
               </form> 
-            } 
+            </Collapse>
 
             {/* SURNAME */}
             <Grid
@@ -530,7 +551,12 @@ import {
               </Grid>   
 
             </Grid> 
-            {changeSurname &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changeSurname}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
               <form onSubmit={handleSubmitSurname(onSubmitSurname)}>
               <Grid
                 container
@@ -544,7 +570,6 @@ import {
                 
                 <Grid item xs={4}>
                 <TextField 
-                  id="outlined-basic" 
                   label="Nové příjmení" 
                   variant="outlined" 
                   {...registerSurname("surname", {
@@ -558,7 +583,7 @@ import {
                 </Grid>
               </Grid>
               </form> 
-            }   
+            </Collapse>
 
             {/* SEX */}
 
@@ -574,7 +599,7 @@ import {
                <Typography>Pohlaví</Typography>
               </Grid>   
               <Grid item xs={4}>
-              <Slider disabled value={sex} marks={marks}/>
+              <Slider disabled track={false} value={sex} marks={marks}/>
               </Grid>   
               <Grid item xs={4}>
                {changeSex ?
@@ -585,7 +610,12 @@ import {
               </Grid>   
 
             </Grid> 
-            {changeSex &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changeSex}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
               <Grid
                 container
                 spacing={0}
@@ -597,7 +627,7 @@ import {
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <Slider defaultValue={sex} 
+                <Slider track={false} defaultValue={sex} 
                 // @ts-ignore
                 onChange={(e, data) => setNewSex(data)} marks={marks}/>
                 </Grid>   
@@ -605,7 +635,7 @@ import {
                 <Button onClick={()=> {setChangeSex(!changeSex); setSex(newSex)}}>Uložit</Button>
                 </Grid>
               </Grid> 
-            }
+            </Collapse>
 
             {/* HEIGHT */}
 
@@ -621,7 +651,7 @@ import {
                <Typography>Výška</Typography>
               </Grid>   
               <Grid item xs={4}>
-              <Typography>{height}</Typography>
+              <Typography>{height} cm</Typography>
               </Grid>   
               <Grid item xs={4}>
                {changeHeight ?
@@ -632,7 +662,12 @@ import {
               </Grid>   
 
             </Grid> 
-            {changeHeight &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changeHeight}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
               <form onSubmit={handleSubmitHeight(onSubmitHeight)}>
               <Grid
                 container
@@ -645,8 +680,7 @@ import {
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField 
-                  id="outlined-basic" 
+                <TextField  
                   label="Nová výška" 
                   variant="outlined" 
                   type="number"
@@ -665,7 +699,7 @@ import {
                 </Grid>
               </Grid> 
               </form>
-            }
+            </Collapse>
 
             {/* WEIGHT */}
 
@@ -681,7 +715,7 @@ import {
                <Typography>Hmotnost</Typography>
               </Grid>   
               <Grid item xs={4}>
-              <Typography>{weight}</Typography>
+              <Typography>{weight} kg</Typography>
               </Grid>   
               <Grid item xs={4}>
                {changeWeight ?
@@ -692,7 +726,12 @@ import {
               </Grid>   
 
             </Grid> 
-            {changeWeight &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changeWeight}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
               <form onSubmit={handleSubmitWeight(onSubmitWeight)}>
               <Grid
                 container
@@ -705,8 +744,7 @@ import {
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField  
-                      id="outlined-basic" 
+                <TextField
                       label="Nová hmotnost" 
                       variant="outlined" 
                       type= "number"
@@ -725,7 +763,7 @@ import {
                 </Grid>
               </Grid> 
               </form>
-            }
+            </Collapse>
 
             {/* BIRTHDATE */}
 
@@ -752,7 +790,12 @@ import {
               </Grid>   
 
             </Grid> 
-            {changeBirthDate &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changeBirthDate}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
               <Grid
                 container
                 spacing={0}
@@ -798,7 +841,7 @@ import {
                   <Button /*type="submit"*/ onClick={() => {setBirthDate(newBirthDate); setChangeBirthDate(!changeBirthDate)}}>Uložit</Button>}
                 </Grid>
               </Grid>
-            }
+            </Collapse>
 
             {/* DESIRED WEIGHT */}
             <Grid
@@ -813,7 +856,7 @@ import {
                <Typography>Cílová hmotnost</Typography>
               </Grid>   
               <Grid item xs={4}>
-              <Typography>{desiredWeight}</Typography>
+              <Typography>{desiredWeight} kg</Typography>
               </Grid>   
               <Grid item xs={4}>
                {changeDesiredWeight ?
@@ -824,7 +867,12 @@ import {
               </Grid>   
 
             </Grid> 
-            {changeDesiredWeight &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changeDesiredWeight}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
               <form onSubmit={handleSubmitDesiredWeight(onSubmitDesiredWeight)}>
               <Grid
                 container
@@ -838,7 +886,6 @@ import {
                 
                 <Grid item xs={4}>
                 <TextField 
-                  id="outlined-basic" 
                   label="Nová cílová hmotnost" 
                   variant="outlined" 
                   type= "number"
@@ -857,7 +904,7 @@ import {
                 </Grid>
               </Grid> 
               </form>
-            }
+            </Collapse>
 
             {/* CUSTOM NUTRIENTS*/}
             <Grid
@@ -874,7 +921,7 @@ import {
                   sx={{
                     backgroundColor: "orange",
                     fontWeight: "bold",
-                    transition: "transform 0.5s",
+                    transition: "transform 0.2s",
                     ":hover": {
                       transform: "scale(1.1)",
                       backgroundColor: "#f29830",
@@ -889,8 +936,12 @@ import {
               </Grid>
             </Grid>
 
-            {customNutrients && 
-              /* BILKOVINY */ 
+            <Collapse
+                    sx={{ width: "100%" }}
+                    in={customNutrients}
+                    {...{ timeout: 500 }}
+                    collapsedSize="0px"
+                  >
             <form onSubmit={handleSubmitNutrients(onSubmitNutrients)}>
               <Grid
                 container
@@ -907,7 +958,6 @@ import {
                 <Grid item xs={4}>
                 <TextField 
                   defaultValue={nutrients.proteins} 
-                  id="outlined-basic" 
                   label="" 
                   variant="outlined" 
                   type="number"
@@ -941,7 +991,6 @@ import {
                 <Grid item xs={4}>
                 <TextField 
                   defaultValue={nutrients.carbohydrates} 
-                  id="outlined-basic" 
                   label="" 
                   variant="outlined"  
                   type="number"
@@ -975,7 +1024,6 @@ import {
                 <Grid item xs={4}>
                 <TextField 
                   defaultValue={nutrients.fats}
-                  id="outlined-basic" 
                   label=""
                   variant="outlined" 
                   type="number"
@@ -1009,7 +1057,6 @@ import {
                 <Grid item xs={4}>
                 <TextField 
                   defaultValue={nutrients.fiber}
-                  id="outlined-basic" 
                   label="" 
                   variant="outlined" 
                   type="number"
@@ -1043,7 +1090,6 @@ import {
                 <Grid item xs={4}>
                 <TextField 
                   defaultValue={nutrients.salt} 
-                  id="outlined-basic" 
                   label="" 
                   variant="outlined" 
                   type="number"
@@ -1063,7 +1109,7 @@ import {
               </Grid> 
               <Button type="submit">Uložit</Button>
             </form>
-            }
+            </Collapse>
 
           {/* CHANGE PASSWORD */}
             <Button
@@ -1072,7 +1118,7 @@ import {
               sx={{
                 backgroundColor: "orange",
                 fontWeight: "bold",
-                transition: "transform 0.5s",
+                transition: "transform 0.2s",
                 ":hover": {
                   transform: "scale(1.1)",
                   backgroundColor: "#f29830",
@@ -1081,7 +1127,12 @@ import {
               onClick={() => setChangePasswords(!changePasswords)}
             >{changePasswords ? "Zrušit" : "Změnit heslo"}</Button>
 
-            {changePasswords &&
+            <Collapse
+              sx={{ width: "100%" }}
+              in={changePasswords}
+              {...{ timeout: 500 }}
+              collapsedSize="0px"
+            >
             <form onSubmit={handleSubmitPasswords(onSubmitPasswords)}>
               <Grid
                 container
@@ -1170,7 +1221,7 @@ import {
                 </Grid>
               </Grid>
               </form>        
-            }
+            </Collapse>
 
         </Container>
       </Root>
