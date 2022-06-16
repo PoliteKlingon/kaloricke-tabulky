@@ -6,6 +6,7 @@ import {
     Collapse,
     Grid,
     IconButton,
+    InputAdornment,
     Slider,
     Stack,
     Switch,
@@ -64,6 +65,12 @@ import { date } from 'yup';
     fats: number,
     fiber: number,
     salt: number
+  }
+
+  export interface Passwords {
+    oldPassword: String,
+    password: String,
+    passwordAgain: String
   }
 
   const marks = [
@@ -190,6 +197,19 @@ import { date } from 'yup';
       console.log()
     };
 
+    const {
+      register: registerPasswords,
+      formState: { errors: errorsPasswords },
+      handleSubmit: handleSubmitPasswords,
+      getValues,
+    } = useForm();
+
+    // @ts-ignore
+    const onSubmitPasswords = (data) => {
+      setPasswords(data);
+      console.log()
+    };
+
 
 
 
@@ -224,6 +244,9 @@ import { date } from 'yup';
 
     const [customNutrients, setCustomNutrients] = useState<Boolean>(false);
     const [nutrients, setNutrients] = useState<Nutrients>({proteins: 30, carbohydrates: 30, fats: 30, fiber: 30, salt: 30});
+
+    const [changePasswords, setChangePasswords] = useState<Boolean>(false);
+    const [Passwords, setPasswords] = useState<Passwords>({oldPassword: "", password: "", passwordAgain: ""});
     
     const [authState, setAuthState] = useState<Boolean>();
     const [isDesktop, setDesktop] = useState(window.innerWidth > 800);
@@ -964,6 +987,116 @@ import { date } from 'yup';
               <Button type="submit">Uložit</Button>
             </form>
             }
+
+            <Button
+              variant="contained"
+              disableRipple
+              sx={{
+                backgroundColor: "orange",
+                fontWeight: "bold",
+                transition: "transform 0.5s",
+                ":hover": {
+                  transform: "scale(1.1)",
+                  backgroundColor: "#f29830",
+                },
+              }}
+              onClick={() => setCustomNutrients(!customNutrients)}
+            >Změnit heslo</Button>
+
+
+
+            <form onSubmit={handleSubmitPasswords(onSubmitPasswords)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Aktuální heslo"
+                    fullWidth={true}
+                    margin="normal"
+                    variant="standard"
+                    type="password"
+                    /*InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Lock />
+                        </InputAdornment>
+                      ),
+                    }}*/
+                    {...registerPasswords("oldPassword", {
+                      required: "Položka je povinná",
+                    })}
+                    error={!!errorsPasswords?.oldPassword}
+                    helperText={
+                      errorsPasswords?.oldPassword ? errorsPasswords.oldPasswor.message : null
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Nové heslo"
+                    fullWidth={true}
+                    margin="normal"
+                    variant="standard"
+                    type="password"
+                    /*InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Lock />
+                        </InputAdornment>
+                      ),
+                    }}*/
+                    {...registerPasswords("password", {
+                      required: "Položka je povinná",
+                    })}
+                    error={!!errorsPasswords?.password}
+                    helperText={
+                      errorsPasswords?.password ? errorsPasswords.password.message : null
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Nové heslo znovu"
+                    fullWidth={true}
+                    margin="normal"
+                    variant="standard"
+                    type="password"
+                    /*InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Lock />
+                        </InputAdornment>
+                      ),
+                    }}*/
+                    {...registerPasswords("passwordAgain", {
+                      required: "Položka je povinná",
+                      validate: (value) =>
+                        value === getValues("password")
+                          ? true
+                          : "Hesla se neshodují",
+                    })}
+                    error={!!errorsPasswords?.passwordAgain}
+                    helperText={
+                      errorsPasswords?.passwordAgain
+                        ? errorsPasswords.passwordAgain.message
+                        : null
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Button type="submit">Uložit</Button>
+                </Grid>
+              </Grid>
+              </form>        
+
+
+
+
 
         </Container>
       </Root>
