@@ -27,6 +27,9 @@ import {
   import CloseIcon from '@mui/icons-material/Close';
   import { useForm, SubmitHandler } from "react-hook-form";
 import internal from 'stream';
+import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
+import { setDate } from 'date-fns';
+import { date } from 'yup';
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -151,7 +154,7 @@ import internal from 'stream';
       setChangeWeight(false);
     };
 
-    const {
+    /*const {
       register: registerBirthDate,
       formState: { errors: errorsBirthDate },
       handleSubmit: handleSubmitBirthDate,
@@ -159,9 +162,9 @@ import internal from 'stream';
 
     // @ts-ignore
     const onSubmitBirthDate = (data) => {
-      setBirthDate(data.birthDate);
+      setBirthDate(data.newBirthDate);
       setChangeBirthDate(false);
-    };
+    };*/
 
     const {
       register: registerDesiredWeight,
@@ -213,7 +216,8 @@ import internal from 'stream';
     const [weight, setWeight] = useState<number>(75);
 
     const [changeBirthDate, setChangeBirthDate] = useState<Boolean>(false);
-    const [birthDate, setBirthDate] = useState<string>("ahoj");
+    const [birthDate, setBirthDate] = useState<Date | null>(new Date());
+    const [newBirthDate, setNewBirthDate] = useState<Date | null>(new Date());
 
     const [changeDesiredWeight, setChangeDesiredWeight] = useState<Boolean>(false);
     const [desiredWeight, setDesiredWeight] = useState<number>(75);
@@ -222,6 +226,7 @@ import internal from 'stream';
     const [nutrients, setNutrients] = useState<Nutrients>({proteins: 30, carbohydrates: 30, fats: 30, fiber: 30, salt: 30});
     
     const [authState, setAuthState] = useState<Boolean>();
+    const [isDesktop, setDesktop] = useState(window.innerWidth > 800);
       // @ts-ignore
     const { auth, setAuth } = useContext(AuthContext);
     useEffect(() => {
@@ -578,8 +583,9 @@ import internal from 'stream';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                  // @ts-ignore
-                <Slider defaultValue={sex} onChange={(e, data) => setNewSex(data)} marks={marks}/>
+                <Slider defaultValue={sex} 
+                // @ts-ignore
+                onChange={(e, data) => setNewSex(data)} marks={marks}/>
                 </Grid>   
                 <Grid item xs={4}>
                 <Button onClick={()=> {setChangeSex(!changeSex); setSex(newSex)}}>Uložit</Button>
@@ -625,7 +631,15 @@ import internal from 'stream';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nová výška" variant="outlined" {...registerHeight("height")} />
+                <TextField id="outlined-basic" label="Nová výška" variant="outlined" {...registerHeight("height", {
+                      required: "Položka je povinná",
+                      min: {
+                        value: 1,
+                        message: "Minimální hodnota je 1",
+                      },
+                    })}
+                    error={!!errorsHeight?.height}
+                    helperText={errorsHeight?.height ? errorsHeight.height.message : null} />
                 </Grid>   
                 <Grid item xs={4}>
                 <Button type="submit">Uložit</Button>
@@ -672,7 +686,15 @@ import internal from 'stream';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nová hmotnost" variant="outlined" {...registerWeight("weight")} />
+                <TextField id="outlined-basic" label="Nová hmotnost" variant="outlined" {...registerWeight("weight", {
+                      required: "Položka je povinná",
+                      min: {
+                        value: 1,
+                        message: "Minimální hodnota je 1",
+                      },
+                    })}
+                    error={!!errorsWeight?.weight}
+                    helperText={errorsWeight?.weight ? errorsWeight.weight.message : null} />
                 </Grid>   
                 <Grid item xs={4}>
                 <Button type="submit">Uložit</Button>
@@ -698,7 +720,7 @@ import internal from 'stream';
                <Typography>Datum narození</Typography>
               </Grid>   
               <Grid item xs={4}>
-              <Typography>{birthDate}</Typography>
+              <Typography>{birthDate?.toLocaleDateString() }</Typography>
               </Grid>   
               <Grid item xs={4}>
                {changeBirthDate ?
@@ -710,7 +732,6 @@ import internal from 'stream';
 
             </Grid> 
             {changeBirthDate &&
-              <form onSubmit={handleSubmitBirthDate(onSubmitBirthDate)}>
               <Grid
                 container
                 spacing={0}
@@ -722,13 +743,40 @@ import internal from 'stream';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nové datum narození" variant="outlined" {...registerBirthDate("birthDate")} />
+                {isDesktop ? (
+                    <DesktopDatePicker
+                      label="Datum narození"
+                      value={newBirthDate}
+                      minDate={new Date("1900-01-01")}
+                      onChange={(newValue) => {
+                        setNewBirthDate(newValue);
+                      }}
+                      renderInput={(params: any) => (
+                        <TextField {...params} fullWidth />
+                      )}
+                    />
+                  ) : (
+                    <MobileDatePicker
+                      label="Datum narození"
+                      value={newBirthDate}
+                      minDate={new Date("1900-01-01")}
+                      onChange={(newValue) => {
+                        setNewBirthDate(newValue);
+                      }}
+                      renderInput={(params: any) => (
+                        <TextField {...params} fullWidth />
+                      )}
+                    />
+                  )}
                 </Grid>   
                 <Grid item xs={4}>
-                <Button type="submit">Uložit</Button>
+                  {newBirthDate?.toString() == "Invalid Date" || newBirthDate == null || newBirthDate < new Date("1900-01-01")
+                  ?
+                  <Button disabled>Uložit</Button> 
+                  : 
+                  <Button /*type="submit"*/ onClick={() => {setBirthDate(newBirthDate); setChangeBirthDate(!changeBirthDate)}}>Uložit</Button>}
                 </Grid>
-              </Grid> 
-              </form>
+              </Grid>
             }
 
 
