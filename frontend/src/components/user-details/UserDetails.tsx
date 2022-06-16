@@ -27,10 +27,10 @@ import {
   import SettingsIcon from '@mui/icons-material/Settings';
   import CloseIcon from '@mui/icons-material/Close';
   import { useForm, SubmitHandler } from "react-hook-form";
-import internal from 'stream';
-import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
-import { setDate } from 'date-fns';
-import { date } from 'yup';
+  import internal from 'stream';
+  import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
+  import { setDate } from 'date-fns';
+  import { date } from 'yup';
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -194,7 +194,7 @@ import { date } from 'yup';
     // @ts-ignore
     const onSubmitNutrients = (data) => {
       setNutrients(data);
-      console.log()
+      setCustomNutrients(!customNutrients);
     };
 
     const {
@@ -207,7 +207,7 @@ import { date } from 'yup';
     // @ts-ignore
     const onSubmitPasswords = (data) => {
       setPasswords(data);
-      console.log()
+      setChangePasswords(!changePasswords);
     };
 
 
@@ -358,8 +358,6 @@ import { date } from 'yup';
                 width: "90%"
         }}
         >
-            
-
           {/* EMAIL */}
             <Grid
               container
@@ -555,7 +553,10 @@ import { date } from 'yup';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nové příjmení" variant="outlined" 
+                <TextField 
+                  id="outlined-basic" 
+                  label="Nové příjmení" 
+                  variant="outlined" 
                   {...registerSurname("surname", {
                     required: "Položka je povinná",
                   })}
@@ -654,7 +655,12 @@ import { date } from 'yup';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nová výška" variant="outlined" {...registerHeight("height", {
+                <TextField 
+                  id="outlined-basic" 
+                  label="Nová výška" 
+                  variant="outlined" 
+                  type="number"
+                  {...registerHeight("height", {
                       required: "Položka je povinná",
                       min: {
                         value: 1,
@@ -709,8 +715,13 @@ import { date } from 'yup';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nová hmotnost" variant="outlined" {...registerWeight("weight", {
-                      required: "Položka je povinná",
+                <TextField  
+                      id="outlined-basic" 
+                      label="Nová hmotnost" 
+                      variant="outlined" 
+                      type= "number"
+                      {...registerWeight("weight", {
+                      required: "Položka je povinná", 
                       min: {
                         value: 1,
                         message: "Minimální hodnota je 1",
@@ -725,9 +736,6 @@ import { date } from 'yup';
               </Grid> 
               </form>
             }
-
-            
-
 
             {/* BIRTHDATE */}
 
@@ -802,12 +810,7 @@ import { date } from 'yup';
               </Grid>
             }
 
-
-
-
-
             {/* DESIRED WEIGHT */}
-
             <Grid
               container
               spacing={0}
@@ -844,7 +847,20 @@ import { date } from 'yup';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="Nová cílová hmotnost" variant="outlined" {...registerDesiredWeight("desiredWeight")} />
+                <TextField 
+                  id="outlined-basic" 
+                  label="Nová cílová hmotnost" 
+                  variant="outlined" 
+                  type= "number"
+                  {...registerDesiredWeight("desiredWeight", {
+                    required: "Položka je povinná",
+                    min: {
+                      value: 1,
+                      message: "Minimální hodnota je 1",
+                    },
+                  })}
+                  error={!!errorsDesiredWeight?.desiredWeight}
+                  helperText={errorsDesiredWeight?.desiredWeight ? errorsDesiredWeight.desiredWeight.message : null} />
                 </Grid>   
                 <Grid item xs={4}>
                 <Button type="submit">Uložit</Button>
@@ -853,6 +869,7 @@ import { date } from 'yup';
               </form>
             }
 
+            {/* CUSTOM NUTRIENTS*/}
             <Grid
               container
               spacing={0}
@@ -898,7 +915,21 @@ import { date } from 'yup';
                 </Grid>
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("proteins")} />
+                <TextField 
+                  defaultValue={nutrients.proteins} 
+                  id="outlined-basic" 
+                  label="" 
+                  variant="outlined" 
+                  type="number"
+                  {...registerNutrients("proteins", {
+                    required: "Položka je povinná",
+                    min: {
+                      value: 1,
+                      message: "Minimální hodnota je 1",
+                    },
+                  })}
+                  error={!!errorsNutrients?.proteins}
+                  helperText={errorsNutrients?.proteins ? errorsNutrients.proteins.message : null} />
                 </Grid>
                 <Grid item>
                 <Typography>g</Typography>
@@ -918,7 +949,21 @@ import { date } from 'yup';
                 </Grid>
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("carbohydrates")} />
+                <TextField 
+                  defaultValue={nutrients.carbohydrates} 
+                  id="outlined-basic" 
+                  label="" 
+                  variant="outlined"  
+                  type="number"
+                  {...registerNutrients("carbohydrates", {
+                    required: "Položka je povinná",
+                    min: {
+                      value: 1,
+                      message: "Minimální hodnota je 1",
+                    },
+                  })}
+                  error={!!errorsNutrients?.carbohydrates}
+                  helperText={errorsNutrients?.carbohydrates ? errorsNutrients.carbohydrates.message : null} />
                 </Grid>
                 <Grid item>
                 <Typography>g</Typography>
@@ -938,7 +983,21 @@ import { date } from 'yup';
                 </Grid>
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("fats")} />
+                <TextField 
+                  defaultValue={nutrients.fats}
+                  id="outlined-basic" 
+                  label=""
+                  variant="outlined" 
+                  type="number"
+                  {...registerNutrients("fats", {
+                    required: "Položka je povinná",
+                    min: {
+                      value: 1,
+                      message: "Minimální hodnota je 1",
+                    },
+                  })}
+                  error={!!errorsNutrients?.fats}
+                  helperText={errorsNutrients?.fats ? errorsNutrients.fats.message : null} />
                 </Grid>
                 <Grid item>
                 <Typography>g</Typography>
@@ -958,7 +1017,21 @@ import { date } from 'yup';
                 </Grid>
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("fiber")} />
+                <TextField 
+                  defaultValue={nutrients.fiber}
+                  id="outlined-basic" 
+                  label="" 
+                  variant="outlined" 
+                  type="number"
+                  {...registerNutrients("fiber", {
+                    required: "Položka je povinná",
+                    min: {
+                      value: 1,
+                      message: "Minimální hodnota je 1",
+                    },
+                  })}
+                  error={!!errorsNutrients?.fiber}
+                  helperText={errorsNutrients?.fiber ? errorsNutrients.fiber.message : null} />
                 </Grid>
                 <Grid item>
                 <Typography>g</Typography>
@@ -978,7 +1051,21 @@ import { date } from 'yup';
                 </Grid>
                 
                 <Grid item xs={4}>
-                <TextField id="outlined-basic" label="" variant="outlined" {...registerNutrients("salt")} />
+                <TextField 
+                  defaultValue={nutrients.salt} 
+                  id="outlined-basic" 
+                  label="" 
+                  variant="outlined" 
+                  type="number"
+                  {...registerNutrients("salt", {
+                    required: "Položka je povinná",
+                    min: {
+                      value: 1,
+                      message: "Minimální hodnota je 1",
+                    },
+                  })}
+                  error={!!errorsNutrients?.salt}
+                  helperText={errorsNutrients?.salt ? errorsNutrients.salt.message : null} />
                 </Grid>
                 <Grid item>
                 <Typography>g</Typography>
@@ -988,6 +1075,7 @@ import { date } from 'yup';
             </form>
             }
 
+          {/* CHANGE PASSWORD */}
             <Button
               variant="contained"
               disableRipple
@@ -1000,11 +1088,10 @@ import { date } from 'yup';
                   backgroundColor: "#f29830",
                 },
               }}
-              onClick={() => setCustomNutrients(!customNutrients)}
-            >Změnit heslo</Button>
+              onClick={() => setChangePasswords(!changePasswords)}
+            >{changePasswords ? "Zrušit" : "Změnit heslo"}</Button>
 
-
-
+            {changePasswords &&
             <form onSubmit={handleSubmitPasswords(onSubmitPasswords)}>
               <Grid
                 container
@@ -1013,7 +1100,7 @@ import { date } from 'yup';
                 //alignItems="center"
                 justifyContent="center"
               >
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                   <TextField
                     label="Aktuální heslo"
                     fullWidth={true}
@@ -1032,11 +1119,11 @@ import { date } from 'yup';
                     })}
                     error={!!errorsPasswords?.oldPassword}
                     helperText={
-                      errorsPasswords?.oldPassword ? errorsPasswords.oldPasswor.message : null
+                      errorsPasswords?.oldPassword ? errorsPasswords.oldPassword.message : null
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                   <TextField
                     label="Nové heslo"
                     fullWidth={true}
@@ -1059,7 +1146,7 @@ import { date } from 'yup';
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                   <TextField
                     label="Nové heslo znovu"
                     fullWidth={true}
@@ -1088,15 +1175,12 @@ import { date } from 'yup';
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                   <Button type="submit">Uložit</Button>
                 </Grid>
               </Grid>
               </form>        
-
-
-
-
+            }
 
         </Container>
       </Root>
