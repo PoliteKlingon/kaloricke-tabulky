@@ -90,7 +90,43 @@ import internal from 'stream';
       setEmail(data.email);
       setChangeEmail(false);
     };
-  
+
+    const {
+      register: registerNick,
+      formState: { errors: errorsNick },
+      handleSubmit: handleSubmitNick,
+    } = useForm();
+    
+    // @ts-ignore
+    const onSubmitNick = (data) => {
+      setNick(data.nick);
+      setChangeNick(false);
+    };
+
+    const {
+      register: registerName,
+      formState: { errors: errorsName },
+      handleSubmit: handleSubmitName,
+    } = useForm();
+    
+    // @ts-ignore
+    const onSubmitName = (data) => {
+      setName(data.name);
+      setChangeName(false);
+    };
+
+    const {
+      register: registerSurname,
+      formState: { errors: errorsSurname },
+      handleSubmit: handleSubmitSurname,
+    } = useForm();
+    
+    // @ts-ignore
+    const onSubmitSurname = (data) => {
+      setSurname(data.surname);
+      setChangeSurname(false);
+    };
+
     const {
       register: registerHeight,
       formState: { errors: errorsHeight },
@@ -156,6 +192,15 @@ import internal from 'stream';
 
     const [changeEmail, setChangeEmail] = useState<Boolean>(false);
     const [email, setEmail] = useState<String>("tvojemamka@gmail.com");
+
+    const [changeNick, setChangeNick] = useState<Boolean>(false);
+    const [nick, setNick] = useState<String>("debílek");
+
+    const [changeName, setChangeName] = useState<Boolean>(false);
+    const [name, setName] = useState<String>("Pepa");
+
+    const [changeSurname, setChangeSurname] = useState<Boolean>(false);
+    const [surname, setSurname] = useState<String>("Novák");
     
     const [changeSex, setChangeSex] = useState<Boolean>(false);
     const [sex, setSex] = useState<number>(50);
@@ -343,6 +388,159 @@ import internal from 'stream';
               </form> 
             }   
 
+            {/* NICK */}
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              //alignItems="center"
+              justifyContent="center"
+            >
+
+              <Grid item xs={4}>
+               <Typography>Přezdívka</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               <Typography>{nick}</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               {changeNick ?
+               <CloseIcon onClick={() => setChangeNick(!changeNick)}/>
+               :
+               <SettingsIcon onClick={() => setChangeNick(!changeNick)}/>
+               }
+              </Grid>   
+
+            </Grid> 
+            {changeNick &&
+              <form onSubmit={handleSubmitNick(onSubmitNick)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4} />
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="Nová přezdívka" variant="outlined" 
+                  {...registerNick("nick", {
+                    required: "Položka je povinná",
+                  })}
+                  error={!!errorsNick?.nick}
+                  helperText={errorsNick?.nick ? errorsNick.nick.message : null}/>
+                </Grid>   
+                <Grid item xs={4}>
+                <Button type="submit">Uložit</Button>
+                </Grid>
+              </Grid>
+              </form> 
+            } 
+
+            {/* NAME */}
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              //alignItems="center"
+              justifyContent="center"
+            >
+
+              <Grid item xs={4}>
+               <Typography>Jméno</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               <Typography>{name}</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               {changeName ?
+               <CloseIcon onClick={() => setChangeName(!changeName)}/>
+               :
+               <SettingsIcon onClick={() => setChangeName(!changeName)}/>
+               }
+              </Grid>   
+
+            </Grid> 
+            {changeName &&
+              <form onSubmit={handleSubmitName(onSubmitName)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4} />
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="Nové jméno" variant="outlined" 
+                  {...registerName("name", {
+                    required: "Položka je povinná",
+                  })}
+                  error={!!errorsName?.name}
+                  helperText={errorsName?.name ? errorsName.name.message : null}/>
+                </Grid>   
+                <Grid item xs={4}>
+                <Button type="submit">Uložit</Button>
+                </Grid>
+              </Grid>
+              </form> 
+            } 
+
+            {/* SURNAME */}
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              //alignItems="center"
+              justifyContent="center"
+            >
+
+              <Grid item xs={4}>
+               <Typography>Příjmení</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               <Typography>{surname}</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               {changeSurname ?
+               <CloseIcon onClick={() => setChangeSurname(!changeSurname)}/>
+               :
+               <SettingsIcon onClick={() => setChangeSurname(!changeSurname)}/>
+               }
+              </Grid>   
+
+            </Grid> 
+            {changeSurname &&
+              <form onSubmit={handleSubmitSurname(onSubmitSurname)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4} />
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="Nové příjmení" variant="outlined" 
+                  {...registerSurname("surname", {
+                    required: "Položka je povinná",
+                  })}
+                  error={!!errorsSurname?.surname}
+                  helperText={errorsSurname?.surname ? errorsSurname.surname.message : null}/>
+                </Grid>   
+                <Grid item xs={4}>
+                <Button type="submit">Uložit</Button>
+                </Grid>
+              </Grid>
+              </form> 
+            }   
+
             {/* SEX */}
 
             <Grid
@@ -380,6 +578,7 @@ import internal from 'stream';
                 <Grid item xs={4} />
                 
                 <Grid item xs={4}>
+                  // @ts-ignore
                 <Slider defaultValue={sex} onChange={(e, data) => setNewSex(data)} marks={marks}/>
                 </Grid>   
                 <Grid item xs={4}>
@@ -485,7 +684,52 @@ import internal from 'stream';
             
 
 
+            {/* BIRTHDATE */}
 
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              //alignItems="center"
+              justifyContent="center"
+            >
+
+              <Grid item xs={4}>
+               <Typography>Datum narození</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+              <Typography>{birthDate}</Typography>
+              </Grid>   
+              <Grid item xs={4}>
+               {changeBirthDate ?
+               <CloseIcon onClick={() => setChangeBirthDate(!changeBirthDate)}/>
+               :
+               <SettingsIcon onClick={() => setChangeBirthDate(!changeBirthDate)}/>
+               }
+              </Grid>   
+
+            </Grid> 
+            {changeBirthDate &&
+              <form onSubmit={handleSubmitBirthDate(onSubmitBirthDate)}>
+              <Grid
+                container
+                spacing={0}
+                direction="row"
+                //alignItems="center"
+                justifyContent="center"
+              >
+
+                <Grid item xs={4} />
+                
+                <Grid item xs={4}>
+                <TextField id="outlined-basic" label="Nové datum narození" variant="outlined" {...registerBirthDate("birthDate")} />
+                </Grid>   
+                <Grid item xs={4}>
+                <Button type="submit">Uložit</Button>
+                </Grid>
+              </Grid> 
+              </form>
+            }
 
 
 
@@ -561,7 +805,7 @@ import internal from 'stream';
                   onClick={() => setCustomNutrients(!customNutrients)}
                 >
                   {customNutrients
-                    ? "Zrušit"
+                    ? "Skrýt nutrienty"
                     : "Upravit nutrienty"}
                 </Button>
               </Grid>
