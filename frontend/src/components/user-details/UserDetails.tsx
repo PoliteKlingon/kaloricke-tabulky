@@ -5,6 +5,7 @@ import {
     Button,
     Collapse,
     Grid,
+    InputAdornment,
     Slider,
     Stack,
     Toolbar,
@@ -425,8 +426,8 @@ import {
                     
                     <Grid item xs={4}>
                     <TextField  
-                      label="Nový e-mail" 
-                      variant="outlined" 
+                      label="Nový e-mail"
+                      variant="standard" 
                       {...registerEmail("email", 
                         {
                           required: "Položka je povinná",
@@ -489,7 +490,7 @@ import {
                     <Grid item xs={4}>
                     <TextField 
                       label="Nová přezdívka" 
-                      variant="outlined" 
+                      variant="standard" 
                       {...registerNick("nick", {
                         required: "Položka je povinná",
                       })}
@@ -547,7 +548,7 @@ import {
                     <Grid item xs={4}>
                     <TextField 
                       label="Nové jméno" 
-                      variant="outlined" 
+                      variant="standard" 
                       {...registerName("name", {
                         required: "Položka je povinná",
                       })}
@@ -605,7 +606,7 @@ import {
                     <Grid item xs={4}>
                     <TextField 
                       label="Nové příjmení" 
-                      variant="outlined" 
+                      variant="standard" 
                       {...registerSurname("surname", {
                         required: "Položka je povinná",
                       })}
@@ -716,7 +717,10 @@ import {
                     <Grid item xs={4}>
                     <TextField  
                       label="Nová výška" 
-                      variant="outlined" 
+                      variant="standard" 
+                      InputProps={{
+                        endAdornment: <InputAdornment position="start">cm</InputAdornment>,
+                      }}
                       type="number"
                       {...registerHeight("height", {
                           required: "Položka je povinná",
@@ -780,8 +784,11 @@ import {
                     <Grid item xs={4}>
                     <TextField
                           label="Nová hmotnost" 
-                          variant="outlined" 
+                          variant="standard" 
                           type= "number"
+                          InputProps={{
+                            endAdornment: <InputAdornment position="start">kg</InputAdornment>,
+                          }}
                           {...registerWeight("weight", {
                           required: "Položka je povinná", 
                           min: {
@@ -921,8 +928,11 @@ import {
                     <Grid item xs={4}>
                     <TextField 
                       label="Nová cílová hmotnost" 
-                      variant="outlined" 
+                      variant="standard" 
                       type= "number"
+                      InputProps={{
+                        endAdornment: <InputAdornment position="start">kg</InputAdornment>,
+                      }}
                       {...registerDesiredWeight("desiredWeight", {
                         required: "Položka je povinná",
                         min: {
@@ -996,8 +1006,12 @@ import {
                     <TextField 
                       defaultValue={nutrients.proteins} 
                       label="" 
-                      variant="outlined" 
+                      variant="standard" 
                       type="number"
+                      sx= {{width: 70}}
+                      InputProps={{
+                        endAdornment: <InputAdornment position="start">g</InputAdornment>,
+                      }}
                       {...registerNutrients("proteins", {
                         required: "Položka je povinná",
                         min: {
@@ -1008,9 +1022,7 @@ import {
                       error={!!errorsNutrients?.proteins}
                       helperText={errorsNutrients?.proteins ? errorsNutrients.proteins.message : null} />
                     </Grid>
-                    <Grid item>
-                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
-                    </Grid>
+                    <Grid item />
                   </Grid> 
 
                   <Grid
@@ -1029,8 +1041,12 @@ import {
                     <TextField 
                       defaultValue={nutrients.carbohydrates} 
                       label="" 
-                      variant="outlined"  
+                      variant="standard"  
                       type="number"
+                      sx= {{width: 70}}
+                      InputProps={{
+                        endAdornment: <InputAdornment position="start">g</InputAdornment>,
+                      }}
                       {...registerNutrients("carbohydrates", {
                         required: "Položka je povinná",
                         min: {
@@ -1041,9 +1057,7 @@ import {
                       error={!!errorsNutrients?.carbohydrates}
                       helperText={errorsNutrients?.carbohydrates ? errorsNutrients.carbohydrates.message : null} />
                     </Grid>
-                    <Grid item>
-                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
-                    </Grid>
+                    <Grid item />
                   </Grid> 
 
                   <Grid
@@ -1062,8 +1076,12 @@ import {
                     <TextField 
                       defaultValue={nutrients.fats}
                       label=""
-                      variant="outlined" 
+                      variant="standard" 
                       type="number"
+                      sx= {{width: 70}}
+                      InputProps={{
+                        endAdornment: <InputAdornment position="start">g</InputAdornment>,
+                      }}
                       {...registerNutrients("fats", {
                         required: "Položka je povinná",
                         min: {
@@ -1074,9 +1092,7 @@ import {
                       error={!!errorsNutrients?.fats}
                       helperText={errorsNutrients?.fats ? errorsNutrients.fats.message : null} />
                     </Grid>
-                    <Grid item>
-                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
-                    </Grid>
+                    <Grid item />
                   </Grid> 
 
                   <Grid
@@ -1095,8 +1111,12 @@ import {
                     <TextField 
                       defaultValue={nutrients.fiber}
                       label="" 
-                      variant="outlined" 
+                      variant="standard" 
                       type="number"
+                      sx= {{width: 70}}
+                      InputProps={{
+                        endAdornment: <InputAdornment position="start">g</InputAdornment>,
+                      }}
                       {...registerNutrients("fiber", {
                         required: "Položka je povinná",
                         min: {
@@ -1107,9 +1127,7 @@ import {
                       error={!!errorsNutrients?.fiber}
                       helperText={errorsNutrients?.fiber ? errorsNutrients.fiber.message : null} />
                     </Grid>
-                    <Grid item>
-                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
-                    </Grid>
+                    <Grid item />
                   </Grid> 
 
                   <Grid
@@ -1128,8 +1146,12 @@ import {
                     <TextField 
                       defaultValue={nutrients.salt} 
                       label="" 
-                      variant="outlined" 
+                      variant="standard" 
                       type="number"
+                      sx= {{width: 70}}
+                      InputProps={{
+                        endAdornment: <InputAdornment position="start">g</InputAdornment>,
+                      }}
                       {...registerNutrients("salt", {
                         required: "Položka je povinná",
                         min: {
@@ -1140,11 +1162,9 @@ import {
                       error={!!errorsNutrients?.salt}
                       helperText={errorsNutrients?.salt ? errorsNutrients.salt.message : null} />
                     </Grid>
-                    <Grid item>
-                    <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>g</Typography>
-                    </Grid>
+                    <Grid item />
                   </Grid> 
-                  <Button type="submit">Uložit</Button>
+                  <Button sx={{width: 250}} type="submit">Uložit</Button>
                 </form>
                 </Collapse>
 
@@ -1180,7 +1200,8 @@ import {
                     sx={{ margin: 1 }}
                     justifyContent="center"
                   >
-                    <Grid item xs={12} sm={12}>
+                    <Grid item xs={0} sm={2} md={3} lg={4}/>
+                    <Grid item xs={12} sm={8} md={6} lg={4}>
                       <TextField
                         label="Aktuální heslo"
                         fullWidth={true}
@@ -1203,7 +1224,9 @@ import {
                         }
                       />
                     </Grid>
-                    <Grid item xs={12} sm={12}>
+                    <Grid item xs={0} sm={2} md={3} lg={4}/>
+                    <Grid item xs={0} sm={2} md={3} lg={4}/>
+                    <Grid item xs={12} sm={8} md={6} lg={4}>
                       <TextField
                         label="Nové heslo"
                         fullWidth={true}
@@ -1226,7 +1249,9 @@ import {
                         }
                       />
                     </Grid>
-                    <Grid item xs={12} sm={12}>
+                    <Grid item xs={0} sm={2} md={3} lg={4}/>
+                    <Grid item xs={0} sm={2} md={3} lg={4}/>
+                    <Grid item xs={12} sm={8} md={6} lg={4}>
                       <TextField
                         label="Nové heslo znovu"
                         fullWidth={true}
@@ -1255,8 +1280,9 @@ import {
                         }
                       />
                     </Grid>
+                    <Grid item xs={0} sm={2} md={3} lg={4}/>
                     <Grid item xs={12} sm={12}>
-                      <Button type="submit">Uložit</Button>
+                      <Button sx={{width: 250}} type="submit">Uložit</Button>
                     </Grid>
                   </Grid>
                   </form>        
