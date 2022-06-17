@@ -123,27 +123,6 @@ export const userRegister = async (
   userData: userData,
   userGoals: userGoals | undefined
 ) => {
-  if (userGoals) {
-    console.log(
-      JSON.stringify({
-        details: {
-          ...userData,
-        },
-        goals: {
-          ...userGoals,
-        },
-      })
-    );
-  } else {
-    console.log(
-      JSON.stringify({
-        details: {
-          ...userData,
-        },
-      })
-    );
-  }
-
   const data = userGoals
     ? JSON.stringify({
         details: {
