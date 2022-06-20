@@ -76,11 +76,23 @@ import {
     },
   ];
 
+  /*const getData = () => {
+    axios.get()
+  }*/
+
   
   export default function UserDetails() {
-    const [expanded, setExpanded] = React.useState<string | false>(false);
-    
+    const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
 
+    const updateMedia = () => {
+      setDesktop(window.innerWidth > 1000);
+    };
+  
+    useEffect(() => {
+      window.addEventListener("resize", updateMedia);
+      return () => window.removeEventListener("resize", updateMedia);
+    });
+    
     const {
       register: registerEmail,
       formState: { errors: errorsEmail },
@@ -241,7 +253,6 @@ import {
     const [Passwords, setPasswords] = useState<Passwords>({oldPassword: "", password: "", passwordAgain: ""});
     
     const [authState, setAuthState] = useState<boolean>();
-    const [isDesktop, setDesktop] = useState(window.innerWidth > 800);
       // @ts-ignore
     const { auth, setAuth } = useContext(AuthContext);
     useEffect(() => {
@@ -388,17 +399,17 @@ import {
                   justifyContent="center"
                 >
 
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   <Typography 
                     sx={{ 
                       fontFamily: "Nunito",
                     }}
                   >E-mail</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 6}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{email}</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   {changeEmail ?
                   <CloseIcon onClick={() => setChangeEmail(!changeEmail)}/>
                   :
@@ -422,9 +433,9 @@ import {
                     justifyContent="center"
                   >
 
-                    <Grid item xs={4} />
+                    <Grid item xs={isDesktop ? 4 : 3} />
                     
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 6}>
                     <TextField  
                       label="Nový e-mail"
                       variant="standard" 
@@ -439,7 +450,7 @@ import {
                       error={!!errorsEmail?.email}
                       helperText={errorsEmail?.email ? errorsEmail.email.message : null}/>
                     </Grid>   
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 3}>
                     <Button type="submit">Uložit</Button>
                     </Grid>
                   </Grid>
@@ -455,13 +466,13 @@ import {
                   justifyContent="center"
                 >
 
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Přezdívka</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 6}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{nick}</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   {changeNick ?
                   <CloseIcon onClick={() => setChangeNick(!changeNick)}/>
                   :
@@ -485,9 +496,9 @@ import {
                     justifyContent="center"
                   >
 
-                    <Grid item xs={4} />
+                    <Grid item xs={isDesktop ? 4 : 3} />
                     
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 6}>
                     <TextField 
                       label="Nová přezdívka" 
                       variant="standard" 
@@ -497,7 +508,7 @@ import {
                       error={!!errorsNick?.nick}
                       helperText={errorsNick?.nick ? errorsNick.nick.message : null}/>
                     </Grid>   
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 3}>
                     <Button type="submit">Uložit</Button>
                     </Grid>
                   </Grid>
@@ -513,13 +524,13 @@ import {
                   justifyContent="center"
                 >
 
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Jméno</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 6}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{name}</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   {changeName ?
                   <CloseIcon onClick={() => setChangeName(!changeName)}/>
                   :
@@ -543,9 +554,9 @@ import {
                     justifyContent="center"
                   >
 
-                    <Grid item xs={4} />
+                    <Grid item xs={isDesktop ? 4 : 3} />
                     
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 6}>
                     <TextField 
                       label="Nové jméno" 
                       variant="standard" 
@@ -555,7 +566,7 @@ import {
                       error={!!errorsName?.name}
                       helperText={errorsName?.name ? errorsName.name.message : null}/>
                     </Grid>   
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 3}>
                     <Button type="submit">Uložit</Button>
                     </Grid>
                   </Grid>
@@ -571,13 +582,13 @@ import {
                   justifyContent="center"
                 >
 
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Příjmení</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 6}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{surname}</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   {changeSurname ?
                   <CloseIcon onClick={() => setChangeSurname(!changeSurname)}/>
                   :
@@ -601,9 +612,9 @@ import {
                     justifyContent="center"
                   >
 
-                    <Grid item xs={4} />
+                    <Grid item xs={isDesktop ? 4 : 3} />
                     
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 6}>
                     <TextField 
                       label="Nové příjmení" 
                       variant="standard" 
@@ -613,7 +624,7 @@ import {
                       error={!!errorsSurname?.surname}
                       helperText={errorsSurname?.surname ? errorsSurname.surname.message : null}/>
                     </Grid>   
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 3}>
                     <Button type="submit">Uložit</Button>
                     </Grid>
                   </Grid>
@@ -630,13 +641,13 @@ import {
                   justifyContent="center"
                 >
 
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Pohlaví</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 6}>
                   <Slider disabled track={false} value={sex} marks={marks}/>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   {changeSex ?
                   <CloseIcon onClick={() => setChangeSex(!changeSex)}/>
                   :
@@ -659,14 +670,14 @@ import {
                     justifyContent="center"
                   >
 
-                    <Grid item xs={4} />
+                    <Grid item xs={isDesktop ? 4 : 3} />
                     
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 6}>
                     <Slider track={false} defaultValue={sex} 
                     // @ts-ignore
                     onChange={(e, data) => setNewSex(data)} marks={marks}/>
                     </Grid>   
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 3}>
                     <Button onClick={()=> {setChangeSex(!changeSex); setSex(newSex)}}>Uložit</Button>
                     </Grid>
                   </Grid> 
@@ -682,13 +693,13 @@ import {
                   justifyContent="center"
                 >
 
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Výška</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 6}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{height} cm</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   {changeHeight ?
                   <CloseIcon onClick={() => setChangeHeight(!changeHeight)}/>
                   :
@@ -712,9 +723,9 @@ import {
                     justifyContent="center"
                   >
 
-                    <Grid item xs={4} />
+                    <Grid item xs={isDesktop ? 4 : 3} />
                     
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 6}>
                     <TextField  
                       label="Nová výška" 
                       variant="standard" 
@@ -732,7 +743,7 @@ import {
                         error={!!errorsHeight?.height}
                         helperText={errorsHeight?.height ? errorsHeight.height.message : null} />
                     </Grid>   
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 3}>
                     <Button type="submit">Uložit</Button>
                     </Grid>
                   </Grid> 
@@ -749,13 +760,13 @@ import {
                   justifyContent="center"
                 >
 
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Hmotnost</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 6}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{weight} kg</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   {changeWeight ?
                   <CloseIcon onClick={() => setChangeWeight(!changeWeight)}/>
                   :
@@ -779,9 +790,9 @@ import {
                     justifyContent="center"
                   >
 
-                    <Grid item xs={4} />
+                    <Grid item xs={isDesktop ? 4 : 3} />
                     
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 6}>
                     <TextField
                           label="Nová hmotnost" 
                           variant="standard" 
@@ -799,7 +810,7 @@ import {
                         error={!!errorsWeight?.weight}
                         helperText={errorsWeight?.weight ? errorsWeight.weight.message : null} />
                     </Grid>   
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 3}>
                     <Button type="submit">Uložit</Button>
                     </Grid>
                   </Grid> 
@@ -816,13 +827,13 @@ import {
                   justifyContent="center"
                 >
 
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Datum narození</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 6}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{birthDate?.toLocaleDateString() }</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   {changeBirthDate ?
                   <CloseIcon onClick={() => setChangeBirthDate(!changeBirthDate)}/>
                   :
@@ -845,9 +856,9 @@ import {
                     justifyContent="center"
                   >
 
-                    <Grid item xs={4} />
+                    <Grid item xs={isDesktop ? 4 : 3} />
                     
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 6}>
                     {isDesktop ? (
                         <DesktopDatePicker
                           label="Datum narození"
@@ -874,7 +885,7 @@ import {
                         />
                       )}
                     </Grid>   
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 3}>
                       {newBirthDate?.toString() == "Invalid Date" || newBirthDate == null || newBirthDate < new Date("1900-01-01")
                       ?
                       <Button disabled>Uložit</Button> 
@@ -893,13 +904,13 @@ import {
                   justifyContent="center"
                 >
 
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Cílová hmotnost</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 6}>
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{desiredWeight} kg</Typography>
                   </Grid>   
-                  <Grid item xs={4}>
+                  <Grid item xs={isDesktop ? 4 : 3}>
                   {changeDesiredWeight ?
                   <CloseIcon onClick={() => setChangeDesiredWeight(!changeDesiredWeight)}/>
                   :
@@ -923,11 +934,11 @@ import {
                     justifyContent="center"
                   >
 
-                    <Grid item xs={4} />
+                    <Grid item xs={isDesktop ? 4 : 3} />
                     
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 6}>
                     <TextField 
-                      label="Nová cílová hmotnost" 
+                      label="Nová hmotnost" 
                       variant="standard" 
                       type= "number"
                       InputProps={{
@@ -943,7 +954,7 @@ import {
                       error={!!errorsDesiredWeight?.desiredWeight}
                       helperText={errorsDesiredWeight?.desiredWeight ? errorsDesiredWeight.desiredWeight.message : null} />
                     </Grid>   
-                    <Grid item xs={4}>
+                    <Grid item xs={isDesktop ? 4 : 3}>
                     <Button type="submit">Uložit</Button>
                     </Grid>
                   </Grid> 
