@@ -1,8 +1,13 @@
 import prisma from "../client";
 import { Request, Response } from "express";
 import { date, number, object, string, ValidationError } from "yup";
-import { validateAuthorization } from "./user";
-import { sendInternalServerError, sendSuccess } from "./universalResponses";
+import {
+  sendAuthorizationError,
+  sendInternalServerError,
+  sendNotFound,
+  sendSuccess,
+} from "./universalResponses";
+import { getUserBySessionId } from "./user";
 
 const detailsSchema = object({
   username: string().required().trim(),
@@ -48,17 +53,20 @@ export const update = async (userId: string, reqData: any) => {
 };
 
 export const get = async (req: Request, res: Response) => {
-  if (!(await validateAuthorization(req.body.sessionId, req.body.userId)))
-    return sendInternalServerError(res);
-
   try {
-    const user = await prisma.userDetails.findUnique({
-      where: {
-        userId: req.body.userId,
-      },
-    });
-    return sendSuccess(res, "User data retrieved successfully", user);
-  } catch (error) {
+    if (!req.headers.authorization)
+      return sendAuthorizationError(
+        res,
+        "Authorization header must not be empty"
+      );
+    const user = await getUserBySessionId(
+      req.headers.authorization.split(" ")[1]
+    );
+    return sendSuccess(res, "User data retrieved successfully", user.details);
+  } catch (e: any) {
+    if (e.name === "NotFoundError")
+      return sendNotFound(res, "Sessin with given id not found");
+    console.log(e);
     return sendInternalServerError(res);
   }
 };
