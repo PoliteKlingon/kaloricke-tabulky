@@ -31,11 +31,14 @@ api.get("/api/food/name/:name", food.getByName);
 
 api.delete("/api/food/:id", food.deleteFood);
 
-// ENDPOINTS FOR DETAILS //
-api.post("/api/user/details", userDetails.get);
+// GETTING INFORMATION ABOUT USER //
+api.get("/api/user", user.get);
 
-// ENDPOINTS FOR GOALS //
-api.post("/api/user/goals", userGoals.get);
+// Details //
+api.get("/api/user/details", userDetails.get);
+
+// Goals //
+api.get("/api/user/goals", userGoals.get);
 
 // ENDPOINTS FOR LOGIN AND REGISTRATION //
 api.put("/api/register", user.register);
