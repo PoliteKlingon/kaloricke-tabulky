@@ -74,6 +74,26 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
+export const get = async (req: Request, res: Response) => {
+  if (!req.headers.authorization)
+    return sendAuthorizationError(
+      res,
+      "Authorization header must not be empty"
+    );
+
+  try {
+    const user = await getUserBySessionId(
+      req.headers.authorization.split(" ")[1]
+    );
+    return sendSuccess(res, "User data retrieved successfully", user);
+  } catch (e: any) {
+    if (e.name === "NotFoundError")
+      return sendNotFound(res, "Sessin with given id not found");
+    console.log(e);
+    return sendInternalServerError(res);
+  }
+};
+
 export const login = async (req: Request, res: Response) => {
   try {
     const data = await userCredentialsSchema.validate(req.body);
@@ -103,6 +123,15 @@ export const getUserIdFromSessionId = async (sessionId: string) => {
     where: { id: sessionId },
   });
   return session ? session.userId : null;
+};
+
+export const getUserBySessionId = async (sessionId: string | undefined) => {
+  const session = await prisma.sessions.findUnique({
+    where: { id: sessionId },
+    include: { user: { include: { details: true, goals: true } } },
+    rejectOnNotFound: true,
+  });
+  return session.user;
 };
 
 export const validateAuthorization = async (
