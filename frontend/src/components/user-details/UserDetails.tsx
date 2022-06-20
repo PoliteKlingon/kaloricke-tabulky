@@ -371,16 +371,17 @@ import {
         <Container
             sx={{
                 backgroundColor: "white",
-                marginTop: 20,
-                width: "90%"
+                marginTop: {xs: 40, sm: 35, md: 25, lg: 25},
+                width: "90%",
+                height: "80%"
         }}
         >
           <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}
             variant="h3"
             component="h2"
             textAlign={isDesktop ? "left" : "center"}
-            paddingY={5}
-            paddingX={15}
+            paddingY={isDesktop ? 5 : 2}
+            paddingX={isDesktop ? 15 : 2}
             >
               Osobní údaje
           </Typography>
