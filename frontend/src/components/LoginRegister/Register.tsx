@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
+import AuthContext from "../../context/AuthProvider";
 import {
   Box,
   Button,
@@ -18,11 +18,11 @@ import { styled } from "@mui/system";
 import { AccountCircle, Lock } from "@mui/icons-material";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { useForm } from "react-hook-form";
-import slides from "../static/slideshow";
+import slides from "../../static/slideshow";
 // @ts-ignore
 import ChangingImage from "./ChangingImage";
 
-import axios from "../api/axios";
+import axios from "../../api/axios";
 import sha256 from "crypto-js/sha256";
 const marks = [
   {
@@ -89,7 +89,7 @@ const Register = () => {
     formState: { errors },
     getValues,
   } = useForm();
-  const onSubmit = async (e: any) => {
+  const onSubmit = async () => {
     const request = ownGoals
       ? {
           details: {
@@ -164,7 +164,7 @@ const Register = () => {
   };
 
   return success ? (
-    <Navigate to="/" />
+    <Navigate to="/home" />
   ) : (
     <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>

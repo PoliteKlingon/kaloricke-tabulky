@@ -1,15 +1,15 @@
-import { useState, useEffect, useContext } from "react";
+import { useState,  useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
+import AuthContext from "../../context/AuthProvider";
 import { Button, Grid, InputAdornment, TextField } from "@mui/material";
 import { styled } from "@mui/system";
 import { AccountCircle, Lock } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 
-import slides from "../static/slideshow";
+import slides from "../../static/slideshow";
 // @ts-ignore
 import ChangingImage from "./ChangingImage";
-import axios from "../api/axios";
+import axios from "../../api/axios";
 import sha256 from "crypto-js/sha256";
 
 const LogoImage = styled("img")({
@@ -33,7 +33,8 @@ type FormInputs = {
 
 const Login = () => {
   // @ts-ignore
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
+  //console.log("LOGIN: ", auth)
 
   const [success, setSuccess] = useState(false);
 
@@ -112,7 +113,7 @@ const Login = () => {
   };
 
   return success ? (
-    <Navigate to="/" />
+    <Navigate to="/home" />
   ) : (
     <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>
