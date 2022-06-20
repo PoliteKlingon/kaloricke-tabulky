@@ -59,3 +59,7 @@ export const sendCreatedSuccessfully = (
 ) => {
   res.status(201).send({ status: "success", message: message, data: data });
 };
+
+export const sendForbidden = (res: Response, message: string) => {
+  res.status(403).send({ status: "error", message: message, data: {} });
+};
