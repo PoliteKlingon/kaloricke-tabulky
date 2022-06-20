@@ -47,6 +47,7 @@ api.post("/api/logout", user.logout);
 
 // ENDPOINT FOR UPDATING USER DATA //
 api.post("/api/user", user.update);
+api.post("/api/user/password", user.updatePassword);
 
 api.listen(process.env["PORT"] || 3000, () => {
   console.log(

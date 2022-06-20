@@ -13,6 +13,10 @@ import {
 } from "./universalResponses";
 import { UserDetails, UserGoals } from "@prisma/client";
 
+const updatePasswordSchema = object({
+  oldPassword: string().required(),
+  newPassword: string().required(),
+});
 const userCredentialsSchema = object({
   passwordHash: string().required(),
   email: string().required(),
