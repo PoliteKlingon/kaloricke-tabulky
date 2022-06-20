@@ -1,10 +1,11 @@
 import { object, string, number, ValidationError } from "yup";
 import { Request, Response } from "express";
 import prisma from "../client";
-import { validateAuthorization } from "./user";
+import { getUserBySessionId, validateAuthorization } from "./user";
 import {
   sendAuthorizationError,
   sendInternalServerError,
+  sendNotFound,
   sendSuccess,
 } from "./universalResponses";
 
@@ -58,16 +59,20 @@ export const store = async (data: any, userId: string) => {
 // };
 
 export const get = async (req: Request, res: Response) => {
-  if (!(await validateAuthorization(req.body.sessionId, req.body.userId)))
-    return sendAuthorizationError(res);
-
+  if (!req.headers.authorization)
+    return sendAuthorizationError(
+      res,
+      "Authorization header must not be empty"
+    );
   try {
-    const result = await prisma.userGoals.findUnique({
-      where: { userId: req.body.userId },
-    });
-
-    return sendSuccess(res, "Goals retreived successfully", result);
-  } catch (e) {
+    const user = await getUserBySessionId(
+      req.headers.authorization.split(" ")[1]
+    );
+    return sendSuccess(res, "User data retrieved successfully", user.goals);
+  } catch (e: any) {
+    if (e.name === "NotFoundError")
+      return sendNotFound(res, "Sessin with given id not found");
+    console.log(e);
     return sendInternalServerError(res);
   }
 };
