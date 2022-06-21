@@ -233,3 +233,37 @@ const getAge = (birthDate: Date) =>
   Math.floor(
     (new Date().getTime() - new Date(birthDate).getTime()) / 3.15576e10
   );
+
+export async function updatePassword(req: Request, res: Response) {
+  try {
+    if (!req.headers.authorization)
+      return sendAuthorizationError(
+        res,
+        "Authorization header must not be empty"
+      );
+
+    const data = await updatePasswordSchema.validate(req.body);
+    const user = await getUserBySessionId(req.headers.authorization);
+
+    const credentials = await prisma.userCredentials.findUnique({
+      where: { userId: user.id },
+      rejectOnNotFound: true,
+    });
+    if (credentials.passwordHash !== data.oldPassword)
+      return sendAuthorizationError(res, "Old password does not match");
+
+    const newPasswordHash = data.newPassword; //FIXME create hash instead of plain value
+    await prisma.userCredentials.update({
+      where: { userId: user.id },
+      data: {
+        passwordHash: newPasswordHash,
+      },
+    });
+
+    return sendSuccess(res, "Password successfully updated", {});
+  } catch (e) {
+    if (e instanceof ValidationError) return sendValidationError(res, e);
+
+    return sendInternalServerError(res);
+  }
+}
