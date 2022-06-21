@@ -1,5 +1,5 @@
 import express from "express";
-import { food, user, userDetails, userGoals } from "./resources";
+import { food, user } from "./resources";
 import YAML from "yamljs";
 import swaggerUi from "swagger-ui-express";
 
@@ -33,12 +33,6 @@ api.delete("/api/food/:id", food.deleteFood);
 
 // GETTING INFORMATION ABOUT USER //
 api.get("/api/user", user.get);
-
-// Details //
-api.get("/api/user/details", userDetails.get);
-
-// Goals //
-api.get("/api/user/goals", userGoals.get);
 
 // ENDPOINTS FOR LOGIN AND REGISTRATION //
 api.post("/api/register", user.register);
