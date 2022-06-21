@@ -41,13 +41,13 @@ api.get("/api/user/details", userDetails.get);
 api.get("/api/user/goals", userGoals.get);
 
 // ENDPOINTS FOR LOGIN AND REGISTRATION //
-api.put("/api/register", user.register);
+api.post("/api/register", user.register);
 api.post("/api/login", user.login);
 api.post("/api/logout", user.logout);
 
 // ENDPOINT FOR UPDATING USER DATA //
-api.post("/api/user", user.update);
-api.post("/api/user/password", user.updatePassword);
+api.put("/api/user", user.update);
+api.put("/api/user/password", user.updatePassword);
 
 api.listen(process.env["PORT"] || 3000, () => {
   console.log(
