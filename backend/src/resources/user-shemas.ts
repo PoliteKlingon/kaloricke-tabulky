@@ -45,6 +45,25 @@ export const goalsUpdateSchema = object({
 
 export const passwordSchema = string().required();
 export const sessionIdSchema = string().required();
+export const headersSchema = object({
+  authorization: string()
+    .required()
+    .transform((val, _) => {
+      return val.split(" ")[1] || val;
+    })
+    .test(
+      "is valid bearer token",
+      `Authorization header does not containt valid bearer token`,
+      (val, _) => {
+        return !!val;
+      }
+    ),
+});
+
+export const passwordUpdateSchema = object({
+  oldPassword: string().required(),
+  newPassword: string().required(),
+});
 
 export const registerSchema = object({
   password: string().required(),
@@ -53,23 +72,14 @@ export const registerSchema = object({
 });
 
 export const updateRequestSchema = object({
-  headers: object({
-    authorization: string()
-      .required()
-      .transform((val, _) => {
-        return val.split(" ")[1] || val;
-      })
-      .test(
-        "is valid bearer token",
-        `Authorization header does not containt valid bearer token`,
-        (val, _) => {
-          return !!val;
-        }
-      ),
-  }),
+  headers: headersSchema.required(),
   body: object({
-    password: passwordSchema.optional(),
     details: detailsUpdateSchema.optional(),
     goals: goalsUpdateSchema.optional(),
   }),
+});
+
+export const loginSchema = object({
+  password: string().required(),
+  email: string().required(),
 });
