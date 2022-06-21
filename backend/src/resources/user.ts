@@ -12,6 +12,7 @@ import {
   sendValidationError,
 } from "./universalResponses";
 import { UserDetails, UserGoals } from "@prisma/client";
+import sha256 from "crypto-js/sha256";
 
 const updatePasswordSchema = object({
   oldPassword: string().required(),
@@ -25,9 +26,10 @@ const userCredentialsSchema = object({
 
 export const register = async (req: Request, res: Response) => {
   try {
+    // TODO hash
     const credentialsReq = {
       email: req.body.details?.email,
-      passwordHash: req.body.details?.passwordHash,
+      passwordHash: req.body.details?.password,
     };
     const credentailsData = await userCredentialsSchema.validate(
       credentialsReq
@@ -240,6 +242,7 @@ const getAge = (birthDate: Date) =>
   );
 
 export async function updatePassword(req: Request, res: Response) {
+  // TODO destroy all existing sesstions with same userId, create new one and send back sessionId
   try {
     if (!req.headers.authorization)
       return sendAuthorizationError(
@@ -248,13 +251,16 @@ export async function updatePassword(req: Request, res: Response) {
       );
 
     const data = await updatePasswordSchema.validate(req.body);
-    const user = await getUserBySessionId(req.headers.authorization);
+    const user = await getUserBySessionId(
+      req.headers.authorization.split(" ")[1]
+    );
 
     const credentials = await prisma.userCredentials.findUnique({
       where: { userId: user.id },
       rejectOnNotFound: true,
     });
     if (credentials.passwordHash !== data.oldPassword)
+      //FIXME create hash from oldPassword
       return sendAuthorizationError(res, "Old password does not match");
 
     const newPasswordHash = data.newPassword; //FIXME create hash instead of plain value
@@ -269,6 +275,7 @@ export async function updatePassword(req: Request, res: Response) {
   } catch (e) {
     if (e instanceof ValidationError) return sendValidationError(res, e);
 
+    console.log(e);
     return sendInternalServerError(res);
   }
 }
