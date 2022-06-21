@@ -17,6 +17,7 @@ const updatePasswordSchema = object({
   oldPassword: string().required(),
   newPassword: string().required(),
 });
+
 const userCredentialsSchema = object({
   passwordHash: string().required(),
   email: string().required(),
@@ -148,19 +149,31 @@ export const validateAuthorization = async (
   return session != null && session.userId === userId;
 };
 
-// TODO test updates
 export const update = async (req: Request, res: Response) => {
   try {
-    const userId = await getUserIdFromSessionId(req.body.sessionId);
-    if (!userId) return sendNotFound(res, "User not found");
+    if (!req.headers.authorization)
+      return sendAuthorizationError(
+        res,
+        "Authorization header must not be empty"
+      );
+
+    const user = await getUserBySessionId(
+      req.headers.authorization.split(" ")[1]
+    );
 
     if (req.body.details?.email) {
       const duplicate = await prisma.userDetails.findUnique({
         where: { email: req.body.details.email },
       });
-      if (duplicate && duplicate.userId != userId) {
+      if (duplicate && duplicate.userId != user.id) {
         return sendDuplicateError(res, "User with given email already exists");
       }
+      await prisma.userCredentials.update({
+        where: { userId: user.id },
+        data: {
+          email: req.body.details.email,
+        },
+      });
     }
 
     interface ResponseData {
@@ -168,30 +181,22 @@ export const update = async (req: Request, res: Response) => {
       goals?: UserGoals;
     }
 
-    const passwordHash = req.body.details.passwordHash || undefined;
     const responseData: ResponseData = {};
 
     if (req.body.details) {
-      if (req.body.details.passwordHash) delete req.body.details.passwordHash;
-      responseData.details = await userDetails.update(userId, req.body.details);
+      responseData.details = await userDetails.update(
+        user.id,
+        req.body.details
+      );
     }
 
     if (req.body.goals)
-      responseData.goals = await userGoals.update(userId, req.body.goals);
-
-    if (passwordHash || req.body.details?.email) {
-      await prisma.userCredentials.update({
-        where: { userId: userId },
-        data: {
-          passwordHash: passwordHash,
-          email: req.body.details.email || undefined,
-        },
-      });
-    }
+      responseData.goals = await userGoals.update(user.id, req.body.goals);
 
     return sendSuccess(res, "User data updated successfully", responseData);
   } catch (e) {
     if (e instanceof ValidationError) return sendValidationError(res, e);
+
     return sendInternalServerError(res);
   }
 };
