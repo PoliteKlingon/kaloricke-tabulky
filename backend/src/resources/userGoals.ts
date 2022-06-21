@@ -34,7 +34,7 @@ const goalsUpdateSchema = object({
 export const store = async (data: any, userId: string) => {
   data.userId = userId;
   const goals = await goalsSchema.validate(data);
-  await prisma.userGoals.create({
+  return await prisma.userGoals.create({
     data: { ...goals },
   });
 };
