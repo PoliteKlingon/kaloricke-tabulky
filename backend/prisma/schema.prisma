@@ -24,14 +24,13 @@ model UserCredentials {
 }
 
 model UserGoals {
-  id       String @id @default(uuid())
   carbs    Float
   proteins Float
   fats     Float
   fiber    Float
   salt     Float
   calories Float
-  userId   String @unique
+  userId   String @id @unique
   user     User   @relation(fields: [userId], references: [id])
 }
 

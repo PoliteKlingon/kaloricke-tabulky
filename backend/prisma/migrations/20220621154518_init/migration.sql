@@ -13,14 +13,13 @@ CREATE TABLE "UserCredentials" (
 
 -- CreateTable
 CREATE TABLE "UserGoals" (
-    "id" TEXT NOT NULL PRIMARY KEY,
     "carbs" REAL NOT NULL,
     "proteins" REAL NOT NULL,
     "fats" REAL NOT NULL,
     "fiber" REAL NOT NULL,
     "salt" REAL NOT NULL,
     "calories" REAL NOT NULL,
-    "userId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL PRIMARY KEY,
     CONSTRAINT "UserGoals_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
