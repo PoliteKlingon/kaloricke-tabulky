@@ -15,15 +15,11 @@ const HomePage = () => {
         setAuth(JSON.parse(window.localStorage.getItem("auth")));
       }
     }, []);
-    console.log("HOMEPAGE: ", auth);
-    console.log(
-      "HOMEPAGE should be : ",
-      JSON.parse(window.localStorage.getItem("auth"))
-    );
+
+    // TODO: remove false below
     return (
       <>
-      {console.log("HOMEPAGE: ", auth)}
-        {Object.keys(auth).length === 0 || auth == null
+        {(Object.keys(auth).length === 0 || auth == null) && false
           ? (console.log(auth), (<Navigate to="/" />))
           :
             <>

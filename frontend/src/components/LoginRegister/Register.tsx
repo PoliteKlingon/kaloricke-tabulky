@@ -23,7 +23,7 @@ import slides from "../../static/slideshow";
 import ChangingImage from "./ChangingImage";
 
 import axios from "../../api/axios";
-import sha256 from "crypto-js/sha256";
+
 const marks = [
   {
     value: 5,
@@ -92,9 +92,9 @@ const Register = () => {
   const onSubmit = async () => {
     const request = ownGoals
       ? {
+          password: getValues("password"),
           details: {
             email: getValues("email"),
-            passwordHash: String(sha256(getValues("password"))),
             username: getValues("username"),
             name: getValues("name"),
             surname: getValues("surname"),
@@ -118,9 +118,9 @@ const Register = () => {
           },
         }
       : {
+          password: getValues("password"),
           details: {
             email: getValues("email"),
-            passwordHash: String(sha256(getValues("password"))),
             username: getValues("username"),
             name: getValues("name"),
             surname: getValues("surname"),

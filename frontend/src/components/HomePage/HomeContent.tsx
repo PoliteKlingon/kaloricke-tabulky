@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Box, Button, Collapse, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Collapse, Grid, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { styled } from "@mui/system";
 import AuthContext from "../../context/AuthProvider";
@@ -88,6 +88,9 @@ const HomeContent = () => {
     
     fetchMeals();
   }, [slectedDate]);
+
+  const [calories, setCalories] = useState(0);
+
   return (
     <>
       <Grid
@@ -142,7 +145,6 @@ const HomeContent = () => {
       <Grid
         container
         direction={{ xs: "column", sm: "row" }}
-        alignItems="center"
         justifyContent="center"
         pt={5}
       >
@@ -159,8 +161,57 @@ const HomeContent = () => {
             return <FoodMilestone eaten={test} name={meal} />;
           })}
         </Grid>
-        <Grid container item xs={2} display="flex" justifyContent="center">
-          BBBB
+        <Grid
+          container
+          item
+          xs={2}
+          direction="column"
+          display="flex"
+          alignItems="center"
+        >
+          <Grid item xs={2}>
+            <TripleProgressBar
+              desired={1000}
+              value={2100}
+              unit="kcal"
+              size={200}
+              main={true}
+            />
+          </Grid>
+          <Grid container>
+            <SingleNutrientbar
+              name="Sacharidy"
+              desired={1000}
+              value={1600}
+              unit="g"
+              size={100}
+              isMain={false}
+            />
+            <SingleNutrientbar
+              name="Bílkoviny"
+              desired={1000}
+              value={875}
+              unit="g"
+              size={100}
+              isMain={false}
+            />
+            <SingleNutrientbar
+              name="Tuky"
+              desired={1000}
+              value={74}
+              unit="g"
+              size={100}
+              isMain={false}
+            />
+            <SingleNutrientbar
+              name="Vláknina"
+              desired={1000}
+              value={2870}
+              unit="g"
+              size={100}
+              isMain={false}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </>
@@ -175,7 +226,7 @@ const FoodMilestone = (params: any) => {
           component="span"
           sx={{
             p: 1,
-            m: 1,
+            my: 1,
             borderRadius: 3,
           }}
         >
@@ -212,8 +263,8 @@ const FoodRecord = (params: any) => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        pl: 1,
-        ml: 1,
+        px: 1,
+        mx: 1,
         fontSize: "1.5rem",
         fontFamily: "Nunito",
         fontWeight: "400",
@@ -224,8 +275,8 @@ const FoodRecord = (params: any) => {
           fontFaminy: "Nunito",
           fontSize: "1rem",
           fontWeight: 400,
-          pl: 1,
-          ml: 1,
+          px: 1,
+          mx: 1,
         }}
       >
         {params.name}
@@ -248,6 +299,150 @@ const FoodRecord = (params: any) => {
         <AnimatedButton disableRipple>
           <DeleteIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
         </AnimatedButton>
+      </Box>
+    </Box>
+  );
+}
+
+const SingleNutrientbar = (params: any) => {
+  return (
+    <Grid
+      item
+      xs={6}
+      display="grid"
+      alignItems="center"
+      justifyContent="center"
+      pt={3}
+    >
+      <Typography textAlign="center" fontFamily="Nunito" fontWeight="bold">
+        {params.name}
+      </Typography>
+      <TripleProgressBar
+        desired={params.desired}
+        value={params.value}
+        unit={params.unit}
+        size={params.size}
+        main={params.isMain}
+      />
+      <Typography textAlign="center" fontFamily="Nunito" fontWeight="bold" pt="1rem">
+        {params.value}
+        {params.unit}
+      </Typography>
+      <Typography textAlign="center" fontFamily="Nunito">
+        z {params.desired}
+        {params.unit}
+      </Typography>
+    </Grid>
+  );
+}
+
+const TripleProgressBar = (params: any) => {
+  return (
+    <Box sx={{ position: "relative", display: "inline-flex"}}>
+      <CircularProgress
+        variant="determinate"
+        value={
+          Math.round(
+            Math.min(Math.max((params.value / params.desired) * 100, 0), 100) *
+              10
+          ) / 10
+        }
+        size={params.size}
+        color="success"
+        thickness={5}
+      />
+      <CircularProgress
+        variant="determinate"
+        value={
+          (params.value / params.desired) * 100 < 100
+            ? 0
+            : Math.round(
+                Math.min(
+                  Math.max((params.value / params.desired) * 100 - 100, 0),
+                  100
+                ) * 10
+              ) / 10
+        }
+        size={params.size}
+        color="warning"
+        thickness={5}
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      />
+      <CircularProgress
+        variant="determinate"
+        value={
+          (params.value / params.desired) * 100 < 200
+            ? 0
+            : Math.round(
+                Math.min(
+                  Math.max((params.value / params.desired) * 100 - 200, 0),
+                  100
+                ) * 10
+              ) / 10
+        }
+        size={params.size}
+        color="error"
+        thickness={5}
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      />
+
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "grid",
+          justifyContent: "center",
+          alignContent: "center",
+        }}
+      >
+        {params.main ? (
+          <>
+            <Typography
+              textAlign="center"
+              fontFamily="Nunito"
+              fontSize="1.3rem"
+            >
+              {Math.round((params.value / params.desired) * 100 * 10) / 10}%
+            </Typography>
+            <Typography
+              textAlign="center"
+              fontFamily="Nunito"
+              fontSize="1.5rem"
+              fontWeight="bold"
+            >
+              {params.value}
+              {params.unit}
+            </Typography>
+            <Typography textAlign="center" fontFamily="Nunito" fontSize="1rem">
+              z {params.desired} {params.unit}
+            </Typography>
+          </>
+        ) : (
+          <Typography textAlign="center" fontFamily="Nunito" fontSize="1.3rem">
+            {Math.round((params.value / params.desired) * 100 * 10) / 10}%
+          </Typography>
+        )}
       </Box>
     </Box>
   );
