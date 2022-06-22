@@ -5,6 +5,7 @@ import {
     Button,
     Collapse,
     Grid,
+    Input,
     InputAdornment,
     Slider,
     Stack,
@@ -1029,8 +1030,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      //value={goals.calories} 
-                      label={goals.calories} 
+                      placeholder={goals.calories} 
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
@@ -1061,9 +1061,9 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      //defaultValue={goals.proteins} 
-                      label={goals.proteins} 
-                      variant="standard" 
+                      placeholder={goals.proteins} 
+                      hiddenLabel
+                      variant="standard"
                       type="number"
                       sx= {{width: 70}}
                       InputProps={{
@@ -1077,7 +1077,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                         },
                       })}
                       error={!!errorsGoals?.proteins}
-                      helperText={errorsGoals?.proteins ? errorsGoals.proteins.message : null} />
+                    helperText={errorsGoals?.proteins ? errorsGoals.proteins.message : null} />
                     </Grid>
                     <Grid item />
                   </Grid> 
@@ -1096,8 +1096,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      //defaultValue={goals.carbs} 
-                      label={goals.carbs}
+                      placeholder={goals.carbs}
                       variant="standard"  
                       type="number"
                       sx= {{width: 70}}
@@ -1131,8 +1130,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      //defaultValue={goals.fats}
-                      label={goals.fats}
+                      placeholder={goals.fats}
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
@@ -1166,8 +1164,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      //defaultValue={goals.fiber}
-                      label={goals.fiber}
+                      placeholder={goals.fiber}
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
@@ -1201,8 +1198,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      //defaultValue={goals.salt} 
-                      label={goals.salt}
+                      placeholder={goals.salt}
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
