@@ -83,7 +83,7 @@ const Header = () => {
               >
                 {authState ? (
                   <>
-                    <Link to="/" style={{ textDecoration: "none" }}>
+                    <Link to="/user-details" style={{ textDecoration: "none" }}>
                       <AnimatedButton
                         variant="text"
                         sx={{
