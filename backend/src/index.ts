@@ -23,11 +23,11 @@ api.get("/", (_, res) =>
 );
 
 // ENDPOINTS FOR FOOD //
-api.put("/api/food", food.store);
-api.post("/api/food", food.update);
-api.get("/api/food", food.get);
-api.get("/api/food/id/:id", food.getById);
-api.get("/api/food/name/:name", food.getByName);
+// api.put("/api/food", food.store);
+// api.post("/api/food", food.update);
+// api.get("/api/food/id/:id", food.getById);
+api.get("/api/food/:name", food.get);
+// api.get("/api/food/search/:name", food.searchByName);
 
 api.delete("/api/food/:id", food.deleteFood);
 
