@@ -94,7 +94,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 Množství
               </Typography>
               <TextField
-                label={100}
+                defaultValue={100}
                 variant="standard"
                 margin="none"
               />
