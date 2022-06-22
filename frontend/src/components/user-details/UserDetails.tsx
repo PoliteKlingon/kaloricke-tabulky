@@ -5,7 +5,6 @@ import {
     Button,
     Collapse,
     Grid,
-    Input,
     InputAdornment,
     Slider,
     Stack,
@@ -26,7 +25,6 @@ import {
   import './UserDetails.css'
   import axios from "../../api/axios";
 import { flushSync } from 'react-dom';
-import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material';
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -80,11 +78,6 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       label: "Muž",
     },
   ];
-
-  /*const getData = () => {
-    axios.get()
-  }*/
-
   
   export default function UserDetails() {
     const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
@@ -104,8 +97,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       handleSubmit: handleSubmitEmail,
     } = useForm();
     
-    // @ts-ignore
-    const onSubmitEmail = (data) => {
+    const onSubmitEmail = (data: any) => {
       setEmail(data.email);
       setChangeEmail(false);
       updateDetails({
@@ -121,8 +113,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       handleSubmit: handleSubmitUsername,
     } = useForm();
     
-    // @ts-ignore
-    const onSubmitUsername = (data) => {
+    const onSubmitUsername = (data: any) => {
       setUsername(data.username);
       setChangeUsername(false);
       updateDetails({
@@ -138,11 +129,8 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       handleSubmit: handleSubmitName,
     } = useForm();
     
-    // @ts-ignore
-    const onSubmitName = (data) => {
-      
-      flushSync(() => {setName(data.name);});
-      //setName(data.name);
+    const onSubmitName = (data: any) => {
+      setName(data.name);
       setChangeName(false);
       updateDetails({
         details: {
@@ -157,8 +145,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       handleSubmit: handleSubmitSurname,
     } = useForm();
     
-    // @ts-ignore
-    const onSubmitSurname = (data) => {
+    const onSubmitSurname = (data: any) => {
       setSurname(data.surname);
       setChangeSurname(false);
       updateDetails({
@@ -174,8 +161,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       handleSubmit: handleSubmitHeight,
     } = useForm();
   
-    // @ts-ignore
-    const onSubmitHeight = (data) => {
+    const onSubmitHeight = (data: any) => {
       setHeight(data.height);
       setChangeHeight(false);
       updateDetails({
@@ -191,8 +177,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       handleSubmit: handleSubmitWeight,
     } = useForm();
 
-    // @ts-ignore
-    const onSubmitWeight = (data) => {
+    const onSubmitWeight = (data: any) => {
       setWeight(data.weight);
       setChangeWeight(false);
       updateDetails({
@@ -220,8 +205,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       handleSubmit: handleSubmitDesiredWeight,
     } = useForm();
 
-    // @ts-ignore
-    const onSubmitDesiredWeight = (data) => {
+    const onSubmitDesiredWeight = (data: any) => {
       setDesiredWeight(data.desiredWeight);
       setChangeDesiredWeight(false);
       updateDetails({
@@ -237,8 +221,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       handleSubmit: handleSubmitGoals,
     } = useForm();
 
-    // @ts-ignore
-    const onSubmitGoals = (data) => {
+    const onSubmitGoals = (data: any) => {
       console.log(data);
       setGoals(data);
       console.log(goals);
@@ -262,8 +245,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       getValues,
     } = useForm();
 
-    // @ts-ignore
-    const onSubmitPasswords = (data) => {
+    const onSubmitPasswords = (data: any) => {
       setPasswords(data);
       setChangePasswords(!changePasswords);
       updatePassword({
