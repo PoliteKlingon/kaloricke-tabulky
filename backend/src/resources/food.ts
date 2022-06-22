@@ -33,32 +33,32 @@ const foodUpdateSchema = object({
   id: string().required(),
 });
 
-export const store = async (req: Request, res: Response) => {
-  try {
-    const data = await foodSchema.validate(req.body);
+// export const store = async (req: Request, res: Response) => {
+//   try {
+//     const data = await foodSchema.validate(req.body);
 
-    const duplicate = await prisma.food.findUnique({
-      where: { name: data.name },
-    });
-    if (duplicate) {
-      return sendDuplicateError(
-        res,
-        `Food with name '${data.name}' already exists`
-      );
-    }
+//     const duplicate = await prisma.food.findUnique({
+//       where: { name: data.name },
+//     });
+//     if (duplicate) {
+//       return sendDuplicateError(
+//         res,
+//         `Food with name '${data.name}' already exists`
+//       );
+//     }
 
-    const food = await prisma.food.create({ data });
-    return sendCreatedSuccessfully(res, "Food created successfully", food);
-  } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
+//     const food = await prisma.food.create({ data });
+//     return sendCreatedSuccessfully(res, "Food created successfully", food);
+//   } catch (e: any) {
+//     if (e instanceof ValidationError) {
+//       return sendValidationError(res, e);
+//     }
 
-    return sendInternalServerError(res);
-  }
-};
+//     return sendInternalServerError(res);
+//   }
+// };
 
-export const get = async (_: Request, res: Response) => {
+export const getAll = async (_: Request, res: Response) => {
   try {
     const foods = await prisma.food.findMany({ where: { deleted: false } });
     return sendSuccess(res, "Foods retreived successfully", foods);
@@ -82,7 +82,25 @@ export const getById = async (req: Request, res: Response) => {
   }
 };
 
-export const getByName = async (req: Request, res: Response) => {
+export const get = async (req: Request, res: Response) => {
+  try {
+    const id = req.params["name"]?.toLowerCase();
+    const food = await prisma.food.findFirst({
+      where: {
+        AND: [{ deleted: false }, { id: id }],
+      },
+      rejectOnNotFound: true,
+    });
+
+    return sendSuccess(res, "Foods retreived successfully", food);
+  } catch (e: any) {
+    if (e.name === "NotFoundError") return sendNotFound(res, "Food not found");
+
+    return sendInternalServerError(res);
+  }
+};
+
+export const searchByName = async (req: Request, res: Response) => {
   try {
     const name = req.params["name"]!.toLowerCase();
     const foods = await prisma.food.findMany({

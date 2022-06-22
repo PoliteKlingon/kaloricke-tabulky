@@ -84,8 +84,8 @@ userGoals:
     calories: 1850
 
 food:
-  - id: "03489d70-4662-488f-ae3c-2324f014000e"
-    name: "banana"
+  - id: "banana"
+    name: "Banana"
     description: "A Banana (per 100g)"
     calories: 88
     proteins: 1.2
@@ -94,8 +94,8 @@ food:
     fiber: 1.1
     salt: 0
 
-  - id: "66689d70-4662-488f-ae3c-2324f014000f"
-    name: "mango"
+  - id: "mango"
+    name: "Mango"
     description: "A Mango (per 100g)"
     calories: 59
     proteins: 0.7
@@ -104,8 +104,8 @@ food:
     fiber: 2.6
     salt: 0
 
-  - id: "f39e907c-0c73-43e3-b7a3-7182d173a7b5"
-    name: "apple"
+  - id: "apple"
+    name: "Apple"
     description: "An Apple (per 100g)"
     calories: 74
     proteins: 0.9
@@ -114,8 +114,8 @@ food:
     fiber: 5.7
     salt: 0
 
-  - id: "e02fb1a5-b4bf-4377-ab62-e44cebd0e043"
-    name: "grape"
+  - id: "grape"
+    name: "Grape"
     description: "Grapes (per 100g)"
     calories: 47
     proteins: 0.5
@@ -124,8 +124,8 @@ food:
     fiber: 2.2
     salt: 0
 
-  - id: "27a296f0-3fac-429c-87de-21589aeb5138"
-    name: "orange"
+  - id: "orange"
+    name: "Orange"
     description: "Orange (per 100g)"
     calories: 47
     proteins: 0.9
@@ -134,8 +134,8 @@ food:
     fiber: 0
     salt: 0
 
-  - id: "3574e631-d279-4384-b186-b9c658ecd272"
-    name: "ananas"
+  - id: "ananas"
+    name: "Ananas"
     description: "Ananas (per 100g)"
     calories: 50
     proteins: 0.5
@@ -144,7 +144,7 @@ food:
     fiber: 2.6
     salt: 0
 
-  - id: "fcea9ff1-20be-43c2-b506-e6d3f1d99424"
+  - id: "watermelon"
     name: "Watermelon"
     description: "Watermelon (per 100g)"
     calories: 30
@@ -154,8 +154,8 @@ food:
     fiber: 0.4
     salt: 0
 
-  - id: "55d93088-f337-4026-9d2f-8baf3e71e2cc"
-    name: "steak"
+  - id: "steak"
+    name: "Steak"
     description: "Steak (per 100g)"
     calories: 270
     proteins: 23.8
@@ -164,8 +164,8 @@ food:
     fiber: 0
     salt: 2
 
-  - id: "3b7b39e8-f8f7-4927-beb8-e371415b258b"
-    name: "pasta"
+  - id: "pasta"
+    name: "Pasta"
     description: "Pasta (per 100g)"
     calories: 131
     proteins: 5.9
@@ -174,8 +174,8 @@ food:
     fiber: 0
     salt: 1
 
-  - id: "53648e05-7519-4a94-b836-49e19764dfcc"
-    name: "yoghurt (white)"
+  - id: "yoghurt (white)"
+    name: "Yoghurt (white)"
     description: "White Yoghurt (per 100g)"
     calories: 58
     proteins: 10
@@ -185,83 +185,83 @@ food:
     salt: 0.1
 
 eaten:
-  # Breakfast user 2 day 1
-  - id: "00089d70-8000-488f-ae3c-2324f014000e"
-    foodId: "03489d70-4662-488f-ae3c-2324f014000e"
-    quantity: 875.8
+#   # Breakfast user 2 day 1
+#   - id: "00089d70-8000-488f-ae3c-2324f014000e"
+#     foodId: "banana"
+#     quantity: 875.8
 
-  - id: "b9a8511c-b4db-4028-944c-c50ed0594470"
-    foodId: "66689d70-4662-488f-ae3c-2324f014000f"
-    quantity: 12.5
+#   - id: "b9a8511c-b4db-4028-944c-c50ed0594470"
+#     foodId: "pasta"
+#     quantity: 12.5
 
-  ## Lunch user 2 day 1
-  - id: "a982ec9f-1e98-45e1-86b2-d8190c62bb4f"
-    foodId: "55d93088-f337-4026-9d2f-8baf3e71e2cc"
-    quantity: 200
+#   ## Lunch user 2 day 1
+#   - id: "a982ec9f-1e98-45e1-86b2-d8190c62bb4f"
+#     foodId: "steak"
+#     quantity: 200
 
-  - id: "99e28e40-48fb-4698-bbfc-8af19e2a3a13"
-    foodId: "3b7b39e8-f8f7-4927-beb8-e371415b258b"
-    quantity: 200
+#   - id: "99e28e40-48fb-4698-bbfc-8af19e2a3a13"
+#     foodId: "orange"
+#     quantity: 200
 
-  ## Dinner user 2 day 1
-  - id: "b023133e-4813-4f8f-8c65-efd3bd42e7ac"
-    foodId: "53648e05-7519-4a94-b836-49e19764dfcc"
-    quantity: 150
+#   ## Dinner user 2 day 1
+#   - id: "b023133e-4813-4f8f-8c65-efd3bd42e7ac"
+#     foodId: "53648e05-7519-4a94-b836-49e19764dfcc"
+#     quantity: 150
 
-  - id: "5b8b5835-bd23-4c53-87c9-9fa61805ff50"
-    foodId: "66689d70-4662-488f-ae3c-2324f014000f"
-    quantity: 12.5
+#   - id: "5b8b5835-bd23-4c53-87c9-9fa61805ff50"
+#     foodId: "66689d70-4662-488f-ae3c-2324f014000f"
+#     quantity: 12.5
 
-  ## Breakfast user 2 day 2
-  - id: "2f00f0a2-a5ed-4eba-bdac-9942f4a643ee"
-    foodId: "53648e05-7519-4a94-b836-49e19764dfcc"
-    quantity: 250
+#   ## Breakfast user 2 day 2
+#   - id: "2f00f0a2-a5ed-4eba-bdac-9942f4a643ee"
+#     foodId: "53648e05-7519-4a94-b836-49e19764dfcc"
+#     quantity: 250
 
-  # Morning snack user 3
-  - id: "3a23bc23-73a3-438a-8862-15d0063bb30a"
-    foodId: "66689d70-4662-488f-ae3c-2324f014000f"
-    quantity: 50.5
+#   # Morning snack user 3
+#   - id: "3a23bc23-73a3-438a-8862-15d0063bb30a"
+#     foodId: "66689d70-4662-488f-ae3c-2324f014000f"
+#     quantity: 50.5
 
-  - id: "b408fc4e-a11f-4fb7-b446-87ae5634f96a"
-    foodId: "03489d70-4662-488f-ae3c-2324f014000e"
-    quantity: 85
+#   - id: "b408fc4e-a11f-4fb7-b446-87ae5634f96a"
+#     foodId: "03489d70-4662-488f-ae3c-2324f014000e"
+#     quantity: 85
 
 meal:
-  - id: "00089d70-4662-488f-ae3c-2324f014000f"
-    userId: "2"
-    food:
-      - id: "00089d70-8000-488f-ae3c-2324f014000e"
-      - id: "b9a8511c-b4db-4028-944c-c50ed0594470"
-    type: "Breakfast"
-    date: "2022-06-05T12:00:00.000Z"
+  # - id: "00089d70-4662-488f-ae3c-2324f014000f"
+  #   userId: "2"
+  #   food:
+  #     - id: "00089d70-8000-488f-ae3c-2324f014000e"
+  #     - id: "b9a8511c-b4db-4028-944c-c50ed0594470"
+  #   type: "Breakfast"
+  #   date: "2022-06-05T12:00:00.000Z"
 
-  - id: "067522f4-54db-49a0-9c46-c0eca2b81136"
-    userId: "2"
-    food:
-      - id: "a982ec9f-1e98-45e1-86b2-d8190c62bb4f"
-      - id: "99e28e40-48fb-4698-bbfc-8af19e2a3a13"
-    type: "Lunch"
-    date: "2022-06-05T12:00:00.000Z"
+  # - id: "067522f4-54db-49a0-9c46-c0eca2b81136"
+  #   userId: "2"
+  #   food:
+  #     - id: "a982ec9f-1e98-45e1-86b2-d8190c62bb4f"
+  #     - id: "99e28e40-48fb-4698-bbfc-8af19e2a3a13"
+  #   type: "Lunch"
+  #   date: "2022-06-05T12:00:00.000Z"
 
-  - id: "9af36f97-8d3e-4445-8982-3537de3ed0c4"
-    userId: "2"
-    food:
-      - id: "5b8b5835-bd23-4c53-87c9-9fa61805ff50"
-      - id: "b023133e-4813-4f8f-8c65-efd3bd42e7ac"
-    type: "Dinner"
-    date: "2022-06-05T12:00:00.000Z"
+  # - id: "9af36f97-8d3e-4445-8982-3537de3ed0c4"
+  #   userId: "2"
+  #   food:
+  #     - id: "5b8b5835-bd23-4c53-87c9-9fa61805ff50"
+  #     - id: "b023133e-4813-4f8f-8c65-efd3bd42e7ac"
+  #   type: "Dinner"
+  #   date: "2022-06-05T12:00:00.000Z"
 
-  - id: "1c65849a-c4b4-4cc8-a12c-15839a524828"
-    userId: "2"
-    food:
-      - id: "2f00f0a2-a5ed-4eba-bdac-9942f4a643ee"
-    type: "Breakfast"
-    date: "2022-06-06T12:00:00.000Z"
+  # - id: "1c65849a-c4b4-4cc8-a12c-15839a524828"
+  #   userId: "2"
+  #   food:
+  #     - id: "2f00f0a2-a5ed-4eba-bdac-9942f4a643ee"
+  #   type: "Breakfast"
+  #   date: "2022-06-06T12:00:00.000Z"
 
-  - id: "7d136072-77b0-4d04-a8d0-86ddfab2623c"
-    userId: "3"
-    food:
-      - id: "3a23bc23-73a3-438a-8862-15d0063bb30a"
-      - id: "b408fc4e-a11f-4fb7-b446-87ae5634f96a"
-    type: "MorningSnack"
-    date: "2022-06-05T12:00:00.000Z"
+  # - id: "7d136072-77b0-4d04-a8d0-86ddfab2623c"
+  #   userId: "3"
+  #   food:
+  #     - id: "3a23bc23-73a3-438a-8862-15d0063bb30a"
+  #     - id: "b408fc4e-a11f-4fb7-b446-87ae5634f96a"
+  #   type: "MorningSnack"
+  #   date: "2022-06-05T12:00:00.000Z"
