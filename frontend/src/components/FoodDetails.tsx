@@ -117,31 +117,31 @@ const FoodDetails:FoodDetailsType = ({food}) => {
             <Grid item xs={4}>
               Energicka hodnota
               <ValuesDiv>
-                {food.caloric_value} kcal
+                {getValueMultiplied(food.caloric_value, amount)} kcal
               </ValuesDiv>
             </Grid>
             <Grid item xs={2}>
               Bíloviny
               <ValuesDiv>
-                {food.proteins} g
+                {getValueMultiplied(food.proteins, amount)} g
               </ValuesDiv>
             </Grid>
             <Grid item xs={2}>
               Sacharidy
               <ValuesDiv>
-                {food.carbs} g
+                {getValueMultiplied(food.carbs, amount)} g
               </ValuesDiv>
             </Grid>
             <Grid item xs={2}>
               Tuky
               <ValuesDiv>
-                {food.fats} g
+                {getValueMultiplied(food.fats, amount)} g
               </ValuesDiv>
             </Grid>
             <Grid item xs={2}>
               Vláknina
               <ValuesDiv>
-                {food.fiber} g
+                {getValueMultiplied(food.fiber, amount)} g
               </ValuesDiv>
             </Grid>
           </Grid>
