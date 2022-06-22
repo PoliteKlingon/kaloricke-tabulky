@@ -44,6 +44,14 @@ const seedDB = async (
         });
       }),
 
+      // ...yamlParsed.diaryEntry.map((single) => {
+      //   return prisma.diaryEntry.create({
+      //     data: {
+      //       ...single,
+      //     },
+      //   });
+      // }),
+
       // ...yamlParsed.eaten.map((single) => {
       //   return prisma.eaten.create({
       //     data: {

@@ -184,6 +184,14 @@ food:
     fiber: 0
     salt: 0.1
 
+diaryEntry:
+  - id: "1"
+  - userId: "1"
+  - mealType: "Lunch"
+  - foodId: "banana"
+  - grams: 120
+  - date: 2022-06-18 10:00
+
 eaten:
 #   # Breakfast user 2 day 1
 #   - id: "00089d70-8000-488f-ae3c-2324f014000e"
