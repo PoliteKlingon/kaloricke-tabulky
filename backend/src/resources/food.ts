@@ -102,10 +102,10 @@ export const get = async (req: Request, res: Response) => {
 
 export const searchByName = async (req: Request, res: Response) => {
   try {
-    const name = req.params["name"]!.toLowerCase();
+    const partOfId = req.params["name"]!.toLowerCase();
     const foods = await prisma.food.findMany({
       where: {
-        AND: [{ deleted: false }, { name: { contains: name } }],
+        AND: [{ deleted: false }, { id: { contains: partOfId } }],
       },
     });
     return sendSuccess(res, "Foods retreived successfully", foods);

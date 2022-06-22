@@ -52,20 +52,15 @@ CREATE TABLE "Food" (
 );
 
 -- CreateTable
-CREATE TABLE "Eaten" (
+CREATE TABLE "DiaryEntry" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "foodId" TEXT NOT NULL,
-    "quantity" REAL NOT NULL,
-    CONSTRAINT "Eaten_foodId_fkey" FOREIGN KEY ("foodId") REFERENCES "Food" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
--- CreateTable
-CREATE TABLE "Meal" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "userId" TEXT NOT NULL,
+    "grams" REAL NOT NULL,
     "date" DATETIME NOT NULL,
-    "type" TEXT NOT NULL,
-    CONSTRAINT "Meal_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "userId" TEXT NOT NULL,
+    "mealType" TEXT NOT NULL,
+    CONSTRAINT "DiaryEntry_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "DiaryEntry_foodId_fkey" FOREIGN KEY ("foodId") REFERENCES "Food" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -73,14 +68,6 @@ CREATE TABLE "Sessions" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "userId" TEXT NOT NULL,
     CONSTRAINT "Sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
--- CreateTable
-CREATE TABLE "_EatenToMeal" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL,
-    CONSTRAINT "_EatenToMeal_A_fkey" FOREIGN KEY ("A") REFERENCES "Eaten" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT "_EatenToMeal_B_fkey" FOREIGN KEY ("B") REFERENCES "Meal" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateIndex
@@ -97,9 +84,3 @@ CREATE UNIQUE INDEX "UserDetails_userId_key" ON "UserDetails"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Food_name_key" ON "Food"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_EatenToMeal_AB_unique" ON "_EatenToMeal"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_EatenToMeal_B_index" ON "_EatenToMeal"("B");
