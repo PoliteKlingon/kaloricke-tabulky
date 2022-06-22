@@ -1,5 +1,5 @@
 import {styled} from "@mui/system";
-import {FC} from "react";
+import {FC, useState} from "react";
 import {
   Box,
   Button,
@@ -80,6 +80,8 @@ const AddButton = styled(Button)({
 
 
 const FoodDetails:FoodDetailsType = ({food}) => {
+  const [amount, setAmount] = useState(100);
+
   return (
       <Container>
         <InfoDiv>
