@@ -250,7 +250,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
           carbs: data.carbs,
           fats: data.fats,
           fiber: data.fiber,
-          salt: data.salt
+          salt: data.salt,
         }
       });
     };
@@ -266,6 +266,10 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     const onSubmitPasswords = (data) => {
       setPasswords(data);
       setChangePasswords(!changePasswords);
+      updatePassword({
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword,
+      })
     };
 
 
@@ -363,6 +367,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     };
 
     const updateDetails = async (content: any) => {
+      console.log(content);
       try {
         await axios
           .put("/user",
@@ -380,6 +385,23 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       }
     }
 
+    const updatePassword = async (content: any) => {
+      try {
+        await axios
+          .put("/user/password",
+            JSON.stringify(content),
+            {
+              headers: { 
+                "Authorization": `Bearer ${auth.ssid}`, 
+                "Content-Type": "application/json",
+              },
+            })
+            .then((response) => {console.log(response)});
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
 
     return (
       /*
@@ -755,7 +777,11 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     onChange={(e, data) => setNewSex(data)} marks={marks}/>
                     </Grid>   
                     <Grid item xs={isDesktop ? 4 : 3}>
-                    <Button onClick={()=> {setChangeSex(!changeSex); setSex(newSex)}}>Uložit</Button>
+                    <Button onClick={()=> {
+                      setChangeSex(!changeSex); 
+                      setSex(newSex);
+                      updateDetails({details: {sex: newSex / 100}});
+                      }}>Uložit</Button>
                     </Grid>
                   </Grid> 
                 </Collapse>
@@ -967,7 +993,11 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                       ?
                       <Button disabled>Uložit</Button> 
                       : 
-                      <Button /*type="submit"*/ onClick={() => {setBirthDate(newBirthDate); setChangeBirthDate(!changeBirthDate)}}>Uložit</Button>}
+                      <Button /*type="submit"*/ onClick={() => {
+                        setBirthDate(newBirthDate); 
+                        setChangeBirthDate(!changeBirthDate);
+                        updateDetails({details: {birthdate: newBirthDate}})
+                        }}>Uložit</Button>}
                     </Grid>
                   </Grid>
                 </Collapse>
@@ -1355,7 +1385,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                             </InputAdornment>
                           ),
                         }}*/
-                        {...registerPasswords("password", {
+                        {...registerPasswords("newPassword", {
                           required: "Položka je povinná",
                         })}
                         error={!!errorsPasswords?.password}
@@ -1383,7 +1413,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                         {...registerPasswords("passwordAgain", {
                           required: "Položka je povinná",
                           validate: (value) =>
-                            value === getValues("password")
+                            value === getValues("newPassword")
                               ? true
                               : "Hesla se neshodují",
                         })}
