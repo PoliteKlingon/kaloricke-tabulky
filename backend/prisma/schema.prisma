@@ -50,8 +50,8 @@ model UserDetails {
 }
 
 model Food {
-  id          String  @id @default(uuid())
   name        String  @unique
+  id          String  @id
   description String
   calories    Float
   proteins    Float
