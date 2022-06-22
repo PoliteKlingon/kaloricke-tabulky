@@ -11,7 +11,7 @@ export const sendInternalServerError = (res: Response) => {
 
 export const sendAuthorizationError = (
   res: Response,
-  message: string = "User is not authorized for that change"
+  message: string = "User is not authorized to perform this type of action"
 ) => {
   res.status(401).send({
     status: "error",
@@ -58,4 +58,8 @@ export const sendCreatedSuccessfully = (
   data: any
 ) => {
   res.status(201).send({ status: "success", message: message, data: data });
+};
+
+export const sendForbidden = (res: Response, message: string) => {
+  res.status(403).send({ status: "error", message: message, data: {} });
 };
