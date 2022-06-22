@@ -23,6 +23,7 @@ import {
   import { useForm, SubmitHandler } from "react-hook-form";
   import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
   import './UserDetails.css'
+import axios from 'axios';
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -272,6 +273,42 @@ import {
       setCustomNutrients(false);
       setChangePasswords(false);
     }
+
+
+
+
+
+
+
+
+
+    const getDetails = async () => {
+      try {
+         await axios
+           .get("/api/user", {
+             headers: { 
+              "Authorization": `Bearer ${auth.ssid}`,
+             },
+           })
+           .then((response) => {
+             const data = response?.data;
+             console.log(data);
+           })
+           .catch((error) => {
+             console.log(error.response);
+           });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getDetails();
+
+
+
+
+
+
 
     return (
       <Root id="header">
