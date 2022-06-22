@@ -97,6 +97,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 defaultValue={100}
                 variant="standard"
                 margin="none"
+                onChange={(amount) => {setAmount(+amount.target.value)}}
               />
               x&nbsp;1g
               <AddButton>
