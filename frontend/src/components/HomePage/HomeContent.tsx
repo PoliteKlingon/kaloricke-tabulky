@@ -226,7 +226,7 @@ const HomeContent = () => {
           </Button>
           <AddFoodModal
             date={slectedDate}
-            open={open}
+            open={showAddFoodModal}
             handleClose={handleModalClose}
           />
         </Grid>
