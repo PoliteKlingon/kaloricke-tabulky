@@ -23,7 +23,6 @@ import slides from "../static/slideshow";
 import ChangingImage from "./ChangingImage";
 
 import axios from "../api/axios";
-import sha256 from "crypto-js/sha256";
 import { userRegister } from "../utils/Utils";
 const marks = [
   {
@@ -88,7 +87,6 @@ const Register = () => {
     let goals;
     const userData = {
       email: getValues("email"),
-      passwordHash: String(sha256(getValues("password"))),
       username: getValues("username"),
       name: getValues("name"),
       surname: getValues("surname"),
@@ -114,7 +112,7 @@ const Register = () => {
     }
 
     // @ts-ignore
-    const res = await userRegister(userData, goals);
+    const res = await userRegister(getValues("password"), userData, goals);
     // @ts-ignore
     if (res.status) {
       // @ts-ignore

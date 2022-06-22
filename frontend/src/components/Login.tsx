@@ -10,7 +10,6 @@ import slides from "../static/slideshow";
 // @ts-ignore
 import ChangingImage from "./ChangingImage";
 import axios from "../api/axios";
-import sha256 from "crypto-js/sha256";
 
 import { login } from "../utils/Utils";
 
@@ -49,7 +48,7 @@ const Login = () => {
   const onSubmit = async () => {
     const res = await login(
       getValues("email"),
-      String(sha256(getValues("password")))
+      getValues("password")
     );
     if (res.status) {
       // @ts-ignore
@@ -63,8 +62,8 @@ const Login = () => {
       } else {
         alert("Nastala chyba, prosím zkuste to znovu.");
       }
-    }
-  };
+    };
+  }
 
   return success ? (
     <Navigate to="/" />

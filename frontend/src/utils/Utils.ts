@@ -6,27 +6,19 @@ interface LoginResult {
   message: string;
 }
 
-export const getUserData = async (sessionId: string, userId: string) => {
+export const getUserData = async (sessionId: string) => {
   return await axios
-    .post(
-      "user/details",
-      JSON.stringify({
-        sessionId,
-        userId
-      }),
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    .get("user/", {
+      headers: {
+        Authorization: `Bearer ${sessionId}`,
+      },
+    })
     .then((res) => {
-      const username = res.data.data.username;
+      const username = res?.data?.data?.details.username;
       localStorage.setItem(
         "auth",
         JSON.stringify({
           ssid: sessionId,
-          userId,
           username: username,
         })
       );
@@ -35,12 +27,11 @@ export const getUserData = async (sessionId: string, userId: string) => {
     .catch((err) => {
       return { status: false, err: err, message: "Get Data Error" };
     });
-
 }
 
 export const login = async (
   email: string,
-  passwordHash: string
+  password: string
 ): Promise<any> => {
   try {
     return await axios
@@ -48,7 +39,7 @@ export const login = async (
         "/login",
         JSON.stringify({
           email: email,
-          passwordHash: passwordHash,
+          password: password,
         }),
         {
           headers: {
@@ -58,8 +49,7 @@ export const login = async (
       )
       .then(async (response) => {
         const ssid = response?.data?.data?.sessionId;
-        const userId = response?.data?.data?.userId;
-        return getUserData(ssid, userId);
+        return getUserData(ssid);
       })
       .catch((err) => {
         if (!err?.response) {
@@ -78,29 +68,32 @@ export const login = async (
 };
 
 export const logout = async (): Promise<Boolean> => {
+  //@ts-ignore
+  const ssid = JSON.parse(window.localStorage.getItem("auth"))!.ssid;
   return await axios
     .post(
       "/logout",
       JSON.stringify({
-        //@ts-ignore
-        sessionId: JSON.parse(window.localStorage.getItem("auth"))!.ssid,
+        
+        sessionId: ssid,
       }),
       {
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${ssid}`,
         },
       }
     )
     .then(() => {
       localStorage.removeItem("auth");
       return true;
-    }).catch(() => {
+    })
+    .catch(() => {
       return false;
     });
 }
 interface userData {
   email: string;
-  passwordHash: string;
   username: string;
   name: string;
   surname: string;
@@ -120,11 +113,13 @@ interface userGoals {
 }
 
 export const userRegister = async (
+  password: string,
   userData: userData,
   userGoals: userGoals | undefined
 ) => {
   const data = userGoals
     ? JSON.stringify({
+        password: password,
         details: {
           ...userData,
         },
@@ -133,11 +128,12 @@ export const userRegister = async (
         },
       })
     : JSON.stringify({
+        password: password,
         details: {
           ...userData,
         },
       });
-  return await axios.put(
+  return await axios.post(
     "/register",
     data,
     {
@@ -146,7 +142,7 @@ export const userRegister = async (
       },
     }
   ).then((response) => {
-    return getUserData(response.data.data.sessionId, response.data.data.userId);
+    return getUserData(response.data.data.sessionId);
   }).catch((err) => {
     if (!err?.response) {
       return { status: true, err: err, message: "Error" };
