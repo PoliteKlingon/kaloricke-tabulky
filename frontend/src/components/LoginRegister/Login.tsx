@@ -9,9 +9,9 @@ import { useForm } from "react-hook-form";
 import slides from "../../static/slideshow";
 // @ts-ignore
 import ChangingImage from "./ChangingImage";
-import axios from "../api/axios";
+import axios from "../../api/axios";
 
-import { login } from "../utils/Utils";
+import { login } from "../../utils/Utils";
 
 const LogoImage = styled("img")({
   width: 200,

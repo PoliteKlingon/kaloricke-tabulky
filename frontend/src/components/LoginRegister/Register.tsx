@@ -22,8 +22,8 @@ import slides from "../../static/slideshow";
 // @ts-ignore
 import ChangingImage from "./ChangingImage";
 
-import axios from "../api/axios";
-import { userRegister } from "../utils/Utils";
+import axios from "../../api/axios";
+import { userRegister } from "../../utils/Utils";
 const marks = [
   {
     value: 5,

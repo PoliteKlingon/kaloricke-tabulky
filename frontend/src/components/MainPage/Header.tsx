@@ -14,8 +14,8 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Slide from "@mui/material/Slide";
-import AuthContext from "../context/AuthProvider";
-import { logout } from "../utils/Utils";
+import AuthContext from "../../context/AuthProvider";
+import { logout } from "../../utils/Utils";
 
 const HideOnScroll = ({children}:any) => {
   const trigger = useScrollTrigger({ disableHysteresis: true });
