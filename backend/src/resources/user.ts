@@ -245,7 +245,7 @@ const calculateGoals = (
   };
 };
 
-const getUserBySessionId = async (sessionId: string | undefined) => {
+export const getUserBySessionId = async (sessionId: string | undefined) => {
   const session = await prisma.sessions.findUnique({
     where: { id: sessionId },
     include: { user: { include: { details: true, goals: true } } },
