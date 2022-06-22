@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Slide from "@mui/material/Slide";
 import AuthContext from "../context/AuthProvider";
+import { logout } from "../utils/Utils";
 
 const HideOnScroll = ({children}:any) => {
   const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -43,8 +44,6 @@ const Container = styled("div")({
   textAlign: "center",
 });
 
-
-
 const Header = () => {
   const [collapsed, setCollapsed] = useState(false);
   useEffect(() => {
@@ -57,6 +56,12 @@ const Header = () => {
   useEffect(() => {
     setAuthState(!(Object.keys(auth).length === 0 || auth === undefined));
   }, [auth]);
+
+  const onLogout = async () => {
+    if (await logout()) {
+      setAuth({});
+    }
+  }
 
   return (
     <Root id="header">
@@ -107,14 +112,11 @@ const Header = () => {
                           },
                         }}
                         disableRipple
-                        onClick={() => {
-                          localStorage.removeItem("auth");
-                          setAuth({});
-                        }}
+                        onClick={onLogout}
                       >
                         Odhlásit
                       </AnimatedButton>
-                    </Link>{" "}
+                    </Link>
                   </>
                 ) : (
                   <>

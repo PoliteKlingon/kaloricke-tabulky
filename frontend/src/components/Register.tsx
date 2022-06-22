@@ -23,7 +23,7 @@ import slides from "../static/slideshow";
 import ChangingImage from "./ChangingImage";
 
 import axios from "../api/axios";
-import sha256 from "crypto-js/sha256";
+import { userRegister } from "../utils/Utils";
 const marks = [
   {
     value: 5,
@@ -76,92 +76,56 @@ const Register = () => {
     return () => window.removeEventListener("resize", updateMedia);
   });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds((seconds) => seconds + 1);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
+    setError
   } = useForm();
-  const onSubmit = async (e: any) => {
-    const request = ownGoals
-      ? {
-          details: {
-            email: getValues("email"),
-            passwordHash: String(sha256(getValues("password"))),
-            username: getValues("username"),
-            name: getValues("name"),
-            surname: getValues("surname"),
-            height: +getValues("height"),
-            weight: +getValues("weight"),
-            birthdate:
-              date?.getFullYear() +
-              "-" +
-              (date?.getMonth()! + 1) +
-              "-" +
-              date?.getDate(),
-            sex: sex,
-          },
-          goals: {
-            calories: +getValues("calories"),
-            proteins: +getValues("proteins"),
-            carbs: +getValues("carbs"),
-            fats: +getValues("fats"),
-            fiber: +getValues("fiber"),
-            salt: +getValues("salt"),
-          },
-        }
-      : {
-          details: {
-            email: getValues("email"),
-            passwordHash: String(sha256(getValues("password"))),
-            username: getValues("username"),
-            name: getValues("name"),
-            surname: getValues("surname"),
-            height: +getValues("height"),
-            weight: +getValues("weight"),
-            birthdate:
-              date?.getFullYear() +
-              "-" +
-              (date?.getMonth()! + 1) +
-              "-" +
-              date?.getDate(),
-            sex: sex,
-          },
-        };
-        
-    try {
-       await axios
-         .put("/register", JSON.stringify(request), {
-           headers: { "Content-Type": "application/json" },
-         })
-         .then((response) => {
-           const ssid = response?.data?.sessionId;
-           setAuth({
-             email: getValues("email"),
-             password: getValues("password"),
-             ssid: ssid,
-           });
-           setAuth({
-             email: getValues("email"),
-             password: getValues("password"),
-             ssid: ssid,
-           });
-          setSuccess(true);
-         })
-         .catch((error) => {
-           console.log(error.response);
-         });
-    } catch (err) {
-      console.log(err);
+  const onSubmit = async () => {
+    let goals;
+    const userData = {
+      email: getValues("email"),
+      username: getValues("username"),
+      name: getValues("name"),
+      surname: getValues("surname"),
+      height: +getValues("height"),
+      weight: +getValues("weight"),
+      birthdate:
+        date?.getFullYear() +
+        "-" +
+        (date?.getMonth()! + 1) +
+        "-" +
+        date?.getDate(),
+      sex: sex,
+    };
+    if (ownGoals) {
+      goals = {
+        calories: +getValues("calories"),
+        proteins: +getValues("proteins"),
+        carbs: +getValues("carbs"),
+        fats: +getValues("fats"),
+        fiber: +getValues("fiber"),
+        salt: +getValues("salt"),
+      };
     }
-  };
+
+    // @ts-ignore
+    const res = await userRegister(getValues("password"), userData, goals);
+    // @ts-ignore
+    if (res.status) {
+      // @ts-ignore
+      setAuth(JSON.parse(window.localStorage.getItem("auth")));
+      setSuccess(true);
+    } else {
+      // @ts-ignore
+      if (res.err === null) {
+        // @ts-ignore
+        setError("email", { message: res.message });
+      }
+    }
+  }
 
   return success ? (
     <Navigate to="/" />
@@ -432,7 +396,7 @@ const Register = () => {
                       </Grid>
                       <Grid item xs={12} sm={6}>
                         <TextField
-                          label="Požadovaná Bílkoviny"
+                          label="Požadované Bílkoviny"
                           fullWidth={true}
                           margin="normal"
                           variant="standard"
