@@ -79,6 +79,11 @@ const AddButton = styled(Button)({
 });
 
 
+const getValueMultiplied = (value: number, multiplier: number) => {
+  return (value * multiplier/100).toFixed(2).replace(/[.,]00$/, "")
+};
+
+
 const FoodDetails:FoodDetailsType = ({food}) => {
   const [amount, setAmount] = useState(100);
 
