@@ -39,8 +39,8 @@ CREATE TABLE "UserDetails" (
 
 -- CreateTable
 CREATE TABLE "Food" (
-    "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
+    "id" TEXT NOT NULL PRIMARY KEY,
     "description" TEXT NOT NULL,
     "calories" REAL NOT NULL,
     "proteins" REAL NOT NULL,
