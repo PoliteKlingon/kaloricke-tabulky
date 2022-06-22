@@ -396,9 +396,12 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                 "Content-Type": "application/json",
               },
             })
-            .then((response) => {console.log(response)});
+            .then((response) => {
+              console.log(response);
+            });
       }
       catch (err) {
+        alert("Chybné heslo!");
         console.log(err);
       }
     }
