@@ -56,7 +56,7 @@ userDetails:
     userId: "3"
 
 userGoals:
-  - id: "03489d70-7895-488f-ae3c-2324f014000e"
+  - # id: "03489d70-7895-488f-ae3c-2324f014000e"
     userId: "1"
     carbs: 0
     proteins: 0
@@ -65,7 +65,7 @@ userGoals:
     salt: 0
     calories: 0
 
-  - id: "99989d70-7895-488f-ae3c-2324f014000e"
+  - # id: "99989d70-7895-488f-ae3c-2324f014000e"
     userId: "2"
     carbs: 350
     proteins: 69
@@ -74,7 +74,7 @@ userGoals:
     salt: 0
     calories: 2790
 
-  - id: "88889d70-7895-488f-ae3c-2324f014000e"
+  - # id: "88889d70-7895-488f-ae3c-2324f014000e"
     userId: "3"
     carbs: 150
     proteins: 150
