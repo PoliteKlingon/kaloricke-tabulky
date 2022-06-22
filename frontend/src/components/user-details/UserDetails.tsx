@@ -108,18 +108,28 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     const onSubmitEmail = (data) => {
       setEmail(data.email);
       setChangeEmail(false);
+      updateDetails({
+        details: {
+          email: data.email
+        }
+      });
     };
 
     const {
-      register: registerNick,
-      formState: { errors: errorsNick },
-      handleSubmit: handleSubmitNick,
+      register: registerUsername,
+      formState: { errors: errorsUsername },
+      handleSubmit: handleSubmitUsername,
     } = useForm();
     
     // @ts-ignore
-    const onSubmitNick = (data) => {
-      setNick(data.nick);
-      setChangeNick(false);
+    const onSubmitUsername = (data) => {
+      setUsername(data.username);
+      setChangeUsername(false);
+      updateDetails({
+        details: {
+          username: data.username
+        }
+      });
     };
 
     const {
@@ -130,8 +140,15 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     
     // @ts-ignore
     const onSubmitName = (data) => {
-      setName(data.name);
+      
+      flushSync(() => {setName(data.name);});
+      //setName(data.name);
       setChangeName(false);
+      updateDetails({
+        details: {
+          name: data.name
+        }
+      });
     };
 
     const {
@@ -144,6 +161,11 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     const onSubmitSurname = (data) => {
       setSurname(data.surname);
       setChangeSurname(false);
+      updateDetails({
+        details: {
+          surname: data.surname
+        }
+      });
     };
 
     const {
@@ -156,6 +178,11 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     const onSubmitHeight = (data) => {
       setHeight(data.height);
       setChangeHeight(false);
+      updateDetails({
+        details: {
+          height: data.height
+        }
+      });
     };
 
     const {
@@ -168,6 +195,11 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     const onSubmitWeight = (data) => {
       setWeight(data.weight);
       setChangeWeight(false);
+      updateDetails({
+        details: {
+          weight: data.weight
+        }
+      });
     };
 
     /*const {
@@ -192,6 +224,11 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     const onSubmitDesiredWeight = (data) => {
       setDesiredWeight(data.desiredWeight);
       setChangeDesiredWeight(false);
+      updateDetails({
+        details: {
+          desiredweight: data.desiredWeight
+        }
+      });
     };
 
     const {
@@ -206,6 +243,16 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
       setGoals(data);
       console.log(goals);
       setCustomGoals(!customGoals);
+      updateDetails({
+        goals: {
+          calories: data.calories,
+          proteins: data.proteins,
+          carbs: data.carbs,
+          fats: data.fats,
+          fiber: data.fiber,
+          salt: data.salt
+        }
+      });
     };
 
     const {
@@ -227,8 +274,8 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     const [changeEmail, setChangeEmail] = useState<boolean>(false);
     const [email, setEmail] = useState<String>("tvojemamka@gmail.com");
 
-    const [changeNick, setChangeNick] = useState<boolean>(false);
-    const [nick, setNick] = useState<String>("debílek");
+    const [changeUsername, setChangeUsername] = useState<boolean>(false);
+    const [username, setUsername] = useState<String>("debílek");
 
     const [changeName, setChangeName] = useState<boolean>(false);
     const [name, setName] = useState<String>("Pepa");
@@ -275,7 +322,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
     const closeAll = () => {
       setChangeEmail(false);
       setChangeSex(false);
-      setChangeNick(false);
+      setChangeUsername(false);
       setChangeName(false);
       setChangeSurname(false);
       setChangeHeight(false);
@@ -299,7 +346,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
              const userDetails = response?.data?.data?.details;
              const userGoals = response?.data?.data?.goals;
              setEmail(userDetails?.email);
-             setNick(userDetails?.username);
+             setUsername(userDetails?.username);
              setName(userDetails?.name);
              setSurname(userDetails?.surname);
              setSex(userDetails?.sex * 100);
@@ -310,13 +357,28 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
              
              setGoals({...userGoals});
            })
-           .catch((error) => {
-             //console.log(error.response);
-           });
       } catch (err) {
         console.log(err);
       }
     };
+
+    const updateDetails = async (content: any) => {
+      try {
+        await axios
+          .put("/user",
+            JSON.stringify(content),
+            {
+              headers: { 
+                "Authorization": `Bearer ${auth.ssid}`, 
+                "Content-Type": "application/json",
+              },
+            })
+            .then((response) => {console.log(response)});
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
 
 
     return (
@@ -356,7 +418,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                       }}
                       disableRipple
                     >
-                      {auth.username}
+                      {username}
                     </AnimatedButton>
                   </Link>
                   <Link to="/" style={{ textDecoration: "none" }}>
@@ -472,7 +534,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                   </form> 
                 </Collapse>
 
-                {/* NICK */}
+                {/* USERNAME */}
                 <Grid
                   container
                   spacing={0}
@@ -485,24 +547,24 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Přezdívka</Typography>
                   </Grid>   
                   <Grid item xs={isDesktop ? 4 : 6}>
-                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{nick}</Typography>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{username}</Typography>
                   </Grid>   
                   <Grid item xs={isDesktop ? 4 : 3}>
-                  {changeNick ?
-                  <CloseIcon onClick={() => setChangeNick(!changeNick)}/>
+                  {changeUsername ?
+                  <CloseIcon onClick={() => setChangeUsername(!changeUsername)}/>
                   :
-                  <SettingsIcon onClick={() => {closeAll(); setChangeNick(!changeNick)}}/>
+                  <SettingsIcon onClick={() => {closeAll(); setChangeUsername(!changeUsername)}}/>
                   }
                   </Grid>   
 
                 </Grid> 
                 <Collapse
                   sx={{ width: "100%" }}
-                  in={changeNick}
+                  in={changeUsername}
                   {...{ timeout: 500 }}
                   collapsedSize="0px"
                 >
-                  <form onSubmit={handleSubmitNick(onSubmitNick)}>
+                  <form onSubmit={handleSubmitUsername(onSubmitUsername)}>
                   <Grid
                     container
                     spacing={0}
@@ -517,11 +579,11 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     <TextField 
                       label="Nová přezdívka" 
                       variant="standard" 
-                      {...registerNick("nick", {
+                      {...registerUsername("username", {
                         required: "Položka je povinná",
                       })}
-                      error={!!errorsNick?.nick}
-                      helperText={errorsNick?.nick ? errorsNick.nick.message : null}/>
+                      error={!!errorsUsername?.username}
+                      helperText={errorsUsername?.username ? errorsUsername.username.message : null}/>
                     </Grid>   
                     <Grid item xs={isDesktop ? 4 : 3}>
                     <Button type="submit">Uložit</Button>
@@ -1030,7 +1092,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      placeholder={goals.calories} 
+                      placeholder={goals.calories.toString()} 
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
@@ -1061,7 +1123,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      placeholder={goals.proteins} 
+                      placeholder={goals.proteins.toString()} 
                       hiddenLabel
                       variant="standard"
                       type="number"
@@ -1096,7 +1158,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      placeholder={goals.carbs}
+                      placeholder={goals.carbs.toString()}
                       variant="standard"  
                       type="number"
                       sx= {{width: 70}}
@@ -1130,7 +1192,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      placeholder={goals.fats}
+                      placeholder={goals.fats.toString()}
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
@@ -1164,7 +1226,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      placeholder={goals.fiber}
+                      placeholder={goals.fiber.toString()}
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
@@ -1198,7 +1260,7 @@ import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material
                     
                     <Grid item xs={4}>
                     <TextField 
-                      placeholder={goals.salt}
+                      placeholder={goals.salt.toString()}
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
