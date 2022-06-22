@@ -1,6 +1,6 @@
 import { styled } from "@mui/system";
 import {CssBaseline} from "@mui/material";
-import {MainAppBar} from "../components/Header";
+// import {MainAppBar} from "../components/Header";
 import FoodDetails from "../components/FoodDetails";
 import {Hero} from "./MainPage";
 
@@ -16,7 +16,7 @@ const FoodDetailsPage = () => {
   return (
     <FlexedHero>
       <CssBaseline />
-      <MainAppBar />
+      {/*<MainAppBar />*/}
       <FoodDetails food={tempData}/>
     </FlexedHero>
   );

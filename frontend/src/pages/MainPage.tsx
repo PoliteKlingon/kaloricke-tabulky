@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Features from "../components/Features";
 
 
-const Hero = styled("div")({
+export const Hero = styled("div")({
   backgroundImage: `url(${
     import.meta.env.VITE_PUBLIC_URL + "/assets/background.jpg"
   })`,
