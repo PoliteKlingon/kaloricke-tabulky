@@ -1,6 +1,6 @@
 import { Button, Grid, IconButton, InputBase, Typography } from "@mui/material";
 import { styled } from "@mui/system";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import AuthContext from "../../context/AuthProvider";

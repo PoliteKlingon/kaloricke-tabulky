@@ -56,7 +56,6 @@ const Header = () => {
   useEffect(() => {
     setAuthState(!(Object.keys(auth).length === 0 || auth === undefined));
   }, [auth]);
-  //console.log("Header" , auth);
 
   const onLogout = async () => {
     if (await logout()) {

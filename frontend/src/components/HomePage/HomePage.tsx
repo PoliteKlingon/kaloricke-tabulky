@@ -8,18 +8,11 @@ import { Navigate } from "react-router-dom";
 
 const HomePage = () => {
     // @ts-ignore
-    const { auth, setAuth } = useContext(AuthContext);
-    useEffect(() => {
-      if (window.localStorage.getItem("auth")) {
-        // @ts-ignore
-        setAuth(JSON.parse(window.localStorage.getItem("auth")));
-      }
-    }, []);
+    const { auth } = useContext(AuthContext);
 
-    // TODO: remove false below
     return (
       <>
-        {(Object.keys(auth).length === 0 || auth == null) && false
+        {(Object.keys(auth).length === 0 || auth == null)
           ? (console.log(auth), (<Navigate to="/" />))
           :
             <>

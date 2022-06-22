@@ -43,7 +43,6 @@ const AddFoodModal = ({ open, handleClose, date }:any ) => {
       
     }
   }
-  console.log("FUCKING MODAL", open)
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={{

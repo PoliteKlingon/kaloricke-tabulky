@@ -1,6 +1,14 @@
 import { useEffect, useState, useContext } from "react";
 import AddFoodModal from "./AddFoodModal";
-import { Box, Button, CircularProgress, Collapse, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Collapse,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { styled } from "@mui/system";
 import AuthContext from "../../context/AuthProvider";
@@ -36,9 +44,15 @@ const RecordBox = styled(Box)({
   fontFamily: "Nunito",
   fontWeight: "600",
   backgroundColor: "#faf5e6",
-})
+});
 
-const MainMeals = ["Snídaně", "Dopolední svačina", "Oběd", "Odpolední svačina", "Večeře"];
+const MainMeals = [
+  "Snídaně",
+  "Dopolední svačina",
+  "Oběd",
+  "Odpolední svačina",
+  "Večeře",
+];
 
 const test = [
   {
@@ -58,39 +72,51 @@ const test = [
   },
 ];
 
-const getMeals = async (ssid: string) => {
-  // TODO: get meals from server
-  // await axios.get(`/api/meals/${ssid}`).then((res) => {})
-  // .then((res) => {
-  //   return [
-  //     {
-  //       name: "CCC",
-  //       calories: "300",
-  //       type: "oběd",
-  //     },
-  //   ];
-  // }
-  // )
-  // .catch((err) => {
-  //   alert("Nastala chyba při načítání jídla, prosím zkuste obnovit stránku")}
-  //   );
-}
+const getMeals = async (ssid: string, date: string) => {
+  console.log("GET MEALS", ssid)
+  return await axios
+    .get(`diary/${date}`, {
+      headers: {
+        Authorization: `Bearer ${ssid}`,
+      },
+    })
+    .then((res) => {
+      return [
+        {
+          name: "CCC",
+          calories: "300",
+          type: "oběd",
+        },
+      ];
+    })
+    .catch((err) => {
+      alert("Nastala chyba při načítání jídla, prosím zkuste obnovit stránku");
+    });
+};
 
 const HomeContent = () => {
   // @ts-ignore
   const { auth } = useContext(AuthContext);
-  const [slectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [showAddFoodModal, setShowAddFoodModal] = useState(false);
-  console.log(showAddFoodModal);
   const [meals, setMeals] = useState();
+  const dateString =
+    String(selectedDate?.getFullYear()) +
+    "-" +
+    // @ts-ignore
+    String(selectedDate?.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(selectedDate?.getDate()).padStart(2, "0");
   useEffect(() => {
     const fetchMeals = async () => {
-      const data = await getMeals(auth.ssid);
+      const data = await getMeals(auth.ssid, dateString);
+      console.log(data)
+      console.log(auth.ssid)
       //setMeals(data);
-    }
-    
+    };
+
     fetchMeals();
-  }, [slectedDate]);
+  }, [selectedDate]);
 
   const [calories, setCalories] = useState(0);
 
@@ -98,7 +124,6 @@ const HomeContent = () => {
     setShowAddFoodModal(false);
     //fetchRecords();
   };
-
 
   return (
     <>
@@ -128,7 +153,7 @@ const HomeContent = () => {
             disableFuture
             label="Vyberte den"
             openTo="day"
-            value={slectedDate}
+            value={selectedDate}
             onChange={(newValue) => {
               setSelectedDate(newValue);
             }}
@@ -225,7 +250,7 @@ const HomeContent = () => {
             Add food
           </Button>
           <AddFoodModal
-            date={slectedDate}
+            date={selectedDate}
             open={showAddFoodModal}
             handleClose={handleModalClose}
           />
@@ -233,7 +258,7 @@ const HomeContent = () => {
       </Grid>
     </>
   );
-}
+};
 
 const FoodMilestone = (params: any) => {
   return (
@@ -269,8 +294,8 @@ const FoodMilestone = (params: any) => {
         })}
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
 const FoodRecord = (params: any) => {
   return (
@@ -319,7 +344,7 @@ const FoodRecord = (params: any) => {
       </Box>
     </Box>
   );
-}
+};
 
 const SingleNutrientbar = (params: any) => {
   return (
@@ -341,7 +366,12 @@ const SingleNutrientbar = (params: any) => {
         size={params.size}
         main={params.isMain}
       />
-      <Typography textAlign="center" fontFamily="Nunito" fontWeight="bold" pt="1rem">
+      <Typography
+        textAlign="center"
+        fontFamily="Nunito"
+        fontWeight="bold"
+        pt="1rem"
+      >
         {params.value}
         {params.unit}
       </Typography>
@@ -351,11 +381,11 @@ const SingleNutrientbar = (params: any) => {
       </Typography>
     </Grid>
   );
-}
+};
 
 const TripleProgressBar = (params: any) => {
   return (
-    <Box sx={{ position: "relative", display: "inline-flex"}}>
+    <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
         variant="determinate"
         value={
@@ -463,6 +493,6 @@ const TripleProgressBar = (params: any) => {
       </Box>
     </Box>
   );
-}
+};
 
 export default HomeContent;
