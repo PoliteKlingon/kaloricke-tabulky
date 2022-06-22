@@ -23,7 +23,9 @@ import {
   import { useForm, SubmitHandler } from "react-hook-form";
   import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
   import './UserDetails.css'
-import axios from 'axios';
+  import axios from "../../api/axios";
+import { flushSync } from 'react-dom';
+import { RestartAltOutlined, SignalCellularNullSharp } from '@mui/icons-material';
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -52,9 +54,10 @@ import axios from 'axios';
     textAlign: "center",
   });
 
-  export interface Nutrients {
+  export interface Goals {
+    calories: number,
     proteins: number,
-    carbohydrates: number,
+    carbs: number,
     fats: number,
     fiber: number,
     salt: number
@@ -191,15 +194,17 @@ import axios from 'axios';
     };
 
     const {
-      register: registerNutrients,
-      formState: { errors: errorsNutrients },
-      handleSubmit: handleSubmitNutrients,
+      register: registerGoals,
+      formState: { errors: errorsGoals },
+      handleSubmit: handleSubmitGoals,
     } = useForm();
 
     // @ts-ignore
-    const onSubmitNutrients = (data) => {
-      setNutrients(data);
-      setCustomNutrients(!customNutrients);
+    const onSubmitGoals = (data) => {
+      console.log(data);
+      setGoals(data);
+      console.log(goals);
+      setCustomGoals(!customGoals);
     };
 
     const {
@@ -247,8 +252,9 @@ import axios from 'axios';
     const [changeDesiredWeight, setChangeDesiredWeight] = useState<boolean>(false);
     const [desiredWeight, setDesiredWeight] = useState<number>(75);
 
-    const [customNutrients, setCustomNutrients] = useState<boolean>(false);
-    const [nutrients, setNutrients] = useState<Nutrients>({proteins: 30, carbohydrates: 30, fats: 30, fiber: 30, salt: 30});
+    const [customGoals, setCustomGoals] = useState<boolean>(false);
+    const [goals, setGoals] = useState<Goals>({calories: 0, proteins: 0, carbs: 0, fats: 0, fiber: 0, salt: 0});
+    
 
     const [changePasswords, setChangePasswords] = useState<boolean>(false);
     const [Passwords, setPasswords] = useState<Passwords>({oldPassword: "", password: "", passwordAgain: ""});
@@ -257,8 +263,13 @@ import axios from 'axios';
       // @ts-ignore
     const { auth, setAuth } = useContext(AuthContext);
     useEffect(() => {
-      setAuthState(!(Object.keys(auth).length === 0 || auth === undefined));
-    }, [auth]);
+      if (window.localStorage.getItem("auth")) {
+        // @ts-ignore
+        setAuth(JSON.parse(window.localStorage.getItem("auth")));
+        console.log(auth)
+      };
+      getDetails();
+  }, []);
   
     const closeAll = () => {
       setChangeEmail(false);
@@ -270,47 +281,47 @@ import axios from 'axios';
       setChangeWeight(false);
       setChangeBirthDate(false);
       setChangeDesiredWeight(false);
-      setCustomNutrients(false);
+      setCustomGoals(false);
       setChangePasswords(false);
     }
-
-
-
-
-
-
-
 
 
     const getDetails = async () => {
       try {
          await axios
-           .get("/api/user", {
+           .get("/user", {
              headers: { 
               "Authorization": `Bearer ${auth.ssid}`,
              },
            })
            .then((response) => {
-             const data = response?.data;
-             console.log(data);
+             const userDetails = response?.data?.data?.details;
+             const userGoals = response?.data?.data?.goals;
+             setEmail(userDetails?.email);
+             setNick(userDetails?.username);
+             setName(userDetails?.name);
+             setSurname(userDetails?.surname);
+             setSex(userDetails?.sex * 100);
+             setHeight(userDetails?.height);
+             setWeight(userDetails?.weight);
+             //setBirthDate(details?.birthdate);
+             setDesiredWeight(userDetails?.desiredweight);
+             
+             setGoals({...userGoals});
            })
            .catch((error) => {
-             console.log(error.response);
+             //console.log(error.response);
            });
       } catch (err) {
         console.log(err);
       }
     };
 
-    getDetails();
-
-
-
-
-
-
 
     return (
+      /*
+      TODO: check ze je v auth neco smysluplnyho, pokud ne, presmeruj na landing page.
+      */
       <Root id="header">
         <HideOnScroll>
           <AppBar elevation={0} sx={{ background: "none", pt: 5 }}>
@@ -333,73 +344,38 @@ import axios from 'axios';
                   direction={{ xs: "column", md: "row" }}
                   spacing={{ xs: 0, md: 5 }}
                 >
-                  {authState ? (
-                    <>
-                      <Link to="/" style={{ textDecoration: "none" }}>
-                        <AnimatedButton
-                          variant="text"
-                          sx={{
-                            color: "#edc69f",
-                            ":active": {
-                              color: "#edd9be",
-                            },
-                          }}
-                          disableRipple
-                        >
-                          {auth.username}
-                        </AnimatedButton>
-                      </Link>
-                      <Link to="/" style={{ textDecoration: "none" }}>
-                        <AnimatedButton
-                          variant="text"
-                          sx={{
-                            color: "#eb9b34",
-                            ":active": {
-                              color: "#edc48c",
-                            },
-                          }}
-                          disableRipple
-                          onClick={() => {
-                            localStorage.removeItem("auth");
-                            setAuth({});
-                          }}
-                        >
-                          Odhlásit
-                        </AnimatedButton>
-                      </Link>{" "}
-                    </>
-                  ) : (
-                    <>
-                      <Link to="/login" style={{ textDecoration: "none" }}>
-                        <AnimatedButton
-                          variant="text"
-                          sx={{
-                            color: "#edc69f",
-                            ":active": {
-                              color: "#edd9be",
-                            },
-                          }}
-                          disableRipple
-                        >
-                          Přihlášení
-                        </AnimatedButton>
-                      </Link>
-                      <Link to="/register" style={{ textDecoration: "none" }}>
-                        <AnimatedButton
-                          variant="text"
-                          sx={{
-                            color: "#eb9b34",
-                            ":active": {
-                              color: "#edc48c",
-                            },
-                          }}
-                          disableRipple
-                        >
-                          Registrace
-                        </AnimatedButton>
-                      </Link>
-                    </>
-                  )}
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    <AnimatedButton
+                      variant="text"
+                      sx={{
+                        color: "#edc69f",
+                        ":active": {
+                          color: "#edd9be",
+                        },
+                      }}
+                      disableRipple
+                    >
+                      {auth.username}
+                    </AnimatedButton>
+                  </Link>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    <AnimatedButton
+                      variant="text"
+                      sx={{
+                        color: "#eb9b34",
+                        ":active": {
+                          color: "#edc48c",
+                        },
+                      }}
+                      disableRipple
+                      onClick={() => {
+                        localStorage.removeItem("auth");
+                        setAuth({});
+                      }}
+                    >
+                      Odhlásit
+                    </AnimatedButton>
+                  </Link>
                 </Stack>
               </Grid>
             </Toolbar>
@@ -999,7 +975,7 @@ import axios from 'axios';
                   </form>
                 </Collapse>
 
-                {/* CUSTOM NUTRIENTS*/}
+                {/* CUSTOM Goals*/}
                 <Grid
                   container
                   spacing={0}
@@ -1023,9 +999,9 @@ import axios from 'axios';
                           backgroundColor: "#f29830",
                         },
                       }}
-                      onClick={() => {closeAll(); setCustomNutrients(!customNutrients)}}
+                      onClick={() => {closeAll(); setCustomGoals(!customGoals)}}
                     >
-                      {customNutrients
+                      {customGoals
                         ? "Skrýt nutrienty"
                         : "Upravit nutrienty"}
                     </Button>
@@ -1034,11 +1010,43 @@ import axios from 'axios';
 
                 <Collapse
                         sx={{ width: "100%" }}
-                        in={customNutrients}
+                        in={customGoals}
                         {...{ timeout: 500 }}
                         collapsedSize="0px"
                       >
-                <form onSubmit={handleSubmitNutrients(onSubmitNutrients)}>
+                <form onSubmit={handleSubmitGoals(onSubmitGoals)}>
+                <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    sx={{ margin: 1 }}
+                    justifyContent="center"
+                  >
+
+                    <Grid item xs={4}>
+                      <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Kalorie</Typography>
+                    </Grid>
+                    
+                    <Grid item xs={4}>
+                    <TextField 
+                      //value={goals.calories} 
+                      label={goals.calories} 
+                      variant="standard" 
+                      type="number"
+                      sx= {{width: 70}}
+                      {...registerGoals("calories", {
+                        required: "Položka je povinná",
+                        min: {
+                          value: 1,
+                          message: "Minimální hodnota je 1",
+                        },
+                      })}
+                      error={!!errorsGoals?.calories}
+                      helperText={errorsGoals?.calories ? errorsGoals.calories.message : null} />
+                    </Grid>
+                    <Grid item />
+                  </Grid> 
+
                   <Grid
                     container
                     spacing={0}
@@ -1053,23 +1061,23 @@ import axios from 'axios';
                     
                     <Grid item xs={4}>
                     <TextField 
-                      defaultValue={nutrients.proteins} 
-                      label="" 
+                      //defaultValue={goals.proteins} 
+                      label={goals.proteins} 
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
                       InputProps={{
                         endAdornment: <InputAdornment position="start">g</InputAdornment>,
                       }}
-                      {...registerNutrients("proteins", {
+                      {...registerGoals("proteins", {
                         required: "Položka je povinná",
                         min: {
                           value: 1,
                           message: "Minimální hodnota je 1",
                         },
                       })}
-                      error={!!errorsNutrients?.proteins}
-                      helperText={errorsNutrients?.proteins ? errorsNutrients.proteins.message : null} />
+                      error={!!errorsGoals?.proteins}
+                      helperText={errorsGoals?.proteins ? errorsGoals.proteins.message : null} />
                     </Grid>
                     <Grid item />
                   </Grid> 
@@ -1088,23 +1096,23 @@ import axios from 'axios';
                     
                     <Grid item xs={4}>
                     <TextField 
-                      defaultValue={nutrients.carbohydrates} 
-                      label="" 
+                      //defaultValue={goals.carbs} 
+                      label={goals.carbs}
                       variant="standard"  
                       type="number"
                       sx= {{width: 70}}
                       InputProps={{
                         endAdornment: <InputAdornment position="start">g</InputAdornment>,
                       }}
-                      {...registerNutrients("carbohydrates", {
+                      {...registerGoals("carbs", {
                         required: "Položka je povinná",
                         min: {
                           value: 1,
                           message: "Minimální hodnota je 1",
                         },
                       })}
-                      error={!!errorsNutrients?.carbohydrates}
-                      helperText={errorsNutrients?.carbohydrates ? errorsNutrients.carbohydrates.message : null} />
+                      error={!!errorsGoals?.carbs}
+                      helperText={errorsGoals?.carbs ? errorsGoals.carbs.message : null} />
                     </Grid>
                     <Grid item />
                   </Grid> 
@@ -1123,23 +1131,23 @@ import axios from 'axios';
                     
                     <Grid item xs={4}>
                     <TextField 
-                      defaultValue={nutrients.fats}
-                      label=""
+                      //defaultValue={goals.fats}
+                      label={goals.fats}
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
                       InputProps={{
                         endAdornment: <InputAdornment position="start">g</InputAdornment>,
                       }}
-                      {...registerNutrients("fats", {
+                      {...registerGoals("fats", {
                         required: "Položka je povinná",
                         min: {
                           value: 1,
                           message: "Minimální hodnota je 1",
                         },
                       })}
-                      error={!!errorsNutrients?.fats}
-                      helperText={errorsNutrients?.fats ? errorsNutrients.fats.message : null} />
+                      error={!!errorsGoals?.fats}
+                      helperText={errorsGoals?.fats ? errorsGoals.fats.message : null} />
                     </Grid>
                     <Grid item />
                   </Grid> 
@@ -1158,23 +1166,23 @@ import axios from 'axios';
                     
                     <Grid item xs={4}>
                     <TextField 
-                      defaultValue={nutrients.fiber}
-                      label="" 
+                      //defaultValue={goals.fiber}
+                      label={goals.fiber}
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
                       InputProps={{
                         endAdornment: <InputAdornment position="start">g</InputAdornment>,
                       }}
-                      {...registerNutrients("fiber", {
+                      {...registerGoals("fiber", {
                         required: "Položka je povinná",
                         min: {
                           value: 1,
                           message: "Minimální hodnota je 1",
                         },
                       })}
-                      error={!!errorsNutrients?.fiber}
-                      helperText={errorsNutrients?.fiber ? errorsNutrients.fiber.message : null} />
+                      error={!!errorsGoals?.fiber}
+                      helperText={errorsGoals?.fiber ? errorsGoals.fiber.message : null} />
                     </Grid>
                     <Grid item />
                   </Grid> 
@@ -1193,23 +1201,23 @@ import axios from 'axios';
                     
                     <Grid item xs={4}>
                     <TextField 
-                      defaultValue={nutrients.salt} 
-                      label="" 
+                      //defaultValue={goals.salt} 
+                      label={goals.salt}
                       variant="standard" 
                       type="number"
                       sx= {{width: 70}}
                       InputProps={{
                         endAdornment: <InputAdornment position="start">g</InputAdornment>,
                       }}
-                      {...registerNutrients("salt", {
+                      {...registerGoals("salt", {
                         required: "Položka je povinná",
                         min: {
                           value: 1,
                           message: "Minimální hodnota je 1",
                         },
                       })}
-                      error={!!errorsNutrients?.salt}
-                      helperText={errorsNutrients?.salt ? errorsNutrients.salt.message : null} />
+                      error={!!errorsGoals?.salt}
+                      helperText={errorsGoals?.salt ? errorsGoals.salt.message : null} />
                     </Grid>
                     <Grid item />
                   </Grid> 
