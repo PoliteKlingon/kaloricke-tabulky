@@ -10,7 +10,6 @@ import slides from "../static/slideshow";
 // @ts-ignore
 import ChangingImage from "./ChangingImage";
 import axios from "../api/axios";
-import sha256 from "crypto-js/sha256";
 
 const LogoImage = styled("img")({
   width: 200,
@@ -51,7 +50,7 @@ const Login = () => {
           "/login",
           JSON.stringify({
             email: getValues("email"),
-            passwordHash: String(sha256(getValues("password"))),
+            password: getValues("password"),
           }),
           {
             headers: {
@@ -64,12 +63,7 @@ const Login = () => {
           const userId = response?.data?.data?.userId;
 
           await axios
-            .post(
-              "user/details",
-              JSON.stringify({
-                sessionId: ssid,
-                userId: userId,
-              }),
+            .get(
               {
                 headers: {
                   "Content-Type": "application/json",
