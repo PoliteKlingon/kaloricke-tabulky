@@ -1,5 +1,5 @@
 import express from "express";
-import { food, user, userDetails, userGoals } from "./resources";
+import { food, user } from "./resources";
 import YAML from "yamljs";
 import swaggerUi from "swagger-ui-express";
 
@@ -23,27 +23,25 @@ api.get("/", (_, res) =>
 );
 
 // ENDPOINTS FOR FOOD //
-api.put("/api/food", food.store);
-api.post("/api/food", food.update);
-api.get("/api/food", food.get);
-api.get("/api/food/id/:id", food.getById);
-api.get("/api/food/name/:name", food.getByName);
+// api.put("/api/food", food.store);
+// api.post("/api/food", food.update);
+// api.get("/api/food/id/:id", food.getById);
+api.get("/api/food/:name", food.get);
+// api.get("/api/food/search/:name", food.searchByName);
 
 api.delete("/api/food/:id", food.deleteFood);
 
-// ENDPOINTS FOR DETAILS //
-api.post("/api/user/details", userDetails.get);
-
-// ENDPOINTS FOR GOALS //
-api.post("/api/user/goals", userGoals.get);
+// GETTING INFORMATION ABOUT USER //
+api.get("/api/user", user.get);
 
 // ENDPOINTS FOR LOGIN AND REGISTRATION //
-api.put("/api/register", user.register);
+api.post("/api/register", user.register);
 api.post("/api/login", user.login);
 api.post("/api/logout", user.logout);
 
 // ENDPOINT FOR UPDATING USER DATA //
-api.post("/api/user", user.update);
+api.put("/api/user", user.update);
+api.put("/api/user/password", user.updatePassword);
 
 api.listen(process.env["PORT"] || 3000, () => {
   console.log(

@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+  provider        = "prisma-client-js"
 }
 
 datasource db {
@@ -13,6 +14,7 @@ model User {
   details     UserDetails?
   goals       UserGoals?
   meals       Meal[]
+  Sessions    Sessions[]
 }
 
 model UserCredentials {
@@ -23,14 +25,13 @@ model UserCredentials {
 }
 
 model UserGoals {
-  id       String @id @default(uuid())
   carbs    Float
   proteins Float
   fats     Float
   fiber    Float
   salt     Float
   calories Float
-  userId   String @unique
+  userId   String @id @unique
   user     User   @relation(fields: [userId], references: [id])
 }
 
@@ -49,8 +50,8 @@ model UserDetails {
 }
 
 model Food {
-  id          String  @id @default(uuid())
   name        String  @unique
+  id          String  @id
   description String
   calories    Float
   proteins    Float
@@ -82,4 +83,5 @@ model Meal {
 model Sessions {
   id     String @id @default(uuid())
   userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
