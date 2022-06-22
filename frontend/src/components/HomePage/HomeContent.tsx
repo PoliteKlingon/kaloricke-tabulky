@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import AddFoodModal from "./AddFoodModal";
 import { Box, Button, CircularProgress, Collapse, Grid, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { styled } from "@mui/system";
@@ -79,6 +80,8 @@ const HomeContent = () => {
   // @ts-ignore
   const { auth } = useContext(AuthContext);
   const [slectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [showAddFoodModal, setShowAddFoodModal] = useState(false);
+  console.log(showAddFoodModal);
   const [meals, setMeals] = useState();
   useEffect(() => {
     const fetchMeals = async () => {
@@ -90,6 +93,12 @@ const HomeContent = () => {
   }, [slectedDate]);
 
   const [calories, setCalories] = useState(0);
+
+  const handleModalClose = () => {
+    setShowAddFoodModal(false);
+    //fetchRecords();
+  };
+
 
   return (
     <>
@@ -212,6 +221,14 @@ const HomeContent = () => {
               isMain={false}
             />
           </Grid>
+          <Button onClick={() => setShowAddFoodModal(true)} variant="contained">
+            Add food
+          </Button>
+          <AddFoodModal
+            date={slectedDate}
+            open={open}
+            handleClose={handleModalClose}
+          />
         </Grid>
       </Grid>
     </>
