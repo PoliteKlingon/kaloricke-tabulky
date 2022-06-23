@@ -17,7 +17,7 @@ export interface Food {
   name: string,
   photo: string,
   description: string,
-  caloric_value: number,
+  calories: number,
   sugar: number,
   salt: number,
   carbs: number,
@@ -117,7 +117,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
             <Grid item xs={4}>
               Energicka hodnota
               <ValuesDiv>
-                {getValueMultiplied(food.caloric_value, amount)} kcal
+                {getValueMultiplied(food.calories, amount)} kcal
               </ValuesDiv>
             </Grid>
             <Grid item xs={2}>
