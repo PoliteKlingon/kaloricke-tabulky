@@ -1,5 +1,5 @@
 import {styled} from "@mui/system";
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {
   Box,
   Button,
@@ -12,6 +12,7 @@ import {
   TextField,
   Typography
 } from "@mui/material";
+import axios from "../api/axios";
 
 export interface Food {
   name: string,
@@ -102,7 +103,21 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 onChange={(amount) => {setAmount(+amount.target.value)}}
               />
               x&nbsp;1g
-              <AddButton>
+              <AddButton
+                onClick={() => {
+                  useEffect(() => {
+                    try {
+                      axios
+                        .post(`/diary`)
+                        .then((response) => {
+                          console.log(response.data)
+                          // setFood(response.data.data)
+                        })
+                    } catch (err) {
+                      console.log(err)
+                    }
+                  })
+                }}>
                 Zapsat potravinu do jídelnčku
               </AddButton>
             </PaddedDiv>
