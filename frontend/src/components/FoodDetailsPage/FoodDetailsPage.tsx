@@ -1,9 +1,9 @@
 import { styled } from "@mui/system";
 import {CssBaseline} from "@mui/material";
 // import {MainAppBar} from "../components/Header";
-import FoodDetails, {Food} from "../components/FoodDetails";
-import {Hero} from "./MainPage";
-import axios from "../api/axios";
+import FoodDetails, {Food} from "./FoodDetails";
+import {Hero} from "../MainPage/MainPage";
+import axios from "../../api/axios";
 import {useEffect, useState} from "react";
 import {Navigate, useParams} from "react-router-dom";
 

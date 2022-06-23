@@ -12,7 +12,7 @@ import {
   TextField,
   Typography
 } from "@mui/material";
-import axios from "../api/axios";
+import axios from "../../api/axios";
 
 export interface Food {
   name: string,
