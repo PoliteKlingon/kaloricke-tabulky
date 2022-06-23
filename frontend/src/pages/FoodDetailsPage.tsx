@@ -5,7 +5,7 @@ import FoodDetails, {Food} from "../components/FoodDetails";
 import {Hero} from "./MainPage";
 import axios from "../api/axios";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 
 const FlexedHero = styled(Hero)({
   display: "flex",
@@ -18,14 +18,19 @@ const FoodDetailsPage = () => {
 
   const [food, setFood] = useState<Food>(tempData);
   let { id } = useParams();
-  useEffect(() => {
-    axios
-      .get(`/food/${id}`)
-      .then((response) => {
-        console.log(response.data)
-        setFood(response.data.data)
-      });
-  })
+  try {
+    useEffect(() => {
+      axios
+        .get(`/food/${id}`)
+        .then((response) => {
+          // console.log(response.data)
+          setFood(response?.data?.data)
+        });
+    })
+  } catch (err) {
+    // <Navigate to="/" />
+    console.log(err)
+  }
 
   return (
     <FlexedHero>
