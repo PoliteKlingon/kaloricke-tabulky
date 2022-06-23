@@ -1,10 +1,11 @@
 import { styled } from "@mui/system";
 import { CssBaseline } from "@mui/material";
-import Header from "../components/Header";
-import Features from "../components/Features";
+import Header from "./Header";
+import Features from "./Features";
 
 
-export const Hero = styled("div")({
+
+const Hero = styled("div")({
   backgroundImage: `url(${
     import.meta.env.VITE_PUBLIC_URL + "/assets/background.jpg"
   })`,
