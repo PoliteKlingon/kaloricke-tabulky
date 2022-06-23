@@ -228,12 +228,12 @@ import { flushSync } from 'react-dom';
       setCustomGoals(!customGoals);
       updateDetails({
         goals: {
-          calories: data.calories,
-          proteins: data.proteins,
-          carbs: data.carbs,
-          fats: data.fats,
-          fiber: data.fiber,
-          salt: data.salt,
+          calories: parseInt(data.calories),
+          proteins: parseInt(data.proteins),
+          carbs: parseInt(data.carbs),
+          fats: parseInt(data.fats),
+          fiber: parseInt(data.fiber),
+          salt: parseInt(data.salt),
         }
       });
     };
