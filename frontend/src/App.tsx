@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/details" element={<FoodDetailsPage />} />
+          <Route path="/details/:id" element={<FoodDetailsPage />} />
         </Routes>
       </BrowserRouter>
     </LocalizationProvider>
