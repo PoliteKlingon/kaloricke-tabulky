@@ -3,7 +3,7 @@ import {FC, useEffect, useState} from "react";
 import {
   Box,
   Button,
-  Grid,
+  Grid, MenuItem, Select,
   Table,
   TableBody,
   TableCell,
@@ -13,6 +13,7 @@ import {
   Typography
 } from "@mui/material";
 import axios from "../../api/axios";
+import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 
 export interface Food {
   name: string,
@@ -109,12 +110,50 @@ const saveFood = async (food:Food, grams:number) => {
   }
 }
 
+const DetailsWindow = () => {
+  const [mealType, setMealType] = useState("lunch")
+  const [date, setDate] = useState("")
+
+  return (
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"space-around"}
+    >
+      <Select
+        value={mealType}
+        label="mealType"
+        onChange={
+        (mealType) => {setMealType(mealType.target.value)}}
+      >
+        <MenuItem value={"breakfast"}>Breakfast</MenuItem>
+        <MenuItem value={"morningsnack"}>Morning snack</MenuItem>
+        <MenuItem value={"lunch"}>Lunch</MenuItem>
+        <MenuItem value={"afternoonsnack"}>Afternoon snack</MenuItem>
+        <MenuItem value={"dinner"}>Dinner</MenuItem>
+      </Select>
+      <DatePicker
+        disableFuture
+        label="Vyberte den"
+        openTo="day"
+        value={date}
+        onChange={(newValue) => {
+          setDate(newValue ? newValue : date);
+        }}
+        renderInput={(params: any) => <TextField {...params} />}
+        inputFormat="dd.MM.yyyy"
+      />
+    </Box>
+  )
+};
+
 
 const FoodDetails:FoodDetailsType = ({food}) => {
   const [amount, setAmount] = useState(100);
 
   return (
       <Container>
+        {/*<DetailsWindow/>*/}
         <InfoDiv>
           <PaddedDiv>
             <PaddedDiv>
