@@ -338,7 +338,7 @@ import { flushSync } from 'react-dom';
              setSex(userDetails?.sex * 100);
              setHeight(userDetails?.height);
              setWeight(userDetails?.weight);
-             //setBirthDate(details?.birthdate);
+             setBirthDate(new Date(userDetails?.birthdate));
              setDesiredWeight(userDetails?.desiredweight);
              
              setGoals({...userGoals});
