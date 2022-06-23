@@ -2,7 +2,7 @@ import {styled} from "@mui/system";
 import {FC, useEffect, useState} from "react";
 import {
   Box,
-  Button,
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
   Grid, MenuItem, Select,
   Table,
   TableBody,
@@ -119,6 +119,7 @@ const DetailsWindow = () => {
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"space-around"}
+      gap={"1rem"}
     >
       <Select
         value={mealType}
@@ -126,11 +127,11 @@ const DetailsWindow = () => {
         onChange={
         (mealType) => {setMealType(mealType.target.value)}}
       >
-        <MenuItem value={"breakfast"}>Breakfast</MenuItem>
-        <MenuItem value={"morningsnack"}>Morning snack</MenuItem>
-        <MenuItem value={"lunch"}>Lunch</MenuItem>
-        <MenuItem value={"afternoonsnack"}>Afternoon snack</MenuItem>
-        <MenuItem value={"dinner"}>Dinner</MenuItem>
+        <MenuItem value={"breakfast"}>Snídaně</MenuItem>
+        <MenuItem value={"morningsnack"}>Dopolední svačina</MenuItem>
+        <MenuItem value={"lunch"}>Oběd</MenuItem>
+        <MenuItem value={"afternoonsnack"}>Odpolední svačina</MenuItem>
+        <MenuItem value={"dinner"}>Večeře</MenuItem>
       </Select>
       <DatePicker
         disableFuture
@@ -150,6 +151,24 @@ const DetailsWindow = () => {
 
 const FoodDetails:FoodDetailsType = ({food}) => {
   const [amount, setAmount] = useState(100);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleCloseSubmit = () => {
+    saveFood(food, amount);
+    setOpen(false);
+  };
+
+  // const [mealType, setMealType] = useState("lunch")
+  // const [date, setDate] = useState("")
 
   return (
       <Container>
@@ -171,10 +190,26 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               />
               x&nbsp;1g
               <AddButton
-                onClick={() => {saveFood(food, amount)}}
+                // onClick={() => {saveFood(food, amount)}}
+                onClick={handleClickOpen}
               >
                 Zapsat potravinu do jídelnčku
               </AddButton>
+              <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>
+                  Vyberte typ jídla a datum
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Pro uložení jídla do jídelníčku, prosím vyberte datum konzumace a druh
+                  </DialogContentText>
+                  <DetailsWindow/>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Zrušit</Button>
+                  <Button onClick={handleCloseSubmit}>Potvrdit výběr</Button>
+                </DialogActions>
+              </Dialog>
             </PaddedDiv>
           </PaddedDiv>
           {/*<FoodImg src={food.photo} alt={food.name}/>*/}
