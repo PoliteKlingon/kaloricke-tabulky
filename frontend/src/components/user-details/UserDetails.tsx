@@ -258,33 +258,33 @@ import { flushSync } from 'react-dom';
 
 
     const [changeEmail, setChangeEmail] = useState<boolean>(false);
-    const [email, setEmail] = useState<String>("tvojemamka@gmail.com");
+    const [email, setEmail] = useState<String>("");
 
     const [changeUsername, setChangeUsername] = useState<boolean>(false);
-    const [username, setUsername] = useState<String>("debílek");
+    const [username, setUsername] = useState<String>("");
 
     const [changeName, setChangeName] = useState<boolean>(false);
-    const [name, setName] = useState<String>("Pepa");
+    const [name, setName] = useState<String>("");
 
     const [changeSurname, setChangeSurname] = useState<boolean>(false);
-    const [surname, setSurname] = useState<String>("Novák");
+    const [surname, setSurname] = useState<String>("");
     
     const [changeSex, setChangeSex] = useState<boolean>(false);
     const [sex, setSex] = useState<number>(50);
-    const [newSex, setNewSex] = useState<number>(50);
+    const [newSex, setNewSex] = useState<number>(0);
     
     const [changeHeight, setChangeHeight] = useState<boolean>(false);
-    const [height, setHeight] = useState<number>(180);
+    const [height, setHeight] = useState<number>(0);
 
     const [changeWeight, setChangeWeight] = useState<boolean>(false);
-    const [weight, setWeight] = useState<number>(75);
+    const [weight, setWeight] = useState<number>(0);
 
     const [changeBirthDate, setChangeBirthDate] = useState<boolean>(false);
     const [birthDate, setBirthDate] = useState<Date | null>(new Date());
     const [newBirthDate, setNewBirthDate] = useState<Date | null>(new Date());
 
     const [changeDesiredWeight, setChangeDesiredWeight] = useState<boolean>(false);
-    const [desiredWeight, setDesiredWeight] = useState<number>(75);
+    const [desiredWeight, setDesiredWeight] = useState<number>(0);
 
     const [customGoals, setCustomGoals] = useState<boolean>(false);
     const [goals, setGoals] = useState<Goals>({calories: 0, proteins: 0, carbs: 0, fats: 0, fiber: 0, salt: 0});
