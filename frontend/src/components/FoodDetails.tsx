@@ -15,16 +15,14 @@ import {
 
 export interface Food {
   name: string,
-  photo: string,
+  // photo: string,
   description: string,
   calories: number,
-  sugar: number,
-  salt: number,
-  carbs: number,
   proteins: number,
+  carbs: number,
   fats: number,
-  saturated_fats: number,
   fiber: number,
+  salt: number,
   id: string
 }
 
@@ -59,11 +57,10 @@ const InfoDiv = styled("div")({
   padding: "1.25rem"
 });
 
-const FoodImg = styled("img")({
-  maxHeight: "10rem",
-  width: "auto",
-
-});
+// const FoodImg = styled("img")({
+//   maxHeight: "10rem",
+//   width: "auto",
+// });
 
 const ValuesDiv = styled("div")({
   fontSize: "1.25rem",
@@ -110,7 +107,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               </AddButton>
             </PaddedDiv>
           </PaddedDiv>
-          <FoodImg src={food.photo} alt={food.name}/>
+          {/*<FoodImg src={food.photo} alt={food.name}/>*/}
         </InfoDiv>
         <PaddedDiv>
           <Grid container>
@@ -170,26 +167,10 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  Cukry
-                </TableCell>
-                <TableCell>
-                  {food.sugar} g
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
                   Tuky
                 </TableCell>
                 <TableCell>
                   {food.fats} g
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  Nasýcene tuky
-                </TableCell>
-                <TableCell>
-                  {food.saturated_fats} g
                 </TableCell>
               </TableRow>
               <TableRow>
