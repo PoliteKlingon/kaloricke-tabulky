@@ -81,6 +81,34 @@ const getValueMultiplied = (value: number, multiplier: number) => {
   return (value * multiplier/100).toFixed(2).replace(/[.,]00$/, "")
 };
 
+const saveFood = async (food:Food, grams:number) => {
+  try {
+    const body = JSON.stringify({
+      foodId: food.id,
+      date: "23.6.2022",
+      grams: {grams},
+      mealType: "lunch",
+    });
+    console.log(body);
+    axios
+      .post("/diary", body, {
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `Bearer ${auth.ssid}`
+        }
+      })
+      .then((result) => {
+        console.log(body)
+        // handleClose();
+        // setFoodName("");
+      }).catch((e) => {
+      console.log(e)
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 
 const FoodDetails:FoodDetailsType = ({food}) => {
   const [amount, setAmount] = useState(100);
@@ -104,20 +132,8 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               />
               x&nbsp;1g
               <AddButton
-                onClick={() => {
-                  useEffect(() => {
-                    try {
-                      axios
-                        .post(`/diary`)
-                        .then((response) => {
-                          console.log(response.data)
-                          // setFood(response.data.data)
-                        })
-                    } catch (err) {
-                      console.log(err)
-                    }
-                  })
-                }}>
+                onClick={() => {saveFood(food, amount)}}
+              >
                 Zapsat potravinu do jídelnčku
               </AddButton>
             </PaddedDiv>
