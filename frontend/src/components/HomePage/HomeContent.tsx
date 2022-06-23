@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   CircularProgress,
-  Collapse,
   Grid,
   TextField,
   Typography,
@@ -47,83 +46,119 @@ const RecordBox = styled(Box)({
 });
 
 const MainMeals = [
-  "Snídaně",
-  "Dopolední svačina",
-  "Oběd",
-  "Odpolední svačina",
-  "Večeře",
-];
-
-const test = [
   {
-    name: "AAA",
-    calories: "100",
-    type: "snídaně",
+    name: "Snídaně",
+    type: "breakfast",
   },
   {
-    name: "BBB",
-    calories: "200",
-    type: "snídaně",
+    name: "Dopolední svačina",
+    type: "morningsnack",
   },
   {
-    name: "CCC",
-    calories: "300",
-    type: "oběd",
+    name: "Oběd",
+    type: "lunch",
+  },
+  {
+    name: "Odpolední svačina",
+    type: "afternoonsnack",
+  },
+  {
+    name: "Večeře",
+    type: "dinner",
   },
 ];
-
-const getMeals = async (ssid: string, date: string) => {
-  console.log("GET MEALS", ssid)
-  return await axios
-    .get(`diary/${date}`, {
-      headers: {
-        Authorization: `Bearer ${ssid}`,
-      },
-    })
-    .then((res) => {
-      return [
-        {
-          name: "CCC",
-          calories: "300",
-          type: "oběd",
-        },
-      ];
-    })
-    .catch((err) => {
-      alert("Nastala chyba při načítání jídla, prosím zkuste obnovit stránku");
-    });
-};
 
 const HomeContent = () => {
   // @ts-ignore
   const { auth } = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [showAddFoodModal, setShowAddFoodModal] = useState(false);
-  const [meals, setMeals] = useState();
+  const [selectedFoodType, setSelectedFoodType] = useState<string>("");
+  const [meals, setMeals] = useState({});
+  const [goals, setGoals] = useState({
+    calories: Infinity,
+    proteins: Infinity,
+    carbs: Infinity,
+    fats: Infinity,
+    fiber: Infinity,
+  });
+  const [eaten, setEaten] = useState({calories: 0, proteins: 0, carbs: 0, fats: 0, fiber: 0});
   const dateString =
     String(selectedDate?.getFullYear()) +
     "-" +
     // @ts-ignore
     String(selectedDate?.getMonth() + 1).padStart(2, "0") +
     "-" +
-    String(selectedDate?.getDate()).padStart(2, "0");
+    String(selectedDate?.getDate()).padStart(2, "0") + "T10:00:00";
+
+  const fetchMeals = async () => {
+    await axios
+      .get(`diary/${dateString}`, {
+        headers: {
+          Authorization: `Bearer ${auth.ssid}`,
+        },
+      })
+      .then((res) => {
+        setMeals(res.data.data);
+        let calories = 0;
+        let proteins = 0;
+        let carbs = 0;
+        let fats = 0;
+        let fiber = 0;
+        res.data.data.forEach((meal:any) => {
+          const coef = meal.grams / 100;
+          calories += coef * meal.food.calories;
+          proteins += coef * meal.food.proteins;
+          carbs += coef * meal.food.carbs;
+          fats += coef * meal.food.fats;
+          fiber += coef * meal.food.fiber;
+        })
+        calories = Math.round(calories);
+        proteins = Math.round(proteins);
+        carbs = Math.round(carbs);
+        fats = Math.round(fats);
+        fiber = Math.round(fiber);
+        setEaten({calories, proteins, carbs, fats, fiber});
+      })
+      .catch(() => {
+        alert(
+          "Nastala chyba při načítání jídla, prosím, zkuste obnovit stránku"
+        );
+      });
+  }
+
+  const fetchGoals = async () => {
+    await axios
+      .get("/user", {
+        headers: {
+          Authorization: `Bearer ${auth.ssid}`,
+        },
+      })
+      .then((res) => {
+        setGoals(res.data.data.goals);
+      })
+      .catch(() => {
+        alert(
+          "Nastala chyba, prosím, zkuste obnovit stránku"
+        );
+      });
+  }
+
   useEffect(() => {
-    const fetchMeals = async () => {
-      const data = await getMeals(auth.ssid, dateString);
-      console.log(data)
-      console.log(auth.ssid)
-      //setMeals(data);
-    };
-
     fetchMeals();
-  }, [selectedDate]);
-
-  const [calories, setCalories] = useState(0);
+    fetchGoals();
+    console.log(dateString);
+  }, [selectedDate,]);
 
   const handleModalClose = () => {
     setShowAddFoodModal(false);
-    //fetchRecords();
+    fetchMeals();
   };
+
+  const handleModalOpen = (type:string) => {
+    setSelectedFoodType(type);
+    setShowAddFoodModal(true);
+  }
 
   return (
     <>
@@ -144,6 +179,12 @@ const HomeContent = () => {
               },
             }}
             disableRipple
+            onClick={() => {
+              let date1 = selectedDate ? selectedDate : new Date();
+              setSelectedDate(
+                new Date(new Date(date1).setDate(date1.getDate() - 1))
+              );
+            }}
           >
             <ArrowBackIcon sx={{ fontSize: 60 }} />
           </AnimatedButton>
@@ -171,6 +212,18 @@ const HomeContent = () => {
               },
             }}
             disableRipple
+            disabled={
+              selectedDate !== null &&
+              selectedDate.getDate() === new Date().getDate() &&
+              selectedDate.getMonth() === new Date().getMonth() &&
+              selectedDate.getFullYear() === new Date().getFullYear()
+            }
+            onClick={() => {
+              let date1 = selectedDate ? selectedDate : new Date();
+              setSelectedDate(
+                new Date(new Date(date1).setDate(date1.getDate() + 1))
+              );
+            }}
           >
             <ArrowForwardIcon sx={{ fontSize: 60 }} />
           </AnimatedButton>
@@ -191,8 +244,15 @@ const HomeContent = () => {
           alignItems="center"
           justifyContent="center"
         >
-          {MainMeals.map((meal: string) => {
-            return <FoodMilestone eaten={test} name={meal} />;
+          {MainMeals.map((single: any) => {
+            return (
+              <FoodMilestone
+                eaten={meals}
+                name={single.name}
+                type={single.type}
+                showModal={handleModalOpen}
+              />
+            );
           })}
         </Grid>
         <Grid
@@ -205,8 +265,8 @@ const HomeContent = () => {
         >
           <Grid item xs={2}>
             <TripleProgressBar
-              desired={1000}
-              value={2100}
+              desired={goals.calories}
+              value={eaten.calories}
               unit="kcal"
               size={200}
               main={true}
@@ -215,42 +275,40 @@ const HomeContent = () => {
           <Grid container>
             <SingleNutrientbar
               name="Sacharidy"
-              desired={1000}
-              value={1600}
+              desired={goals.carbs}
+              value={eaten.carbs}
               unit="g"
               size={100}
               isMain={false}
             />
             <SingleNutrientbar
               name="Bílkoviny"
-              desired={1000}
-              value={875}
+              desired={goals.proteins}
+              value={eaten.proteins}
               unit="g"
               size={100}
               isMain={false}
             />
             <SingleNutrientbar
               name="Tuky"
-              desired={1000}
-              value={74}
+              desired={goals.fats}
+              value={eaten.fats}
               unit="g"
               size={100}
               isMain={false}
             />
             <SingleNutrientbar
               name="Vláknina"
-              desired={1000}
-              value={2870}
+              desired={goals.fiber}
+              value={eaten.fiber}
               unit="g"
               size={100}
               isMain={false}
             />
           </Grid>
-          <Button onClick={() => setShowAddFoodModal(true)} variant="contained">
-            Add food
-          </Button>
           <AddFoodModal
-            date={selectedDate}
+            date={dateString}
+            type={selectedFoodType}
             open={showAddFoodModal}
             handleClose={handleModalClose}
           />
@@ -274,24 +332,40 @@ const FoodMilestone = (params: any) => {
         >
           <Typography
             sx={{
-              fontFaminy: "Nunito",
+              fontFamily: "Nunito",
               fontSize: "1.5rem",
               fontWeight: 600,
             }}
           >
             {params.name}
           </Typography>
-          <AnimatedButton disableRipple>
+          <AnimatedButton
+            disableRipple
+            onClick={() => params.showModal(params.type)}
+          >
             <AddIcon sx={{ color: "green", fontSize: "1.8rem" }} />
           </AnimatedButton>
         </RecordBox>
       </Grid>
       <Grid item>
-        {params.eaten.map((item: any) => {
-          if (item.type.toLowerCase() === params.name.toLowerCase()) {
-            return <FoodRecord name={item.name} calories={item.calories} />;
+        {Array.isArray(params.eaten) ? 
+        (
+          params.eaten.map((e: any) => {
+          if (e.mealType === params.type) {
+            return (
+              <FoodRecord
+                name={e.food.name}
+                calories={e.food.calories}
+                grams={e.grams}
+              />
+            );
           }
-        })}
+        })) 
+        : 
+        (
+          <div>Loading</div>
+        )
+        }
       </Grid>
     </Grid>
   );
@@ -314,7 +388,7 @@ const FoodRecord = (params: any) => {
     >
       <Typography
         sx={{
-          fontFaminy: "Nunito",
+          fontFamily: "Nunito",
           fontSize: "1rem",
           fontWeight: 400,
           px: 1,
@@ -326,14 +400,14 @@ const FoodRecord = (params: any) => {
       <Box sx={{ display: "flex" }}>
         <Typography
           sx={{
-            fontFaminy: "Nunito",
+            fontFamily: "Nunito",
             fontSize: "1rem",
             fontWeight: 400,
             p: 1,
             m: 1,
           }}
         >
-          {params.calories} kcal
+          {Math.round(params.calories * params.grams / 100)} kcal
         </Typography>
         <AnimatedButton disableRipple>
           <InfoOutlinedIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
@@ -388,6 +462,13 @@ const TripleProgressBar = (params: any) => {
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
         variant="determinate"
+        value={100}
+        size={params.size}
+        thickness={5}
+        sx={{ color: "LightGrey" }}
+      />
+      <CircularProgress
+        variant="determinate"
         value={
           Math.round(
             Math.min(Math.max((params.value / params.desired) * 100, 0), 100) *
@@ -397,6 +478,16 @@ const TripleProgressBar = (params: any) => {
         size={params.size}
         color="success"
         thickness={5}
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       />
       <CircularProgress
         variant="determinate"

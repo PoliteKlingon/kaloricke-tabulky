@@ -38,6 +38,7 @@ export const get = async (req: Request, res: Response) => {
   // NOTE date stored in the database in in TZ 0, but our date is in TZ +2
   try {
     const date = new Date(req.params["date"] || "");
+    const nextDay = new Date((new Date(date)).setDate(date.getDate() + 1));
     const { authorization: sessionId } = await headersSchema.validate(
       req.headers
     );
@@ -45,7 +46,8 @@ export const get = async (req: Request, res: Response) => {
     const user = await getUserBySessionId(sessionId);
 
     const diary = await prisma.diaryEntry.findMany({
-      where: { AND: [{ userId: user.id }, { date: { gte: date } }] },
+      where: { AND: [{ userId: user.id }, { date: { gte: date, lt: nextDay} }] },
+      include: {food:true},
     });
 
     return sendSuccess(res, "Diary retreived successfully", diary);

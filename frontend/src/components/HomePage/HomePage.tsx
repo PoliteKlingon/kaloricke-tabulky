@@ -3,7 +3,7 @@ import HomeContent from "./HomeContent";
 import AuthContext from "../../context/AuthProvider";
 
 import { CssBaseline } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -13,7 +13,7 @@ const HomePage = () => {
     return (
       <>
         {(Object.keys(auth).length === 0 || auth == null)
-          ? (console.log(auth), (<Navigate to="/" />))
+          ? (<Navigate to="/" />)
           :
             <>
               <CssBaseline />

@@ -53,7 +53,6 @@ const FillDiv = styled("div")({
 });
 
 const Register = () => {
-  const [seconds, setSeconds] = useState(0);
   const [ownGoals, setOwnGoals] = useState(false);
   // @ts-ignore
   const { setAuth } = useContext(AuthContext);
