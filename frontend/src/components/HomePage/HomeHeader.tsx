@@ -5,16 +5,7 @@ import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import AuthContext from "../../context/AuthProvider";
 
-const AnimatedButton = styled(Button)({
-  fontSize: 30,
-  fontFamily: "Nunito",
-  fontWeight: "bold",
-  transition: "transform 0.5s",
-  ":hover": {
-    backgroundColor: "transparent",
-    transform: "scale(1.3)",
-  },
-});
+import AnimatedButton from "../Utils/AnimatedButton";
 
 const HomeHeader = () => {
   // @ts-ignore
