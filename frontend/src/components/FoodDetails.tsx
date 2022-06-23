@@ -13,7 +13,7 @@ import {
   Typography
 } from "@mui/material";
 
-interface Food {
+export interface Food {
   name: string,
   photo: string,
   description: string,
