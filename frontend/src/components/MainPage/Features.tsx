@@ -1,7 +1,7 @@
 import { styled } from "@mui/system";
 import ImageCard from "./ImageCard";
-import tips from "../static/tips";
-import useWindowPosition from "../hooks/useWindowposition";
+import tips from "../../static/tips";
+import useWindowPosition from "../../hooks/useWindowposition";
 import { Grid } from "@mui/material";
 
 const Root = styled("div")({

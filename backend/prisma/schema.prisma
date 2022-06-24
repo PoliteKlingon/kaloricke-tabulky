@@ -13,7 +13,7 @@ model User {
   credentials UserCredentials?
   details     UserDetails?
   goals       UserGoals?
-  meals       Meal[]
+  diary       DiaryEntry[]
   Sessions    Sessions[]
 }
 
@@ -31,53 +31,49 @@ model UserGoals {
   fiber    Float
   salt     Float
   calories Float
-  userId   String @id @unique
-  user     User   @relation(fields: [userId], references: [id])
+
+  userId String @id @unique
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model UserDetails {
-  username  String
-  name      String
-  surname   String
-  weight    Float
-  height    Float
-  birthdate DateTime
-  sex       Float
-  email     String   @unique
+  username   String
+  name       String
+  surname    String
+  weight     Float
+  height     Float
+  birthdate  DateTime
+  sex        Float
+  email      String   @unique
+  goalWeight Float
 
   userId String @id @unique
   user   User   @relation(fields: [userId], references: [id])
 }
 
 model Food {
-  name        String  @unique
-  id          String  @id
-  description String
-  calories    Float
-  proteins    Float
-  carbs       Float
-  fats        Float
-  fiber       Float
-  salt        Float
-  eaten       Eaten[]
-  deleted     Boolean @default(false)
+  name         String       @unique
+  id           String       @id
+  description  String
+  calories     Float
+  proteins     Float
+  carbs        Float
+  fats         Float
+  fiber        Float
+  salt         Float
+  deleted      Boolean      @default(false)
+  diaryEntries DiaryEntry[]
 }
 
-model Eaten {
-  id       String @id @default(uuid())
+model DiaryEntry {
+  id       String   @id @default(uuid())
   foodId   String
-  food     Food   @relation(fields: [foodId], references: [id])
-  quantity Float
-  meal     Meal[]
-}
-
-model Meal {
-  id     String   @id @default(uuid())
-  userId String
-  user   User     @relation(fields: [userId], references: [id])
-  food   Eaten[]
-  date   DateTime
-  type   String
+  food     Food     @relation(fields: [foodId], references: [id])
+  grams    Float
+  date     DateTime
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+  mealType String
 }
 
 model Sessions {

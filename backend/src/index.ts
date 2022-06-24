@@ -1,5 +1,5 @@
 import express from "express";
-import { food, user } from "./resources";
+import { diary, food, user } from "./resources";
 import YAML from "yamljs";
 import swaggerUi from "swagger-ui-express";
 
@@ -27,12 +27,17 @@ api.get("/", (_, res) =>
 // api.post("/api/food", food.update);
 // api.get("/api/food/id/:id", food.getById);
 api.get("/api/food/:name", food.get);
-// api.get("/api/food/search/:name", food.searchByName);
+api.get("/api/food/search/:name", food.searchByName);
 
 api.delete("/api/food/:id", food.deleteFood);
 
 // GETTING INFORMATION ABOUT USER //
 api.get("/api/user", user.get);
+
+/* DIARY */
+api.get("/api/diary/:date", diary.get);
+api.post("/api/diary", diary.store);
+api.put("/api/diary", diary.update);
 
 // ENDPOINTS FOR LOGIN AND REGISTRATION //
 api.post("/api/register", user.register);

@@ -19,35 +19,45 @@ import {
 } from "./universalResponses";
 import prisma from "../client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import { v4 as uuid } from "uuid";
+import { UserDetailsDTO } from "../types/data-transfer-objects";
 
 export const register = async (req: Request, res: Response) => {
   try {
     const data = await registerSchema.validate(req.body);
 
-    const user = await prisma.user.create({
-      data: {
-        details: {
-          create: { ...data.details },
-        },
-        goals: {
-          create: {
-            ...(data.goals ||
-              calculateGoals(
-                data.details.birthdate,
-                data.details.height,
-                data.details.sex,
-                data.details.weight
-              )),
+    const userId = uuid();
+
+    const t: any = [
+      prisma.user.create({
+        data: {
+          id: userId,
+          details: {
+            create: { ...data.details },
+          },
+          credentials: {
+            create: {
+              email: data.details.email,
+              passwordHash: String(sha256(data.password)),
+            },
           },
         },
-        credentials: {
-          create: {
-            email: data.details.email,
-            passwordHash: String(sha256(data.password)),
-          },
-        },
-      },
-      include: { details: true, goals: true },
+        include: { details: true, goals: true },
+      }),
+    ];
+
+    if (data.goals) {
+      t.push(
+        prisma.userGoals.create({ data: { ...data.goals, userId: userId } })
+      );
+    }
+
+    await prisma.$transaction(t);
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: { goals: Boolean(data.goals), details: true },
+      rejectOnNotFound: true,
     });
 
     const { id: sessionId } = await prisma.sessions.create({
@@ -97,7 +107,10 @@ export const update = async (req: Request, res: Response) => {
         });
     });
 
-    const user = await prisma.user.findUnique({ where: { id: userId } });
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: { goals: Boolean(data.goals), details: Boolean(data.details) },
+    });
     return sendSuccess(res, "User data successfully updated", user);
   } catch (e: any) {
     if (e instanceof ValidationError) {
@@ -121,6 +134,10 @@ export const get = async (req: Request, res: Response) => {
     );
 
     const user = await getUserBySessionId(sessionId);
+    if (!user.goals) {
+      if (!user.details) return sendInternalServerError(res);
+      user.goals = { ...calculateGoals(user.details), userId: user.id };
+    }
 
     return sendSuccess(res, "User successfully retreived", user);
   } catch (e: any) {
@@ -224,15 +241,11 @@ export async function updatePassword(req: Request, res: Response) {
   }
 }
 
-const calculateGoals = (
-  birthDate: Date,
-  height: number,
-  sex: number,
-  weight: number
-) => {
+const calculateGoals = (userDetails: UserDetailsDTO) => {
   // FIXME calculate values istead of static data
   const age = Math.floor(
-    (new Date().getTime() - new Date(birthDate).getTime()) / 3.15576e10
+    (new Date().getTime() - new Date(userDetails.birthdate).getTime()) /
+      3.15576e10
   );
 
   return {
@@ -245,7 +258,7 @@ const calculateGoals = (
   };
 };
 
-const getUserBySessionId = async (sessionId: string | undefined) => {
+export const getUserBySessionId = async (sessionId: string | undefined) => {
   const session = await prisma.sessions.findUnique({
     where: { id: sessionId },
     include: { user: { include: { details: true, goals: true } } },

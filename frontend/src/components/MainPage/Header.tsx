@@ -14,8 +14,8 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Slide from "@mui/material/Slide";
-import AuthContext from "../context/AuthProvider";
-import { logout } from "../utils/Utils";
+import AuthContext from "../../context/AuthProvider";
+import { logout } from "../../utils/Utils";
 
 const HideOnScroll = ({children}:any) => {
   const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -74,14 +74,22 @@ const Header = () => {
               direction={{ xs: "column", md: "row" }}
               alignItems={{ xs: "center", md: "normal" }}
             >
-              <Typography
-                variant="h2"
-                component="h1"
-                sx={{ flexGrow: "1", fontFamily: "Nunito" }}
-                textAlign={{ xs: "center", md: "left" }}
+              <Link
+                to="/home"
+                style={{ textDecoration: "none", accentColor: "none" }}
+                color="white"
               >
-                <span style={{ color: "#edc69f" }}>Kalorické</span> tabulky
-              </Typography>
+                <Typography
+                  variant="h2"
+                  component="h1"
+                  sx={{ flexGrow: "1", fontFamily: "Nunito" }}
+                  textAlign={{ xs: "center", md: "left" }}
+                >
+                  <span style={{ color: "#edc69f" }}>Kalorické</span>{" "}
+                  <span style={{ color: "white" }}>tabulky</span>
+                </Typography>
+              </Link>
+
               <Stack
                 direction={{ xs: "column", md: "row" }}
                 spacing={{ xs: 0, md: 5 }}

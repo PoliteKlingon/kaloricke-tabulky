@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import MainPage from "./components/MainPage";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
+import MainPage from "./components/MainPage/MainPage";
+import LoginPage from "./components/LoginRegister/LoginPage";
+import RegisterPage from "./components/LoginRegister/RegisterPage";
+import HomePage from "./components/HomePage/HomePage";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { useEffect, useContext } from "react";
@@ -11,15 +12,8 @@ import NotFoundPage from "./components/not-found/NotFoundPage";
 
 
 
+
 const App = () => {
-  //@ts-ignore
-  const { setAuth } = useContext(AuthContext);
-  useEffect(() => {
-    if (window.localStorage.getItem("auth")) {
-      // @ts-ignore
-      setAuth(JSON.parse(window.localStorage.getItem("auth")));
-    }
-  }, []);
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <BrowserRouter>
