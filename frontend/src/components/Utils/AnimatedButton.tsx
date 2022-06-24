@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 const AnimatedButton = styled(Button)({
   fontSize: 30,
   fontFamily: "Nunito",
-  fontWeight: "bold",
+  fontWeight: 900,
   transition: "transform 0.5s",
   ":hover": {
     backgroundColor: "transparent",
