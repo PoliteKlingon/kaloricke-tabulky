@@ -246,20 +246,31 @@ export async function updatePassword(req: Request, res: Response) {
   }
 }
 
-const calculateGoals = (userDetails: UserDetailsDTO) => {
+const calculateGoals = ({
+  birthdate,
+  weight,
+  height,
+  sex,
+  goalWeight,
+}: UserDetailsDTO) => {
   // FIXME calculate values istead of static data
   const age = Math.floor(
-    (new Date().getTime() - new Date(userDetails.birthdate).getTime()) /
-      3.15576e10
+    (new Date().getTime() - new Date(birthdate).getTime()) / 3.15576e10
   );
 
+  let calories: number =
+    10 * weight + 6.25 * height - 5 * age + sex * 166 - 161 * 1.5;
+
+  calories += goalWeight - weight; //TODO
+  let caloriesDistr = calories - 2 * weight * 4;
+
   return {
-    calories: 2300,
-    proteins: 150,
-    carbs: 230,
-    fats: 79,
-    fiber: 18,
-    salt: 5,
+    calories: calories,
+    proteins: 2 * weight,
+    carbs: (caloriesDistr / 4) * 0.7,
+    fats: (caloriesDistr / 4) * 0.3,
+    fiber: (weight / 100) * 40,
+    salt: 2,
   };
 };
 
