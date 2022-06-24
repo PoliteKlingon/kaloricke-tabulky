@@ -170,11 +170,22 @@ const FoodDetails:FoodDetailsType = ({food}) => {
   // const [mealType, setMealType] = useState("lunch")
   // const [date, setDate] = useState("")
 
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
+
+  const updateMedia = () => {
+    setDesktop(window.innerWidth > 1000);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
+
   return (
       <Container>
         {/*<DetailsWindow/>*/}
         <InfoDiv>
-          <PaddedDiv>
+          <div>
             <PaddedDiv>
               <strong>{food.name}</strong>
             </PaddedDiv>
@@ -192,8 +203,9 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               <AddButton
                 // onClick={() => {saveFood(food, amount)}}
                 onClick={handleClickOpen}
+                // value={{isDesktop} ? "Zapsat potravinu do jídelnčku" : "Zapsat"}
               >
-                Zapsat potravinu do jídelnčku
+                {isDesktop ? "Zapsat potravinu do jídelnčku" : "Zapsat"}
               </AddButton>
               <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>
@@ -211,36 +223,36 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 </DialogActions>
               </Dialog>
             </PaddedDiv>
-          </PaddedDiv>
+          </div>
           {/*<FoodImg src={food.photo} alt={food.name}/>*/}
         </InfoDiv>
         <PaddedDiv>
           <Grid container>
-            <Grid item xs={4}>
+            <Grid item xs={isDesktop ? 4 : 12}>
               Energicka hodnota
               <ValuesDiv>
                 {getValueMultiplied(food.calories, amount)} kcal
               </ValuesDiv>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={isDesktop ? 2 : 6}>
               Bíloviny
               <ValuesDiv>
                 {getValueMultiplied(food.proteins, amount)} g
               </ValuesDiv>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={isDesktop ? 2 : 6}>
               Sacharidy
               <ValuesDiv>
                 {getValueMultiplied(food.carbs, amount)} g
               </ValuesDiv>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={isDesktop ? 2 : 6}>
               Tuky
               <ValuesDiv>
                 {getValueMultiplied(food.fats, amount)} g
               </ValuesDiv>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={isDesktop ? 2 : 6}>
               Vláknina
               <ValuesDiv>
                 {getValueMultiplied(food.fiber, amount)} g
