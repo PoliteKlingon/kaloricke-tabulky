@@ -29,6 +29,7 @@ export interface UserDetailsDTO {
   sex: number;
   email: string;
   userId: string;
+  goalWeight: number;
 }
 
 export interface UserGoalsDTO {
