@@ -1,5 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Box,  Typography } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -16,16 +15,13 @@ const FoodRecord = (params: any) => {
         alignItems: "center",
         px: 1,
         mx: 1,
-        fontSize: "1.5rem",
-        fontFamily: "Nunito",
-        fontWeight: "400",
       }}
     >
       <Typography
         sx={{
           fontFamily: "Nunito",
-          fontSize: "1rem",
-          fontWeight: 400,
+          fontSize: "1.3rem",
+          fontWeight: 600,
           px: 1,
           mx: 1,
         }}
@@ -36,8 +32,8 @@ const FoodRecord = (params: any) => {
         <Typography
           sx={{
             fontFamily: "Nunito",
-            fontSize: "1rem",
-            fontWeight: 400,
+            fontSize: "1.2rem",
+            fontWeight: 600,
             p: 1,
             m: 1,
           }}

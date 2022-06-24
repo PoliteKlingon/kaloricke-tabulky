@@ -5,6 +5,9 @@ import AuthContext from "../../context/AuthProvider";
 import { CssBaseline } from "@mui/material";
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
+import MainBackground from "../Utils/MainBackground";
+
+import CustomAppBar from "../Utils/CustomAppBar";
 
 const HomePage = () => {
     // @ts-ignore
@@ -12,15 +15,15 @@ const HomePage = () => {
 
     return (
       <>
-        {(Object.keys(auth).length === 0 || auth == null)
-          ? (<Navigate to="/" />)
-          :
-            <>
-              <CssBaseline />
-              <HomeHeader />
-              <HomeContent />
-            </>
-        }
+        {Object.keys(auth).length === 0 || auth == null ? (
+          <Navigate to="/" />
+        ) : (
+          <MainBackground>
+            <CssBaseline />
+            <CustomAppBar withsearch={true}/>
+            <HomeContent />
+          </MainBackground>
+        )}
       </>
     );
 }

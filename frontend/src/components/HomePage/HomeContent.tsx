@@ -133,160 +133,169 @@ const HomeContent = () => {
   }
 
   return (
-    <>
+    <Grid container direction="column" alignItems="center" sx={{paddingTop: {xs: 0, sm: 5}}}>
       <Grid
         container
-        direction={{ xs: "column", sm: "row" }}
-        alignItems="center"
-        justifyContent="center"
+        xs={12}
+        sm={11}
+        direction="column"
+        alignItems="normal"
         pt={2}
+        pb={8}
+        sx={{
+          backgroundColor: "white",
+          minHeight: "70vh",
+          borderRadius: { xs: 0, sm: 10 },
+        }}
       >
-        <Grid item xs={1} display="flex" justifyContent="center">
-          <AnimatedButton
-            variant="text"
-            sx={{
-              color: "#edc69f",
-              ":active": {
-                color: "#edd9be",
-              },
-            }}
-            disableRipple
-            onClick={() => {
-              let date1 = selectedDate ? selectedDate : new Date();
-              setSelectedDate(
-                new Date(new Date(date1).setDate(date1.getDate() - 1))
-              );
-            }}
-          >
-            <ArrowBackIcon sx={{ fontSize: 60 }} />
-          </AnimatedButton>
+        <Grid item container alignItems="center" justifyContent="center" pt={2}>
+          <Grid item xs={3} sm={1} display="flex" justifyContent="center">
+            <AnimatedButton
+              variant="text"
+              sx={{
+                color: "#edc69f",
+                ":active": {
+                  color: "#edd9be",
+                },
+              }}
+              disableRipple
+              onClick={() => {
+                let date1 = selectedDate ? selectedDate : new Date();
+                setSelectedDate(
+                  new Date(new Date(date1).setDate(date1.getDate() - 1))
+                );
+              }}
+            >
+              <ArrowBackIcon sx={{ fontSize: 60 }} />
+            </AnimatedButton>
+          </Grid>
+          <Grid item xs={5} display="flex" justifyContent="center">
+            <DatePicker
+              disableFuture
+              label="Vyberte den"
+              openTo="day"
+              value={selectedDate}
+              onChange={(newValue) => {
+                setSelectedDate(newValue);
+              }}
+              renderInput={(params: any) => <TextField {...params} />}
+              inputFormat="dd.MM.yyyy"
+            />
+          </Grid>
+          <Grid item xs={3} sm={1} display="flex" justifyContent="center">
+            <AnimatedButton
+              variant="text"
+              sx={{
+                color: "#edc69f",
+                ":active": {
+                  color: "#edd9be",
+                },
+              }}
+              disableRipple
+              disabled={
+                selectedDate !== null &&
+                selectedDate.getDate() === new Date().getDate() &&
+                selectedDate.getMonth() === new Date().getMonth() &&
+                selectedDate.getFullYear() === new Date().getFullYear()
+              }
+              onClick={() => {
+                let date1 = selectedDate ? selectedDate : new Date();
+                setSelectedDate(
+                  new Date(new Date(date1).setDate(date1.getDate() + 1))
+                );
+              }}
+            >
+              <ArrowForwardIcon sx={{ fontSize: 60 }} />
+            </AnimatedButton>
+          </Grid>
         </Grid>
-        <Grid item xs={3} sm={5} display="flex" justifyContent="center">
-          <DatePicker
-            disableFuture
-            label="Vyberte den"
-            openTo="day"
-            value={selectedDate}
-            onChange={(newValue) => {
-              setSelectedDate(newValue);
-            }}
-            renderInput={(params: any) => <TextField {...params} />}
-            inputFormat="dd.MM.yyyy"
-          />
-        </Grid>
-        <Grid item xs={1} display="flex" justifyContent="center">
-          <AnimatedButton
-            variant="text"
-            sx={{
-              color: "#edc69f",
-              ":active": {
-                color: "#edd9be",
-              },
-            }}
-            disableRipple
-            disabled={
-              selectedDate !== null &&
-              selectedDate.getDate() === new Date().getDate() &&
-              selectedDate.getMonth() === new Date().getMonth() &&
-              selectedDate.getFullYear() === new Date().getFullYear()
-            }
-            onClick={() => {
-              let date1 = selectedDate ? selectedDate : new Date();
-              setSelectedDate(
-                new Date(new Date(date1).setDate(date1.getDate() + 1))
-              );
-            }}
-          >
-            <ArrowForwardIcon sx={{ fontSize: 60 }} />
-          </AnimatedButton>
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        direction={{ xs: "column", sm: "row" }}
-        justifyContent="center"
-        pt={5}
-      >
         <Grid
           container
-          item
-          xs={5}
-          direction="column"
-          display="flex"
-          alignItems="center"
+          direction={{ xs: "column", sm: "row" }}
           justifyContent="center"
+          pt={5}
         >
-          {MainMeals.map((single: any) => {
-            return (
-              <FoodMilestone
-                eaten={meals}
-                name={single.name}
-                type={single.type}
-                showModal={handleModalOpen}
+          <Grid
+            container
+            item
+            xs={8}
+            direction="column"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {MainMeals.map((single: any) => {
+              return (
+                <FoodMilestone
+                  eaten={meals}
+                  name={single.name}
+                  type={single.type}
+                  showModal={handleModalOpen}
+                />
+              );
+            })}
+          </Grid>
+          <Grid
+            container
+            item
+            xs={3}
+            direction="column"
+            display="flex"
+            alignItems="center"
+          >
+            <Grid item xs={2}>
+              <TripleProgressBar
+                desired={goals.calories}
+                value={eaten.calories}
+                unit="kcal"
+                size={200}
+                main={true}
               />
-            );
-          })}
-        </Grid>
-        <Grid
-          container
-          item
-          xs={2}
-          direction="column"
-          display="flex"
-          alignItems="center"
-        >
-          <Grid item xs={2}>
-            <TripleProgressBar
-              desired={goals.calories}
-              value={eaten.calories}
-              unit="kcal"
-              size={200}
-              main={true}
+            </Grid>
+            <Grid container>
+              <NutrientBar
+                name="Sacharidy"
+                desired={goals.carbs}
+                value={eaten.carbs}
+                unit="g"
+                size={100}
+                isMain={false}
+              />
+              <NutrientBar
+                name="Bílkoviny"
+                desired={goals.proteins}
+                value={eaten.proteins}
+                unit="g"
+                size={100}
+                isMain={false}
+              />
+              <NutrientBar
+                name="Tuky"
+                desired={goals.fats}
+                value={eaten.fats}
+                unit="g"
+                size={100}
+                isMain={false}
+              />
+              <NutrientBar
+                name="Vláknina"
+                desired={goals.fiber}
+                value={eaten.fiber}
+                unit="g"
+                size={100}
+                isMain={false}
+              />
+            </Grid>
+            <AddFoodModal
+              date={dateString}
+              type={selectedFoodType}
+              open={showAddFoodModal}
+              handleClose={handleModalClose}
             />
           </Grid>
-          <Grid container>
-            <NutrientBar
-              name="Sacharidy"
-              desired={goals.carbs}
-              value={eaten.carbs}
-              unit="g"
-              size={100}
-              isMain={false}
-            />
-            <NutrientBar
-              name="Bílkoviny"
-              desired={goals.proteins}
-              value={eaten.proteins}
-              unit="g"
-              size={100}
-              isMain={false}
-            />
-            <NutrientBar
-              name="Tuky"
-              desired={goals.fats}
-              value={eaten.fats}
-              unit="g"
-              size={100}
-              isMain={false}
-            />
-            <NutrientBar
-              name="Vláknina"
-              desired={goals.fiber}
-              value={eaten.fiber}
-              unit="g"
-              size={100}
-              isMain={false}
-            />
-          </Grid>
-          <AddFoodModal
-            date={dateString}
-            type={selectedFoodType}
-            open={showAddFoodModal}
-            handleClose={handleModalClose}
-          />
         </Grid>
       </Grid>
-    </>
+    </Grid>
   );
 };
 
