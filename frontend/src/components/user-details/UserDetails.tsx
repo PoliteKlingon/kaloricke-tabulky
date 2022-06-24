@@ -192,17 +192,17 @@ import {
     };
 
     const {
-      register: registerDesiredWeight,
-      formState: { errors: errorsDesiredWeight },
-      handleSubmit: handleSubmitDesiredWeight,
+      register: registerGoalWeight,
+      formState: { errors: errorsGoalWeight },
+      handleSubmit: handleSubmitGoalWeight,
     } = useForm();
 
-    const onSubmitDesiredWeight = (data: any) => {
-      setDesiredWeight(data.desiredWeight);
-      setChangeDesiredWeight(false);
+    const onSubmitGoalWeight = (data: any) => {
+      setGoalWeight(data.goalWeight);
+      setChangeGoalWeight(false);
       updateDetails({
         details: {
-          desiredweight: data.desiredWeight
+          goalWeight: data.goalWeight
         }
       });
     };
@@ -275,8 +275,8 @@ import {
     const [birthDate, setBirthDate] = useState<Date | null>(new Date());
     const [newBirthDate, setNewBirthDate] = useState<Date | null>(new Date());
 
-    const [changeDesiredWeight, setChangeDesiredWeight] = useState<boolean>(false);
-    const [desiredWeight, setDesiredWeight] = useState<number>(0);
+    const [changeGoalWeight, setChangeGoalWeight] = useState<boolean>(false);
+    const [goalWeight, setGoalWeight] = useState<number>(0);
 
     const [customGoals, setCustomGoals] = useState<boolean>(false);
     const [goals, setGoals] = useState<Goals>({calories: 0, proteins: 0, carbs: 0, fats: 0, fiber: 0, salt: 0});
@@ -304,7 +304,7 @@ import {
       setChangeHeight(false);
       setChangeWeight(false);
       setChangeBirthDate(false);
-      setChangeDesiredWeight(false);
+      setChangeGoalWeight(false);
       setCustomGoals(false);
       setChangePasswords(false);
     }
@@ -329,7 +329,7 @@ import {
              setHeight(userDetails?.height);
              setWeight(userDetails?.weight);
              setBirthDate(new Date(userDetails?.birthdate));
-             setDesiredWeight(userDetails?.desiredweight);
+             setGoalWeight(userDetails?.goalWeight);
              
              setGoals({...userGoals});
            })
@@ -982,24 +982,24 @@ import {
                   <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>Cílová hmotnost</Typography>
                   </Grid>   
                   <Grid item xs={6} md={4}>
-                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{desiredWeight} kg</Typography>
+                  <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}>{goalWeight} kg</Typography>
                   </Grid>   
                   <Grid item xs={3} md={4}>
-                  {changeDesiredWeight ?
-                  <CloseIcon onClick={() => setChangeDesiredWeight(!changeDesiredWeight)}/>
+                  {changeGoalWeight ?
+                  <CloseIcon onClick={() => setChangeGoalWeight(!changeGoalWeight)}/>
                   :
-                  <SettingsIcon onClick={() => {closeAll(); setChangeDesiredWeight(!changeDesiredWeight)}}/>
+                  <SettingsIcon onClick={() => {closeAll(); setChangeGoalWeight(!changeGoalWeight)}}/>
                   }
                   </Grid>   
 
                 </Grid> 
                 <Collapse
                   sx={{ width: "100%" }}
-                  in={changeDesiredWeight}
+                  in={changeGoalWeight}
                   {...{ timeout: 500 }}
                   collapsedSize="0px"
                 >
-                  <form onSubmit={handleSubmitDesiredWeight(onSubmitDesiredWeight)}>
+                  <form onSubmit={handleSubmitGoalWeight(onSubmitGoalWeight)}>
                   <Grid
                     container
                     direction="row"
@@ -1017,15 +1017,15 @@ import {
                       InputProps={{
                         endAdornment: <InputAdornment position="start">kg</InputAdornment>,
                       }}
-                      {...registerDesiredWeight("desiredWeight", {
+                      {...registerGoalWeight("goalWeight", {
                         required: "Položka je povinná",
                         min: {
                           value: 1,
                           message: "Minimální hodnota je 1",
                         },
                       })}
-                      error={!!errorsDesiredWeight?.desiredWeight}
-                      helperText={errorsDesiredWeight?.desiredWeight ? errorsDesiredWeight.desiredWeight.message : null} />
+                      error={!!errorsGoalWeight?.goalWeight}
+                      helperText={errorsGoalWeight?.goalWeight ? errorsGoalWeight.goalWeight.message : null} />
                     </Grid>   
                     <Grid item xs={3} md={4}>
                     <Button type="submit">Uložit</Button>
