@@ -24,7 +24,7 @@ import {
   import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
   import './UserDetails.css'
   import axios from "../../api/axios";
-import { flushSync } from 'react-dom';
+  import { Navigate } from "react-router-dom"
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -187,18 +187,6 @@ import { flushSync } from 'react-dom';
       });
     };
 
-    /*const {
-      register: registerBirthDate,
-      formState: { errors: errorsBirthDate },
-      handleSubmit: handleSubmitBirthDate,
-    } = useForm();
-
-    // @ts-ignore
-    const onSubmitBirthDate = (data) => {
-      setBirthDate(data.newBirthDate);
-      setChangeBirthDate(false);
-    };*/
-
     const {
       register: registerDesiredWeight,
       formState: { errors: errorsDesiredWeight },
@@ -293,7 +281,6 @@ import { flushSync } from 'react-dom';
     const [changePasswords, setChangePasswords] = useState<boolean>(false);
     const [Passwords, setPasswords] = useState<Passwords>({oldPassword: "", password: "", passwordAgain: ""});
     
-    const [authState, setAuthState] = useState<boolean>();
       // @ts-ignore
     const { auth, setAuth } = useContext(AuthContext);
     useEffect(() => {
@@ -389,10 +376,8 @@ import { flushSync } from 'react-dom';
     }
 
     return (
-      /*
-      TODO: check ze je v auth neco smysluplnyho, pokud ne, presmeruj na landing page.
-      */
       <Root id="header">
+        {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
         <HideOnScroll>
           <AppBar elevation={0} sx={{ background: "none", pt: 5 }}>
             <Toolbar sx={{ width: "100%", px: { xs: "auto", md: 5, lg: 10 } }}>
