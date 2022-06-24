@@ -20,11 +20,13 @@ import {
   import AuthContext from "../../context/AuthProvider";
   import SettingsIcon from '@mui/icons-material/Settings';
   import CloseIcon from '@mui/icons-material/Close';
+  import LockIcon from '@mui/icons-material/Lock';
   import { useForm, SubmitHandler } from "react-hook-form";
   import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
   import './UserDetails.css'
   import axios from "../../api/axios";
   import { Navigate } from "react-router-dom"
+  import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
   
   const HideOnScroll = ({children}:any) => {
     const trigger = useScrollTrigger({ disableHysteresis: true });
@@ -45,7 +47,6 @@ import {
   const Root = styled("div")({
     display: "flex",
     justifyContent: "center",
-    //alignItems: "center",
     height: "100vh",
   });
   
@@ -78,6 +79,9 @@ import {
       label: "Muž",
     },
   ];
+  
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
   
   export default function UserDetails() {
     const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
@@ -381,67 +385,71 @@ import {
         <HideOnScroll>
           <AppBar elevation={0} sx={{ background: "none", pt: 5 }}>
             <Toolbar sx={{ width: "100%", px: { xs: "auto", md: 5, lg: 10 } }}>
-              <Grid
-                container
-                justifyContent={{ xs: "center", md: "space-between" }}
-                direction={{ xs: "column", md: "row" }}
-                alignItems={{ xs: "center", md: "normal" }}
-              >
-                <Typography
-                  variant="h2"
-                  component="h1"
-                  sx={{ flexGrow: "1", fontFamily: "Nunito" }}
-                  textAlign={{ xs: "center", md: "left" }}
-                >
-                  <span style={{ color: "#edc69f" }}>Kalorické</span> tabulky
-                </Typography>
-                <Stack
+              <ThemeProvider theme={theme}>
+                <Grid
+                  container
+                  justifyContent={{ xs: "center", md: "space-between" }}
                   direction={{ xs: "column", md: "row" }}
-                  spacing={{ xs: 0, md: 5 }}
+                  alignItems={{ xs: "center", md: "normal" }}
                 >
-                  <Link to="/" style={{ textDecoration: "none" }}>
-                    <AnimatedButton
-                      variant="text"
-                      sx={{
-                        color: "#edc69f",
-                        ":active": {
-                          color: "#edd9be",
-                        },
-                      }}
-                      disableRipple
-                    >
-                      {username}
-                    </AnimatedButton>
-                  </Link>
-                  <Link to="/" style={{ textDecoration: "none" }}>
-                    <AnimatedButton
-                      variant="text"
-                      sx={{
-                        color: "#eb9b34",
-                        ":active": {
-                          color: "#edc48c",
-                        },
-                      }}
-                      disableRipple
-                      onClick={() => {
-                        localStorage.removeItem("auth");
-                        setAuth({});
-                      }}
-                    >
-                      Odhlásit
-                    </AnimatedButton>
-                  </Link>
-                </Stack>
-              </Grid>
+                  <Typography
+                    variant="h2"
+                    component="h1"
+                    sx={{ flexGrow: "1", fontFamily: "Nunito" }}
+                    textAlign={{ xs: "center", md: "left" }}
+                  >
+                    <span style={{ color: "#edc69f" }}>Kalorické</span> tabulky
+                  </Typography>
+                  <Stack
+                    direction={{ xs: "column", md: "row" }}
+                    spacing={{ xs: 0, md: 5 }}
+                  >
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#edc69f",
+                          ":active": {
+                            color: "#edd9be",
+                          },
+                        }}
+                        disableRipple
+                      >
+                        {username}
+                      </AnimatedButton>
+                    </Link>
+                    <Link to="/" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#eb9b34",
+                          ":active": {
+                            color: "#edc48c",
+                          },
+                        }}
+                        disableRipple
+                        onClick={() => {
+                          localStorage.removeItem("auth");
+                          setAuth({});
+                        }}
+                      >
+                        Odhlásit
+                      </AnimatedButton>
+                    </Link>
+                  </Stack>
+                </Grid>
+              </ThemeProvider>
             </Toolbar>
           </AppBar>
         </HideOnScroll>
-        <Container
+        <Container 
             sx={{
                 backgroundColor: "white",
-                marginTop: {xs: 40, sm: 35, md: 25, lg: 25},
+                marginTop: {xs: 30, sm: 30, md: 20, lg: 25},
+                marginBottom: {xs: 5, sm: 5, md: 10, lg: 10},
                 width: "90%",
-                height: "80%"
+                height: "auto",
+                overflow: 'auto'
         }}
         >
           <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}
@@ -1323,13 +1331,13 @@ import {
                         margin="normal"
                         variant="standard"
                         type="password"
-                        /*InputProps={{
+                        InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <Lock />
+                              <LockIcon />
                             </InputAdornment>
                           ),
-                        }}*/
+                        }}
                         {...registerPasswords("oldPassword", {
                           required: "Položka je povinná",
                         })}
@@ -1348,13 +1356,13 @@ import {
                         margin="normal"
                         variant="standard"
                         type="password"
-                        /*InputProps={{
+                        InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <Lock />
+                              <LockIcon />
                             </InputAdornment>
                           ),
-                        }}*/
+                        }}
                         {...registerPasswords("newPassword", {
                           required: "Položka je povinná",
                         })}
@@ -1373,13 +1381,13 @@ import {
                         margin="normal"
                         variant="standard"
                         type="password"
-                        /*InputProps={{
+                        InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              <Lock />
+                              <LockIcon />
                             </InputAdornment>
                           ),
-                        }}*/
+                        }}
                         {...registerPasswords("passwordAgain", {
                           required: "Položka je povinná",
                           validate: (value) =>
