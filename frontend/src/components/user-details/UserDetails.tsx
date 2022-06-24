@@ -472,7 +472,6 @@ import {
               {/* EMAIL */}
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 1 }}
                   justifyContent="center"
@@ -506,7 +505,6 @@ import {
                   <form onSubmit={handleSubmitEmail(onSubmitEmail)}>
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -539,7 +537,6 @@ import {
                 {/* USERNAME */}
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 1 }}
                   justifyContent="center"
@@ -569,7 +566,6 @@ import {
                   <form onSubmit={handleSubmitUsername(onSubmitUsername)}>
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -597,7 +593,6 @@ import {
                 {/* NAME */}
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 1 }}
                   justifyContent="center"
@@ -627,7 +622,6 @@ import {
                   <form onSubmit={handleSubmitName(onSubmitName)}>
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -655,7 +649,6 @@ import {
                 {/* SURNAME */}
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 1 }}
                   justifyContent="center"
@@ -685,7 +678,6 @@ import {
                   <form onSubmit={handleSubmitSurname(onSubmitSurname)}>
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -714,7 +706,6 @@ import {
 
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 1 }}
                   justifyContent="center"
@@ -743,7 +734,6 @@ import {
                 >
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -770,7 +760,6 @@ import {
 
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 1 }}
                   justifyContent="center"
@@ -800,7 +789,6 @@ import {
                   <form onSubmit={handleSubmitHeight(onSubmitHeight)}>
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -837,7 +825,6 @@ import {
 
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 1 }}
                   justifyContent="center"
@@ -867,7 +854,6 @@ import {
                   <form onSubmit={handleSubmitWeight(onSubmitWeight)}>
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -904,7 +890,6 @@ import {
 
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 1 }}
                   justifyContent="center"
@@ -933,7 +918,6 @@ import {
                 >
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -985,7 +969,6 @@ import {
                 {/* DESIRED WEIGHT */}
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 1 }}
                   justifyContent="center"
@@ -1015,7 +998,6 @@ import {
                   <form onSubmit={handleSubmitDesiredWeight(onSubmitDesiredWeight)}>
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -1051,7 +1033,6 @@ import {
                 {/* CUSTOM Goals*/}
                 <Grid
                   container
-                  spacing={0}
                   direction="row"
                   sx={{ margin: 0 }}
                   justifyContent="center"
@@ -1095,7 +1076,6 @@ import {
                 <form onSubmit={handleSubmitGoals(onSubmitGoals)}>
                 <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -1126,7 +1106,6 @@ import {
 
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -1161,7 +1140,6 @@ import {
 
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -1195,7 +1173,6 @@ import {
 
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -1229,7 +1206,6 @@ import {
 
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -1263,7 +1239,6 @@ import {
 
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
@@ -1330,7 +1305,6 @@ import {
                 <form onSubmit={handleSubmitPasswords(onSubmitPasswords)}>
                   <Grid
                     container
-                    spacing={0}
                     direction="row"
                     sx={{ margin: 1 }}
                     justifyContent="center"
