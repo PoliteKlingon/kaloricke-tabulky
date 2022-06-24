@@ -38,7 +38,10 @@ const CustomAppBar = (props:any) => {
       <HideOnScroll>
         <AppBar
           elevation={0}
-          sx={{ background: "none", pt: 5 }}
+          sx={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.8) 90%, transparent 100%);",
+          }}
           position="sticky"
         >
           <Toolbar sx={{ width: "100%", px: { xs: "auto", md: 5, lg: 10 } }}>
@@ -46,7 +49,7 @@ const CustomAppBar = (props:any) => {
               container
               justifyContent={{ xs: "center", md: "space-between" }}
               direction={{ xs: "column", md: "row" }}
-              alignItems={{ xs: "center", md: "normal" }}
+              alignItems={{ xs: "center", md: "center" }}
             >
               <Link
                 to="/home"
@@ -75,7 +78,8 @@ const CustomAppBar = (props:any) => {
                     borderRadius: "10px",
                     pl: 2,
                     fontSize: "1.5rem",
-                    maxWidth: { xs: "100%", sm: "40%" },
+                    maxWidth: { xs: "100%", sm: "35%" },
+                    maxHeight: { xs: "100%", sm: "35%" },
                   }}
                   placeholder="Vyhledej jídlo"
                   inputProps={{
@@ -85,7 +89,7 @@ const CustomAppBar = (props:any) => {
                     <InputAdornment position="start">
                       <IconButton
                         type="submit"
-                        sx={{ p: "10px", color: "black" }}
+                        sx={{ color: "black" }}
                         aria-label="search"
                       >
                         <SearchIcon sx={{ fontSize: 40 }} />
