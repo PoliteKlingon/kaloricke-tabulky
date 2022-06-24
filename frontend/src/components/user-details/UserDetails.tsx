@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import {
     AppBar,
@@ -378,6 +378,8 @@ import {
         console.log(err);
       }
     }
+
+    const myRef = useRef(null);
 
     return (
       <Root id="header">
@@ -1070,7 +1072,12 @@ import {
                           backgroundColor: "#f29830",
                         },
                       }}
-                      onClick={() => {closeAll(); setCustomGoals(!customGoals)}}
+                      onClick={() => {
+                        closeAll(); 
+                        // @ts-ignore
+                        !customGoals && setTimeout(() => { myRef.current.scrollIntoView({behavior: "smooth"}) }, 500);
+                        setCustomGoals(!customGoals); 
+                      }}
                     >
                       {customGoals
                         ? "Skrýt nutrienty"
@@ -1306,7 +1313,12 @@ import {
                       backgroundColor: "#f29830",
                     },
                   }}
-                  onClick={() => {closeAll(); setChangePasswords(!changePasswords)}}
+                  onClick={() => {
+                    closeAll(); 
+                    // @ts-ignore
+                    !changePasswords && setTimeout(() => { myRef.current.scrollIntoView({behavior: "smooth"}) }, 500);
+                    setChangePasswords(!changePasswords);
+                  }}
                 >{changePasswords ? "Zrušit" : "Změnit heslo"}</Button>
 
                 <Collapse
@@ -1415,6 +1427,7 @@ import {
                 <img src="https://www.budgetbytes.com/wp-content/uploads/2013/07/How-to-Calculate-Recipe-Costs-H.jpg" alt="" />
               </Grid>   
             </Grid>
+            <div ref={myRef}></div>
         </Container>
       </Root>
     );
