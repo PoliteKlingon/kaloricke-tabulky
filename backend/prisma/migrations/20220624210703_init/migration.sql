@@ -33,6 +33,7 @@ CREATE TABLE "UserDetails" (
     "birthdate" DATETIME NOT NULL,
     "sex" REAL NOT NULL,
     "email" TEXT NOT NULL,
+    "goalWeight" REAL NOT NULL,
     "userId" TEXT NOT NULL PRIMARY KEY,
     CONSTRAINT "UserDetails_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

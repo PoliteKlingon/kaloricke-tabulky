@@ -77,7 +77,7 @@ export const updateRequestSchema = object({
   headers: headersSchema.required(),
   body: object({
     details: detailsUpdateSchema.optional(),
-    goals: goalsUpdateSchema.optional(),
+    goals: goalsSchema.optional(),
   }),
 });
 
