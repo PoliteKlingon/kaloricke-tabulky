@@ -335,6 +335,7 @@ import {
            })
       } catch (err) {
         console.log(err);
+        alert("Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat.");
       }
     };
 
@@ -358,6 +359,8 @@ import {
         if (err.response.status == 409) {
           alert("Uživatel s takovýmto e-mailem již existuje!");
           getDetails();
+        } else {
+          alert("Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat.");
         }
       }
     }
