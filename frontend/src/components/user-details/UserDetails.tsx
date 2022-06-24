@@ -291,7 +291,6 @@ import {
       if (window.localStorage.getItem("auth")) {
         // @ts-ignore
         setAuth(JSON.parse(window.localStorage.getItem("auth")));
-        console.log(auth)
       };
       getDetails();
   }, []);
@@ -340,7 +339,6 @@ import {
     };
 
     const updateDetails = async (content: any) => {
-      console.log(content);
       try {
         await axios
           .put("/user",
@@ -351,10 +349,16 @@ import {
                 "Content-Type": "application/json",
               },
             })
-            .then((response) => {console.log(response)});
+            .then((response) => {
+              console.log(response);
+              });
       }
-      catch (err) {
+      catch (err: any) {
         console.log(err);
+        if (err.response.status == 409) {
+          alert("Uživatel s takovýmto e-mailem již existuje!");
+          getDetails();
+        }
       }
     }
 
