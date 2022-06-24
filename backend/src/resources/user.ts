@@ -95,9 +95,13 @@ export const update = async (req: Request, res: Response) => {
         where: { userId: userId },
         data: { ...data.details },
       });
-      await prisma.userGoals.update({
+      await prisma.userGoals.upsert({
         where: { userId: userId },
-        data: { ...data.goals },
+        update: { ...data.goals },
+        create:{
+          ...data.goals,
+          userId:userId
+        }
       });
       // TODO vyresit aby se nemusel email ukladat duplicitne
       if (data.details.email)
