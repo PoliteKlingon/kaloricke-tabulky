@@ -9,6 +9,7 @@ export const detailsSchema = object({
   birthdate: date().required().min("1940-01-01"),
   sex: number().required().min(0).max(1),
   email: string().email().required().trim(),
+  goalWeight: number().positive().required(),
 }).noUnknown(true);
 
 export const detailsUpdateSchema = object({
@@ -20,10 +21,11 @@ export const detailsUpdateSchema = object({
   birthdate: date().optional().min("1940-01-01"),
   sex: number().optional().min(0).max(1),
   email: string().email().optional().trim(),
+  goalWeight: number().positive().optional(),
 }).noUnknown(true);
 
 export const goalsSchema = object({
-  calories: number().required().positive(),
+  calories: number().optional().positive(),
   proteins: number().required().positive(),
   carbs: number().required().positive(),
   fats: number().required().positive(),
@@ -75,7 +77,7 @@ export const updateRequestSchema = object({
   headers: headersSchema.required(),
   body: object({
     details: detailsUpdateSchema.optional(),
-    goals: goalsUpdateSchema.optional(),
+    goals: goalsSchema.optional(),
   }),
 });
 
