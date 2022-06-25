@@ -1,12 +1,21 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
+import { FC } from "react";
 
-const TripleProgressBar = (params: any) => {
+interface ITripleProgressBarProps {
+  value: number;
+  desired: number;
+  size: number;
+  isMain?: boolean;
+  unit: string;
+}
+
+const TripleProgressBar:FC<ITripleProgressBarProps> = ({value, desired, size, isMain, unit}) => {
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
         variant="determinate"
         value={100}
-        size={params.size}
+        size={size}
         thickness={5}
         sx={{ color: "LightGrey" }}
       />
@@ -14,11 +23,11 @@ const TripleProgressBar = (params: any) => {
         variant="determinate"
         value={
           Math.round(
-            Math.min(Math.max((params.value / params.desired) * 100, 0), 100) *
+            Math.min(Math.max((value / desired) * 100, 0), 100) *
               10
           ) / 10
         }
-        size={params.size}
+        size={size}
         color="success"
         thickness={5}
         sx={{
@@ -35,16 +44,16 @@ const TripleProgressBar = (params: any) => {
       <CircularProgress
         variant="determinate"
         value={
-          (params.value / params.desired) * 100 < 100
+          (value / desired) * 100 < 100
             ? 0
             : Math.round(
                 Math.min(
-                  Math.max((params.value / params.desired) * 100 - 100, 0),
+                  Math.max((value / desired) * 100 - 100, 0),
                   100
                 ) * 10
               ) / 10
         }
-        size={params.size}
+        size={size}
         color="warning"
         thickness={5}
         sx={{
@@ -61,16 +70,16 @@ const TripleProgressBar = (params: any) => {
       <CircularProgress
         variant="determinate"
         value={
-          (params.value / params.desired) * 100 < 200
+          (value / desired) * 100 < 200
             ? 0
             : Math.round(
                 Math.min(
-                  Math.max((params.value / params.desired) * 100 - 200, 0),
+                  Math.max((value / desired) * 100 - 200, 0),
                   100
                 ) * 10
               ) / 10
         }
-        size={params.size}
+        size={size}
         color="error"
         thickness={5}
         sx={{
@@ -97,14 +106,14 @@ const TripleProgressBar = (params: any) => {
           alignContent: "center",
         }}
       >
-        {params.main ? (
+        {isMain ? (
           <>
             <Typography
               textAlign="center"
               fontFamily="Nunito"
               fontSize="1.3rem"
             >
-              {Math.round((params.value / params.desired) * 100 * 10) / 10}%
+              {Math.round((value / desired) * 100 * 10) / 10}%
             </Typography>
             <Typography
               textAlign="center"
@@ -112,16 +121,16 @@ const TripleProgressBar = (params: any) => {
               fontSize="1.5rem"
               fontWeight="bold"
             >
-              {params.value}
-              {params.unit}
+              {value}
+              {unit}
             </Typography>
             <Typography textAlign="center" fontFamily="Nunito" fontSize="1rem">
-              z {params.desired} {params.unit}
+              z {desired} {unit}
             </Typography>
           </>
         ) : (
           <Typography textAlign="center" fontFamily="Nunito" fontSize="1.3rem">
-            {Math.round((params.value / params.desired) * 100 * 10) / 10}%
+            {Math.round((value / desired) * 100 * 10) / 10}%
           </Typography>
         )}
       </Box>

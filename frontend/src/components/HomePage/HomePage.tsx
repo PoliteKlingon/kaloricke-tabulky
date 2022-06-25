@@ -1,15 +1,16 @@
-import HomeHeader from "./HomeHeader";
 import HomeContent from "./HomeContent";
 import AuthContext from "../../context/AuthProvider";
 
-import { CssBaseline } from "@mui/material";
-import { useContext } from "react";
+import { CssBaseline, Grid } from "@mui/material";
+import { FC, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import MainBackground from "../Utils/MainBackground";
 
 import CustomAppBar from "../Utils/CustomAppBar";
 
-const HomePage = () => {
+interface IHomePageProps {}
+
+const HomePage:FC<IHomePageProps> = () => {
     // @ts-ignore
     const { auth } = useContext(AuthContext);
 
@@ -20,7 +21,7 @@ const HomePage = () => {
         ) : (
           <MainBackground>
             <CssBaseline />
-            <CustomAppBar withsearch={true}/>
+            <CustomAppBar withSearch={true} />
             <HomeContent />
           </MainBackground>
         )}

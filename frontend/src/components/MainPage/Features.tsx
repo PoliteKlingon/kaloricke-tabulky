@@ -1,18 +1,11 @@
-import { styled } from "@mui/system";
 import ImageCard from "./ImageCard";
 import tips from "../../static/tips";
 import useWindowPosition from "../../hooks/useWindowposition";
 import { Grid } from "@mui/material";
+import { FC } from "react";
 
-const Root = styled("div")({
-  minHeight: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-});
-
-
-const Features = () => {
+interface IFeatureProps {}
+const Features: FC<IFeatureProps> = () => {
   const checked = useWindowPosition("header", 0.4);
   return (
     <Grid
@@ -26,10 +19,10 @@ const Features = () => {
       }}
     >
       <Grid item>
-        <ImageCard props={tips[0]} checked={checked} />
+        <ImageCard content={tips[0]} checked={checked} />
       </Grid>
       <Grid item>
-        <ImageCard props={tips[1]} checked={checked} />
+        <ImageCard content={tips[1]} checked={checked} />
       </Grid>
     </Grid>
   );

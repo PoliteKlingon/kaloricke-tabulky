@@ -1,24 +1,33 @@
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
 
 import axios from "../../api/axios";
 import AuthContext from "../../context/AuthProvider";
 
-const ChangeWeightModal = ({
+import MealType from "../../types/MealType";
+
+interface IChangeWeightModalProps {
+  open: boolean;
+  handleClose: () => void;
+  recordId: string;
+  date: string;
+  type: MealType;
+}
+
+const ChangeWeightModal:FC<IChangeWeightModalProps> = ({
   open,
   handleClose,
   recordId,
   date,
   type,
-}: any) => {
+}) => {
   // @ts-ignore
   const { auth } = useContext(AuthContext);
 
   const saveFood = async (event: any) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // @ts-ignore
-    if (+data.get("grams") <= 0) {
+    if (+data.get("grams")! <= 0) {
       alert("Snězená hmotnost musí být kladná");
       return;
     }
@@ -27,8 +36,7 @@ const ChangeWeightModal = ({
       const body = JSON.stringify({
         id: recordId,
         date: date,
-        // @ts-ignore
-        grams: +data.get("grams"),
+        grams: +data.get("grams")!,
         mealType: type,
       });
       console.log(body);

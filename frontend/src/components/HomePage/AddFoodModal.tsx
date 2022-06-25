@@ -1,11 +1,21 @@
 import { Autocomplete, Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
-import { useState, useContext } from "react";
+import { useState, useContext, FC } from "react";
 import axios from "../../api/axios";
 import AuthContext from "../../context/AuthProvider";
 
-const AddFoodModal = ({ open, type, handleClose, date }:any ) => {
+import IFoodRecord from "../../interfaces/IFoodRecord";
 
-  const [foundFoods, setFoundFoods] = useState([]);
+
+interface IAddFoodModalProps {
+  open: boolean;
+  type: "breakfast" | "morningsnack" | "lunch" | "afternoonsnack" | "dinner";
+  handleClose: () => void;
+  date: string;
+}
+
+const AddFoodModal:FC<IAddFoodModalProps> = ({ open, type, handleClose, date }) => {
+
+  const [foundFoods, setFoundFoods] = useState<IFoodRecord[]>([]);
   const [foodName, setFoodName] = useState("");
   // @ts-ignore
   const { auth } = useContext(AuthContext);
@@ -20,23 +30,19 @@ const AddFoodModal = ({ open, type, handleClose, date }:any ) => {
   const saveFood = async (event:any) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // @ts-ignore
-    if (+data.get("grams") <= 0) {
+    if (+data.get("grams")! <= 0) {
       alert("Snězená hmotnost musí být kladná")
       return;
     }
 
     try {
-      // @ts-ignore
-      const foodId = foundFoods?.find((food) => {
-        // @ts-ignore
-        return food?.name === foodName;
-      }).id;
+      const foodId = foundFoods!.find((food) => {
+        return food.name === foodName;
+      })!.id;
       const body = JSON.stringify({
         foodId: foodId,
         date: date,
-        // @ts-ignore
-        grams: +data.get("grams"),
+        grams: +data.get("grams")!,
         mealType: type,
       });
       console.log(body);
@@ -79,15 +85,15 @@ const AddFoodModal = ({ open, type, handleClose, date }:any ) => {
             <Grid item xs={12}>
               <Autocomplete
                 value={foodName}
-                onChange={(e, value) => setFoodName(value)}
+                onChange={(e, value) => setFoodName(value!)}
                 disablePortal
                 id="combo-box-demo"
-                // @ts-ignore
                 options={foundFoods.map((food) => food.name)}
                 sx={{ width: "100%" }}
-                renderInput={(params) => (
+                renderInput={(props) => (
                   <TextField
-                    {...params}
+                    required
+                    {...props}
                     label="Název jídla"
                     onChange={(e) => searchFoodByName(e.target.value)}
                   />

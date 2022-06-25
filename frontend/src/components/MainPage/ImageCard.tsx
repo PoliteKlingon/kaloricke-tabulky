@@ -3,19 +3,37 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Collapse } from "@mui/material";
+import { FC } from "react";
 
+interface IContent {
+  imageURL: string;
+  imageAlt: string;
+  title: string;
+  description: string;
+  time: number;
+}
 
-const ImageCard = (props: any) => {
+interface IImageCardProps {
+  content: IContent;
+  checked: boolean;
+}
+
+const ImageCard:FC<IImageCardProps> = ({content, checked}) => {
   return (
-    <Collapse in={props.checked} {...(props.checked ? { timeout: 2000 } : {})}>
+    <Collapse in={checked} {...(checked ? { timeout: 2000 } : {})}>
       <Card
-        sx={{ maxWidth: 745, background: "rgba(0,0,0,0.3)", margin: "20px", borderRadius: "5%" }}
+        sx={{
+          maxWidth: 745,
+          background: "rgba(0,0,0,0.3)",
+          margin: "20px",
+          borderRadius: "5%",
+        }}
       >
         <CardMedia
           component="img"
           height="500"
-          image={props.props.imageURL}
-          alt={props.props.imageAlt}
+          image={content.imageURL}
+          alt={content.imageAlt}
         />
         <CardContent>
           <Typography
@@ -29,7 +47,7 @@ const ImageCard = (props: any) => {
               color: "white",
             }}
           >
-            {props.props.title}
+            {content.title}
           </Typography>
           <Typography
             variant="body2"
@@ -40,7 +58,7 @@ const ImageCard = (props: any) => {
               color: "white",
             }}
           >
-            {props.props.description}
+            {content.description}
           </Typography>
         </CardContent>
       </Card>

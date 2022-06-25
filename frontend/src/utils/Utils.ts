@@ -1,10 +1,7 @@
 import axios from "../api/axios";
 
-interface LoginResult {
-  status: boolean;
-  err: any;
-  message: string;
-}
+import IUserData from "../interfaces/IUserData"
+import IUserGoals from "../interfaces/IUserGoals";
 
 export const getUserData = async (sessionId: string) => {
   return await axios
@@ -22,10 +19,10 @@ export const getUserData = async (sessionId: string) => {
           username: username,
         })
       );
-      return { status: true, message: "Success" };
+      return { status: 200, err:null, message: "Success" };
     })
     .catch((err) => {
-      return { status: false, err: err, message: "Get Data Error" };
+      return { status: 400, err: err, message: "Get Data Error" };
     });
 }
 
@@ -53,17 +50,17 @@ export const login = async (
       })
       .catch((err) => {
         if (!err?.response) {
-          return { status: false, err: err, message: "Error" };
+          return { status: 400, err: err, message: "Error" };
         } else if (err.response?.status === 401) {
           return {
-            status: false,
-            err: null,
+            status: 400,
+            err: err,
             message: "Špatný email nebo heslo",
           };
         }
       });
   } catch (err) {
-    return { status: false, err: err, message: "Error" };
+    return { status: 400, err: err, message: "Error" };
   }
 };
 
@@ -92,30 +89,11 @@ export const logout = async (): Promise<Boolean> => {
       return false;
     });
 }
-interface userData {
-  email: string;
-  username: string;
-  name: string;
-  surname: string;
-  height: number;
-  weight: number;
-  birthDate: string;
-  sex: number;
-}
-
-interface userGoals {
-  calories: number;
-  proteins: number;
-  carbs: number;
-  fats: number;
-  fiber: number;
-  salt: number;
-}
 
 export const userRegister = async (
   password: string,
-  userData: userData,
-  userGoals: userGoals | undefined
+  userData: IUserData,
+  userGoals: IUserGoals | undefined
 ) => {
   const data = userGoals
     ? JSON.stringify({
@@ -133,26 +111,26 @@ export const userRegister = async (
           ...userData,
         },
       });
-  return await axios.post(
-    "/register",
-    data,
-    {
+  console.log(userData, userGoals);
+  return await axios
+    .post("/register", data, {
       headers: {
         "Content-Type": "application/json",
       },
-    }
-  ).then((response) => {
-    return getUserData(response.data.data.sessionId);
-  }).catch((err) => {
-    if (!err?.response) {
-      return { status: true, err: err, message: "Error" };
-    } else if (err.response?.status === 409) {
-      return {
-        status: false,
-        err: null,
-        message: "Email už existuje",
-      };
-    }
-  });
-
+    })
+    .then((response) => {
+      console.log("HERE")
+      return getUserData(response.data.data.sessionId);
+    })
+    .catch((err) => {
+      console.log(err)
+      if (err.response?.status === 409) {
+        return {
+          status: 409,
+          err: null,
+          message: "Účet se stejným emailem již existuje",
+        };
+      }
+      return { status: 400, err: err, message: "Error" };
+    });
 };

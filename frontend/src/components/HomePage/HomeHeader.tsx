@@ -1,13 +1,14 @@
 import { Grid, IconButton, InputBase, Typography } from "@mui/material";
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import AuthContext from "../../context/AuthProvider";
 
 import AnimatedButton from "../Utils/AnimatedButton";
 
+interface IHomeHeaderProps {}
 
-const HomeHeader = () => {
+const HomeHeader:FC<IHomeHeaderProps> = () => {
   // @ts-ignore
   const { auth, setAuth } = useContext(AuthContext);
   return (

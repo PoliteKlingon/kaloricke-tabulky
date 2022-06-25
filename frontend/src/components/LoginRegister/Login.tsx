@@ -1,4 +1,4 @@
-import { useState,  useContext } from "react";
+import { useState,  useContext, FC } from "react";
 import { Link, Navigate } from "react-router-dom";
 import AuthContext from "../../context/AuthProvider";
 import { Button, Grid, InputAdornment, TextField } from "@mui/material";
@@ -7,9 +7,8 @@ import { AccountCircle, Lock } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 
 import slides from "../../static/slideshow";
-// @ts-ignore
+
 import ChangingImage from "./ChangingImage";
-import axios from "../../api/axios";
 
 import { login } from "../../utils/Utils";
 
@@ -32,7 +31,9 @@ type FormInputs = {
   password: string;
 };
 
-const Login = () => {
+interface ILoginProps {}
+
+const Login: FC<ILoginProps> = () => {
   // @ts-ignore
   const { setAuth } = useContext(AuthContext);
 
@@ -50,10 +51,13 @@ const Login = () => {
       getValues("email"),
       getValues("password")
     );
-    if (res.status) {
-      // @ts-ignore
-      setAuth(JSON.parse(window.localStorage.getItem("auth")));
-      setSuccess(true);
+    if (res.status === 200) {
+      if (window.localStorage.getItem("auth")) {
+        setAuth(JSON.parse(window.localStorage.getItem("auth")!));
+        setSuccess(true);
+      } else {
+        alert("Něco se pokazilo, zkuste to znovu");
+      }
     }
     else {
       if (res.err == null) {
@@ -71,7 +75,7 @@ const Login = () => {
     <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>
         <Grid item xs={12} sm={6} sx={{ minHeight: "50vh" }}>
-          <ChangingImage slides={slides} interval={5000} />
+          <ChangingImage slides={slides} changeInterval={5000} />
         </Grid>
         <Grid
           container
@@ -150,7 +154,7 @@ const Login = () => {
                         },
                       }}
                     >
-                      Chceš žít zdravěji?
+                      Zaregistruj se
                     </Button>
                   </Link>
                 </Grid>
