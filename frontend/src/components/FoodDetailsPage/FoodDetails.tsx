@@ -37,8 +37,10 @@ interface FoodDetailsProps {
 type FoodDetailsType = FC<FoodDetailsProps>;
 
 const Container = styled("div")({
+  borderRadius: "15px",
+  fontFamily: "nunito",
   backgroundColor: "white",
-  margin: "10%",
+  margin: "2% 10%",
   minWidth: "60vw",
   display: "flex",
   flexDirection: "column",
