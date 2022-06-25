@@ -2,7 +2,7 @@ import {styled} from "@mui/system";
 import {FC, useEffect, useState, useContext} from "react";
 import {
   Box,
-  Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button, Dialog, DialogContent, DialogContentText, DialogTitle,
   Grid, MenuItem, Select,
   Table,
   TableBody,
@@ -16,8 +16,6 @@ import axios from "../../api/axios";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import AuthContext from "../../context/AuthProvider";
 import { Navigate } from "react-router-dom"
-import TripleProgressBar from "../Utils/TripleProgressBar";
-
 import Chart from "react-apexcharts"
 
 export interface Food {
@@ -53,21 +51,11 @@ const Container = styled("div")({
 const PaddedDiv = styled(Box)({
   padding: "0.75rem 1.25rem",
   fontFamily: "nunito",
-  // display: "flex",
-  // flexDirection: "row",
 });
-
-/**
-const CategoryDiv = styled(PaddedDiv)({
-  fontSize: "0.75rem",
-}); **/
 
 const InfoDiv = styled("div")({
   display: "flex",
   flexDirection: "column",
-  // gap: "0",
-  // justifyContent: "space-between",
-  // padding: "1.25rem"
 });
 
 // const FoodImg = styled("img")({
@@ -110,7 +98,6 @@ const PieChart = (food: Food) => {
     }
   };
 
-  // const series = [];
   return (
     // @ts-ignore
     <Chart
@@ -118,7 +105,6 @@ const PieChart = (food: Food) => {
       series={options.series}
       type="donut"
       height="100%"
-      // width="100%"
     >
     </Chart>
   );
@@ -190,7 +176,6 @@ const DetailsWindow = ({amount, food}) => {
         <MenuItem value={"dinner"}>Večeře</MenuItem>
       </Select>
       <DatePicker
-        // sx={{fontFamily: "nunito",}}
         disableFuture
         label="Vyberte den"
         openTo="day"
@@ -222,10 +207,6 @@ const FoodDetails:FoodDetailsType = ({food}) => {
     setOpen(false);
   };
 
-  // const handleCloseSubmit = () => {
-  //   setOpen(false);
-  // };
-
   const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
 
   const updateMedia = () => {
@@ -248,7 +229,6 @@ const FoodDetails:FoodDetailsType = ({food}) => {
           <Typography
             sx={{
               textTransform:"uppercase",
-              // fontWeight: "bold",
               fontSize: "h4.fontSize",
               letterSpacing: "0.15rem",
               fontFamily: "nunito",
@@ -383,7 +363,6 @@ const FoodDetails:FoodDetailsType = ({food}) => {
           </TableBody>
         </Table>
         <PaddedDiv sx={{display: "flex", justifyContent: "center", alignContent: "center", margin: "3% 0 0 5%" }}>
-          {/*<TripleProgressBar params={food}/>*/}
           <PieChart name={food.name}
                     description={food.description}
                     calories={food.calories}
