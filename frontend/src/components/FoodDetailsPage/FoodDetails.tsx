@@ -263,7 +263,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
         <PaddedDiv>
           <Grid container>
             <Grid item xs={isDesktop ? 4 : 12}>
-              Energicka hodnota
+              Energická hodnota
               <ValuesDiv>
                 {getValueMultiplied(food.calories, amount)} kcal
               </ValuesDiv>
@@ -297,7 +297,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
         <PaddedDiv>
           <Table sx={{width: isDesktop ? "50%" : "100%"}}>
             <TableHead>
-              Nutricni hodnoty na 100g
+              Nutriční hodnoty na 100g
             </TableHead>
             <TableBody>
               <TableRow>
@@ -334,7 +334,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               </TableRow>
               <TableRow>
                 <TableCell>
-                  Sul
+                  Sůl
                 </TableCell>
                 <TableCell>
                   {food.salt} g
