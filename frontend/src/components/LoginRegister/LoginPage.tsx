@@ -1,6 +1,8 @@
-import Login from "./Login";
-import { CssBaseline } from "@mui/material";
 import { FC } from "react";
+
+import { CssBaseline } from "@mui/material";
+
+import Login from "./Login";
 
 interface ILoginPageProps {}
 

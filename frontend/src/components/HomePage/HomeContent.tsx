@@ -1,16 +1,20 @@
 import { useEffect, useState, useContext, FC } from "react";
-import AddFoodModal from "./AddFoodModal";
+
+
 import { Grid, TextField, TextFieldProps } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import AuthContext from "../../context/AuthProvider";
+
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import axios from "../../api/axios";
 
+import AuthContext from "../../context/AuthProvider";
+import axios from "../../api/axios";
 import AnimatedButton from "../Utils/AnimatedButton";
 import FoodMilestone from "./FoodMilestone";
 import NutrientBar from "./NutrientBar";
 import TripleProgressBar from "../Utils/TripleProgressBar";
+import AddFoodModal from "./AddFoodModal";
 
 import MealType from "../../types/MealType";
 

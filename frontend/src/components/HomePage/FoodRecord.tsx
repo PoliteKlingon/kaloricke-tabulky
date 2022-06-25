@@ -1,5 +1,4 @@
-import { FC } from "react";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";

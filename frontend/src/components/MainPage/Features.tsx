@@ -1,8 +1,10 @@
-import ImageCard from "./ImageCard";
-import tips from "../../static/tips";
-import useWindowPosition from "../../hooks/useWindowposition";
-import { Grid } from "@mui/material";
 import { FC } from "react";
+
+import { Grid } from "@mui/material";
+
+import tips from "../../static/tips";
+import ImageCard from "./ImageCard";
+import useWindowPosition from "../../hooks/useWindowposition";
 
 interface IFeatureProps {}
 const Features: FC<IFeatureProps> = () => {

@@ -1,6 +1,8 @@
-import Register from "./Register";
-import { CssBaseline } from "@mui/material";
 import { FC } from "react";
+
+import { CssBaseline } from "@mui/material";
+
+import Register from "./Register";
 
 interface IRegisterPageProps {}
 const RegisterPage: FC<IRegisterPageProps> = () => {
