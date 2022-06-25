@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 
 import {
     AppBar,
+    Alert,
     Box,
     Button,
     Collapse,
@@ -246,6 +247,7 @@ import {
 
     const {
       register: registerPasswords,
+      reset: resetPasswords,
       formState: { errors: errorsPasswords },
       handleSubmit: handleSubmitPasswords,
       getValues,
@@ -253,15 +255,14 @@ import {
 
     const onSubmitPasswords = (data: any) => {
       setPasswords(data);
-      setChangePasswordModal(!changePasswordModal);
       updatePassword({
         oldPassword: data.oldPassword,
         newPassword: data.newPassword,
       })
     };
 
-
-
+    const [passwordAlertMessage, setPasswordAlertMessage] = useState("");
+    const [passwordAlertSeverity, setPasswordAlertSeverity] = useState("");
 
     const [changeEmail, setChangeEmail] = useState<boolean>(false);
     const [email, setEmail] = useState<String>("");
@@ -382,6 +383,8 @@ import {
     }
 
     const updatePassword = async (content: any) => {
+      setPasswordAlertSeverity("");
+      setPasswordAlertMessage("");
       try {
         await axios
           .put("/user/password",
@@ -392,8 +395,23 @@ import {
                 "Content-Type": "application/json",
               },
             })
-            .then((response) => {
-              console.log(response);
+            .then((_) => {
+              setPasswordAlertSeverity("success");
+              setPasswordAlertMessage("Heslo bylo úspěšně změněno");
+              resetPasswords();
+              setTimeout(() => { 
+                setChangePasswordModal(!changePasswordModal);
+                setPasswordAlertSeverity("");
+                setPasswordAlertMessage(""); 
+              }, 2000);
+            })
+            .catch((err) => {
+              setPasswordAlertSeverity("error");
+              setPasswordAlertMessage(
+                  err.response.data.message == "Old user password does not match" ? 
+                  "Staré heslo není správné" :
+                  "Nastala neočekávaná chyba, zkuste to prosím později"
+                );
             });
       }
       catch (err) {
@@ -1368,7 +1386,7 @@ import {
                     <Grid item xs={0} sm={2} md={3} lg={4}/>
                     <Grid item xs={12} sm={8} md={6} lg={4}>
                       <TextField
-                        label="Aktuální heslo"
+                        label="Staré heslo"
                         fullWidth={true}
                         margin="normal"
                         variant="standard"
@@ -1454,11 +1472,16 @@ import {
                     <Grid item xs={0} sm={2} md={3} lg={4}/>
                   </Grid>     
 
+                  {passwordAlertSeverity && 
+                  // @ts-ignore
+                  <Alert severity={passwordAlertSeverity}>{passwordAlertMessage}</Alert>
+                  }
+
                     <Button
                       variant="contained"
                       disableRipple
                       sx={{
-                        backgroundColor: "orange",
+                        backgroundColor: "darkGrey",
                         fontWeight: "bold",
                         fontFamily: "Nunito",
                         marginY: 1,
@@ -1467,7 +1490,7 @@ import {
                         transition: "transform 0.2s",
                         ":hover": {
                           transform: "scale(1.1)",
-                          backgroundColor: "#f29830",
+                          backgroundColor: "gray",
                         },
                       }}
                       onClick={() => {
@@ -1490,9 +1513,6 @@ import {
                         },
                       }}
                       type="submit"
-                      onClick={() => {
-                        //TODO: zmenit heslo
-                      }}
                     >Změnit heslo</Button>
                     </form>
                   </Box>
