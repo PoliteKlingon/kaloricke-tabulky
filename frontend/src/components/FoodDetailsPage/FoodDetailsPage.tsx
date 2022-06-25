@@ -2,12 +2,12 @@ import { styled } from "@mui/system";
 import {CssBaseline} from "@mui/material";
 // import {MainAppBar} from "../components/Header";
 import FoodDetails, {Food} from "./FoodDetails";
-import {Hero} from "../MainPage/MainPage";
+import MainBackground from "../Utils/MainBackground";
 import axios from "../../api/axios";
 import {useEffect, useState} from "react";
 import {Navigate, useParams} from "react-router-dom";
 
-const FlexedHero = styled(Hero)({
+const FlexedHero = styled(MainBackground)({
   display: "flex",
   justifyContent: "center",
 });
