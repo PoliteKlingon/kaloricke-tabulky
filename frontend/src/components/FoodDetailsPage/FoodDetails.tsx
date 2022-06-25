@@ -198,10 +198,8 @@ const FoodDetails:FoodDetailsType = ({food}) => {
 
   return (
       <Container>
-        {/*{console.log(auth)}*/}
         {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
 
-        {/*<DetailsWindow/>*/}
         <InfoDiv>
           <div>
             <PaddedDiv>
@@ -219,9 +217,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               />
               x&nbsp;1g
               <AddButton
-                // onClick={() => {saveFood(food, amount)}}
                 onClick={handleClickOpen}
-                // value={{isDesktop} ? "Zapsat potravinu do jídelnčku" : "Zapsat"}
               >
                 {isDesktop ? "Zapsat potravinu do jídelnčku" : "Zapsat"}
               </AddButton>
