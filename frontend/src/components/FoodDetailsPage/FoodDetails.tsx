@@ -86,7 +86,7 @@ const getValueMultiplied = (value: number, multiplier: number) => {
   return (value * multiplier/100).toFixed(2).replace(/[.,]00$/, "")
 };
 
-const PieChart = (food: Food) => {
+const DonutChart = (food: Food) => {
   const options = {
     series: [food.proteins, food.fats, food.carbs, food.fiber, food.salt],
     labels: ["Bílkoviny", "Tuky", "Sacharidy", "Vláknina", "Sul"],
@@ -366,7 +366,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
           </TableBody>
         </Table>
         <PaddedDiv sx={{display: "flex", justifyContent: "center", alignContent: "center", margin: "3% 0 0 5%" }}>
-          <PieChart name={food.name}
+          <DonutChart name={food.name}
                     description={food.description}
                     calories={food.calories}
                     proteins={food.proteins}
