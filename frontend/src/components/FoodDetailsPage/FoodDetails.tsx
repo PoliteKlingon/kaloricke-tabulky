@@ -382,7 +382,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
             </TableRow>
           </TableBody>
         </Table>
-        <PaddedDiv sx={{display: "flex", justifyContent: "center", alignContent: "center", }}>
+        <PaddedDiv sx={{display: "flex", justifyContent: "center", alignContent: "center", margin: "3% 0 0 5%" }}>
           {/*<TripleProgressBar params={food}/>*/}
           <PieChart name={food.name}
                     description={food.description}
