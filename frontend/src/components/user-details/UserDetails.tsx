@@ -2,10 +2,12 @@ import React, { useRef } from 'react'
 
 import {
     AppBar,
+    Box,
     Button,
     Collapse,
     Grid,
     InputAdornment,
+    Modal,
     Slider,
     Stack,
     Toolbar,
@@ -239,7 +241,7 @@ import {
 
     const onSubmitPasswords = (data: any) => {
       setPasswords(data);
-      setChangePasswords(!changePasswords);
+      setChangePasswordModal(!changePasswordModal);
       updatePassword({
         oldPassword: data.oldPassword,
         newPassword: data.newPassword,
@@ -282,7 +284,8 @@ import {
     const [goals, setGoals] = useState<Goals>({calories: 0, proteins: 0, carbs: 0, fats: 0, fiber: 0, salt: 0});
     
 
-    const [changePasswords, setChangePasswords] = useState<boolean>(false);
+    const [changePasswordModal, setChangePasswordModal] = useState<boolean>(false);
+    const [deleteAccountModal, setDeleteAccountModal] = useState<boolean>(false);
     const [Passwords, setPasswords] = useState<Passwords>({oldPassword: "", password: "", passwordAgain: ""});
     
       // @ts-ignore
@@ -306,7 +309,7 @@ import {
       setChangeBirthDate(false);
       setChangeGoalWeight(false);
       setCustomGoals(false);
-      setChangePasswords(false);
+      //setChangePasswords(false);
     }
 
 
@@ -1329,12 +1332,12 @@ import {
                   onClick={() => {
                     closeAll(); 
                     // @ts-ignore
-                    !changePasswords && setTimeout(() => { myRef.current.scrollIntoView({behavior: "smooth"}) }, 500);
-                    setChangePasswords(!changePasswords);
+                    //!changePasswords && setTimeout(() => { myRef.current.scrollIntoView({behavior: "smooth"}) }, 500);
+                    setChangePasswordModal(!changePasswordModal);
                   }}
-                >{changePasswords ? "Zrušit" : "Změnit heslo"}</Button>
+                >Změnit heslo</Button>
 
-                <Collapse
+                {/*<Collapse
                   sx={{ width: "100%" }}
                   in={changePasswords}
                   {...{ timeout: 500 }}
@@ -1439,7 +1442,45 @@ import {
                     </Grid>
                   </Grid>
                   </form>        
-                </Collapse>
+                      </Collapse>*/}
+
+                <Button
+                  variant="contained"
+                  disableRipple
+                  sx={{
+                    backgroundColor: "red",
+                    fontWeight: "bold",
+                    fontFamily: "Nunito",
+                    margin: 1,
+                    width: 250,
+                    transition: "transform 0.2s",
+                    ":hover": {
+                      transform: "scale(1.1)",
+                      backgroundColor: "darkRed",
+                    },
+                  }}
+                  onClick={() => {
+                    closeAll(); 
+                    // @ts-ignore
+                    //!changePasswords && setTimeout(() => { myRef.current.scrollIntoView({behavior: "smooth"}) }, 500);
+                    setDeleteAccountModal(!deleteAccountModal);
+                  }}
+                >
+                  Zrušit účet
+                </Button>
+                <Modal
+                  open={deleteAccountModal}
+                  //onClose={handleClose}
+                >
+                  <Box sx={{background: "white"}}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                      Text in a modal
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                      Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    </Typography>
+                  </Box>
+                </Modal>
               </Grid>
               <Grid item xs={0} md={6} sx={{display: {xs:"none", md:"unset"}}}>
                 <img src="https://www.budgetbytes.com/wp-content/uploads/2013/07/How-to-Calculate-Recipe-Costs-H.jpg" alt="" />
