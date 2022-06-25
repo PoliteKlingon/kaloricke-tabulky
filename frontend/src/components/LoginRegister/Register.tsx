@@ -98,6 +98,7 @@ const Register = () => {
         "-" +
         date?.getDate(),
       sex: sex,
+      goalWeight:getValues("goalWeight"),
     };
     if (ownGoals) {
       goals = {
@@ -354,6 +355,25 @@ const Register = () => {
                     aria-label="Slider pohlaví"
                     marks={marks}
                     onChange={updateSex}
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Jaké hmotnosti chcete docílit"
+                    fullWidth={true}
+                    margin="normal"
+                    variant="standard"
+                    type="number"
+                    {...register("goalWeight", {
+                      required: "Položka je povinná",
+                      min: {
+                        value: 20,
+                        message: "Minimální hodnota je 20",
+                      },
+                    })}
+                    error={!!errors?.goalWeight}
+                    helperText={errors?.goalWeight ? errors.goalWeight.message : null}
                   />
                 </Grid>
                 <Grid item>
