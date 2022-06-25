@@ -1,8 +1,10 @@
+
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import FoodRecord from "./FoodRecord";
 
 import AddIcon from "@mui/icons-material/Add";
+import { useEffect, useState } from "react";
 
 const AnimatedButton = styled(Button)({
   fontSize: 30,
@@ -32,6 +34,19 @@ const RecordBox = styled(Box)({
 });
 
 const FoodMilestone = (params: any) => {
+  const [calories, setCalories] = useState(0);
+  useEffect(() => {
+    let res = 0;
+    if (Array.isArray(params.eaten)) {
+      params.eaten.map((e: any) => {
+        if (e.mealType === params.type) {
+          res += e.food.calories / 100 * e.grams
+        }
+      });
+    }
+    setCalories(Math.round(res));
+  }, [params.eaten]);
+
   return (
     <Grid container item sx={{ width: "100%" }} direction="column">
       <Grid item>
@@ -46,18 +61,29 @@ const FoodMilestone = (params: any) => {
           <Typography
             sx={{
               fontFamily: "Nunito",
-              fontSize: "1.5rem",
-              fontWeight: 600,
+              fontSize: { xs: "1.5rem", sm: "1.9rem" },
+              fontWeight: 700,
             }}
           >
             {params.name}
           </Typography>
-          <AnimatedButton
-            disableRipple
-            onClick={() => params.showModal(params.type)}
-          >
-            <AddIcon sx={{ color: "green", fontSize: "1.8rem" }} />
-          </AnimatedButton>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Typography
+              sx={{
+                fontFamily: "Nunito",
+                fontSize: { xs: "1rem", sm: "1.9rem" },
+                fontWeight: 700,
+              }}
+            >
+              {calories} kcal
+            </Typography>
+            <AnimatedButton
+              disableRipple
+              onClick={() => params.showModal(params.type)}
+            >
+              <AddIcon sx={{ color: "green", fontSize: "1.8rem" }} />
+            </AnimatedButton>
+          </div>
         </RecordBox>
       </Grid>
       <Grid item>
