@@ -170,6 +170,7 @@ const AddFood = () => {
                       <TextField
                       required
                       fullWidth
+                      variant="standard"
                       id="name"
                       label="Food name"
                       {...register("name", { required: "Field is requiered" })}
@@ -178,12 +179,16 @@ const AddFood = () => {
                       />
                   </Grid>
                   <Grid item xs={12}>
-                      <Typography component="h1" variant="h6" sx={{textAlign:"center"}}>
+                      <Typography component="h1" variant="h6" sx={{
+                        marginTop: 3,
+                        textAlign:"center"
+                        }}>
                       Nutrients per 100 g
                       </Typography>
                       <TextField
                       required
                       fullWidth
+                      variant="standard"
                       label="Calories"
                       type="number"
                       id="calories"
@@ -196,6 +201,7 @@ const AddFood = () => {
                       <TextField
                       required
                       fullWidth
+                      variant="standard"
                       label="Fats"
                       type="number"
                       id="fats"
@@ -209,6 +215,7 @@ const AddFood = () => {
                   <TextField
                       required
                       fullWidth
+                      variant="standard"
                       label="Carbs"
                       type="number"
                       id="carbs"
@@ -221,6 +228,7 @@ const AddFood = () => {
                   <TextField
                       required
                       fullWidth
+                      variant="standard"
                       label="Protein"
                       type="number"
                       id="protein"
@@ -233,6 +241,7 @@ const AddFood = () => {
                   <TextField
                       required
                       fullWidth
+                      variant="standard"
                       label="Fiber"
                       type="number"
                       id="fiber"
@@ -246,10 +255,21 @@ const AddFood = () => {
                   <Alert severity={alertSeverity}>{alertMessage}</Alert>
                   )}
                   <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                    variant="contained"
+                    disableRipple
+                    type="submit"
+                    fullWidth
+                    
+                    sx={{
+                      backgroundColor: "orange",
+                      fontWeight: "bold",
+                      marginY: 2,
+                      transition: "transform 0.2s",
+                      ":hover": {
+                        transform: "scale(1.1)",
+                        backgroundColor: "#f29830",
+                      }
+                    }}
                   >
                   Save
                   </Button>
