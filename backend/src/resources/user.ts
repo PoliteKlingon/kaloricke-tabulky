@@ -247,6 +247,29 @@ export async function updatePassword(req: Request, res: Response) {
   }
 }
 
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { authorization: sessionId } = await headersSchema.validate(
+      req.headers
+    );
+
+    const { id: userId } = await getUserBySessionId(sessionId);
+
+    await prisma.user.delete({ where: { id: userId } });
+    return sendSuccess(res, "User deleted successfully", {});
+  } catch (e: any) {
+    if (e instanceof ValidationError) {
+      return sendValidationError(res, e);
+    }
+
+    if (e.name === "NotFoundError")
+      return sendNotFound(res, "Sessin with given id not found");
+
+    console.log(e);
+    return sendInternalServerError(res);
+  }
+};
+
 const calculateGoals = ({
   birthdate,
   weight,
@@ -274,6 +297,7 @@ const calculateGoals = ({
     fats: Math.round((caloriesWoProtein / 4) * 0.3),
     fiber: Math.round((weight / 100) * 40),
     salt: 2,
+    deleted: null,
   };
 };
 

@@ -58,7 +58,7 @@ export const store = async (req: Request, res: Response) => {
 
 export const getAll = async (_: Request, res: Response) => {
   try {
-    const foods = await prisma.food.findMany({ where: { deleted: false } });
+    const foods = await prisma.food.findMany({ where: { deleted: null } });
     return sendSuccess(res, "Foods retreived successfully", foods);
   } catch (e) {
     return sendInternalServerError(res);
@@ -85,7 +85,7 @@ export const get = async (req: Request, res: Response) => {
     const id = req.params["name"]?.toLowerCase();
     const food = await prisma.food.findFirst({
       where: {
-        AND: [{ deleted: false }, { id: id }],
+        AND: [{ deleted: null }, { id: id }],
       },
       rejectOnNotFound: true,
     });
@@ -103,7 +103,7 @@ export const searchByName = async (req: Request, res: Response) => {
     const partOfId = req.params["name"]!.toLowerCase();
     const foods = await prisma.food.findMany({
       where: {
-        AND: [{ deleted: false }, { id: { contains: partOfId } }],
+        AND: [{ deleted: null }, { id: { contains: partOfId } }],
       },
     });
     return sendSuccess(res, "Foods retreived successfully", foods);
@@ -139,12 +139,14 @@ export const update = async (req: Request, res: Response) => {
 export const deleteFood = async (req: Request, res: Response) => {
   const id = req.params["id"]!;
   try {
-    const result = await prisma.food.update({
+    await prisma.food.delete({
       where: { id: id },
-      data: { deleted: true },
     });
-    return sendSuccess(res, "Food deleted successfully", result);
-  } catch (e) {
+    return sendSuccess(res, "Food deleted successfully", {});
+  } catch (e: any) {
+    if (e.name === "NotFoundError") return sendNotFound(res, "Food not found");
+
+    console.log(e);
     return sendInternalServerError(res);
   }
 };

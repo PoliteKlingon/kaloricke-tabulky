@@ -38,7 +38,7 @@ export const get = async (req: Request, res: Response) => {
   // NOTE date stored in the database in in TZ 0, but our date is in TZ +2
   try {
     const date = new Date(req.params["date"] || "");
-    const nextDay = new Date((new Date(date)).setDate(date.getDate() + 1));
+    const nextDay = new Date(new Date(date).setDate(date.getDate() + 1));
     const { authorization: sessionId } = await headersSchema.validate(
       req.headers
     );
@@ -46,8 +46,10 @@ export const get = async (req: Request, res: Response) => {
     const user = await getUserBySessionId(sessionId);
 
     const diary = await prisma.diaryEntry.findMany({
-      where: { AND: [{ userId: user.id }, { date: { gte: date, lt: nextDay} }] },
-      include: {food:true},
+      where: {
+        AND: [{ userId: user.id }, { date: { gte: date, lt: nextDay } }],
+      },
+      include: { food: true },
     });
 
     return sendSuccess(res, "Diary retreived successfully", diary);
@@ -108,10 +110,36 @@ export const update = async (req: Request, res: Response) => {
     const diaryEntry = await prisma.diaryEntry.update({
       where: { id: data.id },
       data: { ...data },
-      include: { food: true },
+      // include: { food: true },
     });
 
     return sendSuccess(res, "Food successfully added to diary", diaryEntry);
+  } catch (e: any) {
+    if (e instanceof ValidationError) {
+      return sendValidationError(res, e);
+    }
+
+    if (e.name === "NotFoundError") return sendAuthorizationError(res);
+
+    console.log(e);
+    return sendInternalServerError(res);
+  }
+};
+
+export const deleteEntry = async (req: Request, res: Response) => {
+  try {
+    const id = req.params["id"];
+    const { authorization: sessionId } = await headersSchema.validate(
+      req.headers
+    );
+
+    await getUserBySessionId(sessionId);
+
+    await prisma.diaryEntry.delete({
+      where: { id: id },
+    });
+
+    return sendSuccess(res, "Entry successfully deleted from diary", {});
   } catch (e: any) {
     if (e instanceof ValidationError) {
       return sendValidationError(res, e);

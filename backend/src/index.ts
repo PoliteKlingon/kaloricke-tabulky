@@ -37,6 +37,7 @@ api.get("/api/user", user.get);
 api.get("/api/diary/:date", diary.get);
 api.post("/api/diary", diary.store);
 api.put("/api/diary", diary.update);
+api.delete("/api/diary/:id", diary.deleteEntry);
 
 // ENDPOINTS FOR LOGIN AND REGISTRATION //
 api.post("/api/register", user.register);
@@ -46,6 +47,9 @@ api.post("/api/logout", user.logout);
 // ENDPOINT FOR UPDATING USER DATA //
 api.put("/api/user", user.update);
 api.put("/api/user/password", user.updatePassword);
+
+/* DELETING USER */
+api.delete("/api/user", user.deleteUser);
 
 api.listen(process.env["PORT"] || 3000, () => {
   console.log(
