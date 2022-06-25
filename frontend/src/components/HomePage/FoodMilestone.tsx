@@ -17,7 +17,7 @@ interface IFoodMilestone {
   name: string;
   type: MealType;
   showModal: (type: MealType) => void;
-  changeWeightHandle: () => void;
+  handleForceReload: () => void;
 }
 
 const FoodMilestone: FC<IFoodMilestone> = ({
@@ -26,7 +26,7 @@ const FoodMilestone: FC<IFoodMilestone> = ({
   name,
   type,
   showModal,
-  changeWeightHandle,
+  handleForceReload,
 }) => {
   const [calories, setCalories] = useState(0);
   useEffect(() => {
@@ -93,7 +93,7 @@ const FoodMilestone: FC<IFoodMilestone> = ({
             if (e.mealType === type) {
               return (
                 <FoodRecord
-                  changeWeightHandle={changeWeightHandle}
+                  handleForceReload={handleForceReload}
                   eatenId={e.id}
                   name={e.food.name}
                   calories={e.food.calories}

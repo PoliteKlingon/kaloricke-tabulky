@@ -231,7 +231,6 @@ import {
     } = useForm();
 
     const onSubmitGoals = (data: any) => {
-      console.log(data);
       setGoals(data);
       console.log(goals);
       setCustomGoals(!customGoals);
