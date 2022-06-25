@@ -102,6 +102,7 @@ const PieChart = (food: Food) => {
   const options = {
     series: [food.proteins, food.fats, food.carbs, food.fiber, food.salt],
     labels: ["Bílkoviny", "Tuky", "Sacharidy", "Vláknina", "Sul"],
+    colors: ["#b67b2d", "#b3d593", "#edc48c", "#eb9b34", "#555731"],
     plotOptions: {
       pie: {
         expandOnClick: false,
