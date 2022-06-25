@@ -160,7 +160,7 @@ const AddFood = () => {
               }}
               >
               <Typography component="h1" variant="h4" sx={{ fontFamily: "Nunito" }}>
-                  Add food to database
+                  Přidat jídlo do databáze
               </Typography>
               <Box
                   component="form"
@@ -175,10 +175,10 @@ const AddFood = () => {
                       fullWidth
                       variant="standard"
                       id="name"
-                      label="Food name"
+                      label="Název jídla"
                       InputProps={{ style: { fontFamily: "Nunito" } }}
                       InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                      {...register("name", { required: "Field is requiered" })}
+                      {...register("name", { required: "Položka je povinná" })}
                       error={!!errors?.name}
                       helperText={errors?.name ? errors.name.message : null}
                       />
@@ -189,18 +189,18 @@ const AddFood = () => {
                         textAlign:"center",
                         fontFamily: "Nunito"
                         }}>
-                      Nutrients per 100 g
+                      Nutrienty na 100 g
                       </Typography>
                       <TextField
                       required
                       fullWidth
                       variant="standard"
-                      label="Calories"
+                      label="Kalorie"
                       type="number"
                       id="calories"
                       InputProps={{ style: { fontFamily: "Nunito" } }}
                       InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                      {...register("calories", { required: "Field is requiered" })}
+                      {...register("calories", { required: "Položka je povinná" })}
                       error={!!errors?.calories}
                       helperText={errors?.calories ? errors.calories.message : null}
                       />
@@ -210,12 +210,12 @@ const AddFood = () => {
                       required
                       fullWidth
                       variant="standard"
-                      label="Fats"
+                      label="Tuky"
                       type="number"
                       id="fats"
                       InputProps={{ style: { fontFamily: "Nunito" } }}
                       InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                      {...register("fats", { required: "Field is requiered" })}
+                      {...register("fats", { required: "Položka je povinná" })}
                       error={!!errors?.fats}
                       helperText={errors?.fats ? errors.fats.message : null}
                       />
@@ -226,12 +226,12 @@ const AddFood = () => {
                       required
                       fullWidth
                       variant="standard"
-                      label="Carbs"
+                      label="Sacharidy"
                       type="number"
                       id="carbs"
                       InputProps={{ style: { fontFamily: "Nunito" } }}
                       InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                      {...register("carbs", { required: "Field is requiered" })}
+                      {...register("carbs", { required: "Položka je povinná" })}
                       error={!!errors?.carbs}
                       helperText={errors?.carbs ? errors.carbs.message : null}
                   />
@@ -241,12 +241,12 @@ const AddFood = () => {
                       required
                       fullWidth
                       variant="standard"
-                      label="Protein"
+                      label="Bílkoviny"
                       type="number"
                       id="protein"
                       InputProps={{ style: { fontFamily: "Nunito" } }}
                       InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                      {...register("proteins", { required: "Field is requiered" })}
+                      {...register("proteins", { required: "Položka je povinná" })}
                       error={!!errors?.proteins}
                       helperText={errors?.proteins ? errors.proteins.message : null}
                   />
@@ -256,12 +256,12 @@ const AddFood = () => {
                       required
                       fullWidth
                       variant="standard"
-                      label="Fiber"
+                      label="Vláknina"
                       type="number"
                       id="fiber"
                       InputProps={{ style: { fontFamily: "Nunito" } }}
                       InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                      {...register("fiber", { required: "Field is requiered" })}
+                      {...register("fiber", { required: "Položka je povinná" })}
                       error={!!errors?.fiber}
                       helperText={errors?.fiber ? errors.fiber.message : null}
                   />
@@ -271,12 +271,12 @@ const AddFood = () => {
                       required
                       fullWidth
                       variant="standard"
-                      label="Salt"
+                      label="Sůl"
                       type="number"
                       id="salt"
                       InputProps={{ style: { fontFamily: "Nunito" } }}
                       InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                      {...register("salt", { required: "Field is requiered" })}
+                      {...register("salt", { required: "Položka je povinná" })}
                       error={!!errors?.salt}
                       helperText={errors?.salt ? errors.salt.message : null}
                   />
@@ -303,7 +303,7 @@ const AddFood = () => {
                       }
                     }}
                   >
-                  Save
+                  Uložit
                   </Button>
               </Box>
               </Box>
