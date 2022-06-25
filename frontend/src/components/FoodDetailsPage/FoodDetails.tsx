@@ -1,5 +1,5 @@
 import {styled} from "@mui/system";
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect, useState, useContext} from "react";
 import {
   Box,
   Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import axios from "../../api/axios";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
+import AuthContext from "../../context/AuthProvider";
+import { Navigate } from "react-router-dom"
 
 export interface Food {
   name: string,
@@ -82,37 +84,50 @@ const getValueMultiplied = (value: number, multiplier: number) => {
   return (value * multiplier/100).toFixed(2).replace(/[.,]00$/, "")
 };
 
-const saveFood = async (food:Food, grams:number) => {
-  try {
-    const body = JSON.stringify({
-      foodId: food.id,
-      date: "23.6.2022",
-      grams: {grams},
-      mealType: "lunch",
-    });
-    console.log(body);
-    axios
-      .post("/diary", body, {
-        headers: {
-          "Content-Type": "application/json",
-          // "Authorization": `Bearer ${auth.ssid}`
-        }
-      })
-      .then((result) => {
-        console.log(body)
-        // handleClose();
-        // setFoodName("");
-      }).catch((e) => {
-      console.log(e)
-    });
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-const DetailsWindow = () => {
+// @ts-ignore
+const DetailsWindow = ({amount, food}) => {
   const [mealType, setMealType] = useState("lunch")
-  const [date, setDate] = useState("")
+  const [date, setDate] = useState(new Date())
+
+  // @ts-ignore
+  const { auth } = useContext(AuthContext);
+
+  const saveFood = async (food:Food, grams:number, mealType: string, date: string) => {
+    console.log(auth);
+    try {
+      const body = JSON.stringify({
+        foodId: food.id,
+        date: date,
+        grams: grams,
+        mealType: mealType,
+      });
+      console.log(body);
+      axios
+        .post("/diary", body, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth.ssid}`
+          }
+        })
+        .then((result) => {
+          console.log(body)
+          // handleClose();
+          // setFoodName("");
+        }).catch((e) => {
+        console.log(e)
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const dateString =
+    String(date?.getFullYear()) +
+    "-" +
+    // @ts-ignore
+    String(date?.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(date?.getDate()).padStart(2, "0") + "T10:00:00";
 
   return (
     <Box
@@ -125,7 +140,7 @@ const DetailsWindow = () => {
         value={mealType}
         label="mealType"
         onChange={
-        (mealType) => {setMealType(mealType.target.value)}}
+          (event) => setMealType(event.target.value)}
       >
         <MenuItem value={"breakfast"}>Snídaně</MenuItem>
         <MenuItem value={"morningsnack"}>Dopolední svačina</MenuItem>
@@ -138,18 +153,20 @@ const DetailsWindow = () => {
         label="Vyberte den"
         openTo="day"
         value={date}
-        onChange={(newValue) => {
-          setDate(newValue ? newValue : date);
-        }}
+        // @ts-ignore
+        onChange={(event) => setDate(event)}
         renderInput={(params: any) => <TextField {...params} />}
       />
+      <Button onClick={() => saveFood(food, amount, mealType, dateString)}>
+        submit
+      </Button>
     </Box>
   )
 };
 
 
 const FoodDetails:FoodDetailsType = ({food}) => {
-  const [amount, setAmount] = useState(100);
+  const [amount, setAmount] = useState<number>(100);
 
   const [open, setOpen] = useState(false);
 
@@ -176,8 +193,14 @@ const FoodDetails:FoodDetailsType = ({food}) => {
     return () => window.removeEventListener("resize", updateMedia);
   });
 
+  // @ts-ignore
+  const { auth } = useContext(AuthContext);
+
   return (
       <Container>
+        {/*{console.log(auth)}*/}
+        {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
+
         {/*<DetailsWindow/>*/}
         <InfoDiv>
           <div>
@@ -210,7 +233,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                   <DialogContentText>
                     Pro uložení jídla do jídelníčku, prosím vyberte datum konzumace a druh
                   </DialogContentText>
-                  <DetailsWindow/>
+                  <DetailsWindow amount={amount} food={food}/>
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose}>Zrušit</Button>
