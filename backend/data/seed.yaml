@@ -32,6 +32,7 @@ userDetails:
     sex: 1
     userId: "1"
     email: "nothing.here@empty.null"
+    goalWeight: 100
 
   - # id: "03489d70-7895-488f-eeee-2324f014000e"
     username: "user"
@@ -43,6 +44,7 @@ userDetails:
     sex: 0.5
     email: give.mefood@hung.ry
     userId: "2"
+    goalWeight: 30
 
   - # id: "03489d70-7895-488f-dddd-2324f014000e"
     username: "a"
@@ -54,6 +56,7 @@ userDetails:
     sex: 0
     email: "mail.mail@mail.com"
     userId: "3"
+    goalWeight: 60
 
 userGoals:
   - # id: "03489d70-7895-488f-ae3c-2324f014000e"

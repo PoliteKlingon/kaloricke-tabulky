@@ -84,7 +84,7 @@ const Register = () => {
   } = useForm();
   const onSubmit = async () => {
     let goals;
-    const userData = {
+    const details = {
       email: getValues("email"),
       username: getValues("username"),
       name: getValues("name"),
@@ -98,6 +98,7 @@ const Register = () => {
         "-" +
         date?.getDate(),
       sex: sex,
+      goalWeight: +getValues("goalWeight")
     };
     if (ownGoals) {
       goals = {
@@ -111,7 +112,7 @@ const Register = () => {
     }
 
     // @ts-ignore
-    const res = await userRegister(getValues("password"), userData, goals);
+    const res = await userRegister(getValues("password"), details, goals);
     // @ts-ignore
     if (res.status) {
       // @ts-ignore
@@ -282,7 +283,7 @@ const Register = () => {
                     helperText={errors?.surname ? errors.surname.message : null}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={4}>
                   <TextField
                     label="Výška"
                     fullWidth={true}
@@ -300,7 +301,7 @@ const Register = () => {
                     helperText={errors?.height ? errors.height.message : null}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={4}>
                   <TextField
                     label="Váha"
                     fullWidth={true}
@@ -316,6 +317,26 @@ const Register = () => {
                     })}
                     error={!!errors?.weight}
                     helperText={errors?.weight ? errors.weight.message : null}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    label="Cílová Váha"
+                    fullWidth={true}
+                    margin="normal"
+                    variant="standard"
+                    type="number"
+                    {...register("goalWeight", {
+                      required: "Položka je povinná",
+                      min: {
+                        value: 1,
+                        message: "Minimální hodnota je 1",
+                      },
+                    })}
+                    error={!!errors?.goalWeight}
+                    helperText={
+                      errors?.goalWeight ? errors.goalWeight.message : null
+                    }
                   />
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ pt: 3 }}>

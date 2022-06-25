@@ -18,7 +18,7 @@ CREATE TABLE "UserGoals" (
     "fats" REAL NOT NULL,
     "fiber" REAL NOT NULL,
     "salt" REAL NOT NULL,
-    "calories" REAL NOT NULL,
+    "calories" REAL,
     "userId" TEXT NOT NULL PRIMARY KEY,
     CONSTRAINT "UserGoals_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -33,6 +33,7 @@ CREATE TABLE "UserDetails" (
     "birthdate" DATETIME NOT NULL,
     "sex" REAL NOT NULL,
     "email" TEXT NOT NULL,
+    "goalWeight" REAL NOT NULL,
     "userId" TEXT NOT NULL PRIMARY KEY,
     CONSTRAINT "UserDetails_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

@@ -30,20 +30,22 @@ model UserGoals {
   fats     Float
   fiber    Float
   salt     Float
-  calories Float
-  userId   String @id @unique
-  user     User   @relation(fields: [userId], references: [id])
+  calories Float?
+
+  userId String @id @unique
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model UserDetails {
-  username  String
-  name      String
-  surname   String
-  weight    Float
-  height    Float
-  birthdate DateTime
-  sex       Float
-  email     String   @unique
+  username   String
+  name       String
+  surname    String
+  weight     Float
+  height     Float
+  birthdate  DateTime
+  sex        Float
+  email      String   @unique
+  goalWeight Float
 
   userId String @id @unique
   user   User   @relation(fields: [userId], references: [id])
