@@ -49,6 +49,7 @@ const AddFood = () => {
           proteins: getValues("proteins") / 100,
           carbs: getValues("carbs") / 100,
           fiber: getValues("fiber") / 100,
+          salt: getValues("salt") / 100,
         },
       };
       axios
@@ -97,6 +98,7 @@ const AddFood = () => {
                     direction={{ xs: "column", md: "row" }}
                     spacing={{ xs: 0, md: 5 }}
                   >
+                    {/* @ts-ignore*/}
                     <Link to="/" sx={{ textDecoration: "none" }}>
                       <AnimatedButton
                         variant="text"
@@ -111,6 +113,7 @@ const AddFood = () => {
                         {auth.username}
                       </AnimatedButton>
                     </Link>
+                    {/* @ts-ignore*/}
                     <Link to="/" sx={{ textDecoration: "none" }}>
                       <AnimatedButton
                         variant="text"
@@ -261,6 +264,21 @@ const AddFood = () => {
                       {...register("fiber", { required: "Field is requiered" })}
                       error={!!errors?.fiber}
                       helperText={errors?.fiber ? errors.fiber.message : null}
+                  />
+                  </Grid>
+                  <Grid item xs={12}>
+                  <TextField
+                      required
+                      fullWidth
+                      variant="standard"
+                      label="Salt"
+                      type="number"
+                      id="salt"
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
+                      {...register("salt", { required: "Field is requiered" })}
+                      error={!!errors?.salt}
+                      helperText={errors?.salt ? errors.salt.message : null}
                   />
                   </Grid>
                   {alertSeverity && (
