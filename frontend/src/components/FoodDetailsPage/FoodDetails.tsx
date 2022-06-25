@@ -95,6 +95,9 @@ const PieChart = (food: Food) => {
       pie: {
         expandOnClick: false,
       }
+    },
+    dataLabels: {
+      enabled: false,
     }
   };
 
