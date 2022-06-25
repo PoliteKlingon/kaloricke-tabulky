@@ -178,9 +178,9 @@ const FoodDetails:FoodDetailsType = ({food}) => {
     setOpen(false);
   };
 
-  const handleCloseSubmit = () => {
-    setOpen(false);
-  };
+  // const handleCloseSubmit = () => {
+  //   setOpen(false);
+  // };
 
   const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
 
@@ -231,10 +231,6 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                   </DialogContentText>
                   <DetailsWindow amount={amount} food={food}/>
                 </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose}>Zrušit</Button>
-                  <Button onClick={handleCloseSubmit}>Potvrdit výběr</Button>
-                </DialogActions>
               </Dialog>
             </PaddedDiv>
           </div>
