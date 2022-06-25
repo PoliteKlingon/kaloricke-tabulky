@@ -225,6 +225,7 @@ import {
     const {
       register: registerGoals,
       reset: resetGoals,
+      setValue: setValueGoals,
       formState: { errors: errorsGoals },
       handleSubmit: handleSubmitGoals,
     } = useForm();
@@ -342,6 +343,15 @@ import {
       resetGoals();
     }
 
+    const setAll = () => {
+      setValueGoals("calories", goals.calories);
+      setValueGoals("proteins", goals.proteins);
+      setValueGoals("carbs", goals.carbs);
+      setValueGoals("fiber", goals.fiber);
+      setValueGoals("fats", goals.fats);
+      setValueGoals("salt", goals.salt);
+    }
+
 
     const getDetails = async () => {
       try {
@@ -365,6 +375,7 @@ import {
              setGoalWeight(userDetails?.goalWeight);
              
              setGoals({...userGoals});
+             setAll();
            })
       } catch (err) {
         console.log(err);
@@ -1170,6 +1181,7 @@ import {
                         // @ts-ignore
                         !customGoals && setTimeout(() => { myRef.current.scrollIntoView({behavior: "smooth"}) }, 500);
                         setCustomGoals(!customGoals); 
+                        setAll();
                       }}
                     >
                       {customGoals
