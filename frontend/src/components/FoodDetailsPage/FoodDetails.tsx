@@ -271,7 +271,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
           </Grid>
         </PaddedDiv>
         <PaddedDiv>
-          <Table sx={{width: "50%"}}>
+          <Table sx={{width: isDesktop ? "50%" : "100%"}}>
             <TableHead>
               Nutricni hodnoty na 100g
             </TableHead>
