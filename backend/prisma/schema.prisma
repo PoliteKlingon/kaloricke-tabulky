@@ -30,7 +30,7 @@ model UserGoals {
   fats     Float
   fiber    Float
   salt     Float
-  calories Float
+  calories Float?
 
   userId String @id @unique
   user   User   @relation(fields: [userId], references: [id])

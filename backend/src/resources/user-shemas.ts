@@ -25,7 +25,7 @@ export const detailsUpdateSchema = object({
 }).noUnknown(true);
 
 export const goalsSchema = object({
-  calories: number().required().positive(),
+  calories: number().optional().positive(),
   proteins: number().required().positive(),
   carbs: number().required().positive(),
   fats: number().required().positive(),

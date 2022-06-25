@@ -20,7 +20,7 @@ import {
 import prisma from "../client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { v4 as uuid } from "uuid";
-import { UserDetailsDTO } from "../types/data-transfer-objects";
+import { UserDetails } from ".prisma/client";
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -96,14 +96,15 @@ export const update = async (req: Request, res: Response) => {
         data: { ...data.details },
       });
 
-      await prisma.userGoals.upsert({
-        where: { userId: userId },
-        update: { ...data.goals },
-        create: {
-          ...data.goals,
-          userId: userId,
-        },
-      });
+      if (data.goals)
+        await prisma.userGoals.upsert({
+          where: { userId: userId },
+          update: { ...data.goals },
+          create: {
+            ...data.goals,
+            userId: userId,
+          },
+        });
       // TODO vyresit aby se nemusel email ukladat duplicitne
       if (data.details.email)
         await prisma.userCredentials.update({
@@ -252,24 +253,26 @@ const calculateGoals = ({
   height,
   sex,
   goalWeight,
-}: UserDetailsDTO) => {
-  // FIXME calculate values istead of static data
+}: UserDetails) => {
   const age = Math.floor(
     (new Date().getTime() - new Date(birthdate).getTime()) / 3.15576e10
   );
 
   let calories: number =
-    10 * weight + 6.25 * height - 5 * age + sex * 166 - 161 * 1.5;
+    (10 * weight + 6.25 * height - 5 * age + sex * 166 - 161) * 1.5;
 
-  calories += goalWeight - weight; //TODO
-  let caloriesDistr = calories - 2 * weight * 4;
+  if (goalWeight - weight > 7) calories += 750;
+  else if (goalWeight - weight < -7) calories -= 750;
+  else calories += ((goalWeight - weight) / 100) * 750;
+
+  const caloriesWoProtein = calories - 2 * weight * 4;
 
   return {
     calories: calories,
     proteins: 2 * weight,
-    carbs: (caloriesDistr / 4) * 0.7,
-    fats: (caloriesDistr / 4) * 0.3,
-    fiber: (weight / 100) * 40,
+    carbs: Math.round((caloriesWoProtein / 4) * 0.7),
+    fats: Math.round((caloriesWoProtein / 4) * 0.3),
+    fiber: Math.round((weight / 100) * 40),
     salt: 2,
   };
 };
