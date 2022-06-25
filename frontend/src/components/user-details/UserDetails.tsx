@@ -112,6 +112,7 @@ import {
     
     const {
       register: registerEmail,
+      reset: resetEmail,
       formState: { errors: errorsEmail },
       handleSubmit: handleSubmitEmail,
     } = useForm();
@@ -127,6 +128,7 @@ import {
 
     const {
       register: registerUsername,
+      reset: resetUsername,
       formState: { errors: errorsUsername },
       handleSubmit: handleSubmitUsername,
     } = useForm();
@@ -142,6 +144,7 @@ import {
 
     const {
       register: registerName,
+      reset: resetName,
       formState: { errors: errorsName },
       handleSubmit: handleSubmitName,
     } = useForm();
@@ -157,6 +160,7 @@ import {
 
     const {
       register: registerSurname,
+      reset: resetSurname,
       formState: { errors: errorsSurname },
       handleSubmit: handleSubmitSurname,
     } = useForm();
@@ -172,6 +176,7 @@ import {
 
     const {
       register: registerHeight,
+      reset: resetHeight,
       formState: { errors: errorsHeight },
       handleSubmit: handleSubmitHeight,
     } = useForm();
@@ -187,6 +192,7 @@ import {
 
     const {
       register: registerWeight,
+      reset: resetWeight,
       formState: { errors: errorsWeight },
       handleSubmit: handleSubmitWeight,
     } = useForm();
@@ -202,6 +208,7 @@ import {
 
     const {
       register: registerGoalWeight,
+      reset: resetGoalWeight,
       formState: { errors: errorsGoalWeight },
       handleSubmit: handleSubmitGoalWeight,
     } = useForm();
@@ -217,6 +224,7 @@ import {
 
     const {
       register: registerGoals,
+      reset: resetGoals,
       formState: { errors: errorsGoals },
       handleSubmit: handleSubmitGoals,
     } = useForm();
@@ -321,7 +329,17 @@ import {
       setChangeBirthDate(false);
       setChangeGoalWeight(false);
       setCustomGoals(false);
-      //setChangePasswords(false);
+    }
+
+    const resetAll = () => {
+      resetEmail();
+      resetUsername();
+      resetName();
+      resetSurname();
+      resetHeight();
+      resetWeight();
+      resetGoalWeight();
+      resetGoals();
     }
 
 
@@ -370,17 +388,18 @@ import {
               console.log(response);
               });
               closeAll();
-              //resetAll(); TODO!!!
+              resetAll();
       }
       catch (err: any) {
         console.log(err);
+        resetAll();
         if (err.response.status == 409) {
           setEmailAlertSeverity("error");
           setEmailAlertMessage("Uživatel s tímto e-mailem již existuje");
-          setTimeout(() => {setEmailAlertSeverity("");}, 2000);
         } else {
           alert("Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat.");
         }
+        setTimeout(() => {setEmailAlertSeverity("");}, 3000);
         getDetails();
       }
     }
