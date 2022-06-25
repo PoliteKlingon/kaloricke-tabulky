@@ -524,6 +524,8 @@ import {
                     <TextField  
                       label="Nový e-mail"
                       variant="standard" 
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...registerEmail("email", 
                         {
                           required: "Položka je povinná",
@@ -536,7 +538,7 @@ import {
                       helperText={errorsEmail?.email ? errorsEmail.email.message : null}/>
                     </Grid>   
                     <Grid item xs={3} md={4}>
-                    <Button type="submit">Uložit</Button>
+                    <Button type="submit" sx={{fontFamily: "Nunito"}}>Uložit</Button>
                     </Grid>
                   </Grid>
                   </form> 
@@ -585,6 +587,8 @@ import {
                     <TextField 
                       label="Nová přezdívka" 
                       variant="standard" 
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...registerUsername("username", {
                         required: "Položka je povinná",
                       })}
@@ -592,7 +596,7 @@ import {
                       helperText={errorsUsername?.username ? errorsUsername.username.message : null}/>
                     </Grid>   
                     <Grid item xs={3} md={4}>
-                    <Button type="submit">Uložit</Button>
+                    <Button type="submit" sx={{fontFamily: "Nunito"}}>Uložit</Button>
                     </Grid>
                   </Grid>
                   </form> 
@@ -641,6 +645,8 @@ import {
                     <TextField 
                       label="Nové jméno" 
                       variant="standard" 
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...registerName("name", {
                         required: "Položka je povinná",
                       })}
@@ -648,7 +654,7 @@ import {
                       helperText={errorsName?.name ? errorsName.name.message : null}/>
                     </Grid>   
                     <Grid item xs={3} md={4}>
-                    <Button type="submit">Uložit</Button>
+                    <Button type="submit" sx={{fontFamily: "Nunito"}}>Uložit</Button>
                     </Grid>
                   </Grid>
                   </form> 
@@ -697,6 +703,8 @@ import {
                     <TextField 
                       label="Nové příjmení" 
                       variant="standard" 
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...registerSurname("surname", {
                         required: "Položka je povinná",
                       })}
@@ -704,7 +712,7 @@ import {
                       helperText={errorsSurname?.surname ? errorsSurname.surname.message : null}/>
                     </Grid>   
                     <Grid item xs={3} md={4}>
-                    <Button type="submit">Uložit</Button>
+                    <Button type="submit" sx={{fontFamily: "Nunito"}}>Uložit</Button>
                     </Grid>
                   </Grid>
                   </form> 
@@ -808,8 +816,10 @@ import {
                     <TextField  
                       label="Nová výška" 
                       variant="standard" 
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       InputProps={{
                         endAdornment: <InputAdornment position="start">cm</InputAdornment>,
+                        style: { fontFamily: "Nunito" }
                       }}
                       type="number"
                       {...registerHeight("height", {
@@ -823,7 +833,7 @@ import {
                         helperText={errorsHeight?.height ? errorsHeight.height.message : null} />
                     </Grid>   
                     <Grid item xs={3} md={4}>
-                    <Button type="submit">Uložit</Button>
+                    <Button type="submit" sx={{fontFamily: "Nunito"}}>Uložit</Button>
                     </Grid>
                   </Grid> 
                   </form>
@@ -874,8 +884,10 @@ import {
                           label="Nová hmotnost" 
                           variant="standard" 
                           type= "number"
+                          InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                           InputProps={{
                             endAdornment: <InputAdornment position="start">kg</InputAdornment>,
+                            style: { fontFamily: "Nunito" }
                           }}
                           {...registerWeight("weight", {
                           required: "Položka je povinná", 
@@ -888,7 +900,7 @@ import {
                         helperText={errorsWeight?.weight ? errorsWeight.weight.message : null} />
                     </Grid>   
                     <Grid item xs={3} md={4}>
-                    <Button type="submit">Uložit</Button>
+                    <Button type="submit" sx={{fontFamily: "Nunito"}}>Uložit</Button>
                     </Grid>
                   </Grid> 
                   </form>
@@ -937,6 +949,7 @@ import {
                     {isDesktop ? (
                         <DesktopDatePicker
                           label="Datum narození"
+                          InputProps={{ style: { fontFamily: "Nunito" } }}
                           value={newBirthDate}
                           minDate={new Date("1900-01-01")}
                           onChange={(newValue) => {
@@ -949,6 +962,7 @@ import {
                       ) : (
                         <MobileDatePicker
                           label="Datum narození"
+                          InputProps={{ style: { fontFamily: "Nunito" } }}
                           value={newBirthDate}
                           minDate={new Date("1900-01-01")}
                           onChange={(newValue) => {
@@ -963,9 +977,9 @@ import {
                     <Grid item xs={3} md={4}>
                       {newBirthDate?.toString() == "Invalid Date" || newBirthDate == null || newBirthDate < new Date("1900-01-01")
                       ?
-                      <Button disabled>Uložit</Button> 
+                      <Button disabled sx={{fontFamily: "Nunito"}}>Uložit</Button> 
                       : 
-                      <Button /*type="submit"*/ onClick={() => {
+                      <Button sx={{fontFamily: "Nunito"}} onClick={() => {
                         setBirthDate(newBirthDate); 
                         setChangeBirthDate(!changeBirthDate);
                         updateDetails({details: {birthdate: newBirthDate}})
@@ -1018,8 +1032,10 @@ import {
                       label="Nová hmotnost" 
                       variant="standard" 
                       type= "number"
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       InputProps={{
                         endAdornment: <InputAdornment position="start">kg</InputAdornment>,
+                        style: { fontFamily: "Nunito" }
                       }}
                       {...registerGoalWeight("goalWeight", {
                         required: "Položka je povinná",
@@ -1032,7 +1048,7 @@ import {
                       helperText={errorsGoalWeight?.goalWeight ? errorsGoalWeight.goalWeight.message : null} />
                     </Grid>   
                     <Grid item xs={3} md={4}>
-                    <Button type="submit">Uložit</Button>
+                    <Button type="submit" sx={{fontFamily: "Nunito"}}>Uložit</Button>
                     </Grid>
                   </Grid> 
                   </form>
@@ -1053,6 +1069,7 @@ import {
                       sx={{
                         backgroundColor: "orange",
                         fontWeight: "bold",
+                        fontFamily: "Nunito",
                         margin: 1,
                         width: 250,
                         transition: "transform 0.2s",
@@ -1098,6 +1115,8 @@ import {
                       placeholder={goals.calories.toString()} 
                       variant="standard" 
                       type="number"
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       sx= {{width: 70}}
                       {...registerGoals("calories", {
                         required: "Položka je povinná",
@@ -1129,8 +1148,10 @@ import {
                       hiddenLabel
                       variant="standard"
                       type="number"
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       sx= {{width: 70}}
                       InputProps={{
+                        style: { fontFamily: "Nunito" },
                         endAdornment: <InputAdornment position="start">g</InputAdornment>,
                       }}
                       {...registerGoals("proteins", {
@@ -1162,8 +1183,10 @@ import {
                       placeholder={goals.carbs.toString()}
                       variant="standard"  
                       type="number"
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       sx= {{width: 70}}
                       InputProps={{
+                        style: { fontFamily: "Nunito" },
                         endAdornment: <InputAdornment position="start">g</InputAdornment>,
                       }}
                       {...registerGoals("carbs", {
@@ -1195,8 +1218,10 @@ import {
                       placeholder={goals.fats.toString()}
                       variant="standard" 
                       type="number"
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       sx= {{width: 70}}
                       InputProps={{
+                        style: { fontFamily: "Nunito" },
                         endAdornment: <InputAdornment position="start">g</InputAdornment>,
                       }}
                       {...registerGoals("fats", {
@@ -1228,8 +1253,10 @@ import {
                       placeholder={goals.fiber.toString()}
                       variant="standard" 
                       type="number"
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       sx= {{width: 70}}
                       InputProps={{
+                        style: { fontFamily: "Nunito" },
                         endAdornment: <InputAdornment position="start">g</InputAdornment>,
                       }}
                       {...registerGoals("fiber", {
@@ -1261,9 +1288,11 @@ import {
                       placeholder={goals.salt.toString()}
                       variant="standard" 
                       type="number"
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       sx= {{width: 70}}
                       InputProps={{
-                        endAdornment: <InputAdornment position="start">g</InputAdornment>,
+                        style: { fontFamily: "Nunito" },
+                        endAdornment: <InputAdornment sx={{fontFamily: "Nunito"}} position="start">g</InputAdornment>,
                       }}
                       {...registerGoals("salt", {
                         required: "Položka je povinná",
@@ -1277,7 +1306,7 @@ import {
                     </Grid>
                     <Grid item />
                   </Grid> 
-                  <Button sx={{width: 250}} type="submit">Uložit</Button>
+                  <Button sx={{width: 250, fontFamily: "Nunito"}} type="submit">Uložit</Button>
                 </form>
                 </Collapse>
 
@@ -1288,6 +1317,7 @@ import {
                   sx={{
                     backgroundColor: "orange",
                     fontWeight: "bold",
+                    fontFamily: "Nunito",
                     margin: 1,
                     width: 250,
                     transition: "transform 0.2s",
@@ -1325,7 +1355,9 @@ import {
                         margin="normal"
                         variant="standard"
                         type="password"
+                        InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                         InputProps={{
+                          style: { fontFamily: "Nunito" },
                           startAdornment: (
                             <InputAdornment position="start">
                               <LockIcon />
@@ -1350,7 +1382,9 @@ import {
                         margin="normal"
                         variant="standard"
                         type="password"
+                        InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                         InputProps={{
+                          style: { fontFamily: "Nunito" },
                           startAdornment: (
                             <InputAdornment position="start">
                               <LockIcon />
@@ -1375,7 +1409,9 @@ import {
                         margin="normal"
                         variant="standard"
                         type="password"
+                        InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                         InputProps={{
+                          style: { fontFamily: "Nunito" },
                           startAdornment: (
                             <InputAdornment position="start">
                               <LockIcon />
@@ -1399,7 +1435,7 @@ import {
                     </Grid>
                     <Grid item xs={0} sm={2} md={3} lg={4}/>
                     <Grid item xs={12}>
-                      <Button sx={{width: 250}} type="submit">Uložit</Button>
+                      <Button sx={{width: 250, fontFamily: "Nunito"}} type="submit">Uložit</Button>
                     </Grid>
                   </Grid>
                   </form>        
