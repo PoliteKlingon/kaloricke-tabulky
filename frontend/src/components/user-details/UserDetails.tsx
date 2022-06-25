@@ -118,7 +118,6 @@ import {
     
     const onSubmitEmail = (data: any) => {
       setEmail(data.email);
-      setChangeEmail(false);
       updateDetails({
         details: {
           email: data.email
@@ -134,7 +133,6 @@ import {
     
     const onSubmitUsername = (data: any) => {
       setUsername(data.username);
-      setChangeUsername(false);
       updateDetails({
         details: {
           username: data.username
@@ -150,7 +148,6 @@ import {
     
     const onSubmitName = (data: any) => {
       setName(data.name);
-      setChangeName(false);
       updateDetails({
         details: {
           name: data.name
@@ -166,7 +163,6 @@ import {
     
     const onSubmitSurname = (data: any) => {
       setSurname(data.surname);
-      setChangeSurname(false);
       updateDetails({
         details: {
           surname: data.surname
@@ -182,7 +178,6 @@ import {
   
     const onSubmitHeight = (data: any) => {
       setHeight(data.height);
-      setChangeHeight(false);
       updateDetails({
         details: {
           height: data.height
@@ -198,7 +193,6 @@ import {
 
     const onSubmitWeight = (data: any) => {
       setWeight(data.weight);
-      setChangeWeight(false);
       updateDetails({
         details: {
           weight: data.weight
@@ -214,7 +208,6 @@ import {
 
     const onSubmitGoalWeight = (data: any) => {
       setGoalWeight(data.goalWeight);
-      setChangeGoalWeight(false);
       updateDetails({
         details: {
           goalWeight: data.goalWeight
@@ -266,6 +259,9 @@ import {
 
     const [deleteAlertMessage, setDeleteAlertMessage] = useState("");
     const [deleteAlertSeverity, setDeleteAlertSeverity] = useState("");
+
+    const [emailAlertMessage, setEmailAlertMessage] = useState("");
+    const [emailAlertSeverity, setEmailAlertSeverity] = useState("");
 
     const [changeEmail, setChangeEmail] = useState<boolean>(false);
     const [email, setEmail] = useState<String>("");
@@ -373,11 +369,15 @@ import {
             .then((response) => {
               console.log(response);
               });
+              closeAll();
+              //resetAll(); TODO!!!
       }
       catch (err: any) {
         console.log(err);
         if (err.response.status == 409) {
-          alert("Uživatel s takovýmto e-mailem již existuje!");
+          setEmailAlertSeverity("error");
+          setEmailAlertMessage("Uživatel s tímto e-mailem již existuje");
+          setTimeout(() => {setEmailAlertSeverity("");}, 2000);
         } else {
           alert("Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat.");
         }
@@ -606,6 +606,10 @@ import {
                     </Grid>
                   </Grid>
                   </form> 
+                  {emailAlertSeverity && 
+                  // @ts-ignore
+                  <Alert severity={emailAlertSeverity}>{emailAlertMessage}</Alert>
+                  }
                 </Collapse>
 
                 {/* USERNAME */}
