@@ -49,7 +49,7 @@ const Container = styled("div")({
 });
 
 const PaddedDiv = styled(Box)({
-  padding: "1.25rem",
+  padding: "0.75rem 1.25rem",
   // display: "flex",
   // flexDirection: "row",
 });
@@ -207,7 +207,15 @@ const FoodDetails:FoodDetailsType = ({food}) => {
         {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
         <InfoDiv>
           <PaddedDiv>
-            <strong>{food.name}</strong>
+            <Typography
+              sx={{
+                textTransform:"uppercase",
+                // fontWeight: "bold",
+                fontSize: "h4.fontSize",
+                letterSpacing: "0.15rem",
+              }}>
+              {food.name}
+            </Typography>
           </PaddedDiv>
           <PaddedDiv
             sx={{
