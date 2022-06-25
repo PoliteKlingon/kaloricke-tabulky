@@ -5,6 +5,7 @@ import RegisterPage from "./components/LoginRegister/RegisterPage";
 import HomePage from "./components/HomePage/HomePage";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import AddFoodPage from "./components/AddFood/AddFoodPage";
 
 
 
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/add-food" element={<AddFoodPage />} />
         </Routes>
       </BrowserRouter>
     </LocalizationProvider>
