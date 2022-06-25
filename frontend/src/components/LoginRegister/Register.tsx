@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import AuthContext from "../../context/AuthProvider";
 import {
-  Box,
   Button,
   Collapse,
   Grid,
@@ -10,20 +9,20 @@ import {
   Slider,
   Stack,
   TextField,
+  TextFieldProps,
   Typography,
 } from "@mui/material";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { styled } from "@mui/system";
-import { AccountCircle, Lock } from "@mui/icons-material";
+import { AccountCircle, Lock, SouthAmerica } from "@mui/icons-material";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { useForm } from "react-hook-form";
 import slides from "../../static/slideshow";
-// @ts-ignore
+
 import ChangingImage from "./ChangingImage";
 
-import axios from "../../api/axios";
-import { userRegister } from "../../utils/Utils";
+import { userRegister, IUserData, IUserGoals } from "../../utils/Utils";
 const marks = [
   {
     value: 5,
@@ -62,8 +61,11 @@ const Register = () => {
 
   const [isDesktop, setDesktop] = useState(window.innerWidth > 800);
 
-  const updateSex = (e:any, data:any) => {
-    setSex(data / 100.0);
+  const updateSex = (e:Event) => {
+    e.preventDefault()
+    if (e) {
+      setSex(+(e.target as HTMLInputElement).value / 100.0);
+    }
   };
 
   const updateMedia = () => {
@@ -83,8 +85,8 @@ const Register = () => {
     setError
   } = useForm();
   const onSubmit = async () => {
-    let goals;
-    const details = {
+    let goals: IUserGoals | undefined;
+    const details: IUserData = {
       email: getValues("email"),
       username: getValues("username"),
       name: getValues("name"),
@@ -111,19 +113,21 @@ const Register = () => {
       };
     }
 
-    // @ts-ignore
+    console.log(details)
+
     const res = await userRegister(getValues("password"), details, goals);
-    // @ts-ignore
-    if (res.status) {
-      // @ts-ignore
-      setAuth(JSON.parse(window.localStorage.getItem("auth")));
-      setSuccess(true);
-    } else {
-      // @ts-ignore
-      if (res.err === null) {
-        // @ts-ignore
-        setError("email", { message: res.message });
+    console.log(res)
+    if (res.status === 200) {
+      if (window.localStorage.getItem("auth")) {
+        setAuth(JSON.parse(window.localStorage.getItem("auth")!));
+        setSuccess(true);
+      } else {
+        alert("Něco se pokazilo, zkuste to znovu");
       }
+    } else if (res.status === 409) {
+      setError("email", { message: res.message });
+    } else {
+      alert("Něco se pokazilo, zkuste to znovu");
     }
   }
 
@@ -133,7 +137,7 @@ const Register = () => {
     <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>
         <Grid item xs={12} sm={6} sx={{ minHeight: "50vh" }}>
-          <ChangingImage slides={slides} interval={5000} />
+          <ChangingImage slides={slides} changeInterval={5000} />
         </Grid>
         <Grid
           container
@@ -348,8 +352,8 @@ const Register = () => {
                       onChange={(newValue) => {
                         setDate(newValue);
                       }}
-                      renderInput={(params: any) => (
-                        <TextField {...params} fullWidth />
+                      renderInput={(props: TextFieldProps) => (
+                        <TextField {...props} fullWidth />
                       )}
                     />
                   ) : (
@@ -360,8 +364,8 @@ const Register = () => {
                       onChange={(newValue) => {
                         setDate(newValue);
                       }}
-                      renderInput={(params: any) => (
-                        <TextField {...params} fullWidth />
+                      renderInput={(props: TextFieldProps) => (
+                        <TextField {...props} fullWidth />
                       )}
                     />
                   )}

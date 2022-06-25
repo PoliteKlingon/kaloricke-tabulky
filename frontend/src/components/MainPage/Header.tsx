@@ -1,7 +1,7 @@
 import { Collapse, Grid, IconButton, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import CustomAppBar from "../Utils/CustomAppBar";
 
 const Root = styled("div")({
@@ -10,7 +10,9 @@ const Root = styled("div")({
   height: "100vh",
 });
 
-const Header = () => {
+interface IHeaderprops {}
+
+const Header: FC<IHeaderprops> = () => {
   const [collapsed, setCollapsed] = useState(false);
   useEffect(() => {
     setCollapsed(true);

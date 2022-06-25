@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 
@@ -7,12 +8,32 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import AnimatedButton from "../Utils/AnimatedButton";
 import ChangeWeightModal from "./ChangeWeightModal";
 
-const FoodRecord = (params: any) => {
-    const [open, setOpen] = useState(false);
+import MealType from "../../types/MealType";
+
+interface IFoodRecord {
+  changeWeightHandle: () => void;
+  eatenId: string;
+  name: string;
+  calories: number;
+  grams: number;
+  date: string;
+  type: MealType;
+}
+
+const FoodRecord: FC<IFoodRecord> = ({
+  changeWeightHandle,
+  eatenId,
+  name,
+  calories,
+  date,
+  grams,
+  type,
+}) => {
+  const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
-    params.changeWeightHandle();
-  }
+    changeWeightHandle();
+  };
 
   return (
     <Box
@@ -33,10 +54,10 @@ const FoodRecord = (params: any) => {
             fontWeight: 600,
             px: 1,
             mx: 1,
-            cursor: "default"
+            cursor: "default",
           }}
         >
-          {params.name}
+          {name}
         </Typography>
         <Typography
           sx={{
@@ -47,9 +68,11 @@ const FoodRecord = (params: any) => {
             mx: 1,
             cursor: "pointer",
           }}
-          onClick={() => {setOpen(true)}}
+          onClick={() => {
+            setOpen(true);
+          }}
         >
-          {params.grams} g
+          {grams} g
         </Typography>
       </Box>
 
@@ -63,7 +86,7 @@ const FoodRecord = (params: any) => {
             m: 1,
           }}
         >
-          {Math.round((params.calories * params.grams) / 100)} kcal
+          {Math.round((calories * grams) / 100)} kcal
         </Typography>
         <AnimatedButton disableRipple>
           <InfoOutlinedIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
@@ -72,7 +95,13 @@ const FoodRecord = (params: any) => {
           <DeleteIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
         </AnimatedButton>
       </Box>
-      <ChangeWeightModal open={open} handleClose={handleClose} date={params.date} type={params.type} recordId={params.eatenId}/>
+      <ChangeWeightModal
+        open={open}
+        handleClose={handleClose}
+        date={date}
+        type={type}
+        recordId={eatenId}
+      />
     </Box>
   );
 };

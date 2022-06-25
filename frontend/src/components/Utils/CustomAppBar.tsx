@@ -14,12 +14,16 @@ import AuthContext from "../../context/AuthProvider";
 import AnimatedButton from "./AnimatedButton";
 import HideOnScroll from "./HideOnScroll";
 
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, FC } from "react";
 import { logout } from "../../utils/Utils";
 
 import SearchIcon from "@mui/icons-material/Search";
 
-const CustomAppBar = (props:any) => {
+interface ICustomAppBarProps {
+  withSearch?: boolean;
+}
+
+const CustomAppBar:FC<ICustomAppBarProps> = ({withSearch}) => {
   // @ts-ignore
   const { auth, setAuth } = useContext(AuthContext);
   const [authState, setAuthState] = useState<Boolean>();
@@ -69,7 +73,7 @@ const CustomAppBar = (props:any) => {
                   <span style={{ color: "white" }}>tabulky</span>
                 </Typography>
               </Link>
-              {props.withsearch && (
+              {withSearch && (
                 <InputBase
                   sx={{
                     ml: 0,
