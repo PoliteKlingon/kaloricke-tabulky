@@ -142,7 +142,6 @@ const DetailsWindow = () => {
           setDate(newValue ? newValue : date);
         }}
         renderInput={(params: any) => <TextField {...params} />}
-        inputFormat="dd.MM.yyyy"
       />
     </Box>
   )
@@ -163,12 +162,8 @@ const FoodDetails:FoodDetailsType = ({food}) => {
   };
 
   const handleCloseSubmit = () => {
-    saveFood(food, amount);
     setOpen(false);
   };
-
-  // const [mealType, setMealType] = useState("lunch")
-  // const [date, setDate] = useState("")
 
   const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
 
