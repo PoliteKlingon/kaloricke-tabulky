@@ -18,6 +18,8 @@ import AuthContext from "../../context/AuthProvider";
 import { Navigate } from "react-router-dom"
 import TripleProgressBar from "../Utils/TripleProgressBar";
 
+import Chart from "react-apexcharts"
+
 export interface Food {
   name: string,
   // photo: string,
@@ -95,6 +97,31 @@ const NunitoTableCell = styled(TableCell)({
 const getValueMultiplied = (value: number, multiplier: number) => {
   return (value * multiplier/100).toFixed(2).replace(/[.,]00$/, "")
 };
+
+const PieChart = (food: Food) => {
+  const options = {
+    series: [food.proteins, food.fats, food.carbs, food.fiber, food.salt],
+    labels: ["Bílkoviny", "Tuky", "Sacharidy", "Vláknina", "Sul"],
+    plotOptions: {
+      pie: {
+        expandOnClick: false,
+      }
+    }
+  };
+
+  // const series = [];
+  return (
+    // @ts-ignore
+    <Chart
+      options={options}
+      series={options.series}
+      type="donut"
+      height="100%"
+      // width="100%"
+    >
+    </Chart>
+  );
+}
 
 // @ts-ignore
 const DetailsWindow = ({amount, food}) => {
@@ -354,9 +381,18 @@ const FoodDetails:FoodDetailsType = ({food}) => {
             </TableRow>
           </TableBody>
         </Table>
-        <div>
+        <PaddedDiv sx={{display: "flex", justifyContent: "center", alignContent: "center", }}>
           {/*<TripleProgressBar params={food}/>*/}
-        </div>
+          <PieChart name={food.name}
+                    description={food.description}
+                    calories={food.calories}
+                    proteins={food.proteins}
+                    carbs={food.carbs}
+                    fats={food.fats}
+                    fiber={food.fiber}
+                    salt={food.salt}
+                    id={food.id}/>
+        </PaddedDiv>
       </PaddedDiv>
     </Container>
     )
