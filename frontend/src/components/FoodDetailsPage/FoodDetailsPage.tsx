@@ -1,16 +1,17 @@
-import { styled } from "@mui/system";
+// import { styled } from "@mui/system";
 import {CssBaseline} from "@mui/material";
 // import {MainAppBar} from "../components/Header";
 import FoodDetails, {Food} from "./FoodDetails";
 import MainBackground from "../Utils/MainBackground";
 import axios from "../../api/axios";
 import {useEffect, useState} from "react";
-import {Navigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import CustomAppBar from "../Utils/CustomAppBar";
 
-const FlexedHero = styled(MainBackground)({
-  display: "flex",
-  justifyContent: "center",
-});
+// const FlexedHero = styled(MainBackground)({
+//   display: "flex",
+//   justifyContent: "center",
+// });
 
 const FoodDetailsPage = () => {
   // TODO: development only remove later
@@ -33,11 +34,12 @@ const FoodDetailsPage = () => {
   }
 
   return (
-    <FlexedHero>
+    <MainBackground>
       <CssBaseline />
       {/*<MainAppBar />*/}
+      <CustomAppBar withSearch={false}/>
       <FoodDetails food={food}/>
-    </FlexedHero>
+    </MainBackground>
   );
 };
 
