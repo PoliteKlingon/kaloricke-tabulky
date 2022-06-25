@@ -264,6 +264,9 @@ import {
     const [passwordAlertMessage, setPasswordAlertMessage] = useState("");
     const [passwordAlertSeverity, setPasswordAlertSeverity] = useState("");
 
+    const [deleteAlertMessage, setDeleteAlertMessage] = useState("");
+    const [deleteAlertSeverity, setDeleteAlertSeverity] = useState("");
+
     const [changeEmail, setChangeEmail] = useState<boolean>(false);
     const [email, setEmail] = useState<String>("");
 
@@ -416,6 +419,34 @@ import {
       }
       catch (err) {
         alert("Chybné heslo!");
+        console.log(err);
+      }
+    }
+
+    const deleteAccount = async () => {
+      try {
+        await axios
+          .delete("/user", {
+            headers: { 
+              "Authorization": `Bearer ${auth.ssid}`, 
+              "Content-Type": "application/json",
+            },
+          })
+          .then((_) => {
+            setDeleteAlertSeverity("success");
+            setDeleteAlertMessage("Účet byl úspěšně odstraněn.");
+            setTimeout(() => { 
+              <Navigate to="/" />
+            }, 2000);
+          })
+          .catch((err) => {
+            setDeleteAlertSeverity("error");
+            setDeleteAlertMessage(
+                "Nastala neočekávaná chyba, zkuste to prosím později"
+              );
+          });
+      }
+      catch (err) {
         console.log(err);
       }
     }
@@ -1554,6 +1585,10 @@ import {
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                       Všechna Vaše data budou tímto krokem odstraněna.
                     </Typography>
+                    {deleteAlertSeverity && 
+                      // @ts-ignore
+                      <Alert severity={deleteAlertSeverity}>{deleteAlertMessage}</Alert>
+                    }
                     <Button
                       variant="contained"
                       disableRipple
@@ -1590,7 +1625,7 @@ import {
                         },
                       }}
                       onClick={() => {
-                        //TODO: delete účtu
+                        deleteAccount();
                       }}
                     >Odstranit účet</Button>
                   </Box>
