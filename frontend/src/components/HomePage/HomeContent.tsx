@@ -151,7 +151,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
       container
       direction="column"
       alignItems="center"
-      sx={{ paddingTop: { xs: 0, md: 5 } }}
+      sx={{ paddingTop: { xs: 0, md: 5 }, minHeight: "100vh" }}
     >
       <Grid
         container
