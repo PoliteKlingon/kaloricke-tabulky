@@ -1349,13 +1349,16 @@ import {
                   }}
                 >Změnit heslo</Button>
 
-                {/*<Collapse
-                  sx={{ width: "100%" }}
-                  in={changePasswords}
-                  {...{ timeout: 500 }}
-                  collapsedSize="0px"
+                <Modal
+                  open={changePasswordModal}
+                  onClose={() => setChangePasswordModal(false)}
                 >
-                <form onSubmit={handleSubmitPasswords(onSubmitPasswords)}>
+                  <Box sx={modalStyle}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                      Změna hesla
+                    </Typography>
+
+                    <form onSubmit={handleSubmitPasswords(onSubmitPasswords)}>
                   <Grid
                     container
                     direction="row"
@@ -1449,12 +1452,52 @@ import {
                       />
                     </Grid>
                     <Grid item xs={0} sm={2} md={3} lg={4}/>
-                    <Grid item xs={12}>
-                      <Button sx={{width: 250, fontFamily: "Nunito"}} type="submit">Uložit</Button>
-                    </Grid>
-                  </Grid>
-                  </form>        
-                      </Collapse>*/}
+                  </Grid>     
+
+                    <Button
+                      variant="contained"
+                      disableRipple
+                      sx={{
+                        backgroundColor: "orange",
+                        fontWeight: "bold",
+                        fontFamily: "Nunito",
+                        marginY: 1,
+                        marginRight: 2,
+                        width: 100,
+                        transition: "transform 0.2s",
+                        ":hover": {
+                          transform: "scale(1.1)",
+                          backgroundColor: "#f29830",
+                        },
+                      }}
+                      onClick={() => {
+                        setChangePasswordModal(false);
+                      }}
+                    >Zpět</Button>
+                    <Button
+                      variant="contained"
+                      disableRipple
+                      sx={{
+                        backgroundColor: "orange",
+                        fontWeight: "bold",
+                        fontFamily: "Nunito",
+                        marginY: 1,
+                        width: 200,
+                        transition: "transform 0.2s",
+                        ":hover": {
+                          transform: "scale(1.1)",
+                          backgroundColor: "#f29830",
+                        },
+                      }}
+                      type="submit"
+                      onClick={() => {
+                        //TODO: zmenit heslo
+                      }}
+                    >Změnit heslo</Button>
+                    </form>
+                  </Box>
+                </Modal>
+
 
                 <Button
                   variant="contained"
