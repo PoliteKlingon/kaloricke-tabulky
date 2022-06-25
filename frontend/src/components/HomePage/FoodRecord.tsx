@@ -1,11 +1,19 @@
-import { Box,  Typography } from "@mui/material";
+import { useState } from "react";
+import { Box, Typography } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import AnimatedButton from "../Utils/AnimatedButton";
+import ChangeWeightModal from "./ChangeWeightModal";
 
 const FoodRecord = (params: any) => {
+    const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+    params.changeWeightHandle();
+  }
+
   return (
     <Box
       component="span"
@@ -17,17 +25,34 @@ const FoodRecord = (params: any) => {
         mx: 1,
       }}
     >
-      <Typography
-        sx={{
-          fontFamily: "Nunito",
-          fontSize: "1.3rem",
-          fontWeight: 600,
-          px: 1,
-          mx: 1,
-        }}
-      >
-        {params.name}
-      </Typography>
+      <Box sx={{ display: { xs: "grid", sm: "flex" }, alignItems: "center" }}>
+        <Typography
+          sx={{
+            fontFamily: "Nunito",
+            fontSize: "1.3rem",
+            fontWeight: 600,
+            px: 1,
+            mx: 1,
+            cursor: "default"
+          }}
+        >
+          {params.name}
+        </Typography>
+        <Typography
+          sx={{
+            fontFamily: "Nunito",
+            fontSize: "1rem",
+            fontWeight: 400,
+            px: 2,
+            mx: 1,
+            cursor: "pointer",
+          }}
+          onClick={() => {setOpen(true)}}
+        >
+          {params.grams} g
+        </Typography>
+      </Box>
+
       <Box sx={{ display: "flex" }}>
         <Typography
           sx={{
@@ -47,6 +72,7 @@ const FoodRecord = (params: any) => {
           <DeleteIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
         </AnimatedButton>
       </Box>
+      <ChangeWeightModal open={open} handleClose={handleClose} date={params.date} type={params.type} recordId={params.eatenId}/>
     </Box>
   );
 };

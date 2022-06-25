@@ -92,9 +92,13 @@ const FoodMilestone = (params: any) => {
             if (e.mealType === params.type) {
               return (
                 <FoodRecord
+                  changeWeightHandle={params.changeWeightHandle}
+                  eatenId={e.id}
                   name={e.food.name}
                   calories={e.food.calories}
                   grams={e.grams}
+                  date={params.date}
+                  type={params.type}
                 />
               );
             }
