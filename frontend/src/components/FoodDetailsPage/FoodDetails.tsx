@@ -50,6 +50,7 @@ const Container = styled("div")({
 
 const PaddedDiv = styled(Box)({
   padding: "0.75rem 1.25rem",
+  fontFamily: "nunito",
   // display: "flex",
   // flexDirection: "row",
 });
@@ -77,6 +78,7 @@ const ValuesDiv = styled("div")({
 });
 
 const AddButton = styled(Button)({
+  fontFamily: "nunito",
   variant: "contained",
   backgroundColor: "#eb9b34",
   color: "white",
@@ -84,6 +86,10 @@ const AddButton = styled(Button)({
     backgroundColor: "#edc48c",
   },
 });
+
+const NunitoTableCell = styled(TableCell)({
+  fontFamily: "nunito",
+})
 
 
 const getValueMultiplied = (value: number, multiplier: number) => {
@@ -143,6 +149,7 @@ const DetailsWindow = ({amount, food}) => {
       gap={"1rem"}
     >
       <Select
+        sx={{fontFamily: "nunito",}}
         value={mealType}
         label="mealType"
         onChange={
@@ -155,6 +162,7 @@ const DetailsWindow = ({amount, food}) => {
         <MenuItem value={"dinner"}>Večeře</MenuItem>
       </Select>
       <DatePicker
+        // sx={{fontFamily: "nunito",}}
         disableFuture
         label="Vyberte den"
         openTo="day"
@@ -163,8 +171,10 @@ const DetailsWindow = ({amount, food}) => {
         onChange={(event) => setDate(event)}
         renderInput={(params: any) => <TextField {...params} />}
       />
-      <Button onClick={() => saveFood(food, amount, mealType, dateString)}>
-        submit
+      <Button
+        sx={{fontFamily: "nunito",}}
+        onClick={() => saveFood(food, amount, mealType, dateString)}>
+        přidat
       </Button>
     </Box>
   )
@@ -213,6 +223,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 // fontWeight: "bold",
                 fontSize: "h4.fontSize",
                 letterSpacing: "0.15rem",
+                fontFamily: "nunito",
               }}>
               {food.name}
             </Typography>
@@ -226,7 +237,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               justifyContent: "space-between",
           }}>
             <PaddedDiv sx={{display:"flex", flexDirection: "row", alignItems: "baseline", gap: "0.5rem", padding:"0"}}>
-              <Typography>
+              <Typography sx={{fontFamily: "nunito",}}>
                 Množství
               </Typography>
               <TextField
@@ -234,10 +245,11 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 variant="standard"
                 margin="none"
                 onChange={(amount) => {setAmount(+amount.target.value)}}
+                sx={{fontFamily: "nunito",}}
               />
-              <div>
+              <Typography sx={{fontFamily: "nunito",}}>
                 x&nbsp;1g
-              </div>
+              </Typography>
             </PaddedDiv>
             <PaddedDiv>
               <AddButton
@@ -246,11 +258,11 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 {isDesktop ? "Zapsat potravinu do jídelnčku" : "Zapsat"}
               </AddButton>
               <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>
+                <DialogTitle sx={{fontFamily: "nunito",}}>
                   Vyberte typ jídla a datum
                 </DialogTitle>
                 <DialogContent>
-                  <DialogContentText>
+                  <DialogContentText sx={{fontFamily: "nunito",}}>
                     Pro uložení jídla do jídelníčku, prosím vyberte datum konzumace a druh
                   </DialogContentText>
                   <DetailsWindow amount={amount} food={food}/>
@@ -295,50 +307,50 @@ const FoodDetails:FoodDetailsType = ({food}) => {
           </Grid>
         </PaddedDiv>
         <PaddedDiv>
-          <Table sx={{width: isDesktop ? "50%" : "100%"}}>
-            <TableHead>
+          <Table sx={{width: isDesktop ? "50%" : "100%",}}>
+            <TableHead sx={{fontFamily: "nunito",}}>
               Nutriční hodnoty na 100g
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell>
+                <NunitoTableCell>
                   Bílkoviny
-                </TableCell>
-                <TableCell>
+                </NunitoTableCell>
+                <NunitoTableCell>
                   {food.proteins} g
-                </TableCell>
+                </NunitoTableCell>
               </TableRow>
               <TableRow>
-                <TableCell>
+                <NunitoTableCell>
                   Sacharidy
-                </TableCell>
-                <TableCell>
+                </NunitoTableCell>
+                <NunitoTableCell>
                   {food.carbs} g
-                </TableCell>
+                </NunitoTableCell>
               </TableRow>
               <TableRow>
-                <TableCell>
+                <NunitoTableCell>
                   Tuky
-                </TableCell>
-                <TableCell>
+                </NunitoTableCell>
+                <NunitoTableCell>
                   {food.fats} g
-                </TableCell>
+                </NunitoTableCell>
               </TableRow>
               <TableRow>
-                <TableCell>
+                <NunitoTableCell>
                   Vláknina
-                </TableCell>
-                <TableCell>
+                </NunitoTableCell>
+                <NunitoTableCell>
                   {food.fiber} g
-                </TableCell>
+                </NunitoTableCell>
               </TableRow>
               <TableRow>
-                <TableCell>
+                <NunitoTableCell>
                   Sůl
-                </TableCell>
-                <TableCell>
+                </NunitoTableCell>
+                <NunitoTableCell>
                   {food.salt} g
-                </TableCell>
+                </NunitoTableCell>
               </TableRow>
 
             </TableBody>
