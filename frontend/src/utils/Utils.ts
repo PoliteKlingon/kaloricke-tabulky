@@ -128,7 +128,7 @@ export const userRegister = async (
         return {
           status: 409,
           err: null,
-          message: "Email už existuje",
+          message: "Účet se stejným emailem již existuje",
         };
       }
       return { status: 400, err: err, message: "Error" };

@@ -15,14 +15,18 @@ import {
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { styled } from "@mui/system";
-import { AccountCircle, Lock, SouthAmerica } from "@mui/icons-material";
+import { AccountCircle, Lock } from "@mui/icons-material";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import { useForm } from "react-hook-form";
 import slides from "../../static/slideshow";
 
 import ChangingImage from "./ChangingImage";
 
-import { userRegister, IUserData, IUserGoals } from "../../utils/Utils";
+import { userRegister } from "../../utils/Utils";
+
+import IUserData from "../../interfaces/IUserData";
+import IUserGoals from "../../interfaces/IUserGoals";
+
 const marks = [
   {
     value: 5,

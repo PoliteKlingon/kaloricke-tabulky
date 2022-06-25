@@ -154,7 +154,7 @@ const Login: FC<ILoginProps> = () => {
                         },
                       }}
                     >
-                      Chceš žít zdravěji?
+                      Zaregistruj se
                     </Button>
                   </Link>
                 </Grid>

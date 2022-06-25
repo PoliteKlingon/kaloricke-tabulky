@@ -1,4 +1,3 @@
-import HomeHeader from "./HomeHeader";
 import HomeContent from "./HomeContent";
 import AuthContext from "../../context/AuthProvider";
 

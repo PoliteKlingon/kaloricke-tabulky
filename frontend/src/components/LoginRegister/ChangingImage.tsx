@@ -1,4 +1,3 @@
-// @ts-ignore
 import { useState, useEffect, FC } from "react";
 import CrossfadeImg from "react-crossfade-img";
 
