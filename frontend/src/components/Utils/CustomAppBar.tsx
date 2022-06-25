@@ -193,7 +193,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
                     <MenuItem>
                       <Avatar />
                       <Link
-                        to="/"
+                        to="/user-details"
                         style={{ textDecoration: "none", color: "white" }}
                       >
                         Správa Profilu

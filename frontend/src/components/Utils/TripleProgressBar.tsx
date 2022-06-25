@@ -121,11 +121,11 @@ const TripleProgressBar:FC<ITripleProgressBarProps> = ({value, desired, size, is
               fontSize="1.5rem"
               fontWeight="bold"
             >
-              {value}
+              {Math.round(value)}
               {unit}
             </Typography>
             <Typography textAlign="center" fontFamily="Nunito" fontSize="1rem">
-              z {desired} {unit}
+              z {Math.round(desired)} {unit}
             </Typography>
           </>
         ) : (
