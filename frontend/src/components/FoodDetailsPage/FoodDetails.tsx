@@ -333,7 +333,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
           </Grid>
         </Grid>
       </PaddedDiv>
-      <PaddedDiv sx={{display:"flex", flexDirection:"row"}}>
+      <PaddedDiv sx={{display:"flex", flexDirection: isDesktop ? "row" : "column"}}>
         <Table sx={{width: isDesktop ? "50%" : "100%",}}>
           <TableHead sx={{fontFamily: "nunito",}}>
             Nutriční hodnoty na 100g
