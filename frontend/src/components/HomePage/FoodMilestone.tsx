@@ -41,8 +41,8 @@ const FoodMilestone: FC<IFoodMilestone> = ({
   }, [eaten]);
 
   return (
-    <Grid container item sx={{ width: "100%" }} direction="column">
-      <Grid item>
+    <Grid container item sx={{ width: "100%"}} direction="column">
+      <Grid item mx={1}>
         <Box
           component="span"
           sx={{
@@ -50,7 +50,6 @@ const FoodMilestone: FC<IFoodMilestone> = ({
             justifyContent: "space-between",
             alignItems: "center",
             p: 1,
-            m: 1,
             borderRadius: 3,
             border: "3px solid",
             width: "100%",
@@ -60,6 +59,7 @@ const FoodMilestone: FC<IFoodMilestone> = ({
             fontWeight: "600",
             backgroundColor: "#faf5e6",
           }}
+          my={1}
         >
           <Typography
             sx={{

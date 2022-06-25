@@ -7,6 +7,6 @@ export default interface IDiaryRecord {
   food: IFoodRecord;
   foodId: string;
   grams: number;
-  mealType: MealType
+  mealType: MealType;
   userid: number;
 }

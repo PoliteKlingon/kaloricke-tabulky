@@ -151,12 +151,12 @@ const HomeContent:FC<IHomeContentProps> = () => {
       container
       direction="column"
       alignItems="center"
-      sx={{ paddingTop: { xs: 0, sm: 5 } }}
+      sx={{ paddingTop: { xs: 0, md: 5 } }}
     >
       <Grid
         container
         xs={12}
-        sm={11}
+        md={11}
         direction="column"
         alignItems="normal"
         pt={2}
@@ -164,11 +164,11 @@ const HomeContent:FC<IHomeContentProps> = () => {
         sx={{
           backgroundColor: "white",
           minHeight: "70vh",
-          borderRadius: { xs: 0, sm: 10 },
+          borderRadius: { xs: 0, md: 10 },
         }}
       >
         <Grid item container alignItems="center" justifyContent="center" pt={2}>
-          <Grid item xs={3} sm={1} display="flex" justifyContent="center">
+          <Grid item xs={3} md={1} display="flex" justifyContent="center">
             <AnimatedButton
               variant="text"
               sx={{
@@ -201,7 +201,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
               inputFormat="dd.MM.yyyy"
             />
           </Grid>
-          <Grid item xs={3} sm={1} display="flex" justifyContent="center">
+          <Grid item xs={3} md={1} display="flex" justifyContent="center">
             <AnimatedButton
               variant="text"
               sx={{
@@ -230,14 +230,15 @@ const HomeContent:FC<IHomeContentProps> = () => {
         </Grid>
         <Grid
           container
-          direction={{ xs: "column", sm: "row" }}
+          direction={{ xs: "column", md: "row" }}
           justifyContent="center"
           pt={5}
         >
           <Grid
             container
             item
-            xs={8}
+            xs={12}
+            md={8}
             direction="column"
             display="flex"
             alignItems="center"
