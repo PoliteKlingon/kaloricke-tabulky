@@ -2,7 +2,7 @@ import {styled} from "@mui/system";
 import {FC, useEffect, useState, useContext} from "react";
 import {
   Box,
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
   Grid, MenuItem, Select,
   Table,
   TableBody,
@@ -16,6 +16,7 @@ import axios from "../../api/axios";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import AuthContext from "../../context/AuthProvider";
 import { Navigate } from "react-router-dom"
+import TripleProgressBar from "../Utils/TripleProgressBar";
 
 export interface Food {
   name: string,
@@ -59,8 +60,10 @@ const CategoryDiv = styled(PaddedDiv)({
 
 const InfoDiv = styled("div")({
   display: "flex",
-  justifyContent: "space-between",
-  padding: "1.25rem"
+  flexDirection: "column",
+  // gap: "0",
+  // justifyContent: "space-between",
+  // padding: "1.25rem"
 });
 
 // const FoodImg = styled("img")({
@@ -201,13 +204,19 @@ const FoodDetails:FoodDetailsType = ({food}) => {
   return (
       <Container>
         {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
-
         <InfoDiv>
-          <div>
-            <PaddedDiv>
-              <strong>{food.name}</strong>
-            </PaddedDiv>
-            <PaddedDiv sx={{display:"flex", flexDirection: "row", alignItems: "baseline", gap: "0.5rem"}}>
+          <PaddedDiv>
+            <strong>{food.name}</strong>
+          </PaddedDiv>
+          <PaddedDiv
+            sx={{
+              display:"flex",
+              flexDirection: "row",
+              alignItems: "baseline",
+              gap: "0.5rem",
+              justifyContent: "space-between",
+          }}>
+            <PaddedDiv sx={{display:"flex", flexDirection: "row", alignItems: "baseline", gap: "0.5rem", padding:"0"}}>
               <Typography>
                 Množství
               </Typography>
@@ -217,7 +226,11 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 margin="none"
                 onChange={(amount) => {setAmount(+amount.target.value)}}
               />
-              x&nbsp;1g
+              <div>
+                x&nbsp;1g
+              </div>
+            </PaddedDiv>
+            <PaddedDiv>
               <AddButton
                 onClick={handleClickOpen}
               >
@@ -235,7 +248,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                 </DialogContent>
               </Dialog>
             </PaddedDiv>
-          </div>
+          </PaddedDiv>
           {/*<FoodImg src={food.photo} alt={food.name}/>*/}
         </InfoDiv>
         <PaddedDiv>
@@ -321,7 +334,10 @@ const FoodDetails:FoodDetailsType = ({food}) => {
 
             </TableBody>
           </Table>
+          <div>
+            {/*<TripleProgressBar params={food}/>*/}
 
+          </div>
         </PaddedDiv>
       </Container>
     )
