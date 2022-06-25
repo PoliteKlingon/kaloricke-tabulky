@@ -40,20 +40,19 @@ const AddFood = () => {
     setAlertMessage("");
     try {
       const body = {
-        data: {
           name: getValues("name"),
+          description: getValues("description"),
           /* All values are divided by 100 because user inserts them per 100 grams of food
           but database stores them per 1 gram of food. */
           calories: getValues("calories") / 100,
-          fats: getValues("fats") / 100,
           proteins: getValues("proteins") / 100,
           carbs: getValues("carbs") / 100,
+          fats: getValues("fats") / 100,
           fiber: getValues("fiber") / 100,
           salt: getValues("salt") / 100,
-        },
       };
       axios
-        .put("/food", JSON.stringify(body), {
+        .post("/food", JSON.stringify(body), {
           headers: { 
             "Content-Type": "application/json",
             "Authorization": `Bearer ${auth.ssid}`
@@ -181,6 +180,20 @@ const AddFood = () => {
                       {...register("name", { required: "Položka je povinná" })}
                       error={!!errors?.name}
                       helperText={errors?.name ? errors.name.message : null}
+                      />
+                  </Grid>
+                  <Grid item xs={12}>
+                      <TextField
+                      required
+                      fullWidth
+                      variant="standard"
+                      id="name"
+                      label="Popisek jídla"
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
+                      {...register("description", { required: "Položka je povinná" })}
+                      error={!!errors?.description}
+                      helperText={errors?.description ? errors.description.message : null}
                       />
                   </Grid>
                   <Grid item xs={12}>
