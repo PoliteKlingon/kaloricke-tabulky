@@ -132,6 +132,10 @@ const HomeContent = () => {
     setShowAddFoodModal(true);
   }
 
+  const handleChangeWeight = () => {
+    fetchMeals();
+  }
+
   return (
     <Grid container direction="column" alignItems="center" sx={{paddingTop: {xs: 0, sm: 5}}}>
       <Grid
@@ -227,10 +231,12 @@ const HomeContent = () => {
             {MainMeals.map((single: any) => {
               return (
                 <FoodMilestone
+                  date={dateString}
                   eaten={meals}
                   name={single.name}
                   type={single.type}
                   showModal={handleModalOpen}
+                  changeWeightHandle={handleChangeWeight}
                 />
               );
             })}
