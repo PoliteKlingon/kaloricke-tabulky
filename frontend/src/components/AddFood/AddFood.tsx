@@ -156,7 +156,7 @@ const AddFood = () => {
                   alignItems: "center",
               }}
               >
-              <Typography component="h1" variant="h4">
+              <Typography component="h1" variant="h4" sx={{ fontFamily: "Nunito" }}>
                   Add food to database
               </Typography>
               <Box
@@ -173,6 +173,8 @@ const AddFood = () => {
                       variant="standard"
                       id="name"
                       label="Food name"
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...register("name", { required: "Field is requiered" })}
                       error={!!errors?.name}
                       helperText={errors?.name ? errors.name.message : null}
@@ -181,7 +183,8 @@ const AddFood = () => {
                   <Grid item xs={12}>
                       <Typography component="h1" variant="h6" sx={{
                         marginTop: 3,
-                        textAlign:"center"
+                        textAlign:"center",
+                        fontFamily: "Nunito"
                         }}>
                       Nutrients per 100 g
                       </Typography>
@@ -192,6 +195,8 @@ const AddFood = () => {
                       label="Calories"
                       type="number"
                       id="calories"
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...register("calories", { required: "Field is requiered" })}
                       error={!!errors?.calories}
                       helperText={errors?.calories ? errors.calories.message : null}
@@ -205,6 +210,8 @@ const AddFood = () => {
                       label="Fats"
                       type="number"
                       id="fats"
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...register("fats", { required: "Field is requiered" })}
                       error={!!errors?.fats}
                       helperText={errors?.fats ? errors.fats.message : null}
@@ -219,6 +226,8 @@ const AddFood = () => {
                       label="Carbs"
                       type="number"
                       id="carbs"
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...register("carbs", { required: "Field is requiered" })}
                       error={!!errors?.carbs}
                       helperText={errors?.carbs ? errors.carbs.message : null}
@@ -232,6 +241,8 @@ const AddFood = () => {
                       label="Protein"
                       type="number"
                       id="protein"
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...register("proteins", { required: "Field is requiered" })}
                       error={!!errors?.proteins}
                       helperText={errors?.proteins ? errors.proteins.message : null}
@@ -245,6 +256,8 @@ const AddFood = () => {
                       label="Fiber"
                       type="number"
                       id="fiber"
+                      InputProps={{ style: { fontFamily: "Nunito" } }}
+                      InputLabelProps={{ style: { fontFamily: "Nunito" } }}
                       {...register("fiber", { required: "Field is requiered" })}
                       error={!!errors?.fiber}
                       helperText={errors?.fiber ? errors.fiber.message : null}
@@ -262,8 +275,9 @@ const AddFood = () => {
                     
                     sx={{
                       backgroundColor: "orange",
+                      fontFamily: "Nunito",
                       fontWeight: "bold",
-                      marginY: 2,
+                      marginY: 5,
                       transition: "transform 0.2s",
                       ":hover": {
                         transform: "scale(1.1)",
