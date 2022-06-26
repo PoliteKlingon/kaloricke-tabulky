@@ -1,4 +1,4 @@
-import { CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import UserDetails from "./UserDetails";
 import MainBackground from "../Utils/MainBackground";
 import CustomAppBar from "../Utils/CustomAppBar";
@@ -6,9 +6,15 @@ import CustomAppBar from "../Utils/CustomAppBar";
 const MainPage = () => {
   return (
     <MainBackground>
-      <CssBaseline />
-      <CustomAppBar />
-      <UserDetails />
+      <Box
+        sx={{
+          height: "100vh", 
+          overflow: "auto"
+        }}>
+        <CssBaseline />
+        <CustomAppBar withSearch={false}/>
+        <UserDetails />
+      </Box>
     </MainBackground>
   );
 };

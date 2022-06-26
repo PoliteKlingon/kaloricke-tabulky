@@ -483,8 +483,7 @@ import {
                 marginBottom: {xs: 5, md: 10},
                 borderRadius: {xs: 0, md: 10},
                 paddingBottom: 12.5,
-                width: "91.70%",
-                height: "auto",
+                width: "91.7vw",
                 overflow: 'auto'
         }}
         >
