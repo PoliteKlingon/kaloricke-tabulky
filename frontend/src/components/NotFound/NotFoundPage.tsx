@@ -1,6 +1,6 @@
 
 import { Box, CssBaseline } from "@mui/material";
-import NotFoundHeader from "./NotFoundHeader";
+import NotFound from "./NotFound";
 import CustomAppBar from "../Utils/CustomAppBar";
 import MainBackground from "../Utils/MainBackground";
 
@@ -14,7 +14,7 @@ const NotFoundPage = () => {
         }}>
         <CssBaseline />
         <CustomAppBar withSearch={true} />
-        <NotFoundHeader />
+        <NotFound />
       </Box>
     </MainBackground>
   );

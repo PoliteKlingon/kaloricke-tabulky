@@ -1,21 +1,12 @@
 import {
-    AppBar,
     Box,
     Button,
-    CardMedia,
-    Collapse,
     Grid,
-    IconButton,
-    Stack,
-    Toolbar,
     Typography,
   } from "@mui/material";
   import { styled } from "@mui/system";
-  import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
   import { useContext, useEffect, useState } from "react";
   import { Link } from "react-router-dom";
-  import useScrollTrigger from "@mui/material/useScrollTrigger";
-  import Slide from "@mui/material/Slide";
   import AuthContext from "../../context/AuthProvider";
   import './NotFound.css'
   import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
@@ -35,7 +26,7 @@ import {
   
   
   
-  const NotFoundHeader = () => {
+  const NotFound = () => {
     const [collapsed, setCollapsed] = useState(false);
     useEffect(() => {
       setCollapsed(true);
@@ -135,5 +126,5 @@ import {
     );
   };
   
-  export default NotFoundHeader;
+  export default NotFound;
   
