@@ -11,6 +11,9 @@ import {
   sendValidationError,
 } from "./universalResponses";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import { headersSchema } from "./user-shemas";
+import { getUserBySessionId } from "./user";
+import { Role, User } from ".prisma/client";
 
 const foodSchema = object({
   name: string().required().trim(),
@@ -32,16 +35,24 @@ const foodUpdateSchema = object({
   fats: number().optional(),
   fiber: number().optional(),
   salt: number().optional(),
-  id: string().required(),
 });
+
+const foodIdSchema = string().required().lowercase();
 
 export const store = async (req: Request, res: Response) => {
   try {
-    // TODO add authorization check
+    const { authorization: sessionId } = await headersSchema.validate(
+      req.headers
+    );
+
+    const user = await getUserBySessionId(sessionId);
+    if (!user.Role.canCUDAnyFood && !user.Role.canCUDOwnFood)
+      return sendAuthorizationError(res);
+
     const data = await foodSchema.validate(req.body);
 
     const food = await prisma.food.create({
-      data: { ...data, id: data.name.toLowerCase() },
+      data: { ...data, id: data.name.toLowerCase(), creatorId: user.id },
     });
     return sendCreatedSuccessfully(res, "Food created successfully", food);
   } catch (e: any) {
@@ -52,6 +63,9 @@ export const store = async (req: Request, res: Response) => {
     if (e instanceof PrismaClientKnownRequestError && e.code === "P2002")
       return sendDuplicateError(res, "Food with given name already exists");
 
+    if (e.name === "NotFoundError") return sendAuthorizationError(res);
+
+    console.log(e);
     return sendInternalServerError(res);
   }
 };
@@ -61,6 +75,7 @@ export const getAll = async (_: Request, res: Response) => {
     const foods = await prisma.food.findMany({ where: { deleted: null } });
     return sendSuccess(res, "Foods retreived successfully", foods);
   } catch (e) {
+    console.log(e);
     return sendInternalServerError(res);
   }
 };
@@ -82,7 +97,8 @@ export const getById = async (req: Request, res: Response) => {
 
 export const get = async (req: Request, res: Response) => {
   try {
-    const id = req.params["name"]?.toLowerCase();
+    const id = await foodIdSchema.validate(req.params["name"]);
+
     const food = await prisma.food.findFirst({
       where: {
         AND: [{ deleted: null }, { id: id }],
@@ -112,13 +128,38 @@ export const searchByName = async (req: Request, res: Response) => {
   }
 };
 
+const canUserUpdateAndDeleteFood = async (
+  foodId: string,
+  userId: string,
+  userRole: Role
+) => {
+  if (userRole.canCUDAnyFood) return true;
+  if (userRole.canCUDOwnFood) {
+    const { creatorId } = await prisma.food.findUnique({
+      where: { id: foodId },
+      rejectOnNotFound: true,
+    });
+    return creatorId === userId;
+  }
+  return false;
+};
+
 export const update = async (req: Request, res: Response) => {
   try {
-    const data = await foodUpdateSchema.validate(req.body);
+    const { authorization: sessionId } = await headersSchema.validate(
+      req.headers
+    );
+    const user = await getUserBySessionId(sessionId);
 
+    const foodId = await foodIdSchema.validate(req.params["name"]);
+
+    if (!(await canUserUpdateAndDeleteFood(foodId, user.id, user.Role)))
+      return sendAuthorizationError(res);
+
+    const data = await foodUpdateSchema.validate(req.body);
     const result = await prisma.food.update({
+      where: { id: foodId },
       data: { ...data },
-      where: { id: data.id },
     });
 
     return sendSuccess(res, "Food updated successfully", result);
@@ -137,10 +178,19 @@ export const update = async (req: Request, res: Response) => {
 };
 
 export const deleteFood = async (req: Request, res: Response) => {
-  const id = req.params["id"]!;
   try {
+    const foodId = await foodIdSchema.validate(req.params["name"]);
+
+    const { authorization: sessionId } = await headersSchema.validate(
+      req.headers
+    );
+    const user = await getUserBySessionId(sessionId);
+
+    if (!(await canUserUpdateAndDeleteFood(foodId, user.id, user.Role)))
+      return sendAuthorizationError(res);
+
     await prisma.food.delete({
-      where: { id: id },
+      where: { id: foodId },
     });
     return sendSuccess(res, "Food deleted successfully", {});
   } catch (e: any) {

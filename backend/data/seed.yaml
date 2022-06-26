@@ -2,8 +2,15 @@ user:
   - id: "1"
   - id: "2"
   - id: "3"
+  - id: "4"
+    roleName: "admin"
 
 userCredentials:
+  - email: "admin@admin.cz"
+    userId: "4"
+    # password is "admin"
+    passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+
   - email: "tvojeMama@haha.com"
     userId: "1"
     # password is "admin"
@@ -25,6 +32,18 @@ userDetails:
   - username: "admin"
     name: "Adam"
     surname: "The Admin"
+    weight: 0
+    height: 0
+    birthdate: "2000-01-01T12:00:00.000Z"
+    # True male chad
+    sex: 1
+    userId: "4"
+    email: "admin@admin.cz"
+    goalWeight: 100
+
+  - username: "banrinoneposedneoboci"
+    name: "Bářino"
+    surname: "Neposendéobočí"
     weight: 0
     height: 0
     birthdate: "2000-01-01T12:00:00.000Z"
@@ -96,6 +115,7 @@ food:
     fats: 0.1
     fiber: 1.1
     salt: 0
+    creatorId: "4"
 
   - id: "mango"
     name: "Mango"
@@ -106,6 +126,7 @@ food:
     fats: 0.2
     fiber: 2.6
     salt: 0
+    creatorId: "4"
 
   - id: "apple"
     name: "Apple"
@@ -116,6 +137,7 @@ food:
     fats: 0.1
     fiber: 5.7
     salt: 0
+    creatorId: "4"
 
   - id: "grape"
     name: "Grape"
@@ -126,6 +148,7 @@ food:
     fats: 0.1
     fiber: 2.2
     salt: 0
+    creatorId: "4"
 
   - id: "orange"
     name: "Orange"
@@ -136,6 +159,7 @@ food:
     fats: 0.1
     fiber: 0
     salt: 0
+    creatorId: "4"
 
   - id: "ananas"
     name: "Ananas"
@@ -146,6 +170,7 @@ food:
     fats: 0.1
     fiber: 2.6
     salt: 0
+    creatorId: "4"
 
   - id: "watermelon"
     name: "Watermelon"
@@ -156,6 +181,7 @@ food:
     fats: 0.2
     fiber: 0.4
     salt: 0
+    creatorId: "4"
 
   - id: "steak"
     name: "Steak"
@@ -166,6 +192,7 @@ food:
     fats: 19
     fiber: 0
     salt: 2
+    creatorId: "4"
 
   - id: "pasta"
     name: "Pasta"
@@ -176,6 +203,7 @@ food:
     fats: 1.1
     fiber: 0
     salt: 1
+    creatorId: "4"
 
   - id: "yoghurt (white)"
     name: "Yoghurt (white)"
@@ -186,14 +214,28 @@ food:
     fats: 0.4
     fiber: 0
     salt: 0.1
+    creatorId: "4"
 
 diaryEntry:
   - id: "1"
-  - userId: "1"
-  - mealType: "Lunch"
-  - foodId: "banana"
-  - grams: 120
-  - date: 2022-06-18 10:00
+    userId: "1"
+    mealType: "Lunch"
+    foodId: "banana"
+    grams: 120
+    date: 2022-06-18 10:00
+
+role:
+  - name: "user"
+    canDeleteUsers: false
+    canPromoteUsers: false
+    canCUDOwnFood: false
+    canCUDAnyFood: false
+
+  - name: "admin"
+    canDeleteUsers: true
+    canPromoteUsers: true
+    canCUDOwnFood: true
+    canCUDAnyFood: true
 
 eaten:
 #   # Breakfast user 2 day 1

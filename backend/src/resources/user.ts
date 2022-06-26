@@ -304,7 +304,7 @@ const calculateGoals = ({
 export const getUserBySessionId = async (sessionId: string | undefined) => {
   const session = await prisma.sessions.findUnique({
     where: { id: sessionId },
-    include: { user: { include: { details: true, goals: true } } },
+    include: { user: { include: { details: true, goals: true, Role: true } } },
     rejectOnNotFound: true,
   });
   return session.user;

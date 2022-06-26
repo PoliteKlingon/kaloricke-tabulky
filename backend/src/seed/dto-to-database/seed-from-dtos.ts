@@ -7,6 +7,14 @@ const seedDB = async (
 ): Promise<Result<boolean>> => {
   try {
     prisma.$transaction([
+      ...yamlParsed.role.map((single) => {
+        return prisma.role.create({
+          data: {
+            ...single,
+          },
+        });
+      }),
+
       ...yamlParsed.user.map((single) => {
         return prisma.user.create({
           data: {

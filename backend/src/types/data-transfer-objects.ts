@@ -7,10 +7,12 @@ export default interface SeedFileStructure {
   user: UserDTO[];
   session: SessionDTO[];
   diaryEntry: DiaryEntryDTO[];
+  role: RoleDTO[];
 }
 
 export interface UserDTO {
   id: string;
+  roleName: string;
 }
 
 export interface UserCredentialsDTO {
@@ -53,6 +55,7 @@ export interface FoodDTO {
   fats: number;
   fiber: number;
   salt: number;
+  creatorId: string;
 }
 
 export interface EatenDTO {
@@ -73,4 +76,12 @@ export interface DiaryEntryDTO {
   date: Date;
   grams: number;
   mealType: string;
+}
+
+export interface RoleDTO {
+  name: string;
+  canDeleteUsers: boolean;
+  canPromoteUsers: boolean;
+  canCUDOwnFood: boolean;
+  canCUDAnyFood: boolean;
 }
