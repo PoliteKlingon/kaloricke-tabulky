@@ -448,6 +448,7 @@ import {
             setDeleteAlertMessage("Účet byl úspěšně odstraněn.");
             localStorage.removeItem("auth");
             setTimeout(() => { 
+              setAuth({});
               setGoHome(true);
             }, 2000);
           })
