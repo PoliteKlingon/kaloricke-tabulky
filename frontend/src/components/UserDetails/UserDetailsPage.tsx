@@ -12,7 +12,7 @@ const MainPage = () => {
           overflow: "auto"
         }}>
         <CssBaseline />
-        <CustomAppBar withSearch={false}/>
+        <CustomAppBar withSearch={true}/>
         <UserDetails />
       </Box>
     </MainBackground>
