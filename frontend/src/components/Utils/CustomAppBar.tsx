@@ -105,7 +105,8 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
               <Grid item>
                 <Avatar sx={{
                   marginY: {xs: 1.5, sm: 2.5},
-                  display: {xs: "", md:"none"}
+                  display: {xs: "", md:"none"},
+                  border: "none"
                   }} 
                   component={"button"}
                   onClick={handleClick}
