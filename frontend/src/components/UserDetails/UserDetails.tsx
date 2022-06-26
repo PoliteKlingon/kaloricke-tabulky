@@ -290,7 +290,7 @@ import {
         setAuth(JSON.parse(window.localStorage.getItem("auth")));
       };
       getDetails();
-  }, []);
+    }, []);
   
     const closeAll = () => {
       setChangeEmail(false);
