@@ -12,6 +12,7 @@ import {
 
 import axios from "../../api/axios";
 import AuthContext from "../../context/AuthProvider";
+import searchFoodByName from "../../utils/SearchFoodByName";
 
 import IFoodRecord from "../../interfaces/IFoodRecord";
 
@@ -33,16 +34,13 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
   // @ts-ignore
   const { auth } = useContext(AuthContext);
 
-  const searchFoodByName = async (name: string) => {
-    await axios
-      .get(`/food/search/${name}`)
-      .then((res) => {
-        setFoundFoods(res.data.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  const handleSetFood = (name:string) => {
+    searchFoodByName(name).then((foods) => {
+      setFoundFoods(foods)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 
   const saveFood = async (event: any) => {
     event.preventDefault();
@@ -107,7 +105,6 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
                 value={foodName}
                 onChange={(e, value) => setFoodName(value!)}
                 disablePortal
-                id="combo-box-demo"
                 options={foundFoods.map((food) => food.name)}
                 sx={{ width: "100%" }}
                 renderInput={(props) => (
@@ -115,7 +112,7 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
                     required
                     {...props}
                     label="Název jídla"
-                    onChange={(e) => searchFoodByName(e.target.value)}
+                    onChange={(e) => handleSetFood(e.target.value)}
                   />
                 )}
               />
