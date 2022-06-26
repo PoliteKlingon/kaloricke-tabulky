@@ -288,7 +288,8 @@ import {
     const [changePasswordModal, setChangePasswordModal] = useState<boolean>(false);
     const [deleteAccountModal, setDeleteAccountModal] = useState<boolean>(false);
     const [Passwords, setPasswords] = useState<Passwords>({oldPassword: "", password: "", passwordAgain: ""});
-    
+    const [goHome, setGoHome] = useState<boolean>(false);
+
       // @ts-ignore
     const { auth, setAuth } = useContext(AuthContext);
     useEffect(() => {
@@ -445,8 +446,9 @@ import {
           .then((_) => {
             setDeleteAlertSeverity("success");
             setDeleteAlertMessage("Účet byl úspěšně odstraněn.");
+            localStorage.removeItem("auth");
             setTimeout(() => { 
-              <Navigate to="/" />
+              setGoHome(true);
             }, 2000);
           })
           .catch((err) => {
@@ -1367,8 +1369,6 @@ import {
                   }}
                   onClick={() => {
                     closeAll(); 
-                    // @ts-ignore
-                    //!changePasswords && setTimeout(() => { myRef.current.scrollIntoView({behavior: "smooth"}) }, 500);
                     setChangePasswordModal(!changePasswordModal);
                   }}
                 >Změnit heslo</Button>
@@ -1601,6 +1601,7 @@ import {
                         deleteAccount();
                       }}
                     >Odstranit účet</Button>
+                    {goHome && <Navigate to="/" />}
                   </Box>
                 </Modal>
               </Grid>
