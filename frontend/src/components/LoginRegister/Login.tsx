@@ -1,15 +1,16 @@
 import { useState,  useContext, FC } from "react";
 import { Link, Navigate } from "react-router-dom";
-import AuthContext from "../../context/AuthProvider";
+import { useForm } from "react-hook-form";
+
 import { Button, Grid, InputAdornment, TextField } from "@mui/material";
 import { styled } from "@mui/system";
+
 import { AccountCircle, Lock } from "@mui/icons-material";
-import { useForm } from "react-hook-form";
 
 import slides from "../../static/slideshow";
 
+import AuthContext from "../../context/AuthProvider";
 import ChangingImage from "./ChangingImage";
-
 import { login } from "../../utils/Utils";
 
 const LogoImage = styled("img")({
@@ -60,7 +61,7 @@ const Login: FC<ILoginProps> = () => {
       }
     }
     else {
-      if (res.err == null) {
+      if (res.status === 401) {
         setError("password", { message: "Špatný email nebo heslo" });
         setError("email", { message: "Špatný email nebo heslo" });
       } else {

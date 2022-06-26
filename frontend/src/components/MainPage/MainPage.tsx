@@ -1,8 +1,10 @@
+import { FC } from "react";
+
 import { CssBaseline } from "@mui/material";
+
 import Header from "./Header";
 import Features from "./Features";
 import MainBackground from "../Utils/MainBackground";
-import { FC } from "react";
 import CustomAppBar from "../Utils/CustomAppBar";
 
 interface IMainPageProps {}

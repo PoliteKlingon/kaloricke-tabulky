@@ -42,7 +42,6 @@ export const register = async (req: Request, res: Response) => {
             },
           },
         },
-        include: { details: true, goals: true },
       }),
     ];
 
@@ -56,7 +55,7 @@ export const register = async (req: Request, res: Response) => {
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      include: { goals: Boolean(data.goals), details: true },
+      include: { goals: Boolean(data.goals), details: true, Role: true },
       rejectOnNotFound: true,
     });
 
@@ -66,6 +65,7 @@ export const register = async (req: Request, res: Response) => {
 
     return sendCreatedSuccessfully(res, "User created successfully", {
       sessionId,
+      role: user.Role.name,
       user,
     });
   } catch (e: any) {
@@ -162,9 +162,19 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { password, email } = await loginSchema.validate(req.body);
 
-    const { userId } = await prisma.userCredentials.findFirst({
+    const {
+      userId,
+      user: {
+        Role: { name: roleName },
+      },
+    } = await prisma.userCredentials.findFirst({
       where: {
         AND: [{ email: email }, { passwordHash: String(sha256(password)) }],
+      },
+      include: {
+        user: {
+          include: { Role: true },
+        },
       },
       rejectOnNotFound: true,
     });
@@ -173,7 +183,7 @@ export const login = async (req: Request, res: Response) => {
       data: { userId: userId },
     });
 
-    return sendSuccess(res, "Login successfull", { sessionId });
+    return sendSuccess(res, "Login successfull", { sessionId, role: roleName });
   } catch (e: any) {
     if (e instanceof ValidationError) {
       return sendValidationError(res, e);
@@ -304,7 +314,7 @@ const calculateGoals = ({
 export const getUserBySessionId = async (sessionId: string | undefined) => {
   const session = await prisma.sessions.findUnique({
     where: { id: sessionId },
-    include: { user: { include: { details: true, goals: true } } },
+    include: { user: { include: { details: true, goals: true, Role: true } } },
     rejectOnNotFound: true,
   });
   return session.user;

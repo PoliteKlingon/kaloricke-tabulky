@@ -1,6 +1,9 @@
-import { Collapse, Grid, IconButton, Typography } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FC, useEffect, useState } from "react";
+
+import { Collapse, Grid, IconButton, Typography } from "@mui/material";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 interface IHeaderprops {}
 
 const Header: FC<IHeaderprops> = () => {

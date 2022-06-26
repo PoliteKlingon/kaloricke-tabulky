@@ -1,9 +1,10 @@
-import { Box, Grid, Typography } from "@mui/material";
-import FoodRecord from "./FoodRecord";
-
-import AddIcon from "@mui/icons-material/Add";
 import { FC, useEffect, useState } from "react";
 
+import { Box, Grid, Typography } from "@mui/material";
+
+import AddIcon from "@mui/icons-material/Add";
+
+import FoodRecord from "./FoodRecord";
 import AnimatedButton from "../Utils/AnimatedButton";
 
 import IDiaryRecord from "../../interfaces/IDiaryRecord";
@@ -16,7 +17,7 @@ interface IFoodMilestone {
   name: string;
   type: MealType;
   showModal: (type: MealType) => void;
-  changeWeightHandle: () => void;
+  handleForceReload: () => void;
 }
 
 const FoodMilestone: FC<IFoodMilestone> = ({
@@ -25,7 +26,7 @@ const FoodMilestone: FC<IFoodMilestone> = ({
   name,
   type,
   showModal,
-  changeWeightHandle,
+  handleForceReload,
 }) => {
   const [calories, setCalories] = useState(0);
   useEffect(() => {
@@ -41,7 +42,7 @@ const FoodMilestone: FC<IFoodMilestone> = ({
   }, [eaten]);
 
   return (
-    <Grid container item sx={{ width: "100%"}} direction="column">
+    <Grid container item sx={{ width: "100%" }} direction="column">
       <Grid item mx={1}>
         <Box
           component="span"
@@ -80,10 +81,7 @@ const FoodMilestone: FC<IFoodMilestone> = ({
             >
               {calories} kcal
             </Typography>
-            <AnimatedButton
-              disableRipple
-              onClick={() => showModal(type)}
-            >
+            <AnimatedButton disableRipple onClick={() => showModal(type)}>
               <AddIcon sx={{ color: "green", fontSize: "1.8rem" }} />
             </AnimatedButton>
           </div>
@@ -95,7 +93,7 @@ const FoodMilestone: FC<IFoodMilestone> = ({
             if (e.mealType === type) {
               return (
                 <FoodRecord
-                  changeWeightHandle={changeWeightHandle}
+                  handleForceReload={handleForceReload}
                   eatenId={e.id}
                   name={e.food.name}
                   calories={e.food.calories}

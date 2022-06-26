@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
-import AuthContext from "../../context/AuthProvider";
+import { useForm } from "react-hook-form";
+
 import {
   Button,
   Collapse,
@@ -12,16 +13,16 @@ import {
   TextFieldProps,
   Typography,
 } from "@mui/material";
+import { styled } from "@mui/system";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { styled } from "@mui/system";
-import { AccountCircle, Lock } from "@mui/icons-material";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import { useForm } from "react-hook-form";
+
+import { AccountCircle, Lock } from "@mui/icons-material";
+
 import slides from "../../static/slideshow";
-
+import AuthContext from "../../context/AuthProvider";
 import ChangingImage from "./ChangingImage";
-
 import { userRegister } from "../../utils/Utils";
 
 import IUserData from "../../interfaces/IUserData";
@@ -116,8 +117,6 @@ const Register = () => {
         salt: +getValues("salt"),
       };
     }
-
-    console.log(details)
 
     const res = await userRegister(getValues("password"), details, goals);
     console.log(res)

@@ -1,17 +1,18 @@
-import { FC } from "react";
-import { useState } from "react";
+import { FC, useState, useContext } from "react";
 import { Box, Typography } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
+import AuthContext from "../../context/AuthProvider";
+import axios from "../../api/axios";
 import AnimatedButton from "../Utils/AnimatedButton";
 import ChangeWeightModal from "./ChangeWeightModal";
 
 import MealType from "../../types/MealType";
 
 interface IFoodRecord {
-  changeWeightHandle: () => void;
+  handleForceReload: () => void;
   eatenId: string;
   name: string;
   calories: number;
@@ -21,7 +22,7 @@ interface IFoodRecord {
 }
 
 const FoodRecord: FC<IFoodRecord> = ({
-  changeWeightHandle,
+  handleForceReload,
   eatenId,
   name,
   calories,
@@ -29,11 +30,28 @@ const FoodRecord: FC<IFoodRecord> = ({
   grams,
   type,
 }) => {
+  // @ts-ignore
+  const { auth } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
-    changeWeightHandle();
+    handleForceReload();
   };
+
+  const handleDelete = async () => {
+    await axios
+    .delete(`/diary/${eatenId}`, {
+      headers: {
+        Authorization: `Bearer ${auth.ssid}`,
+      }
+    }).then(() => {
+      handleForceReload();
+    }).catch((err) => {
+      console.log(err)
+      alert("Něco se pokazilo, prosím zkuste to znovu.");
+    });
+
+  }
 
   return (
     <Box
@@ -91,7 +109,7 @@ const FoodRecord: FC<IFoodRecord> = ({
         <AnimatedButton disableRipple>
           <InfoOutlinedIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
         </AnimatedButton>
-        <AnimatedButton disableRipple>
+        <AnimatedButton disableRipple onClick={handleDelete}>
           <DeleteIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
         </AnimatedButton>
       </Box>

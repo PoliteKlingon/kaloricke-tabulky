@@ -3,7 +3,7 @@ import axios from "../api/axios";
 import IUserData from "../interfaces/IUserData"
 import IUserGoals from "../interfaces/IUserGoals";
 
-export const getUserData = async (sessionId: string) => {
+export const getUserData = async (sessionId: string, role: string) => {
   return await axios
     .get("user/", {
       headers: {
@@ -17,6 +17,7 @@ export const getUserData = async (sessionId: string) => {
         JSON.stringify({
           ssid: sessionId,
           username: username,
+          role: role,
         })
       );
       return { status: 200, err:null, message: "Success" };
@@ -45,15 +46,14 @@ export const login = async (
         }
       )
       .then(async (response) => {
-        const ssid = response?.data?.data?.sessionId;
-        return getUserData(ssid);
+        return getUserData(response?.data?.data?.sessionId, response.data.data.role);
       })
       .catch((err) => {
         if (!err?.response) {
           return { status: 400, err: err, message: "Error" };
         } else if (err.response?.status === 401) {
           return {
-            status: 400,
+            status: 401,
             err: err,
             message: "Špatný email nebo heslo",
           };
@@ -111,7 +111,6 @@ export const userRegister = async (
           ...userData,
         },
       });
-  console.log(userData, userGoals);
   return await axios
     .post("/register", data, {
       headers: {
@@ -119,8 +118,7 @@ export const userRegister = async (
       },
     })
     .then((response) => {
-      console.log("HERE")
-      return getUserData(response.data.data.sessionId);
+      return getUserData(response.data.data.sessionId, response.data.data.role);
     })
     .catch((err) => {
       console.log(err)

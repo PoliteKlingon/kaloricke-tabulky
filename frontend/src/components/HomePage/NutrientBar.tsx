@@ -1,5 +1,6 @@
-import { Grid, Typography } from "@mui/material";
 import { FC } from "react";
+
+import { Grid, Typography } from "@mui/material";
 
 import TripleProgressBar from "../Utils/TripleProgressBar";
 
@@ -12,7 +13,14 @@ interface INutrientBarProps {
   isMain?: boolean;
 }
 
-const Nutrientbar:FC<INutrientBarProps> = ({ name, desired, value, unit, size, isMain}) => {
+const Nutrientbar: FC<INutrientBarProps> = ({
+  name,
+  desired,
+  value,
+  unit,
+  size,
+  isMain,
+}) => {
   return (
     <Grid
       item

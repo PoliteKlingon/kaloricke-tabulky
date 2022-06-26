@@ -1,10 +1,19 @@
-import { Autocomplete, Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
 import { useState, useContext, FC } from "react";
+
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Grid,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
+
 import axios from "../../api/axios";
 import AuthContext from "../../context/AuthProvider";
 
 import IFoodRecord from "../../interfaces/IFoodRecord";
-
 
 interface IAddFoodModalProps {
   open: boolean;
@@ -13,25 +22,33 @@ interface IAddFoodModalProps {
   date: string;
 }
 
-const AddFoodModal:FC<IAddFoodModalProps> = ({ open, type, handleClose, date }) => {
-
+const AddFoodModal: FC<IAddFoodModalProps> = ({
+  open,
+  type,
+  handleClose,
+  date,
+}) => {
   const [foundFoods, setFoundFoods] = useState<IFoodRecord[]>([]);
   const [foodName, setFoodName] = useState("");
   // @ts-ignore
   const { auth } = useContext(AuthContext);
 
-  const searchFoodByName = async (name:string) => {
+  const searchFoodByName = async (name: string) => {
     await axios
-    .get(`/food/search/${name}`)
-    .then((res) => {setFoundFoods(res.data.data)})
-    .catch((e) => {console.log(e)});
-  }
+      .get(`/food/search/${name}`)
+      .then((res) => {
+        setFoundFoods(res.data.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-  const saveFood = async (event:any) => {
+  const saveFood = async (event: any) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (+data.get("grams")! <= 0) {
-      alert("Snězená hmotnost musí být kladná")
+      alert("Snězená hmotnost musí být kladná");
       return;
     }
 
@@ -45,21 +62,24 @@ const AddFoodModal:FC<IAddFoodModalProps> = ({ open, type, handleClose, date }) 
         grams: +data.get("grams")!,
         mealType: type,
       });
-      console.log(body);
       axios
         .post("/diary", body, {
           headers: {
-             "Content-Type": "application/json",
-             "Authorization": `Bearer ${auth.ssid}`
-        }})
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.ssid}`,
+          },
+        })
         .then(() => {
           handleClose();
           setFoodName("");
-        }).catch((e) => {console.log(e)});
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <Modal open={open} onClose={handleClose}>

@@ -1,7 +1,9 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "deleted" DATETIME
+    "roleName" TEXT NOT NULL DEFAULT 'user',
+    "deleted" DATETIME,
+    CONSTRAINT "User_roleName_fkey" FOREIGN KEY ("roleName") REFERENCES "Role" ("name") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -43,6 +45,15 @@ CREATE TABLE "UserDetails" (
 );
 
 -- CreateTable
+CREATE TABLE "Role" (
+    "name" TEXT NOT NULL PRIMARY KEY,
+    "canDeleteUsers" BOOLEAN NOT NULL DEFAULT false,
+    "canPromoteUsers" BOOLEAN NOT NULL DEFAULT false,
+    "canCUDOwnFood" BOOLEAN NOT NULL DEFAULT false,
+    "canCUDAnyFood" BOOLEAN NOT NULL DEFAULT false
+);
+
+-- CreateTable
 CREATE TABLE "Food" (
     "name" TEXT NOT NULL,
     "id" TEXT NOT NULL PRIMARY KEY,
@@ -53,7 +64,9 @@ CREATE TABLE "Food" (
     "fats" REAL NOT NULL,
     "fiber" REAL NOT NULL,
     "salt" REAL NOT NULL,
-    "deleted" DATETIME
+    "deleted" DATETIME,
+    "creatorId" TEXT NOT NULL,
+    CONSTRAINT "Food_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -87,6 +100,9 @@ CREATE UNIQUE INDEX "UserDetails_email_key" ON "UserDetails"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "UserDetails_userId_key" ON "UserDetails"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Food_name_key" ON "Food"("name");

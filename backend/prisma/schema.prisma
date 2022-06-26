@@ -15,7 +15,10 @@ model User {
   goals       UserGoals?
   diary       DiaryEntry[]
   Sessions    Sessions[]
+  roleName    String           @default("user")
+  Role        Role             @relation(fields: [roleName], references: [name])
   deleted     DateTime?
+  Food        Food[]
 }
 
 model UserCredentials {
@@ -55,6 +58,16 @@ model UserDetails {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+// C = create, U = update, D = delete
+model Role {
+  name            String  @id @unique
+  canDeleteUsers  Boolean @default(false)
+  canPromoteUsers Boolean @default(false)
+  canCUDOwnFood   Boolean @default(false)
+  canCUDAnyFood   Boolean @default(false)
+  User            User[]
+}
+
 model Food {
   name         String       @unique
   id           String       @id
@@ -67,6 +80,9 @@ model Food {
   salt         Float
   deleted      DateTime?
   diaryEntries DiaryEntry[]
+  createdBy    User         @relation(fields: [creatorId], references: [id])
+  creatorId    String
+
 }
 
 model DiaryEntry {

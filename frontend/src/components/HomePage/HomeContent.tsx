@@ -1,16 +1,20 @@
 import { useEffect, useState, useContext, FC } from "react";
-import AddFoodModal from "./AddFoodModal";
+
+
 import { Grid, TextField, TextFieldProps } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import AuthContext from "../../context/AuthProvider";
+
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import axios from "../../api/axios";
 
+import AuthContext from "../../context/AuthProvider";
+import axios from "../../api/axios";
 import AnimatedButton from "../Utils/AnimatedButton";
 import FoodMilestone from "./FoodMilestone";
 import NutrientBar from "./NutrientBar";
 import TripleProgressBar from "../Utils/TripleProgressBar";
+import AddFoodModal from "./AddFoodModal";
 
 import MealType from "../../types/MealType";
 
@@ -129,7 +133,6 @@ const HomeContent:FC<IHomeContentProps> = () => {
   useEffect(() => {
     fetchMeals();
     fetchGoals();
-    console.log(dateString);
   }, [selectedDate]);
 
   const handleModalClose = () => {
@@ -142,7 +145,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
     setShowAddFoodModal(true);
   };
 
-  const handleChangeWeight = () => {
+  const handleForceReload = () => {
     fetchMeals();
   };
 
@@ -151,7 +154,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
       container
       direction="column"
       alignItems="center"
-      sx={{ paddingTop: { xs: 0, md: 5 } }}
+      sx={{ paddingTop: { xs: 0, md: 5 }, minHeight: "100vh" }}
     >
       <Grid
         container
@@ -252,7 +255,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
                   name={single.name}
                   type={single.type}
                   showModal={handleModalOpen}
-                  changeWeightHandle={handleChangeWeight}
+                  handleForceReload={handleForceReload}
                 />
               );
             })}

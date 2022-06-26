@@ -1,5 +1,6 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
 import { FC } from "react";
+
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 interface ITripleProgressBarProps {
   value: number;
@@ -121,11 +122,11 @@ const TripleProgressBar:FC<ITripleProgressBarProps> = ({value, desired, size, is
               fontSize="1.5rem"
               fontWeight="bold"
             >
-              {value}
+              {Math.round(value)}
               {unit}
             </Typography>
             <Typography textAlign="center" fontFamily="Nunito" fontSize="1rem">
-              z {desired} {unit}
+              z {Math.round(desired)} {unit}
             </Typography>
           </>
         ) : (

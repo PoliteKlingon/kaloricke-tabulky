@@ -1,6 +1,9 @@
+import { useEffect, useContext, useState, FC } from "react";
 import { Link } from "react-router-dom";
+
 import {
   AppBar,
+  Avatar,
   Grid,
   IconButton,
   InputAdornment,
@@ -12,18 +15,13 @@ import {
   Typography,
 } from "@mui/material";
 
-import AuthContext from "../../context/AuthProvider";
-import AnimatedButton from "./AnimatedButton";
-import HideOnScroll from "./HideOnScroll";
-
-import { useEffect, useContext, useState, FC } from "react";
-import { logout } from "../../utils/Utils";
-
-import SearchIcon from "@mui/icons-material/Search";
-
-import Avatar from "@mui/material/Avatar";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
+import SearchIcon from "@mui/icons-material/Search";
+
+import AnimatedButton from "./AnimatedButton";
+import AuthContext from "../../context/AuthProvider";
+import { logout } from "../../utils/Utils";
 
 interface ICustomAppBarProps {
   withSearch?: boolean;

@@ -9,13 +9,13 @@ import AddFoodPage from "./components/AddFood/AddFoodPage";
 import UserDetailsPage from "./components/UserDetails/UserDetailsPage";
 import NotFoundPage from "./components/NotFound/NotFoundPage";
 
-
 const App = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
