@@ -592,6 +592,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
                   display={isAdmin && "none"}
                   justifyContent="center"
                 >
@@ -651,6 +652,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
                   display={isAdmin && "none"}
                   justifyContent="center"
                 >
@@ -710,6 +712,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
                   display={isAdmin && "none"}
                   justifyContent="center"
                 >
@@ -770,6 +773,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
                   display={isAdmin && "none"}
                   justifyContent="center"
                 >
@@ -825,6 +829,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
                   display={isAdmin && "none"}
                   justifyContent="center"
                 >
@@ -893,6 +898,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
                   display={isAdmin && "none"}
                   justifyContent="center"
                 >
@@ -961,6 +967,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
                   display={isAdmin && "none"}
                   justifyContent="center"
                 >
@@ -1029,6 +1036,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
                   display={isAdmin && "none"}
                   justifyContent="center"
                 >
@@ -1096,6 +1104,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 0 }}
+                  // @ts-ignore
                   display={isAdmin && "none"}
                   justifyContent="center"
                 >
