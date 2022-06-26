@@ -592,7 +592,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
-                  display={isAdmin ? "none" : "unset"}
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -651,7 +651,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
-                  display={isAdmin ? "none" : "unset"}
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -710,7 +710,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
-                  display={isAdmin ? "none" : "unset"}
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -770,7 +770,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
-                  display={isAdmin ? "none" : "unset"}
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -825,7 +825,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
-                  display={isAdmin ? "none" : "unset"}
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -893,7 +893,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
-                  display={isAdmin ? "none" : "unset"}
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -961,7 +961,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
-                  display={isAdmin ? "none" : "unset"}
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -1029,7 +1029,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
-                  display={isAdmin ? "none" : "unset"}
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -1096,7 +1096,7 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 0 }}
-                  display={isAdmin ? "none" : "unset"}
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
                   <Grid item >
