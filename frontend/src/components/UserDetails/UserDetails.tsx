@@ -358,6 +358,7 @@ import {
              setAll();
            })
       } catch (err) {
+        // @ts-ignore
         if (err.response.status == 401) {
           setAuth({});
           localStorage.removeItem("auth");
