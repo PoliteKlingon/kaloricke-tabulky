@@ -62,7 +62,7 @@ import {
   const Root = styled("div")({
     display: "flex",
     justifyContent: "center",
-    height: "100vh",
+    height: "93.7vh",
   });
   
   const Container = styled("div")({
@@ -491,9 +491,10 @@ import {
         <Container 
             sx={{
                 backgroundColor: "white",
-                marginTop: {xs: 30, sm: 30, md: 20, lg: 25},
-                marginBottom: {xs: 5, sm: 5, md: 10, lg: 10},
-                width: "90%",
+                marginTop: {xs: 5},
+                marginBottom: {xs: 5, md: 10},
+                borderRadius: {xs: 0, md: 10},
+                width: "91.70%",
                 height: "auto",
                 overflow: 'auto'
         }}
