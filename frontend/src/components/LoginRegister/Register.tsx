@@ -14,8 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 
 import { AccountCircle, Lock } from "@mui/icons-material";
@@ -347,31 +346,21 @@ const Register = () => {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ pt: 3 }}>
-                  {isDesktop ? (
-                    <DesktopDatePicker
-                      label="Datum narození"
-                      value={date}
-                      minDate={new Date("1900-01-01")}
-                      onChange={(newValue) => {
-                        setDate(newValue);
-                      }}
-                      renderInput={(props: TextFieldProps) => (
-                        <TextField {...props} fullWidth />
-                      )}
-                    />
-                  ) : (
-                    <MobileDatePicker
-                      label="Datum narození"
-                      value={date}
-                      minDate={new Date("1900-01-01")}
-                      onChange={(newValue) => {
-                        setDate(newValue);
-                      }}
-                      renderInput={(props: TextFieldProps) => (
-                        <TextField {...props} fullWidth />
-                      )}
-                    />
-                  )}
+                  <DatePicker
+                    disableFuture
+                    label="Datum narození"
+                    value={date}
+                    openTo="day"
+                    minDate={new Date("1900-01-01")}
+                    onChange={(newValue) => {
+                      setDate(newValue);
+                    }}
+                    renderInput={(props: TextFieldProps) => (
+                      <TextField {...props} fullWidth />
+                    )}
+                    inputFormat="dd.MM.yyyy"
+                  />
+                  
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ pt: 2 }}>
                   <Typography>Pohlaví</Typography>
