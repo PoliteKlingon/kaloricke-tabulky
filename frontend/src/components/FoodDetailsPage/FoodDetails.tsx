@@ -89,7 +89,7 @@ const getValueMultiplied = (value: number, multiplier: number) => {
 const DonutChart = (food: Food) => {
   const options = {
     series: [food.proteins, food.fats, food.carbs, food.fiber, food.salt],
-    labels: ["Bílkoviny", "Tuky", "Sacharidy", "Vláknina", "Sul"],
+    labels: ["Bílkoviny", "Tuky", "Sacharidy", "Vláknina", "Sůl"],
     colors: ["#b67b2d", "#b3d593", "#edc48c", "#eb9b34", "#555731"],
     plotOptions: {
       pie: {
@@ -265,7 +265,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
             <AddButton
               onClick={handleClickOpen}
             >
-              {isDesktop ? "Zapsat potravinu do jídelnčku" : "Zapsat"}
+              {isDesktop ? "Zapsat potravinu do jídelníčku" : "Zapsat"}
             </AddButton>
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle sx={{fontFamily: "nunito",}}>
@@ -273,7 +273,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               </DialogTitle>
               <DialogContent>
                 <DialogContentText sx={{fontFamily: "nunito",}}>
-                  Pro uložení jídla do jídelníčku, prosím vyberte datum konzumace a druh
+                  Pro uložení jídla do jídelníčku, prosím vyberte datum konzumace a typ jídla.
                 </DialogContentText>
                 <DetailsWindow amount={amount} food={food}/>
               </DialogContent>
@@ -285,13 +285,13 @@ const FoodDetails:FoodDetailsType = ({food}) => {
       <PaddedDiv>
         <Grid container>
           <Grid item xs={isDesktop ? 4 : 12}>
-            Energická hodnota
+            Energetická hodnota
             <ValuesDiv>
               {getValueMultiplied(food.calories, amount)} kcal
             </ValuesDiv>
           </Grid>
           <Grid item xs={isDesktop ? 2 : 6}>
-            Bíloviny
+            Bílkoviny
             <ValuesDiv>
               {getValueMultiplied(food.proteins, amount)} g
             </ValuesDiv>
