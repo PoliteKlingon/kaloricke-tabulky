@@ -359,9 +359,10 @@ import {
              setAll();
            })
       } catch (err) {
-        console.log(err);
-        if (err.response.status === 401) {
+        if (err.response.status == 401) {
           setAuth({});
+          localStorage.removeItem("auth");
+          setGoHome(true);
         }
         alert("Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat.");
         getDetails();
