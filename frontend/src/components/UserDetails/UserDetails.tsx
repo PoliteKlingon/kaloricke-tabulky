@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 
 import {
-    AppBar,
     Alert,
     Box,
     Button,
@@ -10,31 +9,23 @@ import {
     InputAdornment,
     Modal,
     Slider,
-    Stack,
-    Toolbar,
     Typography,
   } from "@mui/material";
   import TextField from '@mui/material/TextField';
   import { styled } from "@mui/system";
   import { useContext, useEffect, useState } from "react";
   import { Link } from "react-router-dom";
-  import useScrollTrigger from "@mui/material/useScrollTrigger";
-  import Slide from "@mui/material/Slide";
   import AuthContext from "../../context/AuthProvider";
   import SettingsIcon from '@mui/icons-material/Settings';
+  import HomeIcon from '@mui/icons-material/Home';
   import CloseIcon from '@mui/icons-material/Close';
   import LockIcon from '@mui/icons-material/Lock';
-  import { useForm, SubmitHandler } from "react-hook-form";
+  import { useForm } from "react-hook-form";
   import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
   import './UserDetails.css'
   import axios from "../../api/axios";
   import { Navigate } from "react-router-dom"
   import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
-  
-  const HideOnScroll = ({children}:any) => {
-    const trigger = useScrollTrigger({ disableHysteresis: true });
-    return <Slide appear={false} direction="down" in={!trigger}>{children}</Slide>;
-  }
 
   const modalStyle = {
     position: 'absolute' as 'absolute',
@@ -488,15 +479,32 @@ import {
                 overflow: 'auto'
         }}
         >
-          <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}
-            variant="h3"
-            component="h2"
-            textAlign={{xs: "center", md: "left"}}
-            paddingY={{xs: 2, md: 5}}
-            paddingX={{xs: 2, md: 15}}
-            >
-              Osobní údaje
-          </Typography>
+          <Grid container>
+            <Grid item>
+              <Link to="/home">
+              <Button
+              sx={{
+                backgroundColor: "#eeeeee",
+                margin: 4,
+                paddingY: 2
+              }}>
+                <HomeIcon fontSize="large" sx={{ color: "black" }} />
+              </Button>
+              </Link>
+            </Grid>
+
+            <Grid item>
+              <Typography sx={{ flexGrow: "1", fontFamily: "Nunito" }}
+                variant="h3"
+                component="h2"
+                textAlign={{xs: "center", md: "left"}}
+                paddingY={{xs: 2, md: 5}}
+                paddingRight={{xs: 2, md: 5}}
+                >
+                  Osobní údaje
+              </Typography>
+            </Grid>
+          </Grid>
 
           <Grid container
             justifyItems={"space-around"}
