@@ -58,6 +58,9 @@ export const login = async (
             message: "Špatný email nebo heslo",
           };
         }
+        else {
+          return { status: 500, err: err, message: "Nastala chyba serveru" };
+        }
       });
   } catch (err) {
     return { status: 400, err: err, message: "Error" };
