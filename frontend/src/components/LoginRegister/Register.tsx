@@ -118,8 +118,6 @@ const Register = () => {
       };
     }
 
-    console.log(details)
-
     const res = await userRegister(getValues("password"), details, goals);
     console.log(res)
     if (res.status === 200) {
