@@ -21,7 +21,7 @@ import {
   import CloseIcon from '@mui/icons-material/Close';
   import LockIcon from '@mui/icons-material/Lock';
   import { useForm } from "react-hook-form";
-  import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
+  import { DatePicker } from '@mui/x-date-pickers';
   import './UserDetails.css'
   import axios from "../../api/axios";
   import { Navigate } from "react-router-dom"
@@ -79,16 +79,6 @@ import {
   theme = responsiveFontSizes(theme);
   
   export default function UserDetails() {
-    const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
-
-    const updateMedia = () => {
-      setDesktop(window.innerWidth > 1000);
-    };
-  
-    useEffect(() => {
-      window.addEventListener("resize", updateMedia);
-      return () => window.removeEventListener("resize", updateMedia);
-    });
     
     const {
       register: registerEmail,
@@ -487,7 +477,7 @@ import {
                 marginBottom: {xs: 5, md: 10},
                 borderRadius: {xs: 0, md: 10},
                 paddingBottom: 12.5,
-                width: "91.7vw",
+                width: {xs: "100vw", md: "91.7vw"},
                 overflow: 'auto'
         }}
         >
@@ -997,8 +987,7 @@ import {
                     <Grid item xs={3} md={4} />
                     
                     <Grid item xs={6} md={4}>
-                    {isDesktop ? (
-                        <DesktopDatePicker
+                      <DatePicker
                           disableFuture
                           label="Datum narození"
                           InputProps={{ style: { fontFamily: "Nunito" } }}
@@ -1011,21 +1000,6 @@ import {
                             <TextField {...params} fullWidth />
                           )}
                         />
-                      ) : (
-                        <MobileDatePicker
-                          disableFuture
-                          label="Datum narození"
-                          InputProps={{ style: { fontFamily: "Nunito" } }}
-                          value={newBirthDate}
-                          minDate={new Date("1900-01-01")}
-                          onChange={(newValue) => {
-                            setNewBirthDate(newValue);
-                          }}
-                          renderInput={(params: any) => (
-                            <TextField {...params} fullWidth />
-                          )}
-                        />
-                      )}
                     </Grid>   
                     <Grid item xs={3} md={4}>
                       {newBirthDate?.toString() == "Invalid Date" || newBirthDate == null || newBirthDate < new Date("1900-01-01")

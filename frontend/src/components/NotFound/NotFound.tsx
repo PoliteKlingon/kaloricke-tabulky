@@ -48,7 +48,7 @@ import {
                   marginTop: {xs: 5},
                   marginBottom: {xs: 5, md: 10},
                   borderRadius: {xs: 0, md: 10},
-                  width: "91.7vw",
+                  width: {xs: "100vw", md: "91.7vw"},
                   overflow: 'auto'
                 }}
             >
