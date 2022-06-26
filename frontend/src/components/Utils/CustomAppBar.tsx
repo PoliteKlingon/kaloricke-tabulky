@@ -59,7 +59,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
         elevation={0}
         sx={{
           background:
-            "linear-gradient(180deg, rgba(0,0,0,1) 90%, transparent 100%);",
+            "linear-gradient(180deg, rgba(0,0,0,0.6) 90%, transparent 100%);",
         }}
         position="sticky"
       >
@@ -121,8 +121,9 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
                     flex: 1,
                     background: "white",
                     borderRadius: "10px",
+                    marginBottom: {xs: 3, md: 0},
                     pl: 2,
-                    fontSize: "1.5rem",
+                    fontSize: "1.25rem",
                   }}
                   placeholder="Vyhledej jídlo"
                   inputProps={{
@@ -135,7 +136,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
                         sx={{ color: "black" }}
                         aria-label="search"
                       >
-                        <SearchIcon sx={{ fontSize: 40 }} />
+                        <SearchIcon sx={{ fontSize: 30 }} />
                       </IconButton>
                     </InputAdornment>
                   }
