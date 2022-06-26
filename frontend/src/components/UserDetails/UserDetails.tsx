@@ -115,11 +115,14 @@ import {
     
     const onSubmitUsername = (data: any) => {
       setUsername(data.username);
+      setAuth({...auth, username: data.username});
+      localStorage.setItem("auth", JSON.stringify({...auth, username: data.username}));
       updateDetails({
         details: {
           username: data.username
         }
       });
+      
     };
 
     const {
@@ -397,6 +400,8 @@ import {
         }
         setTimeout(() => {setEmailAlertSeverity("");}, 3000);
         getDetails();
+        setAuth({...auth, username: username});
+        localStorage.setItem("auth", JSON.stringify({...auth, username: username}));
       }
     }
 
