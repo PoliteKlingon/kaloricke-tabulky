@@ -360,6 +360,9 @@ import {
            })
       } catch (err) {
         console.log(err);
+        if (err.response.status === 401) {
+          setAuth({});
+        }
         alert("Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat.");
         getDetails();
       }
