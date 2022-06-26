@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState, FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   AppBar,
@@ -28,6 +28,8 @@ interface ICustomAppBarProps {
 }
 
 const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
+
+  const navigate = useNavigate();
   // @ts-ignore
   const { auth, setAuth } = useContext(AuthContext);
   const [authState, setAuthState] = useState<Boolean>();
@@ -47,6 +49,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
   const onLogout = async () => {
     if (await logout()) {
       setAuth({});
+      navigate("/");
     }
   };
 
