@@ -5,9 +5,6 @@ import {
   AppBar,
   Avatar,
   Grid,
-  IconButton,
-  InputAdornment,
-  InputBase,
   Menu,
   MenuItem,
   Stack,
@@ -22,6 +19,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AnimatedButton from "./AnimatedButton";
 import AuthContext from "../../context/AuthProvider";
 import { logout } from "../../utils/Utils";
+import SearchBar from "./SearchBar";
 
 interface ICustomAppBarProps {
   withSearch?: boolean;
@@ -99,31 +97,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
 
             <Grid container xs={12} md={4} justifyContent="center">
               {withSearch && (
-                <InputBase
-                  sx={{
-                    ml: 0,
-                    flex: 1,
-                    background: "white",
-                    borderRadius: "10px",
-                    pl: 2,
-                    fontSize: "1.5rem",
-                  }}
-                  placeholder="Vyhledej jídlo"
-                  inputProps={{
-                    "aria-label": "vyhledej jídlo",
-                  }}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <IconButton
-                        type="submit"
-                        sx={{ color: "black" }}
-                        aria-label="search"
-                      >
-                        <SearchIcon sx={{ fontSize: 40 }} />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
+                <SearchBar/>
               )}
             </Grid>
             <Grid
