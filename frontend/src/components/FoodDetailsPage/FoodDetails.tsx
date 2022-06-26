@@ -187,11 +187,10 @@ const DetailsWindow = ({amount, food}) => {
         onChange={(event) => setDate(event)}
         renderInput={(params: any) => <TextField {...params} />}
       />
-      <Button
-        sx={{fontFamily: "nunito",}}
+      <AddButton
         onClick={() => saveFood(food, amount, mealType, dateString)}>
         přidat
-      </Button>
+      </AddButton>
     </Box>
   )
 };
