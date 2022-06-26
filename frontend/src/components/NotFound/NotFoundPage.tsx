@@ -1,26 +1,22 @@
-import { styled } from "@mui/system";
-import { CssBaseline } from "@mui/material";
+
+import { Box, CssBaseline } from "@mui/material";
 import NotFoundHeader from "./NotFoundHeader";
-
-
-
-
-const Hero = styled("div")({
-  backgroundImage: `url(${
-    import.meta.env.VITE_PUBLIC_URL + "/assets/background.jpg"
-  })`,
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  minHeight: "100vh"
-});
+import CustomAppBar from "../Utils/CustomAppBar";
+import MainBackground from "../Utils/MainBackground";
 
 const NotFoundPage = () => {
   return (
-    <Hero>
-      <CssBaseline />
-      <NotFoundHeader />
-    </Hero>
+    <MainBackground>
+      <Box
+        sx={{
+          height: "100vh", 
+          overflow: "auto"
+        }}>
+        <CssBaseline />
+        <CustomAppBar withSearch={true} />
+        <NotFoundHeader />
+      </Box>
+    </MainBackground>
   );
 };
 
