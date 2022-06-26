@@ -235,7 +235,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
           container
           direction={{ xs: "column", md: "row" }}
           justifyContent="center"
-          pt={5}
+          pt={ {xs: 0, sm: 2.5 }}
         >
           <Grid
             container
@@ -245,7 +245,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
             direction="column"
             display="flex"
             alignItems="center"
-            justifyContent="center"
+            justifyContent="top"
           >
             {MainMeals.map((single: IMainMeal) => {
               return (
