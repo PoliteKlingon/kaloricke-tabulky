@@ -486,8 +486,10 @@ import {
                 overflow: 'auto'
         }}
         >
-          <Grid container>
-            <Grid item>
+          <Grid container
+          justifyContent={{xs: "center", md: "left"}}
+          >
+            <Grid item sx={{display: {xs:"none", md:"unset"}}}>
               <Link to="/home">
               <Button
               sx={{
@@ -506,7 +508,6 @@ import {
                 component="h2"
                 textAlign={{xs: "center", md: "left"}}
                 paddingY={{xs: 2, md: 5}}
-                paddingRight={{xs: 2, md: 5}}
                 >
                   Osobní údaje
               </Typography>
@@ -993,6 +994,7 @@ import {
                     <Grid item xs={6} md={4}>
                     {isDesktop ? (
                         <DesktopDatePicker
+                          disableFuture
                           label="Datum narození"
                           InputProps={{ style: { fontFamily: "Nunito" } }}
                           value={newBirthDate}
@@ -1006,6 +1008,7 @@ import {
                         />
                       ) : (
                         <MobileDatePicker
+                          disableFuture
                           label="Datum narození"
                           InputProps={{ style: { fontFamily: "Nunito" } }}
                           value={newBirthDate}
