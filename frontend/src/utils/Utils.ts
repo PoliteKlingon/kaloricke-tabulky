@@ -111,7 +111,6 @@ export const userRegister = async (
           ...userData,
         },
       });
-  console.log(userData, userGoals);
   return await axios
     .post("/register", data, {
       headers: {
@@ -119,7 +118,6 @@ export const userRegister = async (
       },
     })
     .then((response) => {
-      console.log("HERE")
       return getUserData(response.data.data.sessionId);
     })
     .catch((err) => {

@@ -133,7 +133,6 @@ const HomeContent:FC<IHomeContentProps> = () => {
   useEffect(() => {
     fetchMeals();
     fetchGoals();
-    console.log(dateString);
   }, [selectedDate]);
 
   const handleModalClose = () => {
@@ -146,7 +145,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
     setShowAddFoodModal(true);
   };
 
-  const handleChangeWeight = () => {
+  const handleForceReload = () => {
     fetchMeals();
   };
 
@@ -256,7 +255,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
                   name={single.name}
                   type={single.type}
                   showModal={handleModalOpen}
-                  changeWeightHandle={handleChangeWeight}
+                  handleForceReload={handleForceReload}
                 />
               );
             })}
