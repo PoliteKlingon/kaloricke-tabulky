@@ -118,7 +118,6 @@ const Register = () => {
     }
 
     const res = await userRegister(getValues("password"), details, goals);
-    console.log(res)
     if (res.status === 200) {
       if (window.localStorage.getItem("auth")) {
         setAuth(JSON.parse(window.localStorage.getItem("auth")!));
