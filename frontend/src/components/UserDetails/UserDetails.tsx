@@ -470,6 +470,7 @@ import {
         {(Object.keys(auth).length === 0 || 
           auth.ssid == null || 
           auth.ssid == "") && <Navigate to='/login'  />}
+        {auth.role == "admin" && <Navigate to='/add-food' />}
         <Container 
             sx={{
                 backgroundColor: "white",

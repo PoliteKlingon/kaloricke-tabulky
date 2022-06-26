@@ -10,6 +10,7 @@ import axios from "../../api/axios";
 import { Navigate } from "react-router-dom";
 import AnimatedButton from "../Utils/AnimatedButton";
 import HideOnScroll from "../Utils/HideOnScroll";
+import CustomAppBar from "../Utils/CustomAppBar";
 
 const theme = createTheme();
 
@@ -31,7 +32,6 @@ const AddFood = () => {
   const Root = styled("div")({
     display: "flex",
     justifyContent: "center",
-    height: "100vh",
   });
 
 
@@ -60,7 +60,7 @@ const AddFood = () => {
         })
         .then((_) => {
           setAlertSeverity("success");
-          setAlertMessage("Food successfully added");
+          setAlertMessage("Jídlo bylo úspěšně přidáno");
           reset();
         })
         .catch((err) => {
@@ -75,75 +75,14 @@ const AddFood = () => {
   return (
     <Root>
       {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
-        <HideOnScroll>
-          <AppBar elevation={0} sx={{ background: "none", pt: 5 }}>
-            <Toolbar sx={{ width: "100%", px: { xs: "auto", md: 5, lg: 10 } }}>
-              <ThemeProvider theme={theme}>
-                <Grid
-                  container
-                  justifyContent={{ xs: "center", md: "space-between" }}
-                  direction={{ xs: "column", md: "row" }}
-                  alignItems={{ xs: "center", md: "normal" }}
-                >
-                  <Typography
-                    variant="h2"
-                    component="h1"
-                    sx={{ flexGrow: "1", fontFamily: "Nunito" }}
-                    textAlign={{ xs: "center", md: "left" }}
-                  >
-                    <span style={{ color: "#edc69f" }}>Kalorické</span> tabulky
-                  </Typography>
-                  <Stack
-                    direction={{ xs: "column", md: "row" }}
-                    spacing={{ xs: 0, md: 5 }}
-                  >
-                    {/* @ts-ignore*/}
-                    <Link to="/" sx={{ textDecoration: "none" }}>
-                      <AnimatedButton
-                        variant="text"
-                        sx={{
-                          color: "#edc69f",
-                          ":active": {
-                            color: "#edd9be",
-                          },
-                        }}
-                        disableRipple
-                      >
-                        {auth.username}
-                      </AnimatedButton>
-                    </Link>
-                    {/* @ts-ignore*/}
-                    <Link to="/" sx={{ textDecoration: "none" }}>
-                      <AnimatedButton
-                        variant="text"
-                        sx={{
-                          color: "#eb9b34",
-                          ":active": {
-                            color: "#edc48c",
-                          },
-                        }}
-                        disableRipple
-                        onClick={() => {
-                          localStorage.removeItem("auth");
-                          setAuth({});
-                        }}
-                      >
-                        Odhlásit
-                      </AnimatedButton>
-                    </Link>
-                  </Stack>
-                </Grid>
-              </ThemeProvider>
-            </Toolbar>
-          </AppBar>
-        </HideOnScroll>
+      {auth.role != "admin" && <Navigate to='/home' />}
         <Container 
             sx={{
                 backgroundColor: "white",
-                marginTop: {xs: 30, sm: 30, md: 20, lg: 25},
-                marginBottom: {xs: 5, sm: 5, md: 10, lg: 10},
-                width: "90%",
-                height: "auto",
+                marginY: {xs: 5, md: 10},
+                paddingBottom: 12.5,
+                borderRadius: {xs: 0, md: 10},
+                width: {xs: "100%", md: "90%"},
                 overflow: 'auto'
         }} >
 

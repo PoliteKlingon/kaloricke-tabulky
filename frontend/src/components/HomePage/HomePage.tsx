@@ -16,15 +16,13 @@ const HomePage: FC<IHomePageProps> = () => {
 
   return (
     <>
-      {Object.keys(auth).length === 0 || auth == null ? (
-        <Navigate to="/" />
-      ) : (
-        <MainBackground>
-          <CssBaseline />
-          <CustomAppBar withSearch={true} />
-          <HomeContent />
-        </MainBackground>
-      )}
+      {Object.keys(auth).length === 0 || auth == null && <Navigate to="/" />}
+      {auth.role == "admin" && <Navigate to='/add-food' />}
+      <MainBackground>
+        <CssBaseline />
+        <CustomAppBar withSearch={true} />
+        <HomeContent />
+      </MainBackground>
     </>
   );
 };

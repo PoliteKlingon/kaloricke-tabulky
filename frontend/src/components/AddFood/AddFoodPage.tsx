@@ -1,6 +1,8 @@
 import { styled } from "@mui/system";
-import { CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import AddFood from "./AddFood";
+import MainBackground from "../Utils/MainBackground";
+import CustomAppBar from "../Utils/CustomAppBar";
 
 
 
@@ -16,10 +18,13 @@ const Hero = styled("div")({
 
 const AddFoodPage = () => {
   return (
-    <Hero>
-      <CssBaseline />
-      <AddFood />
-    </Hero>
+    <MainBackground>
+      <Box height={"100vh"} overflow={"auto"}>
+        <CustomAppBar withSearch={true} />
+        <CssBaseline />
+        <AddFood />
+      </Box>
+    </MainBackground>
   );
 };
 
