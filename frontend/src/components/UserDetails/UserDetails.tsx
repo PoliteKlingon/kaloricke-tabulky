@@ -35,17 +35,6 @@ import {
     const trigger = useScrollTrigger({ disableHysteresis: true });
     return <Slide appear={false} direction="down" in={!trigger}>{children}</Slide>;
   }
-  
-  const AnimatedButton = styled(Button)({
-    fontSize: 30,
-    fontFamily: "Nunito",
-    fontWeight: "bold",
-    transition: "transform 0.2s",
-    ":hover": {
-      backgroundColor: "transparent",
-      transform: "scale(1.3)",
-    },
-  });
 
   const modalStyle = {
     position: 'absolute' as 'absolute',
@@ -62,7 +51,6 @@ import {
   const Root = styled("div")({
     display: "flex",
     justifyContent: "center",
-    height: "93.7vh",
   });
   
   const Container = styled("div")({
@@ -494,6 +482,7 @@ import {
                 marginTop: {xs: 5},
                 marginBottom: {xs: 5, md: 10},
                 borderRadius: {xs: 0, md: 10},
+                paddingBottom: 12.5,
                 width: "91.70%",
                 height: "auto",
                 overflow: 'auto'
