@@ -53,7 +53,7 @@ export const login = async (
           return { status: 400, err: err, message: "Error" };
         } else if (err.response?.status === 401) {
           return {
-            status: 400,
+            status: 401,
             err: err,
             message: "Špatný email nebo heslo",
           };

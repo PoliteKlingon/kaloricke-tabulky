@@ -62,7 +62,6 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
         grams: +data.get("grams")!,
         mealType: type,
       });
-      console.log(body);
       axios
         .post("/diary", body, {
           headers: {

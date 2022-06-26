@@ -61,7 +61,7 @@ const Login: FC<ILoginProps> = () => {
       }
     }
     else {
-      if (res.err == null) {
+      if (res.status === 401) {
         setError("password", { message: "Špatný email nebo heslo" });
         setError("email", { message: "Špatný email nebo heslo" });
       } else {
