@@ -2,6 +2,7 @@ import { object, string, number, ValidationError } from "yup";
 import { Request, Response } from "express";
 import prisma from "../client";
 import {
+  sendAuthorizationError,
   sendCreatedSuccessfully,
   sendDuplicateError,
   sendInternalServerError,
@@ -9,6 +10,7 @@ import {
   sendSuccess,
   sendValidationError,
 } from "./universalResponses";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 
 const foodSchema = object({
   name: string().required().trim(),
@@ -33,34 +35,30 @@ const foodUpdateSchema = object({
   id: string().required(),
 });
 
-// export const store = async (req: Request, res: Response) => {
-//   try {
-//     const data = await foodSchema.validate(req.body);
+export const store = async (req: Request, res: Response) => {
+  try {
+    // TODO add authorization check
+    const data = await foodSchema.validate(req.body);
 
-//     const duplicate = await prisma.food.findUnique({
-//       where: { name: data.name },
-//     });
-//     if (duplicate) {
-//       return sendDuplicateError(
-//         res,
-//         `Food with name '${data.name}' already exists`
-//       );
-//     }
+    const food = await prisma.food.create({
+      data: { ...data, id: data.name.toLowerCase() },
+    });
+    return sendCreatedSuccessfully(res, "Food created successfully", food);
+  } catch (e: any) {
+    if (e instanceof ValidationError) {
+      return sendValidationError(res, e);
+    }
 
-//     const food = await prisma.food.create({ data });
-//     return sendCreatedSuccessfully(res, "Food created successfully", food);
-//   } catch (e: any) {
-//     if (e instanceof ValidationError) {
-//       return sendValidationError(res, e);
-//     }
+    if (e instanceof PrismaClientKnownRequestError && e.code === "P2002")
+      return sendDuplicateError(res, "Food with given name already exists");
 
-//     return sendInternalServerError(res);
-//   }
-// };
+    return sendInternalServerError(res);
+  }
+};
 
 export const getAll = async (_: Request, res: Response) => {
   try {
-    const foods = await prisma.food.findMany({ where: { deleted: false } });
+    const foods = await prisma.food.findMany({ where: { deleted: null } });
     return sendSuccess(res, "Foods retreived successfully", foods);
   } catch (e) {
     return sendInternalServerError(res);
@@ -87,7 +85,7 @@ export const get = async (req: Request, res: Response) => {
     const id = req.params["name"]?.toLowerCase();
     const food = await prisma.food.findFirst({
       where: {
-        AND: [{ deleted: false }, { id: id }],
+        AND: [{ deleted: null }, { id: id }],
       },
       rejectOnNotFound: true,
     });
@@ -105,7 +103,7 @@ export const searchByName = async (req: Request, res: Response) => {
     const partOfId = req.params["name"]!.toLowerCase();
     const foods = await prisma.food.findMany({
       where: {
-        AND: [{ deleted: false }, { id: { contains: partOfId } }],
+        AND: [{ deleted: null }, { id: { contains: partOfId } }],
       },
     });
     return sendSuccess(res, "Foods retreived successfully", foods);
@@ -118,25 +116,21 @@ export const update = async (req: Request, res: Response) => {
   try {
     const data = await foodUpdateSchema.validate(req.body);
 
-    if (data.name) {
-      const duplicate = await prisma.food.findUnique({
-        where: { name: data.name },
-      });
-      if (duplicate && duplicate.id != data.id) {
-        return sendDuplicateError(res, "Food with given name already exists");
-      }
-    }
-
     const result = await prisma.food.update({
       data: { ...data },
       where: { id: data.id },
     });
 
     return sendSuccess(res, "Food updated successfully", result);
-  } catch (e) {
+  } catch (e: any) {
     if (e instanceof ValidationError) {
       return sendValidationError(res, e);
     }
+
+    if (e instanceof PrismaClientKnownRequestError && e.code === "P2002")
+      return sendDuplicateError(res, "Food with given name already exists");
+
+    if (e.name === "NotFoundError") return sendAuthorizationError(res);
 
     return sendInternalServerError(res);
   }
@@ -145,12 +139,14 @@ export const update = async (req: Request, res: Response) => {
 export const deleteFood = async (req: Request, res: Response) => {
   const id = req.params["id"]!;
   try {
-    const result = await prisma.food.update({
+    await prisma.food.delete({
       where: { id: id },
-      data: { deleted: true },
     });
-    return sendSuccess(res, "Food deleted successfully", result);
-  } catch (e) {
+    return sendSuccess(res, "Food deleted successfully", {});
+  } catch (e: any) {
+    if (e.name === "NotFoundError") return sendNotFound(res, "Food not found");
+
+    console.log(e);
     return sendInternalServerError(res);
   }
 };

@@ -1,14 +1,22 @@
-// @ts-ignore
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import CrossfadeImg from "react-crossfade-img";
 
-const ChangingImage = (props: any) => {
+interface ISlide {
+  name: string;
+}
+
+interface IChangingImageProps {
+  changeInterval: number;
+  slides: ISlide[];
+}
+
+const ChangingImage: FC<IChangingImageProps> = ({changeInterval, slides}) => {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setSeconds((seconds) => seconds + 1);
-    }, props.interval);
+    }, changeInterval);
     return () => clearInterval(interval);
   }, []);
 
@@ -17,7 +25,7 @@ const ChangingImage = (props: any) => {
       src={
         import.meta.env.VITE_PUBLIC_URL +
         "/assets/slideshow/" +
-        props.slides[seconds % props.slides.length].name
+        slides[seconds % slides.length].name
       } // Image URL
       width="100%"
       height="100%"

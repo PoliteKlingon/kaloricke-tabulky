@@ -15,13 +15,15 @@ model User {
   goals       UserGoals?
   diary       DiaryEntry[]
   Sessions    Sessions[]
+  deleted     DateTime?
 }
 
 model UserCredentials {
-  email        String @id
-  userId       String @unique
-  user         User   @relation(fields: [userId], references: [id])
+  email        String    @id
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   passwordHash String
+  deleted      DateTime?
 }
 
 model UserGoals {
@@ -30,23 +32,27 @@ model UserGoals {
   fats     Float
   fiber    Float
   salt     Float
-  calories Float
-  userId   String @id @unique
-  user     User   @relation(fields: [userId], references: [id])
+  calories Float?
+  deleted  DateTime?
+
+  userId String @id @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserDetails {
-  username  String
-  name      String
-  surname   String
-  weight    Float
-  height    Float
-  birthdate DateTime
-  sex       Float
-  email     String   @unique
+  username   String
+  name       String
+  surname    String
+  weight     Float
+  height     Float
+  birthdate  DateTime
+  sex        Float
+  email      String    @unique
+  goalWeight Float
+  deleted    DateTime?
 
   userId String @id @unique
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Food {
@@ -59,23 +65,24 @@ model Food {
   fats         Float
   fiber        Float
   salt         Float
-  deleted      Boolean      @default(false)
+  deleted      DateTime?
   diaryEntries DiaryEntry[]
 }
 
 model DiaryEntry {
-  id       String   @id @default(uuid())
+  id       String    @id @default(uuid())
   foodId   String
-  food     Food     @relation(fields: [foodId], references: [id])
+  food     Food      @relation(fields: [foodId], references: [id])
   grams    Float
   date     DateTime
   userId   String
-  user     User     @relation(fields: [userId], references: [id])
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   mealType String
+  deleted  DateTime?
 }
 
 model Sessions {
   id     String @id @default(uuid())
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -23,9 +23,8 @@ api.get("/", (_, res) =>
 );
 
 // ENDPOINTS FOR FOOD //
-// api.put("/api/food", food.store);
-// api.post("/api/food", food.update);
-// api.get("/api/food/id/:id", food.getById);
+api.post("/api/food", food.store);
+api.put("/api/food", food.update);
 api.get("/api/food/:name", food.get);
 api.get("/api/food/search/:name", food.searchByName);
 
@@ -38,6 +37,7 @@ api.get("/api/user", user.get);
 api.get("/api/diary/:date", diary.get);
 api.post("/api/diary", diary.store);
 api.put("/api/diary", diary.update);
+api.delete("/api/diary/:id", diary.deleteEntry);
 
 // ENDPOINTS FOR LOGIN AND REGISTRATION //
 api.post("/api/register", user.register);
@@ -47,6 +47,9 @@ api.post("/api/logout", user.logout);
 // ENDPOINT FOR UPDATING USER DATA //
 api.put("/api/user", user.update);
 api.put("/api/user/password", user.updatePassword);
+
+/* DELETING USER */
+api.delete("/api/user", user.deleteUser);
 
 api.listen(process.env["PORT"] || 3000, () => {
   console.log(

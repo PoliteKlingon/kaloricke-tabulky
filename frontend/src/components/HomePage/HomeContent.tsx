@@ -1,12 +1,7 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, FC } from "react";
 import AddFoodModal from "./AddFoodModal";
-import {
-  Box,
-  Grid,
-  TextField,
-} from "@mui/material";
+import { Grid, TextField, TextFieldProps } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { styled } from "@mui/system";
 import AuthContext from "../../context/AuthProvider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -17,7 +12,14 @@ import FoodMilestone from "./FoodMilestone";
 import NutrientBar from "./NutrientBar";
 import TripleProgressBar from "../Utils/TripleProgressBar";
 
-const MainMeals = [
+import MealType from "../../types/MealType";
+
+interface IMainMeal {
+  name: string;
+  type: MealType;
+}
+
+const MainMeals: IMainMeal[] = [
   {
     name: "Snídaně",
     type: "breakfast",
@@ -40,12 +42,15 @@ const MainMeals = [
   },
 ];
 
-const HomeContent = () => {
+interface IHomeContentProps {}
+
+const HomeContent:FC<IHomeContentProps> = () => {
   // @ts-ignore
   const { auth } = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [showAddFoodModal, setShowAddFoodModal] = useState(false);
-  const [selectedFoodType, setSelectedFoodType] = useState<string>("");
+  const [selectedFoodType, setSelectedFoodType] =
+    useState<MealType>("breakfast");
   const [meals, setMeals] = useState({});
   const [goals, setGoals] = useState({
     calories: Infinity,
@@ -54,14 +59,21 @@ const HomeContent = () => {
     fats: Infinity,
     fiber: Infinity,
   });
-  const [eaten, setEaten] = useState({calories: 0, proteins: 0, carbs: 0, fats: 0, fiber: 0});
+  const [eaten, setEaten] = useState({
+    calories: 0,
+    proteins: 0,
+    carbs: 0,
+    fats: 0,
+    fiber: 0,
+  });
   const dateString =
     String(selectedDate?.getFullYear()) +
     "-" +
     // @ts-ignore
     String(selectedDate?.getMonth() + 1).padStart(2, "0") +
     "-" +
-    String(selectedDate?.getDate()).padStart(2, "0") + "T10:00:00";
+    String(selectedDate?.getDate()).padStart(2, "0") +
+    "T10:00:00";
 
   const fetchMeals = async () => {
     await axios
@@ -77,27 +89,27 @@ const HomeContent = () => {
         let carbs = 0;
         let fats = 0;
         let fiber = 0;
-        res.data.data.forEach((meal:any) => {
+        res.data.data.forEach((meal: any) => {
           const coef = meal.grams / 100;
           calories += coef * meal.food.calories;
           proteins += coef * meal.food.proteins;
           carbs += coef * meal.food.carbs;
           fats += coef * meal.food.fats;
           fiber += coef * meal.food.fiber;
-        })
+        });
         calories = Math.round(calories);
         proteins = Math.round(proteins);
         carbs = Math.round(carbs);
         fats = Math.round(fats);
         fiber = Math.round(fiber);
-        setEaten({calories, proteins, carbs, fats, fiber});
+        setEaten({ calories, proteins, carbs, fats, fiber });
       })
       .catch(() => {
         alert(
           "Nastala chyba při načítání jídla, prosím, zkuste obnovit stránku"
         );
       });
-  }
+  };
 
   const fetchGoals = async () => {
     await axios
@@ -110,34 +122,41 @@ const HomeContent = () => {
         setGoals(res.data.data.goals);
       })
       .catch(() => {
-        alert(
-          "Nastala chyba, prosím, zkuste obnovit stránku"
-        );
+        alert("Nastala chyba, prosím, zkuste obnovit stránku");
       });
-  }
+  };
 
   useEffect(() => {
     fetchMeals();
     fetchGoals();
     console.log(dateString);
-  }, [selectedDate,]);
+  }, [selectedDate]);
 
   const handleModalClose = () => {
     setShowAddFoodModal(false);
     fetchMeals();
   };
 
-  const handleModalOpen = (type:string) => {
+  const handleModalOpen = (type: MealType) => {
     setSelectedFoodType(type);
     setShowAddFoodModal(true);
-  }
+  };
+
+  const handleChangeWeight = () => {
+    fetchMeals();
+  };
 
   return (
-    <Grid container direction="column" alignItems="center" sx={{paddingTop: {xs: 0, sm: 5}}}>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      sx={{ paddingTop: { xs: 0, md: 5 } }}
+    >
       <Grid
         container
         xs={12}
-        sm={11}
+        md={11}
         direction="column"
         alignItems="normal"
         pt={2}
@@ -145,11 +164,11 @@ const HomeContent = () => {
         sx={{
           backgroundColor: "white",
           minHeight: "70vh",
-          borderRadius: { xs: 0, sm: 10 },
+          borderRadius: { xs: 0, md: 10 },
         }}
       >
         <Grid item container alignItems="center" justifyContent="center" pt={2}>
-          <Grid item xs={3} sm={1} display="flex" justifyContent="center">
+          <Grid item xs={3} md={1} display="flex" justifyContent="center">
             <AnimatedButton
               variant="text"
               sx={{
@@ -178,11 +197,11 @@ const HomeContent = () => {
               onChange={(newValue) => {
                 setSelectedDate(newValue);
               }}
-              renderInput={(params: any) => <TextField {...params} />}
+              renderInput={(props: TextFieldProps) => <TextField {...props} />}
               inputFormat="dd.MM.yyyy"
             />
           </Grid>
-          <Grid item xs={3} sm={1} display="flex" justifyContent="center">
+          <Grid item xs={3} md={1} display="flex" justifyContent="center">
             <AnimatedButton
               variant="text"
               sx={{
@@ -211,26 +230,29 @@ const HomeContent = () => {
         </Grid>
         <Grid
           container
-          direction={{ xs: "column", sm: "row" }}
+          direction={{ xs: "column", md: "row" }}
           justifyContent="center"
           pt={5}
         >
           <Grid
             container
             item
-            xs={8}
+            xs={12}
+            md={8}
             direction="column"
             display="flex"
             alignItems="center"
             justifyContent="center"
           >
-            {MainMeals.map((single: any) => {
+            {MainMeals.map((single: IMainMeal) => {
               return (
                 <FoodMilestone
+                  date={dateString}
                   eaten={meals}
                   name={single.name}
                   type={single.type}
                   showModal={handleModalOpen}
+                  changeWeightHandle={handleChangeWeight}
                 />
               );
             })}
@@ -249,7 +271,7 @@ const HomeContent = () => {
                 value={eaten.calories}
                 unit="kcal"
                 size={200}
-                main={true}
+                isMain={true}
               />
             </Grid>
             <Grid container>

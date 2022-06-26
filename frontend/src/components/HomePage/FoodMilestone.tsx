@@ -1,62 +1,65 @@
-
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Box, Grid, Typography } from "@mui/material";
 import FoodRecord from "./FoodRecord";
 
 import AddIcon from "@mui/icons-material/Add";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-const AnimatedButton = styled(Button)({
-  fontSize: 30,
-  fontFamily: "Nunito",
-  fontWeight: "bold",
-  transition: "transform 0.5s",
-  ":hover": {
-    backgroundColor: "transparent",
-    transform: "scale(1.3)",
-  },
-});
+import AnimatedButton from "../Utils/AnimatedButton";
 
-const RecordBox = styled(Box)({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  p: 1,
-  m: 1,
-  borderRadius: 3,
-  border: "3px solid",
-  width: "100%",
-  borderColor: "#f7e9bc",
-  fontSize: "1.5rem",
-  fontFamily: "Nunito",
-  fontWeight: "600",
-  backgroundColor: "#faf5e6",
-});
+import IDiaryRecord from "../../interfaces/IDiaryRecord";
 
-const FoodMilestone = (params: any) => {
+import MealType from "../../types/MealType";
+
+interface IFoodMilestone {
+  date: string;
+  eaten: {};
+  name: string;
+  type: MealType;
+  showModal: (type: MealType) => void;
+  changeWeightHandle: () => void;
+}
+
+const FoodMilestone: FC<IFoodMilestone> = ({
+  date,
+  eaten,
+  name,
+  type,
+  showModal,
+  changeWeightHandle,
+}) => {
   const [calories, setCalories] = useState(0);
   useEffect(() => {
     let res = 0;
-    if (Array.isArray(params.eaten)) {
-      params.eaten.map((e: any) => {
-        if (e.mealType === params.type) {
-          res += e.food.calories / 100 * e.grams
+    if (Array.isArray(eaten)) {
+      eaten.map((e: IDiaryRecord) => {
+        if (e.mealType === type) {
+          res += (e.food.calories / 100) * e.grams;
         }
       });
     }
     setCalories(Math.round(res));
-  }, [params.eaten]);
+  }, [eaten]);
 
   return (
-    <Grid container item sx={{ width: "100%" }} direction="column">
-      <Grid item>
-        <RecordBox
+    <Grid container item sx={{ width: "100%"}} direction="column">
+      <Grid item mx={1}>
+        <Box
           component="span"
           sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
             p: 1,
-            my: 1,
             borderRadius: 3,
+            border: "3px solid",
+            width: "100%",
+            borderColor: "#f7e9bc",
+            fontSize: "1.5rem",
+            fontFamily: "Nunito",
+            fontWeight: "600",
+            backgroundColor: "#faf5e6",
           }}
+          my={1}
         >
           <Typography
             sx={{
@@ -65,7 +68,7 @@ const FoodMilestone = (params: any) => {
               fontWeight: 700,
             }}
           >
-            {params.name}
+            {name}
           </Typography>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Typography
@@ -79,22 +82,26 @@ const FoodMilestone = (params: any) => {
             </Typography>
             <AnimatedButton
               disableRipple
-              onClick={() => params.showModal(params.type)}
+              onClick={() => showModal(type)}
             >
               <AddIcon sx={{ color: "green", fontSize: "1.8rem" }} />
             </AnimatedButton>
           </div>
-        </RecordBox>
+        </Box>
       </Grid>
       <Grid item>
-        {Array.isArray(params.eaten) ? (
-          params.eaten.map((e: any) => {
-            if (e.mealType === params.type) {
+        {Array.isArray(eaten) ? (
+          eaten.map((e: IDiaryRecord) => {
+            if (e.mealType === type) {
               return (
                 <FoodRecord
+                  changeWeightHandle={changeWeightHandle}
+                  eatenId={e.id}
                   name={e.food.name}
                   calories={e.food.calories}
                   grams={e.grams}
+                  date={date}
+                  type={type}
                 />
               );
             }

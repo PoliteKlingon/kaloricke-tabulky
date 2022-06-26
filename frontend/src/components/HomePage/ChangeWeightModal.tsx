@@ -1,66 +1,62 @@
-import { Autocomplete, Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
-import { useState, useContext, FC } from "react";
+import { FC, useContext } from "react";
+import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+
 import axios from "../../api/axios";
 import AuthContext from "../../context/AuthProvider";
 
-import IFoodRecord from "../../interfaces/IFoodRecord";
+import MealType from "../../types/MealType";
 
-
-interface IAddFoodModalProps {
+interface IChangeWeightModalProps {
   open: boolean;
-  type: "breakfast" | "morningsnack" | "lunch" | "afternoonsnack" | "dinner";
   handleClose: () => void;
+  recordId: string;
   date: string;
+  type: MealType;
 }
 
-const AddFoodModal:FC<IAddFoodModalProps> = ({ open, type, handleClose, date }) => {
-
-  const [foundFoods, setFoundFoods] = useState<IFoodRecord[]>([]);
-  const [foodName, setFoodName] = useState("");
+const ChangeWeightModal:FC<IChangeWeightModalProps> = ({
+  open,
+  handleClose,
+  recordId,
+  date,
+  type,
+}) => {
   // @ts-ignore
   const { auth } = useContext(AuthContext);
 
-  const searchFoodByName = async (name:string) => {
-    await axios
-    .get(`/food/search/${name}`)
-    .then((res) => {setFoundFoods(res.data.data)})
-    .catch((e) => {console.log(e)});
-  }
-
-  const saveFood = async (event:any) => {
+  const saveFood = async (event: any) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (+data.get("grams")! <= 0) {
-      alert("Snězená hmotnost musí být kladná")
+      alert("Snězená hmotnost musí být kladná");
       return;
     }
 
     try {
-      const foodId = foundFoods!.find((food) => {
-        return food.name === foodName;
-      })!.id;
       const body = JSON.stringify({
-        foodId: foodId,
+        id: recordId,
         date: date,
         grams: +data.get("grams")!,
         mealType: type,
       });
       console.log(body);
       axios
-        .post("/diary", body, {
+        .put("/diary", body, {
           headers: {
-             "Content-Type": "application/json",
-             "Authorization": `Bearer ${auth.ssid}`
-        }})
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.ssid}`,
+          },
+        })
         .then(() => {
           handleClose();
-          setFoodName("");
-        }).catch((e) => {console.log(e)});
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
       console.log(e);
     }
-  }
-
+  };
   return (
     <Modal open={open} onClose={handleClose}>
       <Box
@@ -80,25 +76,7 @@ const AddFoodModal:FC<IAddFoodModalProps> = ({ open, type, handleClose, date }) 
         <Box component="form" onSubmit={saveFood} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h5">Přidejte nové jídlo</Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Autocomplete
-                value={foodName}
-                onChange={(e, value) => setFoodName(value!)}
-                disablePortal
-                id="combo-box-demo"
-                options={foundFoods.map((food) => food.name)}
-                sx={{ width: "100%" }}
-                renderInput={(props) => (
-                  <TextField
-                    required
-                    {...props}
-                    label="Název jídla"
-                    onChange={(e) => searchFoodByName(e.target.value)}
-                  />
-                )}
-              />
+              <Typography variant="h5">Zadejte nové množství</Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -137,4 +115,4 @@ const AddFoodModal:FC<IAddFoodModalProps> = ({ open, type, handleClose, date }) 
   );
 };
 
-export default AddFoodModal;
+export default ChangeWeightModal;

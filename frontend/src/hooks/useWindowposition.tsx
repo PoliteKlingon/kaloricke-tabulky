@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from "react"
 
-const useWindowPosition = (id:any, coef:number) => {
+const useWindowPosition = (id:string, coef:number) => {
     const [animation, setAnimation] = useState(false);
 
     useLayoutEffect(() => {

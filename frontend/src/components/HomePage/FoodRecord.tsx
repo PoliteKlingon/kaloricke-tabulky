@@ -1,11 +1,40 @@
-import { Box,  Typography } from "@mui/material";
+import { FC } from "react";
+import { useState } from "react";
+import { Box, Typography } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import AnimatedButton from "../Utils/AnimatedButton";
+import ChangeWeightModal from "./ChangeWeightModal";
 
-const FoodRecord = (params: any) => {
+import MealType from "../../types/MealType";
+
+interface IFoodRecord {
+  changeWeightHandle: () => void;
+  eatenId: string;
+  name: string;
+  calories: number;
+  grams: number;
+  date: string;
+  type: MealType;
+}
+
+const FoodRecord: FC<IFoodRecord> = ({
+  changeWeightHandle,
+  eatenId,
+  name,
+  calories,
+  date,
+  grams,
+  type,
+}) => {
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+    changeWeightHandle();
+  };
+
   return (
     <Box
       component="span"
@@ -17,17 +46,36 @@ const FoodRecord = (params: any) => {
         mx: 1,
       }}
     >
-      <Typography
-        sx={{
-          fontFamily: "Nunito",
-          fontSize: "1.3rem",
-          fontWeight: 600,
-          px: 1,
-          mx: 1,
-        }}
-      >
-        {params.name}
-      </Typography>
+      <Box sx={{ display: { xs: "grid", sm: "flex" }, alignItems: "center" }}>
+        <Typography
+          sx={{
+            fontFamily: "Nunito",
+            fontSize: "1.3rem",
+            fontWeight: 600,
+            px: 1,
+            mx: 1,
+            cursor: "default",
+          }}
+        >
+          {name}
+        </Typography>
+        <Typography
+          sx={{
+            fontFamily: "Nunito",
+            fontSize: "1rem",
+            fontWeight: 400,
+            px: 2,
+            mx: 1,
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          {grams} g
+        </Typography>
+      </Box>
+
       <Box sx={{ display: "flex" }}>
         <Typography
           sx={{
@@ -38,7 +86,7 @@ const FoodRecord = (params: any) => {
             m: 1,
           }}
         >
-          {Math.round((params.calories * params.grams) / 100)} kcal
+          {Math.round((calories * grams) / 100)} kcal
         </Typography>
         <AnimatedButton disableRipple>
           <InfoOutlinedIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
@@ -47,6 +95,13 @@ const FoodRecord = (params: any) => {
           <DeleteIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
         </AnimatedButton>
       </Box>
+      <ChangeWeightModal
+        open={open}
+        handleClose={handleClose}
+        date={date}
+        type={type}
+        recordId={eatenId}
+      />
     </Box>
   );
 };

@@ -1,8 +1,18 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import { FC } from "react";
 
 import TripleProgressBar from "../Utils/TripleProgressBar";
 
-const Nutrientbar = (params: any) => {
+interface INutrientBarProps {
+  name: string;
+  desired: number;
+  value: number;
+  unit: string;
+  size: number;
+  isMain?: boolean;
+}
+
+const Nutrientbar:FC<INutrientBarProps> = ({ name, desired, value, unit, size, isMain}) => {
   return (
     <Grid
       item
@@ -13,14 +23,14 @@ const Nutrientbar = (params: any) => {
       pt={3}
     >
       <Typography textAlign="center" fontFamily="Nunito" fontWeight="bold">
-        {params.name}
+        {name}
       </Typography>
       <TripleProgressBar
-        desired={params.desired}
-        value={params.value}
-        unit={params.unit}
-        size={params.size}
-        main={params.isMain}
+        desired={desired}
+        value={value}
+        unit={unit}
+        size={size}
+        isMain={isMain}
       />
       <Typography
         textAlign="center"
@@ -28,12 +38,12 @@ const Nutrientbar = (params: any) => {
         fontWeight="bold"
         pt="1rem"
       >
-        {params.value}
-        {params.unit}
+        {value}
+        {unit}
       </Typography>
       <Typography textAlign="center" fontFamily="Nunito">
-        z {params.desired}
-        {params.unit}
+        z {desired}
+        {unit}
       </Typography>
     </Grid>
   );
