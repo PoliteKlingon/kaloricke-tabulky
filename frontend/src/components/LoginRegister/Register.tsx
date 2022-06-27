@@ -150,12 +150,12 @@ const Register = () => {
           xs={12}
           md={6}
           sx={{
-            minHeight: "20vh",
+            minHeight: { xs: "30vh", sm: "35vh" },
             display: { xs: "unset", md: "none" },
             backgroundImage: `url(../../public/assets/chadLogo.png)`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "center bottom",
+            backgroundPosition: "left bottom",
           }}
         />
         <Grid

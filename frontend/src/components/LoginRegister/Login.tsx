@@ -75,14 +75,32 @@ const Login: FC<ILoginProps> = () => {
   ) : (
     <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>
-        <Grid item xs={12} sm={6} sx={{ minHeight: "30vh" }}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ minHeight: "15vh", display: { xs: "none", md: "unset" } }}
+        >
           <ChangingImage slides={slides} changeInterval={5000} />
         </Grid>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            minHeight: { xs: "25vh", sm: "40vh" },
+            display: { xs: "unset", md: "none" },
+            backgroundImage: `url(../../public/assets/chadLogo.png)`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "left bottom",
+          }}
+        />
         <Grid
           container
           item
           xs={12}
-          sm={6}
+          md={6}
           sx={{ p: { xs: 3, sm: 10 } }}
           alignItems="center"
           direction="column"
@@ -91,13 +109,14 @@ const Login: FC<ILoginProps> = () => {
           <div />
           <form onSubmit={handleSubmit(onSubmit)}>
             <InputContainer>
-              <Grid container justifyContent={"center"}>
+              <Grid
+                container
+                justifyContent={"center"}
+                sx={{ display: { xs: "none", md: "unset" } }}
+              >
                 <LogoImage
-                  sx={{marginBottom: 2}}
-                  src={
-                    import.meta.env.VITE_PUBLIC_URL +
-                    "/assets/logo.png"
-                  }
+                  sx={{ marginBottom: 2 }}
+                  src={import.meta.env.VITE_PUBLIC_URL + "/assets/logo.png"}
                   alt="logo"
                 />
               </Grid>
