@@ -43,6 +43,7 @@ import {
   const Root = styled("div")({
     display: "flex",
     justifyContent: "center",
+    minHeight: "100vh",
   });
   
   const Container = styled("div")({
@@ -480,6 +481,7 @@ import {
                 borderRadius: {xs: 0, md: 10},
                 paddingBottom: 12.5,
                 width: {xs: "100vw", md: "91.7vw"},
+                maxHeight: {xs: "auto", md: "80vh"},
                 overflow: 'auto'
         }}
         >

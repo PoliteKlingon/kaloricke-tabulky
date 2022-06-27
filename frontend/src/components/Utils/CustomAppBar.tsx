@@ -10,6 +10,7 @@ import {
   Stack,
   Toolbar,
   Typography,
+  useScrollTrigger,
 } from "@mui/material";
 
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -20,9 +21,27 @@ import AnimatedButton from "./AnimatedButton";
 import AuthContext from "../../context/AuthProvider";
 import { logout } from "../../utils/Utils";
 import SearchBar from "./SearchBar";
+import React from "react";
 
 interface ICustomAppBarProps {
   withSearch?: boolean;
+}
+
+function DarkenScroll(props: any) {
+  const { children } = props;
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  });
+
+  return React.cloneElement(children, {
+    sx: {/*background: trigger ? 
+          "linear-gradient(180deg, rgba(0,0,0,1) 90%, transparent 100%);"
+        : "linear-gradient(180deg, rgba(0,0,0,0.6) 90%, transparent 100%);",*/
+         backgroundColor: trigger ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0.6)',
+         transition: "all 0.5s"
+        }
+  });
 }
 
 const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
@@ -52,13 +71,9 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
   };
 
   return (
-    <>
+    <DarkenScroll>
       <AppBar
         elevation={0}
-        sx={{
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,1) 90%, transparent 100%);",
-        }}
         position="sticky"
       >
         <Toolbar
@@ -74,28 +89,43 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
           >
             <Grid
               container
+              direction={"row"}
               xs={12}
               md={4}
-              justifyContent={{ xs: "center", md: "left" }}
+              justifyContent={{ xs: "space-around", md: "left" }}
             >
-              <Link
-                to="/home"
-                style={{ textDecoration: "none", accentColor: "none" }}
-                color="white"
-              >
-                <Typography
-                  sx={{
-                    flexGrow: "1",
-                    fontFamily: "Nunito",
-                    fontSize: { xs: "2.5rem", sm: "3.5rem" },
-                    fontWeight: 600,
-                  }}
-                  textAlign={{ xs: "center", md: "left" }}
+              <Grid item sx={{width: {xs: "70vw", md: "auto"}}}>
+                <Link
+                  to="/home"
+                  style={{ textDecoration: "none", accentColor: "none" }}
+                  color="white"
                 >
-                  <span style={{ color: "#edc69f" }}>Kalorické</span>{" "}
-                  <span style={{ color: "white" }}>tabulky</span>
-                </Typography>
-              </Link>
+                  <Typography
+                    sx={{
+                      flexGrow: "1",
+                      fontFamily: "Nunito",
+                      fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
+                      fontWeight: 600,
+                      paddingRight: 1
+                    }}
+                    textAlign={{ xs: "center", md: "left" }}
+                  >
+                    <span style={{ color: "#edc69f" }}>Kalorické</span>{" "}
+                    <span style={{ color: "white" }}>tabulky</span>
+                  </Typography>
+                </Link>
+              </Grid>
+              {authState &&
+              <Grid item>
+                <Avatar sx={{
+                  marginY: {xs: 1.5, sm: 2.5},
+                  display: {xs: "", md:"none"},
+                  border: "none"
+                  }} 
+                  component={"button"}
+                  onClick={handleClick}
+                  />
+              </Grid>}
             </Grid>
 
             <Grid container xs={12} md={4} justifyContent="center">
@@ -114,6 +144,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
                   <AnimatedButton
                     variant="text"
                     sx={{
+                      display: {xs: "none", md: "unset"},
                       color: "#edc69f",
                       ":active": {
                         color: "#edd9be",
@@ -222,7 +253,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
           </Grid>
         </Toolbar>
       </AppBar>
-    </>
+      </DarkenScroll>
   );
 };
 
