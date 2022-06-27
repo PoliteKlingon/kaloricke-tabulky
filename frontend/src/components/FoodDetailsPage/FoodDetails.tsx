@@ -229,7 +229,12 @@ const FoodDetails:FoodDetailsType = ({food}) => {
 
   return (
     <Grid container minHeight="100vh" justifyContent="center">
-      <Container sx={{height: {xs: "full", md: isDesktop ? "75vh" : "auto"}, minWidth: {xs: "100%", md: "60%"}}}>
+      <Container
+        sx={{
+          height: { xs: "full", md: isDesktop ? "75vh" : "auto" },
+          minWidth: { xs: "100%", md: "60%" },
+        }}
+      >
         {(auth.ssid == null || auth.ssid == "") && <Navigate to="/login" />}
         <InfoDiv>
           <PaddedDiv>
@@ -278,7 +283,12 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               <AddButton onClick={handleClickOpen}>
                 {isDesktop ? "Zapsat potravinu do jídelníčku" : "Zapsat"}
               </AddButton>
-              <Dialog open={open} onClose={handleClose}>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                keepMounted
+                disableScrollLock
+              >
                 <DialogTitle sx={{ fontFamily: "nunito" }}>
                   Vyberte typ jídla a datum
                 </DialogTitle>
@@ -287,7 +297,11 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                     Pro uložení jídla do jídelníčku, prosím vyberte datum
                     konzumace a typ jídla.
                   </DialogContentText>
-                  <DetailsWindow amount={amount} food={food} handleClose ={handleClose}/>
+                  <DetailsWindow
+                    amount={amount}
+                    food={food}
+                    handleClose={handleClose}
+                  />
                 </DialogContent>
               </Dialog>
             </PaddedDiv>
@@ -325,7 +339,13 @@ const FoodDetails:FoodDetailsType = ({food}) => {
         <PaddedDiv
           sx={{ display: "flex", flexDirection: isDesktop ? "row" : "column" }}
         >
-          <TableDiv sx={{ width: isDesktop ? "50%" : "100%", display:"flex", flexDirection:"column" }}>
+          <TableDiv
+            sx={{
+              width: isDesktop ? "50%" : "100%",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <Typography fontFamily="nunito">
               Nutriční hodnoty na 100g
             </Typography>
