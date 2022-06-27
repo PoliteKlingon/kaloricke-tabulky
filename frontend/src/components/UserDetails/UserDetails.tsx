@@ -490,7 +490,7 @@ import {
         <Container 
             sx={{
                 backgroundColor: "white",
-                marginTop: {xs: 2, md: 5},
+                marginTop: {xs: 0, md: 5},
                 marginBottom: {xs: 5, md: 10},
                 borderRadius: {xs: 0, md: 10},
                 paddingBottom: 12.5,

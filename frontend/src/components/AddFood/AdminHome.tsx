@@ -60,8 +60,8 @@ function AdminHome() {
             <Container 
                 sx={{
                     backgroundColor: "white",
-                    marginY: {xs: 5, md: 10},
-                    paddingBottom: 12.5,
+                    marginY: {xs: 0, md: 10},
+                    paddingBottom: 10,
                     borderRadius: {xs: 0, md: 10},
                     width: {xs: "100%", md: "90%"},
                     overflow: 'auto'

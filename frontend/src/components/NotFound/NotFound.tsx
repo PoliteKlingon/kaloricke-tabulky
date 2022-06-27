@@ -15,11 +15,11 @@ import { max } from "date-fns";
   const Root = styled("div")({
     display: "flex",
     justifyContent: "center",
-    minHeight: "100vh",
   });
   
   const Container = styled("div")({
     textAlign: "center",
+    height: "min-content"
   });
 
     let theme = createTheme();
@@ -41,11 +41,6 @@ import { max } from "date-fns";
     window.addEventListener('resize', () => {
       setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
     })
-
-    const [collapsed, setCollapsed] = useState(false);
-    useEffect(() => {
-      setCollapsed(true);
-    }, []);
   
     const [authState, setAuthState] = useState<Boolean>();
       // @ts-ignore
@@ -62,7 +57,7 @@ import { max } from "date-fns";
             <Container 
               sx={{
                   backgroundColor: "white",
-                  marginTop: {xs: 5},
+                  marginTop: {xs: 0, md: 10},
                   marginBottom: {xs: 5, md: 10},
                   borderRadius: {xs: 0, md: 10},
                   width: {xs: "100vw", md: "91.7vw"},
