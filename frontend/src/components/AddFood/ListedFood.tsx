@@ -31,12 +31,13 @@ function ListedFood({name, description, calories, proteins, carbs, fats, fiber, 
             <Grid item xs={10}>
                 <Grid container direction={{xs:"column", sm:"row"}}>
                     <Grid item xs={6}>
-                        <Typography variant="h6" sx={{paddingX: 2}}>{name}</Typography>
+                        <Typography variant="h6" sx={{paddingX: 2, fontFamily: "Nunito"}}>{name}</Typography>
                     </Grid>
                     <Grid item xs={6}>
                         <Typography sx={{
                             paddingTop: 1, 
-                            paddingX: {xs: 2, sm: 0}
+                            paddingX: {xs: 2, sm: 0.5},
+                            fontFamily: "Nunito"
                         }}>
                             {description}
                         </Typography>
@@ -70,16 +71,16 @@ function ListedFood({name, description, calories, proteins, carbs, fats, fiber, 
               sx={{paddingX: 2}}
           >
             <Grid item xs={5}>
-                <Typography>Calories: {calories}</Typography>
-                <Typography>Proteins: {proteins}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Calories: {calories}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Proteins: {proteins}</Typography>
             </Grid>
             <Grid item xs={5}>
-                <Typography>Carbs: {carbs}</Typography>
-                <Typography>Fats: {fats}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Carbs: {carbs}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Fats: {fats}</Typography>
             </Grid>
             <Grid item xs={2}>
-                <Typography>Fiber: {fiber}</Typography>
-                <Typography>Salt: {salt}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Fiber: {fiber}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Salt: {salt}</Typography>
             </Grid>
           </Grid>
         </>
