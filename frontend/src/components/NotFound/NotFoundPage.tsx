@@ -6,15 +6,9 @@ import MainBackground from "../Utils/MainBackground";
 const NotFoundPage = () => {
   return (
     <MainBackground>
-      <Box
-        sx={{
-          height: "100vh", 
-          overflow: "auto"
-        }}>
         <CssBaseline />
         <CustomAppBar withSearch={true} />
         <NotFound />
-      </Box>
     </MainBackground>
   );
 };
