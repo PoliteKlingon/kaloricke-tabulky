@@ -211,6 +211,9 @@ export const logout = async (req: Request, res: Response) => {
       return sendValidationError(res, e);
     }
 
+    if (e.code === "P2025")
+      return sendSuccess(res, "User logged out successfully", {});
+
     if (e.name === "NotFoundError")
       return sendNotFound(res, "Sessin with given id not found");
 
