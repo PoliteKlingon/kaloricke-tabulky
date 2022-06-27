@@ -1,7 +1,0 @@
-POST http://localhost:3000/login
-Content-Type: application/json
-
-{
-  "email": "sergej.stokurew@vladivostok.ru",
-  "password_hash": "aslkdjflkasjdflkjdf"
-}
