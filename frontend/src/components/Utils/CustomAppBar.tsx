@@ -13,6 +13,7 @@ import {
   Stack,
   Toolbar,
   Typography,
+  useScrollTrigger,
 } from "@mui/material";
 
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -59,7 +60,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
         elevation={0}
         sx={{
           background:
-            "linear-gradient(180deg, rgba(0,0,0,0.6) 90%, transparent 100%);",
+            "linear-gradient(180deg, rgba(0,0,0,1) 90%, transparent 100%);"
         }}
         position="sticky"
       >
