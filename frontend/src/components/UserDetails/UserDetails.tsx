@@ -39,6 +39,19 @@ import ChangePasswordModal from './ChangePasswordModal';
     height: "min-content"
   });
 
+  const OrangeButton = styled(Button)({
+    backgroundColor: "orange",
+    fontWeight: "bold",
+    fontFamily: "Nunito",
+    margin: 4,
+    width: 250,
+    transition: "transform 0.2s",
+    ":hover": {
+      transform: "scale(1.1)",
+      backgroundColor: "#f29830",
+    }
+  });
+
   export interface Goals {
     calories: number,
     proteins: number,
@@ -1015,22 +1028,10 @@ import ChangePasswordModal from './ChangePasswordModal';
                   justifyContent="center"
                 >
                   <Grid item >
-                  <Button
+                  <OrangeButton
                       variant="contained"
+                      sx={{display: isAdmin ? "none" : "unset"}}
                       disableRipple
-                      
-                      sx={{
-                        backgroundColor: "orange",
-                        fontWeight: "bold",
-                        fontFamily: "Nunito",
-                        margin: 1,
-                        width: 250,
-                        transition: "transform 0.2s",
-                        ":hover": {
-                          transform: "scale(1.1)",
-                          backgroundColor: "#f29830",
-                        },
-                      }}
                       onClick={() => {
                         closeAll(); 
                         // @ts-ignore
@@ -1042,7 +1043,7 @@ import ChangePasswordModal from './ChangePasswordModal';
                       {customGoals
                         ? "Skrýt nutrienty"
                         : "Upravit nutrienty"}
-                    </Button>
+                    </OrangeButton>
                   </Grid>
                 </Grid>
 
@@ -1265,26 +1266,14 @@ import ChangePasswordModal from './ChangePasswordModal';
                 </Collapse>
 
               {/* CHANGE PASSWORD */}
-                <Button
+                <OrangeButton
                   variant="contained"
                   disableRipple
-                  sx={{
-                    backgroundColor: "orange",
-                    fontWeight: "bold",
-                    fontFamily: "Nunito",
-                    margin: 1,
-                    width: 250,
-                    transition: "transform 0.2s",
-                    ":hover": {
-                      transform: "scale(1.1)",
-                      backgroundColor: "#f29830",
-                    },
-                  }}
                   onClick={() => {
                     closeAll(); 
                     setChangePasswordModal(!changePasswordModal);
                   }}
-                >Změnit heslo</Button>
+                >Změnit heslo</OrangeButton>
 
                 <Modal
                   open={changePasswordModal}
@@ -1297,19 +1286,13 @@ import ChangePasswordModal from './ChangePasswordModal';
                 </Modal>
 
 
-                <Button
+                <OrangeButton
                   variant="contained"
                   disableRipple
                   sx={{
                     backgroundColor: "red",
                     display: isAdmin ? "none" : "unset",
-                    fontWeight: "bold",
-                    fontFamily: "Nunito",
-                    margin: 1,
-                    width: 250,
-                    transition: "transform 0.2s",
                     ":hover": {
-                      transform: "scale(1.1)",
                       backgroundColor: "darkRed",
                     },
                   }}
@@ -1319,7 +1302,7 @@ import ChangePasswordModal from './ChangePasswordModal';
                   }}
                 >
                   Zrušit účet
-                </Button>
+                </OrangeButton>
                 <Modal
                   open={deleteAccountModal}
                   onClose={() => setDeleteAccountModal(false)}
