@@ -77,7 +77,7 @@ function AdminHome() {
                   <Typography component="h1" variant="h4" sx={{ fontFamily: "Nunito" }}>
                       Správa jídel v databázi
                   </Typography>
-                  <Button onClick={() => {setFoodModal(!foodModal)}}>
+                  <Button variant="contained" sx={{margin: 2}} onClick={() => {setFoodModal(!foodModal)}}>
                     Přidat jídlo do databáze
                   </Button>
                   {foodModal && 
@@ -100,6 +100,7 @@ function AdminHome() {
                       fiber={food.fiber}
                       fats={food.fats}
                       salt={food.salt}
+                      ssid={auth.ssid}
                     />
                   )})}
                 </Container>

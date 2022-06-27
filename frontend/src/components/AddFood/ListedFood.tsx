@@ -1,30 +1,49 @@
-import { Typography, Box, Button, Grid } from '@mui/material'
+import { Typography, Box, Button, Grid, Modal } from '@mui/material'
 import {useState} from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { borderRadius } from '@mui/system';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteFoodModal from './DeleteFoodModal';
 
 //@ts-ignore
-function ListedFood({name, description, calories, proteins, carbs, fats, fiber, salt, id}) {
+function ListedFood({name, description, calories, proteins, carbs, fats, fiber, salt, id, ssid}) {
 
-    const [expanded, setExpanded] = useState(false)
-    
+    const [expanded, setExpanded] = useState(false);
+    const [deleteFood, setDeleteFood] = useState(false);
+
     return (
     <Box sx={{
         borderStyle: "solid",
         borderRadius: 2,
-        borderWidth: 0.1
+        borderWidth: 0.1,
+        margin: 1,
+        padding: 1
     }}>
         <Grid container 
           direction="row"
           justifyContent="space-between"
         >
-            <Typography>{name}</Typography>
-            <Typography>{description}</Typography>
-            <Button onClick={() => setExpanded(!expanded)}>
-                {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </Button>
+            <Grid item>
+                <Typography>{name}</Typography>
+            </Grid>
+            <Grid item>
+                <Typography>{description}</Typography>
+            </Grid>
+            <Grid item>
+                <Button onClick={() => setExpanded(!expanded)}>
+                    {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                </Button>
+                <Button onClick={() => setDeleteFood(!deleteFood)}>
+                    <DeleteIcon />
+                </Button>
+            </Grid>
         </Grid>
+        <Modal
+          open={deleteFood}
+          onClose={() => setDeleteFood(false)}
+        >
+            <DeleteFoodModal foodName={name} foodId={id} ssid={ssid} closeModal={setDeleteFood}/>
+        </Modal>
         {expanded && <Grid container 
           direction="row"
           justifyContent="space-between"
