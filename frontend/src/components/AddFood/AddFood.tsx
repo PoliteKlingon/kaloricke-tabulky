@@ -42,14 +42,12 @@ const AddFood = () => {
       const body = {
           name: getValues("name"),
           description: getValues("description"),
-          /* All values are divided by 100 because user inserts them per 100 grams of food
-          but database stores them per 1 gram of food. */
-          calories: getValues("calories") / 100,
-          proteins: getValues("proteins") / 100,
-          carbs: getValues("carbs") / 100,
-          fats: getValues("fats") / 100,
-          fiber: getValues("fiber") / 100,
-          salt: getValues("salt") / 100,
+          calories: getValues("calories"),
+          proteins: getValues("proteins"),
+          carbs: getValues("carbs"),
+          fats: getValues("fats"),
+          fiber: getValues("fiber"),
+          salt: getValues("salt"),
       };
       axios
         .post("/food", JSON.stringify(body), {
