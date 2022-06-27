@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import { styled } from "@mui/system";
 
 const MainBackground = styled("div")({
@@ -9,5 +10,6 @@ const MainBackground = styled("div")({
   backgroundPosition: "center",
   backgroundAttachment: "fixed",
 });
+
 
 export default MainBackground;

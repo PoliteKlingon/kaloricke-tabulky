@@ -3,21 +3,29 @@ import TextField from "@mui/material/TextField";
 import { CssBaseline, Grid, Box, Container, AppBar, Link, Stack, Toolbar } from "@mui/material";
 import { Typography, Button, Alert } from "@mui/material";
 import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthProvider";
 import axios from "../../api/axios";
 import { Navigate } from "react-router-dom";
-import AnimatedButton from "../Utils/AnimatedButton";
-import HideOnScroll from "../Utils/HideOnScroll";
-import CustomAppBar from "../Utils/CustomAppBar";
 
 const theme = createTheme();
 
 const AddFood = () => {
+  const [appBarSize, setAppBarSize] = useState(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+
+  useEffect(() => {
+    if (appBarSize===0) {
+      setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+    }
+  }, [appBarSize]);
+
+
+  window.addEventListener('resize', () => {
+    setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+  })
   // @ts-ignore
   const { auth, setAuth } = useContext(AuthContext);
-  const sessionId = auth.ssid;
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("");
 
@@ -71,7 +79,9 @@ const AddFood = () => {
   };
 
   return (
-    <Root>
+    <Root sx={{
+      minHeight: `${100 - appBarSize}vh`
+      }}>
       {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
       {auth.role != "admin" && <Navigate to='/home' />}
         <Container 

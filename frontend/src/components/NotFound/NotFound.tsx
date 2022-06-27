@@ -10,10 +10,12 @@ import {
   import AuthContext from "../../context/AuthProvider";
   import './NotFound.css'
   import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
+import { max } from "date-fns";
 
   const Root = styled("div")({
     display: "flex",
     justifyContent: "center",
+    minHeight: "100vh",
   });
   
   const Container = styled("div")({
@@ -27,6 +29,19 @@ import {
   
   
   const NotFound = () => {
+    const [appBarSize, setAppBarSize] = useState(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+
+    useEffect(() => {
+      if (appBarSize===0) {
+        setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+      }
+    }, [appBarSize]);
+
+
+    window.addEventListener('resize', () => {
+      setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+    })
+
     const [collapsed, setCollapsed] = useState(false);
     useEffect(() => {
       setCollapsed(true);
@@ -40,7 +55,9 @@ import {
     }, [auth]);
   
     return (
-      <Root id="header">          
+      <Root id="header" sx={{
+        minHeight: `${100 - appBarSize}vh`
+        }}>          
           <ThemeProvider theme={theme}>
             <Container 
               sx={{
@@ -49,7 +66,7 @@ import {
                   marginBottom: {xs: 5, md: 10},
                   borderRadius: {xs: 0, md: 10},
                   width: {xs: "100vw", md: "91.7vw"},
-                  overflow: 'auto'
+                  overflow: 'auto',
                 }}
             >
               <Grid
