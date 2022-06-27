@@ -59,7 +59,7 @@ export const register = async (req: Request, res: Response) => {
       rejectOnNotFound: true,
     });
 
-    const { id: sessionId } = await prisma.sessions.create({
+    const { id: sessionId } = await prisma.session.create({
       data: { userId: user.id },
     });
 

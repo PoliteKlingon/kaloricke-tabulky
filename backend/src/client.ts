@@ -19,7 +19,7 @@ async function main() {
         params.args["data"] = { deleted: new Date() };
         if (params.model == "User") {
           const userId = params.args.where.id;
-          await prisma.sessions.deleteMany({ where: { userId: userId } });
+          await prisma.session.deleteMany({ where: { userId: userId } });
           await prisma.userCredentials.delete({ where: { userId: userId } });
           await prisma.userDetails.delete({ where: { userId: userId } });
           await prisma.userGoals.delete({ where: { userId: userId } });
@@ -30,6 +30,7 @@ async function main() {
       if (params.action === "findUnique" || params.action === "findFirst") {
         params.action = "findFirst";
         params.args.where["deleted"] = null;
+        params.args.rejectOnNotFound = true;
       }
       if (params.action === "findMany") {
         if (params.args.where) {

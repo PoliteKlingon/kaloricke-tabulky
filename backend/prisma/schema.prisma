@@ -14,7 +14,7 @@ model User {
   details     UserDetails?
   goals       UserGoals?
   diary       DiaryEntry[]
-  Sessions    Sessions[]
+  Sessions    Session[]
   roleName    String           @default("user")
   Role        Role             @relation(fields: [roleName], references: [name])
   deleted     DateTime?
@@ -97,7 +97,7 @@ model DiaryEntry {
   deleted  DateTime?
 }
 
-model Sessions {
+model Session {
   id     String @id @default(uuid())
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
