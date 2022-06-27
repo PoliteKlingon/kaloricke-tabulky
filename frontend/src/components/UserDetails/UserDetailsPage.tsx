@@ -14,7 +14,7 @@ const UserDetailsPage = () => {
 
   return (
     <>
-      {(Object.keys(auth).length === 0 || auth === {}) && (setAuth({})) ? (
+      {(Object.keys(auth).length === 0 || auth == {}) && (setAuth({})) ? (
         <Navigate to="/" />
       ) : (
         <MainBackground>
