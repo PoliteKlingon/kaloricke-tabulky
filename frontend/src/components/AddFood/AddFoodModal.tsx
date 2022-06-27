@@ -24,7 +24,7 @@ const modalStyle = {
     p: 4,
   };
 
-const AddFoodModal = () => {
+const AddFoodModal = ({closeModal}) => {
   // @ts-ignore
   const { auth, setAuth } = useContext(AuthContext);
   const [alertMessage, setAlertMessage] = useState("");
@@ -88,7 +88,7 @@ const AddFoodModal = () => {
             <CssBaseline />
             <Box
             sx={{
-                marginTop: 8,
+                marginTop: 3,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -234,6 +234,7 @@ const AddFoodModal = () => {
                 // @ts-ignore
                 <Alert severity={alertSeverity}>{alertMessage}</Alert>
                 )}
+                
                 <Button
                 variant="contained"
                 disableRipple
@@ -244,7 +245,8 @@ const AddFoodModal = () => {
                     backgroundColor: "orange",
                     fontFamily: "Nunito",
                     fontWeight: "bold",
-                    marginY: 5,
+                    marginTop: 5,
+                    marginBottom: 2,
                     transition: "transform 0.2s",
                     ":hover": {
                     transform: "scale(1.1)",
@@ -253,6 +255,25 @@ const AddFoodModal = () => {
                 }}
                 >
                 Uložit
+                </Button>
+
+                <Button
+                variant="contained"
+                disableRipple
+                fullWidth
+                onClick={() => closeModal()}
+                sx={{
+                    backgroundColor: "lightGray",
+                    fontFamily: "Nunito",
+                    fontWeight: "bold",
+                    transition: "transform 0.2s",
+                    ":hover": {
+                    transform: "scale(1.1)",
+                    backgroundColor: "darkGray",
+                    }
+                }}
+                >
+                Zpět
                 </Button>
             </Box>
             </Box>

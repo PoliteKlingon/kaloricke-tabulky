@@ -19,6 +19,7 @@ const modalStyle = {
     p: 4,
   };
 
+//@ts-ignore
 const DeleteFoodModal = ({foodId, foodName, ssid, closeModal}) => {
   // @ts-ignore
   const [alertMessage, setAlertMessage] = useState("");
@@ -52,53 +53,53 @@ const DeleteFoodModal = ({foodId, foodName, ssid, closeModal}) => {
 
   return (
     <Box sx={modalStyle}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                      Opravdu chcete odstranit {foodName}?
-                    </Typography>
-                    {alertSeverity && 
-                      // @ts-ignore
-                      <Alert severity={alertSeverity}>{alertMessage}</Alert>
-                    }
-                    <Button
-                      variant="contained"
-                      disableRipple
-                      sx={{
-                        backgroundColor: "orange",
-                        fontWeight: "bold",
-                        fontFamily: "Nunito",
-                        marginY: 1,
-                        marginRight: 2,
-                        width: 100,
-                        transition: "transform 0.2s",
-                        ":hover": {
-                          transform: "scale(1.1)",
-                          backgroundColor: "#f29830",
-                        },
-                      }}
-                      onClick={() => {
-                        closeModal();
-                      }}
-                    >Zpět</Button>
-                    <Button
-                      variant="contained"
-                      disableRipple
-                      sx={{
-                        backgroundColor: "red",
-                        fontWeight: "bold",
-                        fontFamily: "Nunito",
-                        marginY: 1,
-                        width: 200,
-                        transition: "transform 0.2s",
-                        ":hover": {
-                          transform: "scale(1.1)",
-                          backgroundColor: "darkRed",
-                        },
-                      }}
-                      onClick={() => {
-                        deleteFood();
-                      }}
-                    >Odstranit</Button>
-                  </Box>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+            Opravdu chcete odstranit {foodName}?
+        </Typography>
+        {alertSeverity && 
+            // @ts-ignore
+            <Alert severity={alertSeverity}>{alertMessage}</Alert>
+        }
+        <Button
+            variant="contained"
+            disableRipple
+            sx={{
+            backgroundColor: "orange",
+            fontWeight: "bold",
+            fontFamily: "Nunito",
+            marginY: 1,
+            marginRight: 2,
+            width: 100,
+            transition: "transform 0.2s",
+            ":hover": {
+                transform: "scale(1.1)",
+                backgroundColor: "#f29830",
+            },
+            }}
+            onClick={() => {
+            closeModal();
+            }}
+        >Zpět</Button>
+        <Button
+            variant="contained"
+            disableRipple
+            sx={{
+            backgroundColor: "red",
+            fontWeight: "bold",
+            fontFamily: "Nunito",
+            marginY: 1,
+            width: 200,
+            transition: "transform 0.2s",
+            ":hover": {
+                transform: "scale(1.1)",
+                backgroundColor: "darkRed",
+            },
+            }}
+            onClick={() => {
+            deleteFood();
+            }}
+        >Odstranit</Button>
+        </Box>
   );
 };
 export default DeleteFoodModal;

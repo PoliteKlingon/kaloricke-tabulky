@@ -5,6 +5,7 @@ import { flushSync } from 'react-dom';
 import { Navigate } from 'react-router-dom';
 import axios from "../../api/axios";
 import AuthContext from "../../context/AuthProvider";
+import AddIcon from '@mui/icons-material/Add';
 import AddFoodModal from './AddFoodModal';
 import ListedFood from './ListedFood';
 
@@ -32,8 +33,6 @@ function AdminHome() {
              })
              .then((response) => {
                flushSync(() => setData(response.data.data));
-               console.log(response)
-               console.log(data)
              })
         } catch (err) {
           // @ts-ignore
@@ -74,18 +73,25 @@ function AdminHome() {
                       alignItems: "center",
                   }}
                   >
-                  <Typography component="h1" variant="h4" sx={{ fontFamily: "Nunito" }}>
-                      Správa jídel v databázi
-                  </Typography>
-                  <Button variant="contained" sx={{margin: 2}} onClick={() => {setFoodModal(!foodModal)}}>
-                    Přidat jídlo do databáze
-                  </Button>
+                    <Grid container>
+                    <Grid item xs={2} />
+                    <Grid item xs={8}>
+                        <Typography component="h1" variant="h4" sx={{ fontFamily: "Nunito" }}>
+                            Správa jídel v databázi
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <Button variant="outlined" sx={{marginX: 5, padding: 2}} onClick={() => {setFoodModal(!foodModal)}}>
+                            <AddIcon />
+                        </Button>
+                    </Grid>
+                </Grid>
                   {foodModal && 
                     <Modal
                         open={foodModal}
                         onClose={() => setFoodModal(false)}
                     >
-                        <AddFoodModal />
+                        <AddFoodModal closeModal={setFoodModal}/>
                     </Modal>
                     }
                   </Box>
