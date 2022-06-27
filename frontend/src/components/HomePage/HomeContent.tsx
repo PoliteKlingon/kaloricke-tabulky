@@ -49,18 +49,6 @@ const MainMeals: IMainMeal[] = [
 interface IHomeContentProps {}
 
 const HomeContent:FC<IHomeContentProps> = () => {
-  const [appBarSize, setAppBarSize] = useState(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
-
-  useEffect(() => {
-    if (appBarSize===0) {
-      setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
-    }
-  }, [appBarSize]);
-
-
-  window.addEventListener('resize', () => {
-    setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
-  })
   // @ts-ignore
   const { auth } = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
@@ -166,7 +154,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
       container
       direction="column"
       alignItems="center"
-      sx={{ paddingTop: { xs: 0, md: 5 }, minHeight: `${100 - appBarSize}vh` }}
+      sx={{ paddingTop: { xs: 0, md: 5 }, minHeight: "100vh" }}
     >
       <Grid
         container

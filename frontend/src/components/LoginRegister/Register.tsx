@@ -155,10 +155,9 @@ const Register = () => {
             <InputContainer>
               <Grid container justifyContent={"center"}>
                 <LogoImage
-                  sx={{marginBottom: 2}}
                   src={
                     import.meta.env.VITE_PUBLIC_URL +
-                    "/assets/logo.png"
+                    "/assets/logo-placeholder.png"
                   }
                   alt="logo"
                 />
