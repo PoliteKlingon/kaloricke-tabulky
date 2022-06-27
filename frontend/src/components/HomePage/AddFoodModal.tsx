@@ -1,4 +1,4 @@
-import { useState, useContext, FC } from "react";
+import { useState, useContext, useEffect, FC } from "react";
 
 import {
   Autocomplete,
@@ -43,6 +43,10 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
     })
   }
 
+  useEffect(() => {
+    handleSetFood("")
+  }, [])
+
   const saveFood = async (event: any) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -69,6 +73,7 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
           },
         })
         .then(() => {
+          handleSetFood("");
           setGrams("")
           handleClose();
           setFoodName("");
