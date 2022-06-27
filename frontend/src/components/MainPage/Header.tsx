@@ -12,6 +12,10 @@ const Header: FC<IHeaderprops> = () => {
     setCollapsed(true);
   }, []);
 
+  const handleScroll = () => {
+    document.getElementById("fstImg")!.scrollIntoView({behavior: "smooth"});
+  }
+
   return (
     <Grid
       container
@@ -36,7 +40,7 @@ const Header: FC<IHeaderprops> = () => {
           cestu za hubnutím <br />
           ještě dnes!
           <br />
-          <IconButton>
+          <IconButton onClick={handleScroll}>
             <ExpandMoreIcon sx={{ color: "white", fontSize: 70 }} />
           </IconButton>
         </Typography>

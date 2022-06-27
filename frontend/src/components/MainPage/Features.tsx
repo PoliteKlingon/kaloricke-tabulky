@@ -20,7 +20,7 @@ const Features: FC<IFeatureProps> = () => {
         pt: { xs: 50, sm: 0 },
       }}
     >
-      <Grid item>
+      <Grid item id="fstImg">
         <ImageCard content={tips[0]} checked={checked} />
       </Grid>
       <Grid item>

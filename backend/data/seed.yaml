@@ -100,9 +100,9 @@ userGoals:
     calories: 1850
 
 food:
-  - id: "banana"
-    name: "Banana"
-    description: "A Banana (per 100g)"
+  - id: "banán"
+    name: "Banán"
+    description: "Banán (per 100g)"
     calories: 88
     proteins: 1.2
     carbs: 20.9
@@ -113,7 +113,7 @@ food:
 
   - id: "mango"
     name: "Mango"
-    description: "A Mango (per 100g)"
+    description: "Mango (per 100g)"
     calories: 59
     proteins: 0.7
     carbs: 13.8
@@ -122,9 +122,9 @@ food:
     salt: 0
     creatorId: "4"
 
-  - id: "apple"
-    name: "Apple"
-    description: "An Apple (per 100g)"
+  - id: "jablko"
+    name: "Jablko"
+    description: "Jablko (per 100g)"
     calories: 74
     proteins: 0.9
     carbs: 12.8
@@ -133,9 +133,9 @@ food:
     salt: 0
     creatorId: "4"
 
-  - id: "grape"
-    name: "Grape"
-    description: "Grapes (per 100g)"
+  - id: "hrozny"
+    name: "Hrozny"
+    description: "Hrozny (bobule) (per 100g)"
     calories: 47
     proteins: 0.5
     carbs: 9.8
@@ -144,9 +144,9 @@ food:
     salt: 0
     creatorId: "4"
 
-  - id: "orange"
-    name: "Orange"
-    description: "Orange (per 100g)"
+  - id: "pomeranč"
+    name: "Pomeranč"
+    description: "Pomeranč (per 100g)"
     calories: 47
     proteins: 0.9
     carbs: 12.2
@@ -166,9 +166,9 @@ food:
     salt: 0
     creatorId: "4"
 
-  - id: "watermelon"
-    name: "Watermelon"
-    description: "Watermelon (per 100g)"
+  - id: "vodní meloun"
+    name: "Vodní meloun"
+    description: "Vodní meloun (per 100g)"
     calories: 30
     proteins: 0.6
     carbs: 8
@@ -188,9 +188,9 @@ food:
     salt: 2
     creatorId: "4"
 
-  - id: "pasta"
-    name: "Pasta"
-    description: "Pasta (per 100g)"
+  - id: "těstoviny"
+    name: "Těstoviny"
+    description: "Pšeničné těstoviny (per 100g)"
     calories: 131
     proteins: 5.9
     carbs: 25
@@ -199,9 +199,9 @@ food:
     salt: 1
     creatorId: "4"
 
-  - id: "yoghurt (white)"
-    name: "Yoghurt (white)"
-    description: "White Yoghurt (per 100g)"
+  - id: "jogurt (bílý)"
+    name: "Jogurt (bílý)"
+    description: "Bílý Jogurt (per 100g)"
     calories: 58
     proteins: 10
     carbs: 3.6
@@ -214,7 +214,7 @@ diaryEntry:
   - id: "1"
     userId: "1"
     mealType: "Lunch"
-    foodId: "banana"
+    foodId: "banán"
     grams: 120
     date: 2022-06-18 10:00
 
