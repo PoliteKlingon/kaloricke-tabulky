@@ -82,7 +82,10 @@ export const store = async (req: Request, res: Response) => {
 
 export const getAll = async (_: Request, res: Response) => {
   try {
-    const foods = await prisma.food.findMany({ where: { deleted: null } });
+    const foods = await prisma.food.findMany({
+      where: { deleted: null },
+      orderBy: { name: "asc" },
+    });
     return sendSuccess(res, "Foods retreived successfully", foods);
   } catch (e) {
     console.log(e);

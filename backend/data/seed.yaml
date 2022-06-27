@@ -102,7 +102,7 @@ userGoals:
 food:
   - id: "banán"
     name: "Banán"
-    description: "Banán (per 100g)"
+    description: "Banán (na 100g)"
     calories: 88
     proteins: 1.2
     carbs: 20.9
@@ -114,7 +114,7 @@ food:
 
   - id: "mango"
     name: "Mango"
-    description: "Mango (per 100g)"
+    description: "Mango (na 100g)"
     calories: 59
     proteins: 0.7
     carbs: 13.8
@@ -126,7 +126,7 @@ food:
 
   - id: "jablko"
     name: "Jablko"
-    description: "Jablko (per 100g)"
+    description: "Jablko (na 100g)"
     calories: 74
     proteins: 0.9
     carbs: 12.8
@@ -138,7 +138,7 @@ food:
 
   - id: "hrozny"
     name: "Hrozny"
-    description: "Hrozny (bobule) (per 100g)"
+    description: "Hrozny (bobule) (na 100g)"
     calories: 47
     proteins: 0.5
     carbs: 9.8
@@ -150,7 +150,7 @@ food:
 
   - id: "pomeranč"
     name: "Pomeranč"
-    description: "Pomeranč (per 100g)"
+    description: "Pomeranč (na 100g)"
     calories: 47
     proteins: 0.9
     carbs: 12.2
@@ -162,7 +162,7 @@ food:
 
   - id: "ananas"
     name: "Ananas"
-    description: "Ananas (per 100g)"
+    description: "Ananas (na 100g)"
     calories: 50
     proteins: 0.5
     carbs: 13
@@ -174,7 +174,7 @@ food:
 
   - id: "vodní meloun"
     name: "Vodní meloun"
-    description: "Vodní meloun (per 100g)"
+    description: "Vodní meloun (na 100g)"
     calories: 30
     proteins: 0.6
     carbs: 8
@@ -186,7 +186,7 @@ food:
 
   - id: "steak vepřový"
     name: "Steak vepřový"
-    description: "Steak vepřový (per 100g)"
+    description: "Steak vepřový (na 100g)"
     calories: 270
     proteins: 23.8
     carbs: 0
@@ -198,7 +198,7 @@ food:
 
   - id: "těstoviny"
     name: "Těstoviny"
-    description: "Pšeničné těstoviny (per 100g)"
+    description: "Pšeničné těstoviny (na 100g)"
     calories: 131
     proteins: 5.9
     carbs: 25
@@ -210,7 +210,7 @@ food:
 
   - id: "jogurt (bílý)"
     name: "Jogurt (bílý)"
-    description: "Bílý Jogurt (per 100g)"
+    description: "Bílý Jogurt (na 100g)"
     calories: 58
     proteins: 10
     carbs: 3.6
