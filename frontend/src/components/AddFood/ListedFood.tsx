@@ -34,7 +34,12 @@ function ListedFood({name, description, calories, proteins, carbs, fats, fiber, 
                         <Typography variant="h6" sx={{paddingX: 2}}>{name}</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                        <Typography sx={{paddingTop: 1, paddingX: 2}}>{description}</Typography>
+                        <Typography sx={{
+                            paddingTop: 1, 
+                            paddingX: {xs: 2, sm: 0}
+                        }}>
+                            {description}
+                        </Typography>
                     </Grid>
                 </Grid>
             </Grid>

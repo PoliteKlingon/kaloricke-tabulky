@@ -17,6 +17,19 @@ const Root = styled("div")({
   });
 
 function AdminHome() {
+    const [appBarSize, setAppBarSize] = useState(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+
+    useEffect(() => {
+      if (appBarSize===0) {
+        setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+      }
+    }, [appBarSize]);
+
+
+    window.addEventListener('resize', () => {
+      setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+    })
+
     // @ts-ignore
     const { auth, setAuth } = useContext(AuthContext);
 
@@ -54,7 +67,10 @@ function AdminHome() {
       }, []);
 
     return (
-        <Root>
+        <Root sx={{
+            minHeight: `${100 - appBarSize}vh`
+            }}
+        >
           {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
           {auth.role != "admin" && <Navigate to='/home' />}
             <Container 
@@ -64,6 +80,7 @@ function AdminHome() {
                     paddingBottom: 10,
                     borderRadius: {xs: 0, md: 10},
                     width: {xs: "100%", md: "90%"},
+                    height: "min-content",
                     overflow: 'auto'
             }} >
     
