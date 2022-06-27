@@ -33,13 +33,15 @@ async function main() {
         params.args.rejectOnNotFound = true;
       }
       if (params.action === "findMany") {
-        if (params.args.where) {
-          if (params.args.where.deleted == undefined) {
-            // Exclude deleted records if they have not been explicitly requested
-            params.args.where["deleted"] = null;
+        if (params.args) {
+          if (params.args.where) {
+            if (params.args.where.deleted == undefined) {
+              // Exclude deleted records if they have not been explicitly requested
+              params.args.where["deleted"] = null;
+            }
+          } else {
+            params.args["where"] = { deleted: null };
           }
-        } else {
-          params.args["where"] = { deleted: null };
         }
       }
 

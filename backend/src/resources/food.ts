@@ -130,17 +130,21 @@ export const get = async (req: Request, res: Response) => {
 export const searchByName = async (req: Request, res: Response) => {
   try {
     const partOfId = req.params["name"]!.toLowerCase();
-    const foods = await prisma.food.findMany({
-      where: {
-        AND: [{ deleted: null }, { id: { contains: partOfId } }],
-      },
-    });
+    console.log("search");
 
-    foods.sort((f1, f2) => {
-      return f1.name.localeCompare(f2.name);
-    });
+    const foods =
+      partOfId === '""'
+        ? await prisma.food.findMany({ orderBy: { name: "asc" } })
+        : await prisma.food.findMany({
+            where: {
+              AND: [{ deleted: null }, { id: { contains: partOfId } }],
+            },
+            orderBy: { name: "asc" },
+          });
+
     return sendSuccess(res, "Foods retreived successfully", foods);
   } catch (e) {
+    console.log(e);
     return sendInternalServerError(res);
   }
 };
