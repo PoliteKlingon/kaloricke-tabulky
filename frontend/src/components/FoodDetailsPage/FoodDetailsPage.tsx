@@ -32,7 +32,7 @@ const FoodDetailsPage = () => {
         }).catch((_) => {
           navigate("/not-found");
         })
-    })
+    }, [])
   } catch (err) {
     console.log(err)
   }
