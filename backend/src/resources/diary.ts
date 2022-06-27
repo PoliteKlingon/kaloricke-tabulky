@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
-import { number, object, string, ValidationError, date } from "yup";
+import { number, object, string, date } from "yup";
 import prisma from "../client";
 import {
-  sendAuthorizationError,
   sendCreatedSuccessfully,
-  sendInternalServerError,
+  sendNotFound,
   sendSuccess,
-  sendValidationError,
-} from "./universalResponses";
+} from "./helper/responses";
 import { getUserBySessionId } from "./user";
-import { headersSchema } from "./user-shemas";
+import { headersSchema } from "./helper/user-shemas";
+import handleUsualErrors from "./helper/handleUsualErrors";
 
 const MEAL_TYPES = [
   "breakfast",
@@ -54,14 +53,7 @@ export const get = async (req: Request, res: Response) => {
 
     return sendSuccess(res, "Diary retreived successfully", diary);
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
-
-    if (e.name === "NotFoundError") return sendAuthorizationError(res);
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };
 
@@ -86,14 +78,7 @@ export const store = async (req: Request, res: Response) => {
       diaryEntry
     );
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
-
-    if (e.name === "NotFoundError") return sendAuthorizationError(res);
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };
 
@@ -107,22 +92,23 @@ export const update = async (req: Request, res: Response) => {
 
     await getUserBySessionId(sessionId);
 
-    const diaryEntry = await prisma.diaryEntry.update({
+    await prisma.diaryEntry.update({
       where: { id: data.id },
       data: { ...data },
-      // include: { food: true },
+    });
+
+    const diaryEntry = await prisma.diaryEntry.findUnique({
+      where: { id: data.id },
     });
 
     return sendSuccess(res, "Food successfully added to diary", diaryEntry);
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
+    if (e.name === "NotFoundError") {
+      if (e.message === "No DiaryEntry found")
+        return sendNotFound(res, e.message);
     }
 
-    if (e.name === "NotFoundError") return sendAuthorizationError(res);
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };
 
@@ -141,13 +127,6 @@ export const deleteEntry = async (req: Request, res: Response) => {
 
     return sendSuccess(res, "Entry successfully deleted from diary", {});
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
-
-    if (e.name === "NotFoundError") return sendAuthorizationError(res);
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };

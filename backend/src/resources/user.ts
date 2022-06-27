@@ -4,7 +4,7 @@ import {
   passwordUpdateSchema,
   registerSchema,
   updateRequestSchema,
-} from "./user-shemas";
+} from "./helper/user-shemas";
 import { Request, Response } from "express";
 import sha256 from "crypto-js/sha256";
 import { ValidationError } from "yup";
@@ -16,11 +16,12 @@ import {
   sendNotFound,
   sendSuccess,
   sendValidationError,
-} from "./universalResponses";
+} from "./helper/responses";
 import prisma from "../client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { v4 as uuid } from "uuid";
 import { UserDetails } from ".prisma/client";
+import handleUsualErrors from "./helper/handleUsualErrors";
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -69,15 +70,10 @@ export const register = async (req: Request, res: Response) => {
       user,
     });
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
-
     if (e instanceof PrismaClientKnownRequestError && e.code === "P2002")
       return sendDuplicateError(res, "User with given email already exists");
 
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };
 
@@ -119,17 +115,10 @@ export const update = async (req: Request, res: Response) => {
     });
     return sendSuccess(res, "User data successfully updated", user);
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
-
     if (e instanceof PrismaClientKnownRequestError && e.code === "P2002")
       return sendDuplicateError(res, "User with given email already exists");
 
-    if (e.name === "NotFoundError") return sendAuthorizationError(res);
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };
 
@@ -147,14 +136,7 @@ export const get = async (req: Request, res: Response) => {
 
     return sendSuccess(res, "User successfully retreived", user);
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
-
-    if (e.name === "NotFoundError") return sendAuthorizationError(res);
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };
 
@@ -179,21 +161,18 @@ export const login = async (req: Request, res: Response) => {
       rejectOnNotFound: true,
     });
 
-    const { id: sessionId } = await prisma.sessions.create({
+    const { id: sessionId } = await prisma.session.create({
       data: { userId: userId },
     });
 
     return sendSuccess(res, "Login successfull", { sessionId, role: roleName });
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
+    if (e.name === "NotFoundError") {
+      if (e.message === "No UserCredentials found")
+        return sendAuthorizationError(res, "Email and password does not match");
     }
 
-    if (e.name === "NotFoundError")
-      return sendAuthorizationError(res, "Email and password does not match");
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };
 
@@ -203,22 +182,14 @@ export const logout = async (req: Request, res: Response) => {
       req.headers
     );
 
-    await prisma.sessions.delete({ where: { id: sessionId } });
+    await prisma.session.delete({ where: { id: sessionId } });
 
     return sendSuccess(res, "User logged out successfully", {});
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
-
     if (e.code === "P2025")
       return sendSuccess(res, "User logged out successfully", {});
 
-    if (e.name === "NotFoundError")
-      return sendNotFound(res, "Sessin with given id not found");
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };
 
@@ -248,15 +219,7 @@ export async function updatePassword(req: Request, res: Response) {
 
     return sendSuccess(res, "User password changed successfully", {});
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
-
-    if (e.name === "NotFoundError")
-      return sendNotFound(res, "Sessin with given id not found");
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 }
 
@@ -271,15 +234,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     await prisma.user.delete({ where: { id: userId } });
     return sendSuccess(res, "User deleted successfully", {});
   } catch (e: any) {
-    if (e instanceof ValidationError) {
-      return sendValidationError(res, e);
-    }
-
-    if (e.name === "NotFoundError")
-      return sendNotFound(res, "Sessin with given id not found");
-
-    console.log(e);
-    return sendInternalServerError(res);
+    handleUsualErrors(e, res);
   }
 };
 
@@ -315,7 +270,7 @@ const calculateGoals = ({
 };
 
 export const getUserBySessionId = async (sessionId: string | undefined) => {
-  const session = await prisma.sessions.findUnique({
+  const session = await prisma.session.findUnique({
     where: { id: sessionId },
     include: { user: { include: { details: true, goals: true, Role: true } } },
     rejectOnNotFound: true,
