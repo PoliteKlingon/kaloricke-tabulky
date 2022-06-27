@@ -58,7 +58,7 @@ const ChangeWeightModal:FC<IChangeWeightModalProps> = ({
     }
   };
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleClose} keepMounted disableScrollLock>
       <Box
         sx={{
           position: "absolute",
