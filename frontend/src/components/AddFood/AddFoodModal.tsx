@@ -130,7 +130,9 @@ const AddFoodModal = ({closeModal}) => {
                     label="Popisek jídla"
                     InputProps={{ style: { fontFamily: "Nunito" } }}
                     InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                    {...register("description", { required: "Položka je povinná" })}
+                    {...register("description", { 
+                        required: "Položka je povinná",
+                    })}
                     error={!!errors?.description}
                     helperText={errors?.description ? errors.description.message : null}
                     />
@@ -152,7 +154,13 @@ const AddFoodModal = ({closeModal}) => {
                     id="calories"
                     InputProps={{ style: { fontFamily: "Nunito" } }}
                     InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                    {...register("calories", { required: "Položka je povinná" })}
+                    {...register("calories", { 
+                        required: "Položka je povinná",
+                        min: {
+                        value: 0,
+                        message: "Minimální hodnota je 0",
+                        }, 
+                    })}
                     error={!!errors?.calories}
                     helperText={errors?.calories ? errors.calories.message : null}
                     />
@@ -167,7 +175,13 @@ const AddFoodModal = ({closeModal}) => {
                     id="fats"
                     InputProps={{ style: { fontFamily: "Nunito" } }}
                     InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                    {...register("fats", { required: "Položka je povinná" })}
+                    {...register("fats", { 
+                        required: "Položka je povinná",
+                        min: {
+                        value: 0,
+                        message: "Minimální hodnota je 0",
+                        }, 
+                    })}
                     error={!!errors?.fats}
                     helperText={errors?.fats ? errors.fats.message : null}
                     />
@@ -183,7 +197,13 @@ const AddFoodModal = ({closeModal}) => {
                     id="carbs"
                     InputProps={{ style: { fontFamily: "Nunito" } }}
                     InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                    {...register("carbs", { required: "Položka je povinná" })}
+                    {...register("carbs", { 
+                        required: "Položka je povinná",
+                        min: {
+                        value: 0,
+                        message: "Minimální hodnota je 0",
+                        }, 
+                    })}
                     error={!!errors?.carbs}
                     helperText={errors?.carbs ? errors.carbs.message : null}
                 />
@@ -198,7 +218,13 @@ const AddFoodModal = ({closeModal}) => {
                     id="protein"
                     InputProps={{ style: { fontFamily: "Nunito" } }}
                     InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                    {...register("proteins", { required: "Položka je povinná" })}
+                    {...register("proteins", { 
+                        required: "Položka je povinná",
+                        min: {
+                        value: 0,
+                        message: "Minimální hodnota je 0",
+                        }, 
+                    })}
                     error={!!errors?.proteins}
                     helperText={errors?.proteins ? errors.proteins.message : null}
                 />
@@ -213,7 +239,13 @@ const AddFoodModal = ({closeModal}) => {
                     id="fiber"
                     InputProps={{ style: { fontFamily: "Nunito" } }}
                     InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                    {...register("fiber", { required: "Položka je povinná" })}
+                    {...register("fiber", { 
+                        required: "Položka je povinná",
+                        min: {
+                        value: 0,
+                        message: "Minimální hodnota je 0",
+                        }, 
+                    })}
                     error={!!errors?.fiber}
                     helperText={errors?.fiber ? errors.fiber.message : null}
                 />
@@ -228,7 +260,13 @@ const AddFoodModal = ({closeModal}) => {
                     id="salt"
                     InputProps={{ style: { fontFamily: "Nunito" } }}
                     InputLabelProps={{ style: { fontFamily: "Nunito" } }}
-                    {...register("salt", { required: "Položka je povinná" })}
+                    {...register("salt", { 
+                        required: "Položka je povinná",
+                        min: {
+                        value: 0,
+                        message: "Minimální hodnota je 0",
+                        }, 
+                    })}
                     error={!!errors?.salt}
                     helperText={errors?.salt ? errors.salt.message : null}
                 />
