@@ -44,6 +44,11 @@ function AdminHome() {
         }
     };
 
+    const refresh = () => {
+        setFoodModal(false);
+        getFood();
+    }
+
     useEffect(() => {
         getFood();
       }, []);
@@ -91,7 +96,7 @@ function AdminHome() {
                         open={foodModal}
                         onClose={() => {setFoodModal(false); getFood()}}
                     >
-                        <AddFoodModal closeModal={setFoodModal}/>
+                        <AddFoodModal closeModal={refresh}/>
                     </Modal>
                     }
                   </Box>
@@ -107,6 +112,7 @@ function AdminHome() {
                       fats={food.fats}
                       salt={food.salt}
                       ssid={auth.ssid}
+                      getFood={getFood}
                     />
                   )})}
                 </Container>

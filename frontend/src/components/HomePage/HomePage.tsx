@@ -20,7 +20,7 @@ const HomePage: FC<IHomePageProps> = () => {
         <Navigate to="/" />
       ) : (
         <>
-        {auth.role == "admin" ? (<Navigate to='/add-food' />) : (<MainBackground>
+        {auth.role == "admin" ? (<Navigate to='/admin-home' />) : (<MainBackground>
           <CssBaseline />
           <CustomAppBar withSearch={true} />
           <HomeContent />
