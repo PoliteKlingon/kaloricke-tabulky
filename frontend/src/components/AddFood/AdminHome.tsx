@@ -56,7 +56,7 @@ function AdminHome() {
     return (
         <Root>
           {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
-          {auth.role != "admin" && <Navigate to='/home' />}
+          {auth.role != "admin" && <Navigate to='/' />}
             <Container 
                 sx={{
                     backgroundColor: "white",

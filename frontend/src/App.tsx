@@ -6,7 +6,6 @@ import HomePage from "./components/HomePage/HomePage";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-import AddFoodPage from "./components/AddFood/AddFoodPage";
 import UserDetailsPage from "./components/UserDetails/UserDetailsPage";
 import NotFoundPage from "./components/NotFound/NotFoundPage";
 import FoodDetailsPage from "./components/FoodDetailsPage/FoodDetailsPage";
@@ -23,7 +22,6 @@ const App = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/admin-home" element={<AdminHomepage />} />
-          <Route path="/add-food" element={<AddFoodPage />} />
           <Route path="/details/:id" element={<FoodDetailsPage />} />
           <Route path="/user-details" element={<UserDetailsPage />} />
           <Route path="/not-found*" element={<NotFoundPage />} />
