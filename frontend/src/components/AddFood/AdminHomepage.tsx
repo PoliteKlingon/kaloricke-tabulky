@@ -1,5 +1,4 @@
 import { Box, CssBaseline } from "@mui/material";
-import AddFood from "./AddFood";
 import MainBackground from "../Utils/MainBackground";
 import CustomAppBar from "../Utils/CustomAppBar";
 import AdminHome from "./AdminHome";

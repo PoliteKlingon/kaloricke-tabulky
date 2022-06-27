@@ -7,10 +7,15 @@ import DeleteFoodModal from './DeleteFoodModal';
 import Divider from '@mui/material/Divider';
 
 //@ts-ignore
-function ListedFood({name, description, calories, proteins, carbs, fats, fiber, salt, id, ssid}) {
+function ListedFood({name, description, calories, proteins, carbs, fats, fiber, salt, id, ssid, getFood}) {
 
     const [expanded, setExpanded] = useState(false);
     const [deleteFood, setDeleteFood] = useState(false);
+
+    const refresh = () => {
+        setDeleteFood(false);
+        getFood()
+    }
 
     return (
     <Box sx={{
@@ -43,9 +48,9 @@ function ListedFood({name, description, calories, proteins, carbs, fats, fiber, 
         </Grid>
         <Modal
           open={deleteFood}
-          onClose={() => setDeleteFood(false)}
+          onClose={() => {setDeleteFood(false); getFood()}}
         >
-            <DeleteFoodModal foodName={name} foodId={id} ssid={ssid} closeModal={setDeleteFood}/>
+            <DeleteFoodModal foodName={name} foodId={id} ssid={ssid} closeModal={refresh}/>
         </Modal>
         <Collapse
           in={expanded}

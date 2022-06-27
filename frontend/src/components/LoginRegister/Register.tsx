@@ -150,7 +150,7 @@ const Register = () => {
           direction="column"
           justifyContent="space-evenly"
         >
-          <Grid container justifyContent={"center"} >
+          <Grid container justifyContent={"center"} sx={{visibility: "hidden"}}>
             <LogoImage
               src={
                 import.meta.env.VITE_PUBLIC_URL + "/assets/logo-placeholder.png"
