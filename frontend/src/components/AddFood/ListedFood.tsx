@@ -71,16 +71,16 @@ function ListedFood({name, description, calories, proteins, carbs, fats, fiber, 
               sx={{paddingX: 2}}
           >
             <Grid item xs={5}>
-                <Typography sx={{fontFamily: "Nunito"}}>Calories: {calories}</Typography>
-                <Typography sx={{fontFamily: "Nunito"}}>Proteins: {proteins}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Energetická hodnota: {calories}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Bílkoviny: {proteins}</Typography>
             </Grid>
             <Grid item xs={5}>
-                <Typography sx={{fontFamily: "Nunito"}}>Carbs: {carbs}</Typography>
-                <Typography sx={{fontFamily: "Nunito"}}>Fats: {fats}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Sacharidy: {carbs}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Tuky: {fats}</Typography>
             </Grid>
             <Grid item xs={2}>
-                <Typography sx={{fontFamily: "Nunito"}}>Fiber: {fiber}</Typography>
-                <Typography sx={{fontFamily: "Nunito"}}>Salt: {salt}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Vláknina: {fiber}</Typography>
+                <Typography sx={{fontFamily: "Nunito"}}>Sůl: {salt}</Typography>
             </Grid>
           </Grid>
         </>
