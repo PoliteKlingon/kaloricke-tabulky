@@ -1,8 +1,7 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 import {
     Alert,
-    Box,
     Button,
     Collapse,
     Grid,
@@ -24,9 +23,9 @@ import {
   import './UserDetails.css'
   import axios from "../../api/axios";
   import { Navigate } from "react-router-dom"
-  import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
-import DeleteAccountModal from './DeleteAccountModal';
-import ChangePasswordModal from './ChangePasswordModal';
+  import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+  import DeleteAccountModal from './DeleteAccountModal';
+  import ChangePasswordModal from './ChangePasswordModal';
 
 
   const Root = styled("div")({
