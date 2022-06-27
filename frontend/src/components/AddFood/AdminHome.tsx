@@ -89,7 +89,7 @@ function AdminHome() {
                   {foodModal && 
                     <Modal
                         open={foodModal}
-                        onClose={() => setFoodModal(false)}
+                        onClose={() => {setFoodModal(false); getFood()}}
                     >
                         <AddFoodModal closeModal={setFoodModal}/>
                     </Modal>
