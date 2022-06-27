@@ -137,45 +137,59 @@ const Register = () => {
   ) : (
     <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>
-        <Grid item xs={12} sm={6} sx={{ minHeight: "30vh" }}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ minHeight: "15vh", display: { xs: "none", md: "unset" } }}
+        >
           <ChangingImage slides={slides} changeInterval={5000} />
         </Grid>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            minHeight: "20vh",
+            display: { xs: "unset", md: "none" },
+            backgroundImage: `url(../../public/assets/chadLogo.png)`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center bottom",
+          }}
+        />
         <Grid
           container
           item
           xs={12}
-          sm={6}
-          sx={{ p: {xs: 3, sm: 10} }}
+          md={6}
+          sx={{ p: { xs: 3, md: 10 } }}
           alignItems="center"
           direction="column"
           justifyContent="space-evenly"
         >
-          <Grid container justifyContent={"center"} sx={{visibility: "hidden"}}>
-            <LogoImage
-              src={
-                import.meta.env.VITE_PUBLIC_URL + "/assets/logo-placeholder.png"
-              }
-              alt="logo"
-            />
-          </Grid>
           <form onSubmit={handleSubmit(onSubmit)}>
             <InputContainer>
               <Grid container justifyContent={"center"}>
                 <LogoImage
-                  sx={{marginBottom: 2}}
-                  src={
-                    import.meta.env.VITE_PUBLIC_URL +
-                    "/assets/logo.png"
-                  }
+                  sx={{ marginBottom: 2, display: { xs: "none", md: "unset" } }}
+                  src={import.meta.env.VITE_PUBLIC_URL + "/assets/logo.png"}
                   alt="logo"
                 />
               </Grid>
 
               <Grid container columnSpacing={2}>
-                <Grid item xs={12} fontFamily="Nunito" textAlign="center" fontWeight="700" sx={{fontSize: {xs: "2rem", sm:"2.5rem"}}}>
+                <Grid
+                  item
+                  xs={12}
+                  fontFamily="Nunito"
+                  textAlign="center"
+                  fontWeight="700"
+                  sx={{ fontSize: { xs: "2rem", md: "2.5rem" } }}
+                >
                   Zaregistruj se
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     label="Email"
                     fullWidth={true}
@@ -199,7 +213,7 @@ const Register = () => {
                     helperText={errors?.email ? errors.email.message : null}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     label="Přezdívka"
                     fullWidth={true}
@@ -221,7 +235,7 @@ const Register = () => {
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     label="Heslo"
                     fullWidth={true}
@@ -244,7 +258,7 @@ const Register = () => {
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     label="Heslo znovu"
                     fullWidth={true}
@@ -273,7 +287,7 @@ const Register = () => {
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     label="Jméno"
                     fullWidth={true}
@@ -286,7 +300,7 @@ const Register = () => {
                     helperText={errors?.name ? errors.name.message : null}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} md={6}>
                   <TextField
                     label="Příjmení"
                     fullWidth={true}
@@ -299,7 +313,7 @@ const Register = () => {
                     helperText={errors?.surname ? errors.surname.message : null}
                   />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} md={4}>
                   <TextField
                     label="Výška"
                     fullWidth={true}
@@ -317,7 +331,7 @@ const Register = () => {
                     helperText={errors?.height ? errors.height.message : null}
                   />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} md={4}>
                   <TextField
                     label="Váha"
                     fullWidth={true}
@@ -335,7 +349,7 @@ const Register = () => {
                     helperText={errors?.weight ? errors.weight.message : null}
                   />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={12} md={4}>
                   <TextField
                     label="Cílová Váha"
                     fullWidth={true}
@@ -355,7 +369,7 @@ const Register = () => {
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} sx={{ pt: 3 }}>
+                <Grid item xs={12} md={6} sx={{ pt: 3 }}>
                   <DatePicker
                     disableFuture
                     label="Datum narození"
@@ -371,7 +385,7 @@ const Register = () => {
                     inputFormat="dd.MM.yyyy"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6} sx={{ pt: 2 }}>
+                <Grid item xs={12} md={6} sx={{ pt: 2 }}>
                   <Typography>Pohlaví</Typography>
                   <Slider
                     size="small"
@@ -396,7 +410,7 @@ const Register = () => {
                       rowSpacing={2}
                       columnSpacing={2}
                     >
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} md={6}>
                         <TextField
                           label="Požadované Kalorie"
                           fullWidth={true}
@@ -419,7 +433,7 @@ const Register = () => {
                           }
                         />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} md={6}>
                         <TextField
                           label="Požadované Bílkoviny"
                           fullWidth={true}
@@ -442,7 +456,7 @@ const Register = () => {
                           }
                         />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} md={6}>
                         <TextField
                           label="Požadované Sacharidy"
                           fullWidth={true}
@@ -465,7 +479,7 @@ const Register = () => {
                           }
                         />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} md={6}>
                         <TextField
                           label="Požadované Tuky"
                           fullWidth={true}
@@ -486,7 +500,7 @@ const Register = () => {
                           helperText={errors?.fats ? errors.fats.message : null}
                         />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} md={6}>
                         <TextField
                           label="Požadovaná Vláknina"
                           fullWidth={true}
@@ -509,7 +523,7 @@ const Register = () => {
                           }
                         />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} md={6}>
                         <TextField
                           label="Požadovaná Sůl"
                           fullWidth={true}

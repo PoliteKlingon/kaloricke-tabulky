@@ -73,7 +73,8 @@ const FoodRecord: FC<IDiaryRecord> = ({
         justifyContent: "space-between",
         alignItems: "center",
         px: { xs: 0, sm: 2 },
-        py: 0.7,
+        py: 0.2,
+        my: 0.7,
         mx: 1,
       }}
     >
