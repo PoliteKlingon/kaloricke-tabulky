@@ -53,7 +53,7 @@ const DeleteFoodModal = ({foodId, foodName, ssid, closeModal}) => {
 
   return (
     <Box sx={modalStyle}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ fontFamily: "Nunito" }}>
             Opravdu chcete odstranit {foodName}?
         </Typography>
         {alertSeverity && 
