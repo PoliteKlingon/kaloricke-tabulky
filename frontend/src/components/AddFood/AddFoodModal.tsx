@@ -24,6 +24,7 @@ const modalStyle = {
     p: 4,
   };
 
+// @ts-ignore
 const AddFoodModal = ({closeModal}) => {
   // @ts-ignore
   const { auth, setAuth } = useContext(AuthContext);
