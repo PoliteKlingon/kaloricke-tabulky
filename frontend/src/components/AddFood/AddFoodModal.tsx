@@ -69,6 +69,10 @@ const AddFoodModal = ({closeModal}) => {
         .then((_) => {
           setAlertSeverity("success");
           setAlertMessage("Jídlo bylo úspěšně přidáno");
+          setTimeout(() => {
+            setAlertSeverity("");
+            setAlertMessage("");
+          }, 2000)
           reset();
         })
         .catch((err) => {
