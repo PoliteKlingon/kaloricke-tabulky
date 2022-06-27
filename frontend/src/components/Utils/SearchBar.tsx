@@ -92,7 +92,7 @@ const SearchBar: FC<ISearchBarProps> = () => {
                     navigate(`/details/${currValue}`);
                   }}
                 >
-                  <SearchIcon sx={{ fontSize: 40 }} />
+                  <SearchIcon sx={{ fontSize: 30 }} />
                 </IconButton>
               </InputAdornment>
             }
