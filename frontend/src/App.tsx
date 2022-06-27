@@ -24,7 +24,6 @@ const App = () => {
           <Route path="/admin-home" element={<AdminHomepage />} />
           <Route path="/details/:id" element={<FoodDetailsPage />} />
           <Route path="/user-details" element={<UserDetailsPage />} />
-          <Route path="/not-found*" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
