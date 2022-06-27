@@ -118,7 +118,7 @@ const DonutChart = (food: Food) => {
 }
 
 // @ts-ignore
-const DetailsWindow = ({amount, food}) => {
+const DetailsWindow = ({amount, food, handleClose}) => {
   const [mealType, setMealType] = useState("lunch")
   const [date, setDate] = useState(new Date())
 
@@ -144,7 +144,7 @@ const DetailsWindow = ({amount, food}) => {
         })
         .then((result) => {
           console.log(body)
-          // handleClose();
+          handleClose();
           // setFoodName("");
         }).catch((e) => {
         console.log(e)
@@ -287,7 +287,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                     Pro uložení jídla do jídelníčku, prosím vyberte datum
                     konzumace a typ jídla.
                   </DialogContentText>
-                  <DetailsWindow amount={amount} food={food} />
+                  <DetailsWindow amount={amount} food={food} handleClose ={handleClose}/>
                 </DialogContent>
               </Dialog>
             </PaddedDiv>
