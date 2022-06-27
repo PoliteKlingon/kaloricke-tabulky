@@ -118,7 +118,7 @@ function AdminHome() {
                     }
                   </Box>
                   {data.map((food: any) => {return(
-                    <ListedFood 
+                    <ListedFood key={food.id}
                       name={food.name} 
                       description={food.description}
                       calories={food.calories}
