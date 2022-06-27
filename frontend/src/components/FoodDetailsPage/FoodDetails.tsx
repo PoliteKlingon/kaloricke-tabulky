@@ -225,7 +225,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
 
   return (
     <Grid container sx={{ minHeight: "100vh" }} justifyContent="center">
-      <Container sx={{height: {xs: "auto", md: "50vh"}, minWidth: {xs: "100%", md: "60%"}}}>
+      <Container sx={{height: {xs: "auto", md: "80vh"}, minWidth: {xs: "100%", md: "60%"}}}>
         {(auth.ssid == null || auth.ssid == "") && <Navigate to="/login" />}
         <InfoDiv>
           <PaddedDiv>
