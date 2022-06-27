@@ -2,14 +2,15 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import { CssBaseline, Grid, Box, Container, AppBar, Link, Stack, Toolbar } from "@mui/material";
 import { Typography, Button, Alert } from "@mui/material";
-import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes, styled, ThemeProvider } from "@mui/material/styles";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthProvider";
 import axios from "../../api/axios";
 import { Navigate } from "react-router-dom";
 
-const theme = createTheme();
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
 
 const modalStyle = {
     position: 'absolute' as 'absolute',
@@ -139,7 +140,7 @@ const AddFoodModal = ({closeModal}) => {
                 </Grid>
                 <Grid item xs={12}>
                     <Typography component="h1" variant="h6" sx={{
-                    marginTop: 3,
+                    marginTop: {xs: 0, sm: 3},
                     textAlign:"center",
                     fontFamily: "Nunito"
                     }}>
@@ -286,7 +287,7 @@ const AddFoodModal = ({closeModal}) => {
                     backgroundColor: "orange",
                     fontFamily: "Nunito",
                     fontWeight: "bold",
-                    marginTop: 5,
+                    marginTop: {xs: 2, sm: 5},
                     marginBottom: 2,
                     transition: "transform 0.2s",
                     ":hover": {
