@@ -224,160 +224,154 @@ const FoodDetails:FoodDetailsType = ({food}) => {
   const { auth } = useContext(AuthContext);
 
   return (
-    <Container>
-      {(auth.ssid == null || auth.ssid == "") && <Navigate to='/login'  />}
-      <InfoDiv>
-        <PaddedDiv>
-          <Typography
+    <Grid container sx={{ minHeight: "100vh" }} justifyContent="center">
+      <Container sx={{height: {xs: "auto", md: "50vh"}, minWidth: {xs: "100%", md: "60%"}}}>
+        {(auth.ssid == null || auth.ssid == "") && <Navigate to="/login" />}
+        <InfoDiv>
+          <PaddedDiv>
+            <Typography
+              sx={{
+                textTransform: "uppercase",
+                fontSize: "h4.fontSize",
+                letterSpacing: "0.15rem",
+                fontFamily: "nunito",
+              }}
+            >
+              {food.name}
+            </Typography>
+          </PaddedDiv>
+          <PaddedDiv
             sx={{
-              textTransform:"uppercase",
-              fontSize: "h4.fontSize",
-              letterSpacing: "0.15rem",
-              fontFamily: "nunito",
-            }}>
-            {food.name}
-          </Typography>
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "baseline",
+              gap: "0.5rem",
+              justifyContent: "space-between",
+            }}
+          >
+            <PaddedDiv
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "baseline",
+                gap: "0.5rem",
+                padding: "0",
+              }}
+            >
+              <Typography sx={{ fontFamily: "nunito" }}>Množství</Typography>
+              <TextField
+                defaultValue={100}
+                variant="standard"
+                margin="none"
+                onChange={(amount) => {
+                  setAmount(+amount.target.value);
+                }}
+                sx={{ fontFamily: "nunito" }}
+              />
+              <Typography sx={{ fontFamily: "nunito" }}>x&nbsp;1g</Typography>
+            </PaddedDiv>
+            <PaddedDiv>
+              <AddButton onClick={handleClickOpen}>
+                {isDesktop ? "Zapsat potravinu do jídelníčku" : "Zapsat"}
+              </AddButton>
+              <Dialog open={open} onClose={handleClose}>
+                <DialogTitle sx={{ fontFamily: "nunito" }}>
+                  Vyberte typ jídla a datum
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText sx={{ fontFamily: "nunito" }}>
+                    Pro uložení jídla do jídelníčku, prosím vyberte datum
+                    konzumace a typ jídla.
+                  </DialogContentText>
+                  <DetailsWindow amount={amount} food={food} />
+                </DialogContent>
+              </Dialog>
+            </PaddedDiv>
+          </PaddedDiv>
+          {/*<FoodImg src={food.photo} alt={food.name}/>*/}
+        </InfoDiv>
+        <PaddedDiv>
+          <Grid container>
+            <Grid item xs={isDesktop ? 4 : 12}>
+              Energetická hodnota
+              <ValuesDiv>
+                {getValueMultiplied(food.calories, amount)} kcal
+              </ValuesDiv>
+            </Grid>
+            <Grid item xs={isDesktop ? 2 : 6}>
+              Bílkoviny
+              <ValuesDiv>
+                {getValueMultiplied(food.proteins, amount)} g
+              </ValuesDiv>
+            </Grid>
+            <Grid item xs={isDesktop ? 2 : 6}>
+              Sacharidy
+              <ValuesDiv>{getValueMultiplied(food.carbs, amount)} g</ValuesDiv>
+            </Grid>
+            <Grid item xs={isDesktop ? 2 : 6}>
+              Tuky
+              <ValuesDiv>{getValueMultiplied(food.fats, amount)} g</ValuesDiv>
+            </Grid>
+            <Grid item xs={isDesktop ? 2 : 6}>
+              Vláknina
+              <ValuesDiv>{getValueMultiplied(food.fiber, amount)} g</ValuesDiv>
+            </Grid>
+          </Grid>
         </PaddedDiv>
         <PaddedDiv
-          sx={{
-            display:"flex",
-            flexDirection: "row",
-            alignItems: "baseline",
-            gap: "0.5rem",
-            justifyContent: "space-between",
-        }}>
-          <PaddedDiv sx={{display:"flex", flexDirection: "row", alignItems: "baseline", gap: "0.5rem", padding:"0"}}>
-            <Typography sx={{fontFamily: "nunito",}}>
-              Množství
-            </Typography>
-            <TextField
-              defaultValue={100}
-              variant="standard"
-              margin="none"
-              onChange={(amount) => {setAmount(+amount.target.value)}}
-              sx={{fontFamily: "nunito",}}
+          sx={{ display: "flex", flexDirection: isDesktop ? "row" : "column" }}
+        >
+          <Table sx={{ width: isDesktop ? "50%" : "100%" }}>
+            <TableHead sx={{ fontFamily: "nunito" }}>
+              Nutriční hodnoty na 100g
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <NunitoTableCell>Bílkoviny</NunitoTableCell>
+                <NunitoTableCell>{food.proteins} g</NunitoTableCell>
+              </TableRow>
+              <TableRow>
+                <NunitoTableCell>Sacharidy</NunitoTableCell>
+                <NunitoTableCell>{food.carbs} g</NunitoTableCell>
+              </TableRow>
+              <TableRow>
+                <NunitoTableCell>Tuky</NunitoTableCell>
+                <NunitoTableCell>{food.fats} g</NunitoTableCell>
+              </TableRow>
+              <TableRow>
+                <NunitoTableCell>Vláknina</NunitoTableCell>
+                <NunitoTableCell>{food.fiber} g</NunitoTableCell>
+              </TableRow>
+              <TableRow>
+                <NunitoTableCell>Sůl</NunitoTableCell>
+                <NunitoTableCell>{food.salt} g</NunitoTableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+          <PaddedDiv
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "center",
+              margin: "3% 0 0 5%",
+            }}
+          >
+            <DonutChart
+              name={food.name}
+              description={food.description}
+              calories={food.calories}
+              proteins={food.proteins}
+              carbs={food.carbs}
+              fats={food.fats}
+              fiber={food.fiber}
+              salt={food.salt}
+              id={food.id}
             />
-            <Typography sx={{fontFamily: "nunito",}}>
-              x&nbsp;1g
-            </Typography>
-          </PaddedDiv>
-          <PaddedDiv>
-            <AddButton
-              onClick={handleClickOpen}
-            >
-              {isDesktop ? "Zapsat potravinu do jídelníčku" : "Zapsat"}
-            </AddButton>
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle sx={{fontFamily: "nunito",}}>
-                Vyberte typ jídla a datum
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText sx={{fontFamily: "nunito",}}>
-                  Pro uložení jídla do jídelníčku, prosím vyberte datum konzumace a typ jídla.
-                </DialogContentText>
-                <DetailsWindow amount={amount} food={food}/>
-              </DialogContent>
-            </Dialog>
           </PaddedDiv>
         </PaddedDiv>
-        {/*<FoodImg src={food.photo} alt={food.name}/>*/}
-      </InfoDiv>
-      <PaddedDiv>
-        <Grid container>
-          <Grid item xs={isDesktop ? 4 : 12}>
-            Energetická hodnota
-            <ValuesDiv>
-              {getValueMultiplied(food.calories, amount)} kcal
-            </ValuesDiv>
-          </Grid>
-          <Grid item xs={isDesktop ? 2 : 6}>
-            Bílkoviny
-            <ValuesDiv>
-              {getValueMultiplied(food.proteins, amount)} g
-            </ValuesDiv>
-          </Grid>
-          <Grid item xs={isDesktop ? 2 : 6}>
-            Sacharidy
-            <ValuesDiv>
-              {getValueMultiplied(food.carbs, amount)} g
-            </ValuesDiv>
-          </Grid>
-          <Grid item xs={isDesktop ? 2 : 6}>
-            Tuky
-            <ValuesDiv>
-              {getValueMultiplied(food.fats, amount)} g
-            </ValuesDiv>
-          </Grid>
-          <Grid item xs={isDesktop ? 2 : 6}>
-            Vláknina
-            <ValuesDiv>
-              {getValueMultiplied(food.fiber, amount)} g
-            </ValuesDiv>
-          </Grid>
-        </Grid>
-      </PaddedDiv>
-      <PaddedDiv sx={{display:"flex", flexDirection: isDesktop ? "row" : "column"}}>
-        <Table sx={{width: isDesktop ? "50%" : "100%",}}>
-          <TableHead sx={{fontFamily: "nunito",}}>
-            Nutriční hodnoty na 100g
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <NunitoTableCell>
-                Bílkoviny
-              </NunitoTableCell>
-              <NunitoTableCell>
-                {food.proteins} g
-              </NunitoTableCell>
-            </TableRow>
-            <TableRow>
-              <NunitoTableCell>
-                Sacharidy
-              </NunitoTableCell>
-              <NunitoTableCell>
-                {food.carbs} g
-              </NunitoTableCell>
-            </TableRow>
-            <TableRow>
-              <NunitoTableCell>
-                Tuky
-              </NunitoTableCell>
-              <NunitoTableCell>
-                {food.fats} g
-              </NunitoTableCell>
-            </TableRow>
-            <TableRow>
-              <NunitoTableCell>
-                Vláknina
-              </NunitoTableCell>
-              <NunitoTableCell>
-                {food.fiber} g
-              </NunitoTableCell>
-            </TableRow>
-            <TableRow>
-              <NunitoTableCell>
-                Sůl
-              </NunitoTableCell>
-              <NunitoTableCell>
-                {food.salt} g
-              </NunitoTableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-        <PaddedDiv sx={{display: "flex", justifyContent: "center", alignContent: "center", margin: "3% 0 0 5%" }}>
-          <DonutChart name={food.name}
-                    description={food.description}
-                    calories={food.calories}
-                    proteins={food.proteins}
-                    carbs={food.carbs}
-                    fats={food.fats}
-                    fiber={food.fiber}
-                    salt={food.salt}
-                    id={food.id}/>
-        </PaddedDiv>
-      </PaddedDiv>
-    </Container>
-    )
+      </Container>
+    </Grid>
+  );
 };
 
 export default FoodDetails;

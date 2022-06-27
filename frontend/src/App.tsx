@@ -24,6 +24,7 @@ const App = () => {
           <Route path="/add-food" element={<AddFoodPage />} />
           <Route path="/details/:id" element={<FoodDetailsPage />} />
           <Route path="/user-details" element={<UserDetailsPage />} />
+          <Route path="/not-found*" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
