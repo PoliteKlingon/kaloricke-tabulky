@@ -1,10 +1,11 @@
 import { ThemeProvider } from '@emotion/react';
-import { Container, CssBaseline, Box, Typography, Grid, TextField, Button, createTheme, styled } from '@mui/material';
+import { Container, CssBaseline, Box, Typography, Modal, Grid, TextField, Button, createTheme, styled } from '@mui/material';
 import { useContext, useEffect, useState } from 'react'
 import { flushSync } from 'react-dom';
 import { Navigate } from 'react-router-dom';
 import axios from "../../api/axios";
 import AuthContext from "../../context/AuthProvider";
+import AddFoodModal from './AddFoodModal';
 import ListedFood from './ListedFood';
 
 const theme = createTheme();
@@ -19,6 +20,7 @@ function AdminHome() {
     const { auth, setAuth } = useContext(AuthContext);
 
     const [data, setData] = useState([]);
+    const [foodModal, setFoodModal] = useState(false);
 
     const getFood = async () => {
         try {
@@ -32,7 +34,6 @@ function AdminHome() {
                flushSync(() => setData(response.data.data));
                console.log(response)
                console.log(data)
-               setTimeout(() => {console.log(data)}, 1000);
              })
         } catch (err) {
           // @ts-ignore
@@ -63,7 +64,7 @@ function AdminHome() {
             }} >
     
               <ThemeProvider theme={theme}>
-                <Container component="main" maxWidth="xs">
+                <Container component="main">
                   <CssBaseline />
                   <Box
                   sx={{
@@ -76,8 +77,31 @@ function AdminHome() {
                   <Typography component="h1" variant="h4" sx={{ fontFamily: "Nunito" }}>
                       Správa jídel v databázi
                   </Typography>
+                  <Button onClick={() => {setFoodModal(!foodModal)}}>
+                    Přidat jídlo do databáze
+                  </Button>
+                  {foodModal && 
+                    <Modal
+                        open={foodModal}
+                        onClose={() => setFoodModal(false)}
+                    >
+                        <AddFoodModal />
+                    </Modal>
+                    }
                   </Box>
-                  {data.map((food: any) => {return(<ListedFood name={food.name} />)})}
+                  {data.map((food: any) => {return(
+                    <ListedFood 
+                      name={food.name} 
+                      description={food.description}
+                      calories={food.calories}
+                      id={food.id}
+                      proteins={food.proteins}
+                      carbs={food.carbs}
+                      fiber={food.fiber}
+                      fats={food.fats}
+                      salt={food.salt}
+                    />
+                  )})}
                 </Container>
               </ThemeProvider>
             </Container>
