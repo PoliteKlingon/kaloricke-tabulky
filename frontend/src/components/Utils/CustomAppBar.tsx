@@ -15,7 +15,6 @@ import {
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
 import SearchIcon from "@mui/icons-material/Search";
-
 import AnimatedButton from "./AnimatedButton";
 import AuthContext from "../../context/AuthProvider";
 import { logout } from "../../utils/Utils";
