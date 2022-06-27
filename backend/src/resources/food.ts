@@ -24,6 +24,10 @@ const foodSchema = object({
   fats: number().required().min(0),
   fiber: number().required().min(0),
   salt: number().required().min(0),
+  imageLink: string().matches(
+    /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+    "Incorrect image URL"
+  ),
 });
 
 const foodUpdateSchema = object({
@@ -35,6 +39,10 @@ const foodUpdateSchema = object({
   fats: number().optional().min(0),
   fiber: number().optional().min(0),
   salt: number().optional().min(0),
+  imageLink: string().matches(
+    /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+    "Incorrect image URL"
+  ),
 });
 
 const foodIdSchema = string().required().lowercase();

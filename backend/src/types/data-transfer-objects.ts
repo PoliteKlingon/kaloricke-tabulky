@@ -49,6 +49,7 @@ export interface FoodDTO {
   id: string;
   name: string;
   description: string;
+  imageUrl: string;
   calories: number;
   proteins: number;
   carbs: number;
