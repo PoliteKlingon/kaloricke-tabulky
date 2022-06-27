@@ -72,6 +72,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
   };
 
   const LogoImage = styled("img")({
+    marginTop: 8 ,
     width: 200,
   });
 
