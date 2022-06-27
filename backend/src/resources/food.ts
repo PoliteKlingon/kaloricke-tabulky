@@ -13,28 +13,28 @@ import {
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { headersSchema } from "./helper/user-shemas";
 import { getUserBySessionId } from "./user";
-import { Role, User } from ".prisma/client";
+import { Role } from ".prisma/client";
 
 const foodSchema = object({
   name: string().required().trim(),
   description: string().default("Food").trim(),
-  calories: number().required(),
-  proteins: number().required(),
-  carbs: number().required(),
-  fats: number().required(),
-  fiber: number().required(),
-  salt: number().required(),
+  calories: number().required().min(0),
+  proteins: number().required().min(0),
+  carbs: number().required().min(0),
+  fats: number().required().min(0),
+  fiber: number().required().min(0),
+  salt: number().required().min(0),
 });
 
 const foodUpdateSchema = object({
   name: string().optional().trim(),
   description: string().optional().trim(),
-  calories: number().optional(),
-  proteins: number().optional(),
-  carbs: number().optional(),
-  fats: number().optional(),
-  fiber: number().optional(),
-  salt: number().optional(),
+  calories: number().optional().min(0),
+  proteins: number().optional().min(0),
+  carbs: number().optional().min(0),
+  fats: number().optional().min(0),
+  fiber: number().optional().min(0),
+  salt: number().optional().min(0),
 });
 
 const foodIdSchema = string().required().lowercase();
@@ -126,6 +126,10 @@ export const searchByName = async (req: Request, res: Response) => {
       where: {
         AND: [{ deleted: null }, { id: { contains: partOfId } }],
       },
+    });
+
+    foods.sort((f1, f2) => {
+      return f1.name.localeCompare(f2.name);
     });
     return sendSuccess(res, "Foods retreived successfully", foods);
   } catch (e) {
