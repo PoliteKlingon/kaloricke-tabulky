@@ -30,11 +30,10 @@ interface ICustomAppBarProps {
 }
 
 function DarkenScroll(props: any) {
-  const { children, window } = props;
+  const { children } = props;
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
-    target: window ? window() : undefined,
   });
 
   return React.cloneElement(children, {
@@ -74,7 +73,6 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
   };
 
   return (
-    <>
     <DarkenScroll>
       <AppBar
         elevation={0}
@@ -283,7 +281,6 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
         </Toolbar>
       </AppBar>
       </DarkenScroll>
-    </>
   );
 };
 
