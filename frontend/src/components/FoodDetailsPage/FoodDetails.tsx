@@ -81,6 +81,10 @@ const NunitoTableCell = styled(TableCell)({
   fontFamily: "nunito",
 })
 
+const TableDiv = styled(Box)({
+  fontFamily: "nunito",
+})
+
 
 const getValueMultiplied = (value: number, multiplier: number) => {
   return (value * multiplier/100).toFixed(2).replace(/[.,]00$/, "")
@@ -114,7 +118,7 @@ const DonutChart = (food: Food) => {
 }
 
 // @ts-ignore
-const DetailsWindow = ({amount, food}) => {
+const DetailsWindow = ({amount, food, handleClose}) => {
   const [mealType, setMealType] = useState("lunch")
   const [date, setDate] = useState(new Date())
 
@@ -140,7 +144,7 @@ const DetailsWindow = ({amount, food}) => {
         })
         .then((result) => {
           console.log(body)
-          // handleClose();
+          handleClose();
           // setFoodName("");
         }).catch((e) => {
         console.log(e)
@@ -224,8 +228,8 @@ const FoodDetails:FoodDetailsType = ({food}) => {
   const { auth } = useContext(AuthContext);
 
   return (
-    <Grid container sx={{ minHeight: "100vh" }} justifyContent="center">
-      <Container sx={{height: {xs: "auto", md: "50vh"}, minWidth: {xs: "100%", md: "60%"}}}>
+    <Grid container minHeight="100vh" justifyContent="center">
+      <Container sx={{height: {xs: "full", md: isDesktop ? "75vh" : "auto"}, minWidth: {xs: "100%", md: "60%"}}}>
         {(auth.ssid == null || auth.ssid == "") && <Navigate to="/login" />}
         <InfoDiv>
           <PaddedDiv>
@@ -283,7 +287,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
                     Pro uložení jídla do jídelníčku, prosím vyberte datum
                     konzumace a typ jídla.
                   </DialogContentText>
-                  <DetailsWindow amount={amount} food={food} />
+                  <DetailsWindow amount={amount} food={food} handleClose ={handleClose}/>
                 </DialogContent>
               </Dialog>
             </PaddedDiv>
@@ -321,33 +325,35 @@ const FoodDetails:FoodDetailsType = ({food}) => {
         <PaddedDiv
           sx={{ display: "flex", flexDirection: isDesktop ? "row" : "column" }}
         >
-          <Table sx={{ width: isDesktop ? "50%" : "100%" }}>
-            <TableHead sx={{ fontFamily: "nunito" }}>
+          <TableDiv sx={{ width: isDesktop ? "50%" : "100%", display:"flex", flexDirection:"column" }}>
+            <Typography fontFamily="nunito">
               Nutriční hodnoty na 100g
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <NunitoTableCell>Bílkoviny</NunitoTableCell>
-                <NunitoTableCell>{food.proteins} g</NunitoTableCell>
-              </TableRow>
-              <TableRow>
-                <NunitoTableCell>Sacharidy</NunitoTableCell>
-                <NunitoTableCell>{food.carbs} g</NunitoTableCell>
-              </TableRow>
-              <TableRow>
-                <NunitoTableCell>Tuky</NunitoTableCell>
-                <NunitoTableCell>{food.fats} g</NunitoTableCell>
-              </TableRow>
-              <TableRow>
-                <NunitoTableCell>Vláknina</NunitoTableCell>
-                <NunitoTableCell>{food.fiber} g</NunitoTableCell>
-              </TableRow>
-              <TableRow>
-                <NunitoTableCell>Sůl</NunitoTableCell>
-                <NunitoTableCell>{food.salt} g</NunitoTableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+            </Typography>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <NunitoTableCell>Bílkoviny</NunitoTableCell>
+                  <NunitoTableCell>{food.proteins} g</NunitoTableCell>
+                </TableRow>
+                <TableRow>
+                  <NunitoTableCell>Sacharidy</NunitoTableCell>
+                  <NunitoTableCell>{food.carbs} g</NunitoTableCell>
+                </TableRow>
+                <TableRow>
+                  <NunitoTableCell>Tuky</NunitoTableCell>
+                  <NunitoTableCell>{food.fats} g</NunitoTableCell>
+                </TableRow>
+                <TableRow>
+                  <NunitoTableCell>Vláknina</NunitoTableCell>
+                  <NunitoTableCell>{food.fiber} g</NunitoTableCell>
+                </TableRow>
+                <TableRow>
+                  <NunitoTableCell>Sůl</NunitoTableCell>
+                  <NunitoTableCell>{food.salt} g</NunitoTableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableDiv>
           <PaddedDiv
             sx={{
               display: "flex",

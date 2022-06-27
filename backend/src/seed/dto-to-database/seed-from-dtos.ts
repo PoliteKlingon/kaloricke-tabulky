@@ -51,36 +51,6 @@ const seedDB = async (
           },
         });
       }),
-
-      // ...yamlParsed.diaryEntry.map((single) => {
-      //   return prisma.diaryEntry.create({
-      //     data: {
-      //       ...single,
-      //     },
-      //   });
-      // }),
-
-      // ...yamlParsed.eaten.map((single) => {
-      //   return prisma.eaten.create({
-      //     data: {
-      //       ...single,
-      //       foodId: single.foodId
-      //     }
-      //   })
-      // }),
-
-      // ...yamlParsed.meal.map((single) => {
-      //   return prisma.meal.create({
-      //     data: {
-      //       ...single,
-      //       food: {
-      //         connect: single.food.map((singleFood) => ({
-      //           id: singleFood.id
-      //         }))
-      //       }
-      //     },
-      //   })
-      // })
     ]);
     return Result.ok(true);
   } catch (e) {

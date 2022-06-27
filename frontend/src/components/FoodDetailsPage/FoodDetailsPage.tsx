@@ -32,7 +32,7 @@ const FoodDetailsPage = () => {
         }).catch((_) => {
           navigate("/not-found");
         })
-    })
+    }, [])
   } catch (err) {
     console.log(err)
   }
@@ -42,7 +42,7 @@ const FoodDetailsPage = () => {
     <MainBackground>
       <CssBaseline />
       {/*<MainAppBar />*/}
-      <CustomAppBar withSearch={false}/>
+      <CustomAppBar withSearch={true}/>
       <FoodDetails food={food}/>
     </MainBackground>
     </div>

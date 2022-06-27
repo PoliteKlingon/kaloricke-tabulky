@@ -18,9 +18,16 @@ const UserDetailsPage = () => {
         <Navigate to="/" />
       ) : (
         <MainBackground>
+          <Box
+            sx={{
+              height: "100vh",
+              overflow: "auto",
+            }}
+          >
             <CssBaseline />
             <CustomAppBar withSearch={true} />
             <UserDetails />
+          </Box>
         </MainBackground>
       )}
     </>

@@ -9,9 +9,9 @@ import {
   sendNotFound,
   sendSuccess,
   sendValidationError,
-} from "./universalResponses";
+} from "./helper/responses";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
-import { headersSchema } from "./user-shemas";
+import { headersSchema } from "./helper/user-shemas";
 import { getUserBySessionId } from "./user";
 import { Role, User } from ".prisma/client";
 
@@ -63,7 +63,9 @@ export const store = async (req: Request, res: Response) => {
     if (e instanceof PrismaClientKnownRequestError && e.code === "P2002")
       return sendDuplicateError(res, "Food with given name already exists");
 
-    if (e.name === "NotFoundError") return sendAuthorizationError(res);
+    if (e.name === "NotFoundError") {
+      if (e.message === "No Session found") return sendAuthorizationError(res);
+    }
 
     console.log(e);
     return sendInternalServerError(res);
@@ -108,7 +110,10 @@ export const get = async (req: Request, res: Response) => {
 
     return sendSuccess(res, "Foods retreived successfully", food);
   } catch (e: any) {
-    if (e.name === "NotFoundError") return sendNotFound(res, "Food not found");
+    if (e.name === "NotFoundError") {
+      if (e.message === "No Food found")
+        return sendNotFound(res, "Food not found");
+    }
 
     return sendInternalServerError(res);
   }
@@ -171,7 +176,9 @@ export const update = async (req: Request, res: Response) => {
     if (e instanceof PrismaClientKnownRequestError && e.code === "P2002")
       return sendDuplicateError(res, "Food with given name already exists");
 
-    if (e.name === "NotFoundError") return sendAuthorizationError(res);
+    if (e.name === "NotFoundError") {
+      if (e.message === "No Session found") return sendAuthorizationError(res);
+    }
 
     return sendInternalServerError(res);
   }

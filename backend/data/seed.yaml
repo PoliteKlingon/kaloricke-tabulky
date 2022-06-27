@@ -11,10 +11,10 @@ userCredentials:
     # password is "admin"
     passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
 
-  - email: "tvojeMama@haha.com"
+  - email: "1@1.com"
     userId: "1"
-    # password is "admin"
-    passwordHash: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+    # password is "1"
+    passwordHash: "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
 
   - email: "jedunakoni@paneboze.cz"
     userId: "2"
@@ -28,7 +28,6 @@ userCredentials:
 
 # # I have NO idea how much crabs/fats/... one should eat
 userDetails:
-  # - id:  "03489d70-7895-488f-ffff-2324f014000e"
   - username: "admin"
     name: "Adam"
     surname: "The Admin"
@@ -53,8 +52,7 @@ userDetails:
     email: "nothing.here@empty.null"
     goalWeight: 100
 
-  - # id: "03489d70-7895-488f-eeee-2324f014000e"
-    username: "user"
+  - username: "user"
     name: "Black"
     surname: "Hole"
     weight: 290
@@ -65,8 +63,7 @@ userDetails:
     userId: "2"
     goalWeight: 30
 
-  - # id: "03489d70-7895-488f-dddd-2324f014000e"
-    username: "a"
+  - username: "a"
     name: "a"
     surname: "a"
     weight: 87
@@ -78,8 +75,7 @@ userDetails:
     goalWeight: 60
 
 userGoals:
-  - # id: "03489d70-7895-488f-ae3c-2324f014000e"
-    userId: "1"
+  - userId: "1"
     carbs: 0
     proteins: 0
     fats: 0
@@ -87,8 +83,7 @@ userGoals:
     salt: 0
     calories: 0
 
-  - # id: "99989d70-7895-488f-ae3c-2324f014000e"
-    userId: "2"
+  - userId: "2"
     carbs: 350
     proteins: 69
     fats: 960
@@ -96,8 +91,7 @@ userGoals:
     salt: 0
     calories: 2790
 
-  - # id: "88889d70-7895-488f-ae3c-2324f014000e"
-    userId: "3"
+  - userId: "3"
     carbs: 150
     proteins: 150
     fats: 150
@@ -236,85 +230,3 @@ role:
     canPromoteUsers: true
     canCUDOwnFood: true
     canCUDAnyFood: true
-
-eaten:
-#   # Breakfast user 2 day 1
-#   - id: "00089d70-8000-488f-ae3c-2324f014000e"
-#     foodId: "banana"
-#     quantity: 875.8
-
-#   - id: "b9a8511c-b4db-4028-944c-c50ed0594470"
-#     foodId: "pasta"
-#     quantity: 12.5
-
-#   ## Lunch user 2 day 1
-#   - id: "a982ec9f-1e98-45e1-86b2-d8190c62bb4f"
-#     foodId: "steak"
-#     quantity: 200
-
-#   - id: "99e28e40-48fb-4698-bbfc-8af19e2a3a13"
-#     foodId: "orange"
-#     quantity: 200
-
-#   ## Dinner user 2 day 1
-#   - id: "b023133e-4813-4f8f-8c65-efd3bd42e7ac"
-#     foodId: "53648e05-7519-4a94-b836-49e19764dfcc"
-#     quantity: 150
-
-#   - id: "5b8b5835-bd23-4c53-87c9-9fa61805ff50"
-#     foodId: "66689d70-4662-488f-ae3c-2324f014000f"
-#     quantity: 12.5
-
-#   ## Breakfast user 2 day 2
-#   - id: "2f00f0a2-a5ed-4eba-bdac-9942f4a643ee"
-#     foodId: "53648e05-7519-4a94-b836-49e19764dfcc"
-#     quantity: 250
-
-#   # Morning snack user 3
-#   - id: "3a23bc23-73a3-438a-8862-15d0063bb30a"
-#     foodId: "66689d70-4662-488f-ae3c-2324f014000f"
-#     quantity: 50.5
-
-#   - id: "b408fc4e-a11f-4fb7-b446-87ae5634f96a"
-#     foodId: "03489d70-4662-488f-ae3c-2324f014000e"
-#     quantity: 85
-
-meal:
-  # - id: "00089d70-4662-488f-ae3c-2324f014000f"
-  #   userId: "2"
-  #   food:
-  #     - id: "00089d70-8000-488f-ae3c-2324f014000e"
-  #     - id: "b9a8511c-b4db-4028-944c-c50ed0594470"
-  #   type: "Breakfast"
-  #   date: "2022-06-05T12:00:00.000Z"
-
-  # - id: "067522f4-54db-49a0-9c46-c0eca2b81136"
-  #   userId: "2"
-  #   food:
-  #     - id: "a982ec9f-1e98-45e1-86b2-d8190c62bb4f"
-  #     - id: "99e28e40-48fb-4698-bbfc-8af19e2a3a13"
-  #   type: "Lunch"
-  #   date: "2022-06-05T12:00:00.000Z"
-
-  # - id: "9af36f97-8d3e-4445-8982-3537de3ed0c4"
-  #   userId: "2"
-  #   food:
-  #     - id: "5b8b5835-bd23-4c53-87c9-9fa61805ff50"
-  #     - id: "b023133e-4813-4f8f-8c65-efd3bd42e7ac"
-  #   type: "Dinner"
-  #   date: "2022-06-05T12:00:00.000Z"
-
-  # - id: "1c65849a-c4b4-4cc8-a12c-15839a524828"
-  #   userId: "2"
-  #   food:
-  #     - id: "2f00f0a2-a5ed-4eba-bdac-9942f4a643ee"
-  #   type: "Breakfast"
-  #   date: "2022-06-06T12:00:00.000Z"
-
-  # - id: "7d136072-77b0-4d04-a8d0-86ddfab2623c"
-  #   userId: "3"
-  #   food:
-  #     - id: "3a23bc23-73a3-438a-8862-15d0063bb30a"
-  #     - id: "b408fc4e-a11f-4fb7-b446-87ae5634f96a"
-  #   type: "MorningSnack"
-  #   date: "2022-06-05T12:00:00.000Z"

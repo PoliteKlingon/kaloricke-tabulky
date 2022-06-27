@@ -10,12 +10,10 @@ import {
   import AuthContext from "../../context/AuthProvider";
   import './NotFound.css'
   import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
-import { max } from "date-fns";
 
   const Root = styled("div")({
     display: "flex",
     justifyContent: "center",
-    minHeight: "100vh",
   });
   
   const Container = styled("div")({
@@ -51,7 +49,7 @@ import { max } from "date-fns";
                   marginBottom: {xs: 5, md: 10},
                   borderRadius: {xs: 0, md: 10},
                   width: {xs: "100vw", md: "91.7vw"},
-                  overflow: 'auto',
+                  overflow: 'auto'
                 }}
             >
               <Grid
