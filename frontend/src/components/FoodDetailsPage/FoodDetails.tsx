@@ -224,8 +224,8 @@ const FoodDetails:FoodDetailsType = ({food}) => {
   const { auth } = useContext(AuthContext);
 
   return (
-    <Grid container sx={{ minHeight: "100vh" }} justifyContent="center">
-      <Container sx={{height: {xs: "auto", md: "75vh"}, minWidth: {xs: "100%", md: "60%"}}}>
+    <Grid container minHeight="100vh" justifyContent="center">
+      <Container sx={{height: {xs: "full", md: isDesktop ? "75vh" : "auto"}, minWidth: {xs: "100%", md: "60%"}}}>
         {(auth.ssid == null || auth.ssid == "") && <Navigate to="/login" />}
         <InfoDiv>
           <PaddedDiv>
