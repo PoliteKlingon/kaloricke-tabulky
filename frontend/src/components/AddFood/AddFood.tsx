@@ -8,9 +8,6 @@ import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthProvider";
 import axios from "../../api/axios";
 import { Navigate } from "react-router-dom";
-import AnimatedButton from "../Utils/AnimatedButton";
-import HideOnScroll from "../Utils/HideOnScroll";
-import CustomAppBar from "../Utils/CustomAppBar";
 
 const theme = createTheme();
 
