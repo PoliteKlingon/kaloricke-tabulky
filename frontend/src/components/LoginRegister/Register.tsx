@@ -160,6 +160,17 @@ const Register = () => {
           </Grid>
           <form onSubmit={handleSubmit(onSubmit)}>
             <InputContainer>
+              <Grid container justifyContent={"center"}>
+                <LogoImage
+                  sx={{marginBottom: 2}}
+                  src={
+                    import.meta.env.VITE_PUBLIC_URL +
+                    "/assets/logo.png"
+                  }
+                  alt="logo"
+                />
+              </Grid>
+
               <Grid container columnSpacing={2}>
                 <Grid item xs={12} fontFamily="Nunito" textAlign="center" fontWeight="700" sx={{fontSize: {xs: "2rem", sm:"2.5rem"}}}>
                   Zaregistruj se
