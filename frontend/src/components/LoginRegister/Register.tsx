@@ -137,7 +137,7 @@ const Register = () => {
   ) : (
     <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>
-        <Grid item xs={12} sm={6} sx={{ minHeight: "50vh" }}>
+        <Grid item xs={12} sm={6} sx={{ minHeight: "30vh" }}>
           <ChangingImage slides={slides} changeInterval={5000} />
         </Grid>
         <Grid
@@ -145,25 +145,25 @@ const Register = () => {
           item
           xs={12}
           sm={6}
-          sx={{ p: 10 }}
+          sx={{ p: {xs: 3, sm: 10} }}
           alignItems="center"
           direction="column"
-          justifyContent="space-between"
+          justifyContent="space-evenly"
         >
-          <div />
+          <Grid container justifyContent={"center"} >
+            <LogoImage
+              src={
+                import.meta.env.VITE_PUBLIC_URL + "/assets/logo-placeholder.png"
+              }
+              alt="logo"
+            />
+          </Grid>
           <form onSubmit={handleSubmit(onSubmit)}>
             <InputContainer>
-              <Grid container justifyContent={"center"}>
-                <LogoImage
-                  src={
-                    import.meta.env.VITE_PUBLIC_URL +
-                    "/assets/logo-placeholder.png"
-                  }
-                  alt="logo"
-                />
-              </Grid>
-
               <Grid container columnSpacing={2}>
+                <Grid item xs={12} fontFamily="Nunito" textAlign="center" fontWeight="700" sx={{fontSize: {xs: "2rem", sm:"2.5rem"}}}>
+                  Zaregistruj se
+                </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Email"
@@ -359,7 +359,6 @@ const Register = () => {
                     )}
                     inputFormat="dd.MM.yyyy"
                   />
-                  
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ pt: 2 }}>
                   <Typography>Pohlaví</Typography>

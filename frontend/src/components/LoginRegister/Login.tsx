@@ -75,7 +75,7 @@ const Login: FC<ILoginProps> = () => {
   ) : (
     <div style={{ fontSize: 15 }}>
       <Grid container sx={{ minHeight: "100vh" }}>
-        <Grid item xs={12} sm={6} sx={{ minHeight: "50vh" }}>
+        <Grid item xs={12} sm={6} sx={{ minHeight: "30vh" }}>
           <ChangingImage slides={slides} changeInterval={5000} />
         </Grid>
         <Grid
@@ -83,10 +83,10 @@ const Login: FC<ILoginProps> = () => {
           item
           xs={12}
           sm={6}
-          sx={{ p: 10 }}
+          sx={{ p: { xs: 3, sm: 10 } }}
           alignItems="center"
           direction="column"
-          justifyContent="space-between"
+          justifyContent="space-evenly"
         >
           <div />
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -99,6 +99,16 @@ const Login: FC<ILoginProps> = () => {
                   }
                   alt="logo"
                 />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                fontFamily="Nunito"
+                textAlign="center"
+                fontWeight="700"
+                sx={{ fontSize: { xs: "2rem", sm: "2.5rem" } }}
+              >
+                Přihlas se
               </Grid>
               <TextField
                 label="Email"
