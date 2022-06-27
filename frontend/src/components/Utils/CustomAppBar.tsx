@@ -23,9 +23,27 @@ import SearchIcon from "@mui/icons-material/Search";
 import AnimatedButton from "./AnimatedButton";
 import AuthContext from "../../context/AuthProvider";
 import { logout } from "../../utils/Utils";
+import React from "react";
 
 interface ICustomAppBarProps {
   withSearch?: boolean;
+}
+
+function DarkenScroll(props: any) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return React.cloneElement(children, {
+    sx: {background: trigger ? 
+          "linear-gradient(180deg, rgba(0,0,0,1) 90%, transparent 100%);"
+        : "linear-gradient(180deg, rgba(0,0,0,0.6) 90%, transparent 100%);",
+         transition: "all 2s"
+        }
+  });
 }
 
 const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
@@ -56,12 +74,9 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
 
   return (
     <>
+    <DarkenScroll>
       <AppBar
         elevation={0}
-        sx={{
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,1) 90%, transparent 100%);"
-        }}
         position="sticky"
       >
         <Toolbar
@@ -265,6 +280,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
           </Grid>
         </Toolbar>
       </AppBar>
+      </DarkenScroll>
     </>
   );
 };
