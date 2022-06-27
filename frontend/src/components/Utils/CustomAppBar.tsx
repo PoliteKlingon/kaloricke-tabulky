@@ -20,6 +20,7 @@ import AnimatedButton from "./AnimatedButton";
 import AuthContext from "../../context/AuthProvider";
 import { logout } from "../../utils/Utils";
 import SearchBar from "./SearchBar";
+import React from "react";
 
 interface ICustomAppBarProps {
   withSearch?: boolean;

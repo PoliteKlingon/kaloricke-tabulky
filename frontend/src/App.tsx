@@ -10,6 +10,7 @@ import AddFoodPage from "./components/AddFood/AddFoodPage";
 import UserDetailsPage from "./components/UserDetails/UserDetailsPage";
 import NotFoundPage from "./components/NotFound/NotFoundPage";
 import FoodDetailsPage from "./components/FoodDetailsPage/FoodDetailsPage";
+import AdminHomepage from "./components/AddFood/AdminHomepage";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/admin-home" element={<AdminHomepage />} />
           <Route path="/add-food" element={<AddFoodPage />} />
           <Route path="/details/:id" element={<FoodDetailsPage />} />
           <Route path="/user-details" element={<UserDetailsPage />} />
