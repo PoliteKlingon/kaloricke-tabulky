@@ -91,174 +91,177 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
             direction={{ xs: "column", md: "row" }}
             alignItems={{ xs: "center", md: "center" }}
           >
-            <Grid
-              container
-              direction={"row"}
-              xs={12}
-              md={4}
-              justifyContent={{ xs: "space-around", md: "left" }}
-            >
-              <Grid item sx={{width: {xs: "70vw", md: "auto"}}}>
-                <Link
-                  to="/home"
-                  style={{ textDecoration: "none", accentColor: "none" }}
-                  color="white"
-                >
-                  <Typography
-                    sx={{
-                      display: {xs: "none", sm: "unset"},
-                      flexGrow: "1",
-                      fontFamily: "Nunito",
-                      fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
-                      fontWeight: 600,
-                      paddingRight: 1
-                    }}
-                    textAlign={{ xs: "center", md: "left" }}
+            <Grid item xs={12} md={4}>
+              <Grid
+                container
+                direction={"row"}
+                justifyContent={{ xs: "space-around", md: "left" }}
+              >
+                <Grid item sx={{width: {xs: "70vw", md: "auto"}}}>
+                  <Link
+                    to="/home"
+                    style={{ textDecoration: "none", accentColor: "none" }}
+                    color="white"
                   >
-                    <span style={{ color: "#edc69f" }}>Kalorické</span>{" "}
-                    <span style={{ color: "white" }}>tabulky</span>
-                  </Typography>
-                  <LogoImage 
-                    sx={{display: {xs: "unset", sm: "none"}}} 
-                    src={import.meta.env.VITE_PUBLIC_URL +
-                      "/assets/logo.png"} alt="logo"
-                  />
-                </Link>
+                    <Typography
+                      sx={{
+                        display: {xs: "none", sm: "unset"},
+                        flexGrow: "1",
+                        fontFamily: "Nunito",
+                        fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
+                        fontWeight: 600,
+                        paddingRight: 1
+                      }}
+                      textAlign={{ xs: "center", md: "left" }}
+                    >
+                      <span style={{ color: "#edc69f" }}>Kalorické</span>{" "}
+                      <span style={{ color: "white" }}>tabulky</span>
+                    </Typography>
+                    <LogoImage 
+                      sx={{display: {xs: "unset", sm: "none"}}} 
+                      src={import.meta.env.VITE_PUBLIC_URL +
+                        "/assets/logo.png"} alt="logo"
+                    />
+                  </Link>
+                </Grid>
+                {authState &&
+                <Grid item>
+                  <Avatar sx={{
+                    marginY: {xs: 1.5, sm: 2.5},
+                    display: {xs: "", md:"none"},
+                    border: "none"
+                    }} 
+                    component={"button"}
+                    onClick={handleClick}
+                    />
+                </Grid>}
               </Grid>
-              {authState &&
-              <Grid item>
-                <Avatar sx={{
-                  marginY: {xs: 1.5, sm: 2.5},
-                  display: {xs: "", md:"none"},
-                  border: "none"
-                  }} 
-                  component={"button"}
-                  onClick={handleClick}
-                  />
-              </Grid>}
             </Grid>
 
-            <Grid container xs={12} md={4} justifyContent="center">
-              {withSearch && (
-                <SearchBar/>
-              )}
+            <Grid item xs={12} md={4}>
+              <Grid container justifyContent="center">
+                {withSearch && (
+                  <SearchBar/>
+                )}
+              </Grid>
             </Grid>
-            <Grid
-              container
-              xs={12}
-              md={4}
-              justifyContent={{ xs: "center", md: "right" }}
-            >
-              {authState ? (
-                <>
-                  <AnimatedButton
-                    variant="text"
-                    sx={{
-                      display: {xs: "none", md: "unset"},
-                      color: "#edc69f",
-                      ":active": {
-                        color: "#edd9be",
-                      },
-                      fontSize: { xs: "1.5rem", sm: 30 },
-                    }}
-                    disableRipple
-                    onClick={handleClick}
-                  >
-                    {auth.username}
-                  </AnimatedButton>
-                  <Menu
-                    anchorEl={anchorEl}
-                    id="account-menu"
-                    open={open}
-                    onClose={handleClose}
-                    onClick={handleClose}
-                    PaperProps={{
-                      elevation: 0,
-                      sx: {
-                        overflow: "visible",
-                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                        "& .MuiAvatar-root": {
-                          width: 32,
-                          height: 32,
-                          ml: -0.5,
-                          mr: 1,
-                        },
-                        "&:before": {
-                          content: '""',
-                          display: "block",
-                          position: "absolute",
-                          top: 0,
-                          right: 14,
-                          width: 10,
-                          height: 10,
-                          bgcolor: "background.paper",
-                          transform: "translateY(-50%) rotate(45deg)",
-                          zIndex: 0,
-                          background: "black",
-                        },
-                        background: "black",
-                        color: "white",
-                        borderRadius: "10px",
-                      },
-                    }}
-                    keepMounted
-                    disableScrollLock
-                    transformOrigin={{ horizontal: "right", vertical: "top" }}
-                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                  >
-                    <MenuItem>
-                      <Avatar />
-                      <Link
-                        to="/user-details"
-                        style={{ textDecoration: "none", color: "white" }}
-                      >
-                        Správa Profilu
-                      </Link>
-                    </MenuItem>
-                    <MenuItem onClick={onLogout}>
-                      <ListItemIcon>
-                        <Logout fontSize="medium" sx={{ color: "white" }} />
-                      </ListItemIcon>
-                      Odhlásit se
-                    </MenuItem>
-                  </Menu>
-                </>
-              ) : (
-                <Stack
-                  direction={{ xs: "column", md: "row" }}
-                  spacing={{ xs: 0, md: 5 }}
-                  sx={{ alignItems: "center" }}
-                >
-                  <Link to="/login" style={{ textDecoration: "none" }}>
+            <Grid item xs={12} md={4}>
+              <Grid
+                container
+                
+                justifyContent={{ xs: "center", md: "right" }}
+              >
+                {authState ? (
+                  <>
                     <AnimatedButton
                       variant="text"
                       sx={{
+                        display: {xs: "none", md: "unset"},
                         color: "#edc69f",
                         ":active": {
                           color: "#edd9be",
                         },
+                        fontSize: { xs: "1.5rem", sm: 30 },
                       }}
                       disableRipple
+                      onClick={handleClick}
                     >
-                      Přihlášení
+                      {auth.username}
                     </AnimatedButton>
-                  </Link>
-                  <Link to="/register" style={{ textDecoration: "none" }}>
-                    <AnimatedButton
-                      variant="text"
-                      sx={{
-                        color: "#eb9b34",
-                        ":active": {
-                          color: "#edc48c",
+                    <Menu
+                      anchorEl={anchorEl}
+                      id="account-menu"
+                      open={open}
+                      onClose={handleClose}
+                      onClick={handleClose}
+                      PaperProps={{
+                        elevation: 0,
+                        sx: {
+                          overflow: "visible",
+                          filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                          "& .MuiAvatar-root": {
+                            width: 32,
+                            height: 32,
+                            ml: -0.5,
+                            mr: 1,
+                          },
+                          "&:before": {
+                            content: '""',
+                            display: "block",
+                            position: "absolute",
+                            top: 0,
+                            right: 14,
+                            width: 10,
+                            height: 10,
+                            bgcolor: "background.paper",
+                            transform: "translateY(-50%) rotate(45deg)",
+                            zIndex: 0,
+                            background: "black",
+                          },
+                          background: "black",
+                          color: "white",
+                          borderRadius: "10px",
                         },
                       }}
-                      disableRipple
+                      keepMounted
+                      disableScrollLock
+                      transformOrigin={{ horizontal: "right", vertical: "top" }}
+                      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                     >
-                      Registrace
-                    </AnimatedButton>
-                  </Link>
-                </Stack>
-              )}
+                      <MenuItem>
+                        <Avatar />
+                        <Link
+                          to="/user-details"
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          Správa Profilu
+                        </Link>
+                      </MenuItem>
+                      <MenuItem onClick={onLogout}>
+                        <ListItemIcon>
+                          <Logout fontSize="medium" sx={{ color: "white" }} />
+                        </ListItemIcon>
+                        Odhlásit se
+                      </MenuItem>
+                    </Menu>
+                  </>
+                ) : (
+                  <Stack
+                    direction={{ xs: "column", md: "row" }}
+                    spacing={{ xs: 0, md: 5 }}
+                    sx={{ alignItems: "center" }}
+                  >
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#edc69f",
+                          ":active": {
+                            color: "#edd9be",
+                          },
+                        }}
+                        disableRipple
+                      >
+                        Přihlášení
+                      </AnimatedButton>
+                    </Link>
+                    <Link to="/register" style={{ textDecoration: "none" }}>
+                      <AnimatedButton
+                        variant="text"
+                        sx={{
+                          color: "#eb9b34",
+                          ":active": {
+                            color: "#edc48c",
+                          },
+                        }}
+                        disableRipple
+                      >
+                        Registrace
+                      </AnimatedButton>
+                    </Link>
+                  </Stack>
+                )}
+              </Grid>
             </Grid>
           </Grid>
         </Toolbar>
