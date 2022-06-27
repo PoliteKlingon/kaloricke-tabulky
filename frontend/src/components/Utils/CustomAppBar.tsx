@@ -38,10 +38,11 @@ function DarkenScroll(props: any) {
   });
 
   return React.cloneElement(children, {
-    sx: {background: trigger ? 
+    sx: {/*background: trigger ? 
           "linear-gradient(180deg, rgba(0,0,0,1) 90%, transparent 100%);"
-        : "linear-gradient(180deg, rgba(0,0,0,0.6) 90%, transparent 100%);",
-         transition: "all 2s"
+        : "linear-gradient(180deg, rgba(0,0,0,0.6) 90%, transparent 100%);",*/
+         backgroundColor: trigger ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0.6)',
+         transition: "all 0.5s"
         }
   });
 }
@@ -118,6 +119,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
                   </Typography>
                 </Link>
               </Grid>
+              {authState &&
               <Grid item>
                 <Avatar sx={{
                   marginY: {xs: 1.5, sm: 2.5},
@@ -127,7 +129,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
                   component={"button"}
                   onClick={handleClick}
                   />
-              </Grid>
+              </Grid>}
             </Grid>
 
             <Grid container xs={12} md={4} justifyContent="center">
