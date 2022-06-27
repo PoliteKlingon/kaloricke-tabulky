@@ -130,7 +130,6 @@ export const get = async (req: Request, res: Response) => {
 export const searchByName = async (req: Request, res: Response) => {
   try {
     const partOfId = req.params["name"]!.toLowerCase();
-    console.log("search");
 
     const foods =
       partOfId === '""'
