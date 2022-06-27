@@ -5,9 +5,6 @@ import {
   AppBar,
   Avatar,
   Grid,
-  IconButton,
-  InputAdornment,
-  InputBase,
   Menu,
   MenuItem,
   Stack,
@@ -143,32 +140,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
 
             <Grid container xs={12} md={4} justifyContent="center">
               {withSearch && (
-                <InputBase
-                  sx={{
-                    ml: 0,
-                    flex: 1,
-                    background: "white",
-                    borderRadius: "10px",
-                    marginBottom: {xs: 3, md: 0},
-                    pl: 2,
-                    fontSize: "1.25rem",
-                  }}
-                  placeholder="Vyhledej jídlo"
-                  inputProps={{
-                    "aria-label": "vyhledej jídlo",
-                  }}
-                  endAdornment={
-                    <InputAdornment position="start">
-                      <IconButton
-                        type="submit"
-                        sx={{ color: "black" }}
-                        aria-label="search"
-                      >
-                        <SearchIcon sx={{ fontSize: 30 }} />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
+                <SearchBar/>
               )}
             </Grid>
             <Grid

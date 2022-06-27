@@ -22,7 +22,7 @@ const FoodDetailsPage = () => {
   const [food, setFood] = useState<Food>(tempData);
   let { id } = useParams();
   
-  try {    
+  try {  
     useEffect(() => {
       axios
         .get(`/food/${id}`)
@@ -32,7 +32,7 @@ const FoodDetailsPage = () => {
         }).catch((_) => {
           navigate("/not-found");
         })
-    }, [])
+    }, [id])
   } catch (err) {
     console.log(err)
   }
