@@ -37,9 +37,7 @@ function DarkenScroll(props: any) {
   });
 
   return React.cloneElement(children, {
-    sx: {/*background: trigger ? 
-          "linear-gradient(180deg, rgba(0,0,0,1) 90%, transparent 100%);"
-        : "linear-gradient(180deg, rgba(0,0,0,0.6) 90%, transparent 100%);",*/
+    sx: {
          backgroundColor: trigger ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0.6)',
          transition: "all 0.5s"
         }
@@ -75,6 +73,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
   return (
     <DarkenScroll>
       <AppBar
+        id="CustomAppBar"
         elevation={0}
         position="sticky"
       >

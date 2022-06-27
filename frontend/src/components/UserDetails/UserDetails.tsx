@@ -39,15 +39,16 @@ import {
     boxShadow: 24,
     p: 4,
   };
-  
+
+
   const Root = styled("div")({
     display: "flex",
     justifyContent: "center",
-    minHeight: "100vh",
   });
   
   const Container = styled("div")({
     textAlign: "center",
+    height: "min-content"
   });
 
   export interface Goals {
@@ -80,7 +81,18 @@ import {
   theme = responsiveFontSizes(theme);
   
   export default function UserDetails() {
-    
+    const [appBarSize, setAppBarSize] = useState(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+
+    useEffect(() => {
+      if (appBarSize===0) {
+        setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+      }
+    }, [appBarSize]);
+
+
+    window.addEventListener('resize', () => {
+      setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+    })
     const {
       register: registerEmail,
       reset: resetEmail,
@@ -469,7 +481,9 @@ import {
     const isAdmin = auth?.role == "admin";
 
     return (
-      <Root id="header">
+      <Root id="header" sx={{
+        minHeight: `${100 - appBarSize}vh`
+        }}>
         {(Object.keys(auth).length === 0 || 
           auth.ssid == null || 
           auth.ssid == "") && <Navigate to='/login'  />}
@@ -481,7 +495,6 @@ import {
                 borderRadius: {xs: 0, md: 10},
                 paddingBottom: 12.5,
                 width: {xs: "100vw", md: "91.7vw"},
-                maxHeight: {xs: "auto", md: "80vh"},
                 overflow: 'auto'
         }}
         >

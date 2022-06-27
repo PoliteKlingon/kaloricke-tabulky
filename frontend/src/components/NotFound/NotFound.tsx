@@ -29,6 +29,19 @@ import { max } from "date-fns";
   
   
   const NotFound = () => {
+    const [appBarSize, setAppBarSize] = useState(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+
+    useEffect(() => {
+      if (appBarSize===0) {
+        setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+      }
+    }, [appBarSize]);
+
+
+    window.addEventListener('resize', () => {
+      setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
+    })
+
     const [collapsed, setCollapsed] = useState(false);
     useEffect(() => {
       setCollapsed(true);
@@ -42,7 +55,9 @@ import { max } from "date-fns";
     }, [auth]);
   
     return (
-      <Root id="header">          
+      <Root id="header" sx={{
+        minHeight: `${100 - appBarSize}vh`
+        }}>          
           <ThemeProvider theme={theme}>
             <Container 
               sx={{
