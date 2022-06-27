@@ -231,7 +231,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
     <Grid container minHeight="100vh" justifyContent="center">
       <Container
         sx={{
-          height: { xs: "full", md: isDesktop ? "75vh" : "auto" },
+          height: "min-content",
           minWidth: { xs: "100%", md: "60%" },
         }}
       >

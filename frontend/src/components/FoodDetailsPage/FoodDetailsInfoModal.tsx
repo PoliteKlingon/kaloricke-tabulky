@@ -13,7 +13,6 @@ interface IFoodDetailsInfoModalProps {
 }
 
 const FoodDetailsInfoModal:FC<IFoodDetailsInfoModalProps> = ({open, handleClose,food}) => {
-    console.log("OPEN")
    return (
      <Modal open={open} onClose={handleClose} keepMounted disableScrollLock>
        <Box

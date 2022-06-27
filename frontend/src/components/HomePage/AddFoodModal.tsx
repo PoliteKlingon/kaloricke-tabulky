@@ -31,6 +31,7 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
 }) => {
   const [foundFoods, setFoundFoods] = useState<IFoodRecord[]>([]);
   const [foodName, setFoodName] = useState("");
+  const [grams, setGrams] = useState("");
   // @ts-ignore
   const { auth } = useContext(AuthContext);
 
@@ -60,7 +61,7 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
         grams: +data.get("grams")!,
         mealType: type,
       });
-      axios
+      await axios
         .post("/diary", body, {
           headers: {
             "Content-Type": "application/json",
@@ -68,6 +69,7 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
           },
         })
         .then(() => {
+          setGrams("")
           handleClose();
           setFoodName("");
         })
@@ -119,12 +121,14 @@ const AddFoodModal: FC<IAddFoodModalProps> = ({
             </Grid>
             <Grid item xs={12}>
               <TextField
+                value={grams}
                 required
                 fullWidth
                 id="grams"
                 label="Gramů"
                 name="grams"
                 type="number"
+                onChange={(e) => setGrams(e.target.value)}
               />
             </Grid>
           </Grid>

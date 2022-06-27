@@ -178,7 +178,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
         pb={8}
         sx={{
           backgroundColor: "white",
-          minHeight: "70vh",
+          minHeight: "min-content",
           borderRadius: { xs: 0, md: 10 },
         }}
       >
