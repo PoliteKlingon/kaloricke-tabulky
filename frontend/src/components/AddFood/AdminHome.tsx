@@ -78,14 +78,14 @@ function AdminHome() {
                       alignItems: "center",
                   }}
                   >
-                    <Grid container>
-                    <Grid item xs={2} />
-                    <Grid item xs={8}>
+                    <Grid container >
+                    <Grid item xs={1} sm={2} md={2}/>
+                    <Grid item xs={6} sm={7} md={8}>
                         <Typography component="h1" variant="h4" sx={{ fontFamily: "Nunito" }}>
                             Správa jídel v databázi
                         </Typography>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={5} sm={3} md={2}>
                         <Button variant="outlined" sx={{marginX: 5, padding: 2}} onClick={() => {setFoodModal(!foodModal)}}>
                             <AddIcon />
                         </Button>
