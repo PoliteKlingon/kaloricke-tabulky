@@ -78,6 +78,7 @@ model Food {
   fats         Float
   fiber        Float
   salt         Float
+  imageUrl     String?
   deleted      DateTime?
   diaryEntries DiaryEntry[]
   createdBy    User         @relation(fields: [creatorId], references: [id])

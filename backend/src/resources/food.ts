@@ -13,28 +13,36 @@ import {
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { headersSchema } from "./helper/user-shemas";
 import { getUserBySessionId } from "./user";
-import { Role, User } from ".prisma/client";
+import { Role } from ".prisma/client";
 
 const foodSchema = object({
   name: string().required().trim(),
   description: string().default("Food").trim(),
-  calories: number().required(),
-  proteins: number().required(),
-  carbs: number().required(),
-  fats: number().required(),
-  fiber: number().required(),
-  salt: number().required(),
+  calories: number().required().min(0),
+  proteins: number().required().min(0),
+  carbs: number().required().min(0),
+  fats: number().required().min(0),
+  fiber: number().required().min(0),
+  salt: number().required().min(0),
+  imageLink: string().matches(
+    /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+    "Incorrect image URL"
+  ),
 });
 
 const foodUpdateSchema = object({
   name: string().optional().trim(),
   description: string().optional().trim(),
-  calories: number().optional(),
-  proteins: number().optional(),
-  carbs: number().optional(),
-  fats: number().optional(),
-  fiber: number().optional(),
-  salt: number().optional(),
+  calories: number().optional().min(0),
+  proteins: number().optional().min(0),
+  carbs: number().optional().min(0),
+  fats: number().optional().min(0),
+  fiber: number().optional().min(0),
+  salt: number().optional().min(0),
+  imageLink: string().matches(
+    /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+    "Incorrect image URL"
+  ),
 });
 
 const foodIdSchema = string().required().lowercase();
@@ -122,13 +130,20 @@ export const get = async (req: Request, res: Response) => {
 export const searchByName = async (req: Request, res: Response) => {
   try {
     const partOfId = req.params["name"]!.toLowerCase();
-    const foods = await prisma.food.findMany({
-      where: {
-        AND: [{ deleted: null }, { id: { contains: partOfId } }],
-      },
-    });
+
+    const foods =
+      partOfId === '""'
+        ? await prisma.food.findMany({ orderBy: { name: "asc" } })
+        : await prisma.food.findMany({
+            where: {
+              AND: [{ deleted: null }, { id: { contains: partOfId } }],
+            },
+            orderBy: { name: "asc" },
+          });
+
     return sendSuccess(res, "Foods retreived successfully", foods);
   } catch (e) {
+    console.log(e);
     return sendInternalServerError(res);
   }
 };

@@ -64,6 +64,7 @@ CREATE TABLE "Food" (
     "fats" REAL NOT NULL,
     "fiber" REAL NOT NULL,
     "salt" REAL NOT NULL,
+    "imageUrl" TEXT,
     "deleted" DATETIME,
     "creatorId" TEXT NOT NULL,
     CONSTRAINT "Food_creatorId_fkey" FOREIGN KEY ("creatorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
@@ -83,10 +84,10 @@ CREATE TABLE "DiaryEntry" (
 );
 
 -- CreateTable
-CREATE TABLE "Sessions" (
+CREATE TABLE "Session" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "userId" TEXT NOT NULL,
-    CONSTRAINT "Sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateIndex
