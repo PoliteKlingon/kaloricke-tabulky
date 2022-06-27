@@ -1,5 +1,5 @@
 import { FC, useState, useContext } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -60,18 +60,18 @@ const FoodRecord: FC<IFoodRecord> = ({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        px: 1,
+        px: { xs: 0, sm: 2 },
+        py: 0.7,
         mx: 1,
       }}
     >
-      <Box sx={{ display: { xs: "grid", sm: "flex" }, alignItems: "center" }}>
+      <Box sx={{ display: { xs: "flex", sm: "flex" }, alignItems: "center" }}>
         <Typography
           sx={{
             fontFamily: "Nunito",
-            fontSize: "1.3rem",
+            fontSize: {xs: "1.1rem", sm: "1.2rem"},
             fontWeight: 600,
-            px: 1,
-            mx: 1,
+            mx: 0.5,
             cursor: "default",
           }}
         >
@@ -80,9 +80,9 @@ const FoodRecord: FC<IFoodRecord> = ({
         <Typography
           sx={{
             fontFamily: "Nunito",
-            fontSize: "1rem",
+            fontSize: "0.9rem",
             fontWeight: 400,
-            px: 2,
+            px: 1,
             mx: 1,
             cursor: "pointer",
           }}
@@ -94,24 +94,29 @@ const FoodRecord: FC<IFoodRecord> = ({
         </Typography>
       </Box>
 
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
         <Typography
           sx={{
             fontFamily: "Nunito",
-            fontSize: "1.2rem",
+            fontSize: "1.1rem",
             fontWeight: 600,
-            p: 1,
-            m: 1,
           }}
         >
           {Math.round((calories * grams) / 100)} kcal
         </Typography>
-        <AnimatedButton disableRipple>
-          <InfoOutlinedIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
-        </AnimatedButton>
-        <AnimatedButton disableRipple onClick={handleDelete}>
-          <DeleteIcon sx={{ color: "gray", fontSize: "1.5 rem" }} />
-        </AnimatedButton>
+        <IconButton
+          disableRipple
+          sx={{ p: 0, pl: 1.5, pr: 0.3, alignItems: "center" }}
+        >
+          <InfoOutlinedIcon sx={{ color: "gray", fontSize: "1.8rem" }} />
+        </IconButton>
+        <IconButton
+          disableRipple
+          onClick={handleDelete}
+          sx={{ p: 0, px: 0.3 }}
+        >
+          <DeleteIcon sx={{ color: "gray", fontSize: "1.8rem" }} />
+        </IconButton>
       </Box>
       <ChangeWeightModal
         open={open}

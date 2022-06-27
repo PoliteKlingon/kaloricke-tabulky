@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Typography } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
 
@@ -50,12 +50,11 @@ const FoodMilestone: FC<IFoodMilestone> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            p: 1,
+            p: 0.5,
             borderRadius: 3,
             border: "3px solid",
             width: "100%",
             borderColor: "#f7e9bc",
-            fontSize: "1.5rem",
             fontFamily: "Nunito",
             fontWeight: "600",
             backgroundColor: "#faf5e6",
@@ -65,7 +64,7 @@ const FoodMilestone: FC<IFoodMilestone> = ({
           <Typography
             sx={{
               fontFamily: "Nunito",
-              fontSize: { xs: "1.5rem", sm: "1.9rem" },
+              fontSize: { xs: "1.4rem", sm: "1.6rem" },
               fontWeight: 700,
             }}
           >
@@ -75,15 +74,18 @@ const FoodMilestone: FC<IFoodMilestone> = ({
             <Typography
               sx={{
                 fontFamily: "Nunito",
-                fontSize: { xs: "1rem", sm: "1.9rem" },
+                fontSize: { xs: "1.2rem", sm: "1.5rem" },
                 fontWeight: 700,
               }}
             >
               {calories} kcal
             </Typography>
-            <AnimatedButton disableRipple onClick={() => showModal(type)}>
-              <AddIcon sx={{ color: "green", fontSize: "1.8rem" }} />
-            </AnimatedButton>
+            <IconButton
+              onClick={() => showModal(type)}
+              sx={{ p: 0, px: 1 }}
+            >
+              <AddIcon sx={{ color: "green", fontSize: "1.9rem" }} />
+            </IconButton>
           </div>
         </Box>
       </Grid>
