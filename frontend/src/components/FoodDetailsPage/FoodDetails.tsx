@@ -280,9 +280,9 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               <Typography sx={{ fontFamily: "nunito" }}>x&nbsp;1g</Typography>
             </PaddedDiv>
             <PaddedDiv>
-              <AddButton onClick={handleClickOpen}>
+              {auth.role === "user" && <AddButton onClick={handleClickOpen}>
                 {isDesktop ? "Zapsat potravinu do jídelníčku" : "Zapsat"}
-              </AddButton>
+              </AddButton>}
               <Dialog
                 open={open}
                 onClose={handleClose}
