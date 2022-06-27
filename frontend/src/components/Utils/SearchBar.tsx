@@ -46,7 +46,7 @@ const SearchBar: FC<ISearchBarProps> = () => {
       disableClearable
       fullWidth
       options={foundFoods.map((food) => food.name)}
-      onChange={(e, value) => navigate(`/food/${value}`)}
+      onChange={(e, value) => navigate(`/details/${value}`)}
       PaperComponent={({ children }) => (
         <Paper
           style={{
@@ -88,7 +88,7 @@ const SearchBar: FC<ISearchBarProps> = () => {
                   sx={{ color: "black" }}
                   aria-label="search"
                   onClick={() => {
-                    navigate(`/food/${currValue}`);
+                    navigate(`/details/${currValue}`);
                   }}
                 >
                   <SearchIcon sx={{ fontSize: 40 }} />

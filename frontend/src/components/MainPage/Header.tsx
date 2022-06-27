@@ -43,6 +43,6 @@ const Header: FC<IHeaderprops> = () => {
       </Collapse>
     </Grid>
   );
-};
+}
 
 export default Header;
