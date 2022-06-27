@@ -5,6 +5,9 @@ import {
   AppBar,
   Avatar,
   Grid,
+  IconButton,
+  InputAdornment,
+  InputBase,
   Menu,
   MenuItem,
   Stack,
@@ -141,9 +144,6 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
 
             <Grid container xs={12} md={4} justifyContent="center">
               {withSearch && (
-<<<<<<< HEAD
-                <SearchBar/>
-=======
                 <InputBase
                   sx={{
                     ml: 0,
@@ -170,7 +170,6 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
                     </InputAdornment>
                   }
                 />
->>>>>>> fe-appbar-changes
               )}
             </Grid>
             <Grid
