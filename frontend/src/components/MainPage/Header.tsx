@@ -14,6 +14,7 @@ const Header: FC<IHeaderprops> = () => {
 
   const handleScroll = () => {
     document.getElementById("fstImg")!.scrollIntoView({behavior: "smooth"});
+    setTimeout(() => document.getElementById("fstImg")!.scrollIntoView({behavior: "smooth"}), 800);
   }
 
   return (
