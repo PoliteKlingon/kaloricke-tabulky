@@ -5,7 +5,6 @@ import { Box, Grid, IconButton, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 import FoodRecord from "./FoodRecord";
-import AnimatedButton from "../Utils/AnimatedButton";
 
 import IDiaryRecord from "../../interfaces/IDiaryRecord";
 
@@ -95,6 +94,7 @@ const FoodMilestone: FC<IFoodMilestone> = ({
             if (e.mealType === type) {
               return (
                 <FoodRecord
+                  food={e.food}
                   handleForceReload={handleForceReload}
                   eatenId={e.id}
                   name={e.food.name}
