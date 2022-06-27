@@ -465,16 +465,17 @@ import {
 
     const myRef = useRef(null);
 
+    const isAdmin = auth?.role == "admin";
+
     return (
       <Root id="header">
         {(Object.keys(auth).length === 0 || 
           auth.ssid == null || 
           auth.ssid == "") && <Navigate to='/login'  />}
-        {auth.role == "admin" && <Navigate to='/add-food' />}
         <Container 
             sx={{
                 backgroundColor: "white",
-                marginTop: {xs: 5},
+                marginTop: {xs: 2, md: 5},
                 marginBottom: {xs: 5, md: 10},
                 borderRadius: {xs: 0, md: 10},
                 paddingBottom: 12.5,
@@ -591,6 +592,8 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -649,6 +652,8 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -707,6 +712,8 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -766,6 +773,8 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -820,6 +829,8 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -887,6 +898,8 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -954,6 +967,8 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -1021,6 +1036,8 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 1 }}
+                  // @ts-ignore
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
 
@@ -1087,6 +1104,8 @@ import {
                   container
                   direction="row"
                   sx={{ margin: 0 }}
+                  // @ts-ignore
+                  display={isAdmin && "none"}
                   justifyContent="center"
                 >
                   <Grid item >
@@ -1518,6 +1537,7 @@ import {
                   disableRipple
                   sx={{
                     backgroundColor: "red",
+                    display: isAdmin ? "none" : "unset",
                     fontWeight: "bold",
                     fontFamily: "Nunito",
                     margin: 1,

@@ -27,6 +27,7 @@ api.post("/api/food", food.store);
 api.put("/api/food/:name", food.update);
 api.get("/api/food/:name", food.get);
 api.get("/api/food/search/:name", food.searchByName);
+api.get("/api/food", food.getAll);
 
 api.delete("/api/food/:name", food.deleteFood);
 
