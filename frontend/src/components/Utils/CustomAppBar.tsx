@@ -11,6 +11,7 @@ import {
   Menu,
   MenuItem,
   Stack,
+  styled,
   Toolbar,
   Typography,
   useScrollTrigger,
@@ -70,6 +71,10 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
     }
   };
 
+  const LogoImage = styled("img")({
+    width: 200,
+  });
+
   return (
     <DarkenScroll>
       <AppBar
@@ -103,6 +108,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
                 >
                   <Typography
                     sx={{
+                      display: {xs: "none", sm: "unset"},
                       flexGrow: "1",
                       fontFamily: "Nunito",
                       fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
@@ -114,6 +120,11 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
                     <span style={{ color: "#edc69f" }}>Kalorické</span>{" "}
                     <span style={{ color: "white" }}>tabulky</span>
                   </Typography>
+                  <LogoImage 
+                    sx={{display: {xs: "unset", sm: "none"}}} 
+                    src={import.meta.env.VITE_PUBLIC_URL +
+                      "/assets/logo.png"} alt="logo"
+                  />
                 </Link>
               </Grid>
               {authState &&

@@ -93,9 +93,10 @@ const Login: FC<ILoginProps> = () => {
             <InputContainer>
               <Grid container justifyContent={"center"}>
                 <LogoImage
+                  sx={{marginBottom: 2}}
                   src={
                     import.meta.env.VITE_PUBLIC_URL +
-                    "/assets/logo-placeholder.png"
+                    "/assets/logo.png"
                   }
                   alt="logo"
                 />
