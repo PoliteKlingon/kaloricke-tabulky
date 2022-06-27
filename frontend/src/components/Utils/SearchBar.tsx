@@ -70,8 +70,9 @@ const SearchBar: FC<ISearchBarProps> = () => {
               flex: 1,
               background: "white",
               borderRadius: "10px",
+              marginBottom: { xs: 3, md: 0 },
               pl: 2,
-              fontSize: "1.5rem",
+              fontSize: "1.25rem",
             }}
             onSubmit={(e) => {
               console.log("SUBMIT");
