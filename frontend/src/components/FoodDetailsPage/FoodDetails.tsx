@@ -383,15 +383,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
             }}
           >
             <DonutChart
-              name={food.name}
-              description={food.description}
-              calories={food.calories}
-              proteins={food.proteins}
-              carbs={food.carbs}
-              fats={food.fats}
-              fiber={food.fiber}
-              salt={food.salt}
-              id={food.id}
+              {...food}
             />
           </PaddedDiv>
         </PaddedDiv>
