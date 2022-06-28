@@ -17,7 +17,7 @@ import CustomAppBar from "../Utils/CustomAppBar";
 const FoodDetailsPage = () => {
   const navigate = useNavigate();
   // TODO: development only remove later
-  const tempData = { "name": "banan", "photo": "https://www.lovemysalad.com/sites/default/files/styles/home_carousel_item_768/public/banaan-large.jpg?itok=qRLZa1EH", "description": "asdkfalsjdfk;ljds", "calories": 123, "sugar": 69, "salt": 4, "carbs": 22, "proteins": 1, "fats": 2, "saturated_fats": 1, "fiber": 69, "id": "314reajfo34u" };
+  const tempData = { "name": "banan", "imageUrl": "https://www.lovemysalad.com/sites/default/files/styles/home_carousel_item_768/public/banaan-large.jpg?itok=qRLZa1EH", "description": "asdkfalsjdfk;ljds", "calories": 123, "sugar": 69, "salt": 4, "carbs": 22, "proteins": 1, "fats": 2, "saturated_fats": 1, "fiber": 69, "id": "314reajfo34u" };
 
   const [food, setFood] = useState<Food>(tempData);
   let { id } = useParams();
@@ -28,6 +28,7 @@ const FoodDetailsPage = () => {
         .get(`/food/${id}`)
         .then((response) => {
           // console.log(response.data)
+          console.log(response?.data?.data);
           setFood(response?.data?.data)
         }).catch((_) => {
           navigate("/not-found");

@@ -20,7 +20,7 @@ import Chart from "react-apexcharts"
 
 export interface Food {
   name: string,
-  // photo: string,
+  imageUrl: string,
   description: string,
   calories: number,
   proteins: number,
@@ -58,10 +58,11 @@ const InfoDiv = styled("div")({
   flexDirection: "column",
 });
 
-// const FoodImg = styled("img")({
-//   maxHeight: "10rem",
-//   width: "auto",
-// });
+const FoodImg = styled("img")({
+  maxHeight: "10rem",
+  height: "10rem",
+  width: "auto",
+});
 
 const ValuesDiv = styled("div")({
   fontSize: "1.25rem",
@@ -235,7 +236,8 @@ const FoodDetails:FoodDetailsType = ({food}) => {
         }}
       >
         {(auth.ssid == null || auth.ssid == "") && <Navigate to="/login" />}
-        <InfoDiv>
+        <InfoDiv sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+          <TableDiv sx={{display: "flex", flexDirection:"column"}}>
           <PaddedDiv>
             <Typography
               sx={{
@@ -305,7 +307,8 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               </Dialog>
             </PaddedDiv>
           </PaddedDiv>
-          {/*<FoodImg src={food.photo} alt={food.name}/>*/}
+          </TableDiv>
+          {isDesktop && food.imageUrl && <FoodImg src={food.imageUrl} alt={food.name}/>}
         </InfoDiv>
         <PaddedDiv>
           <Grid container>
@@ -382,15 +385,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
             }}
           >
             <DonutChart
-              name={food.name}
-              description={food.description}
-              calories={food.calories}
-              proteins={food.proteins}
-              carbs={food.carbs}
-              fats={food.fats}
-              fiber={food.fiber}
-              salt={food.salt}
-              id={food.id}
+              {...food}
             />
           </PaddedDiv>
         </PaddedDiv>
