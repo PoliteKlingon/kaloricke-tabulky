@@ -338,8 +338,7 @@ import {
              setWeight(userDetails?.weight);
              setBirthDate(new Date(userDetails?.birthdate));
              setGoalWeight(userDetails?.goalWeight);
-             
-             setGoals({...userGoals});
+             setGoals({...userGoals, calories: Math.round(userGoals.calories)});
              setAll();
            })
       } catch (err) {
