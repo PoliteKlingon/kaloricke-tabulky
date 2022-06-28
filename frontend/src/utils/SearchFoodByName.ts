@@ -1,7 +1,6 @@
 import axios from "../api/axios";
 
 const searchFoodByName = async (name: string) => {
-  console.log(name)
   return await axios
     .get(name === "" ? "/food" : `/food/search/${name}`)
     .then((res) => {

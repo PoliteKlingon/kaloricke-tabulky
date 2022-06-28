@@ -86,8 +86,13 @@ const SearchBar: FC<ISearchBarProps> = () => {
                   sx={{ color: "black" }}
                   aria-label="search"
                   onClick={() => {
+                    if (foundFoods.some((food) => food.name.toLocaleLowerCase() === currValue.toLocaleLowerCase())) {
                     navigate(`/details/${currValue}`);
-                  }}
+                    }
+                    else (
+                      navigate("/not-found")
+                    )
+                }}
                 >
                   <SearchIcon sx={{ fontSize: 30 }} />
                 </IconButton>
