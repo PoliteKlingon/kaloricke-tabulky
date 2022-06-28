@@ -52,7 +52,11 @@ const HomeContent:FC<IHomeContentProps> = () => {
   const [appBarSize, setAppBarSize] = useState(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
 
   useEffect(() => {
-    if (appBarSize===0) {
+    const curr = document.getElementById("CustomAppBar")
+      ? document.getElementById("CustomAppBar")!.clientHeight *
+        (100 / document.documentElement.clientHeight)
+      : 0;
+    if (appBarSize===0 || curr !== appBarSize) {
       setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
     }
   }, [appBarSize]);
