@@ -309,7 +309,7 @@ const FoodDetails:FoodDetailsType = ({food}) => {
             </PaddedDiv>
           </PaddedDiv>
           </TableDiv>
-          {isDesktop && <FoodImg src={food.imageUrl} alt={food.name}/>}
+          {isDesktop && food.imageUrl && <FoodImg src={food.imageUrl} alt={food.name}/>}
         </InfoDiv>
         <PaddedDiv>
           <Grid container>
