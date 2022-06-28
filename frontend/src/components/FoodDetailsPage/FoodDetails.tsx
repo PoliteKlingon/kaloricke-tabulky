@@ -20,7 +20,7 @@ import Chart from "react-apexcharts"
 
 export interface Food {
   name: string,
-  // photo: string,
+  imageUrl: string,
   description: string,
   calories: number,
   proteins: number,
