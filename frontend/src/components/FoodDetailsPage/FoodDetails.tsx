@@ -134,7 +134,6 @@ const DetailsWindow = ({amount, food, handleClose}) => {
         grams: grams,
         mealType: mealType,
       });
-      console.log(body);
       axios
         .post("/diary", body, {
           headers: {

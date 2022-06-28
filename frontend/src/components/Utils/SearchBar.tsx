@@ -74,9 +74,6 @@ const SearchBar: FC<ISearchBarProps> = () => {
               pl: 2,
               fontSize: "1.25rem",
             }}
-            onSubmit={(e) => {
-              console.log("SUBMIT");
-            }}
             placeholder="Vyhledej jídlo"
             onChange={(e) => {
               handleSetFood(e.target.value);

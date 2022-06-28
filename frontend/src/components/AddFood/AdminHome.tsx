@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 import { Container, CssBaseline, Box, Typography, Modal, Grid, TextField, Button, createTheme, styled } from '@mui/material';
 import { useContext, useEffect, useState } from 'react'
 import { flushSync } from 'react-dom';
@@ -17,6 +18,7 @@ const Root = styled("div")({
   });
 
 function AdminHome() {
+    const navigate = useNavigate();
     const [appBarSize, setAppBarSize] = useState(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
 
     useEffect(() => {
@@ -58,11 +60,15 @@ function AdminHome() {
              })
         } catch (err) {
           // @ts-ignore
-          if (err.response.status == 401) {
+          if (err.response.status === 401) {
             setAuth({});
             localStorage.removeItem("auth");
+            navigate("/login");
+          } else {
+          alert(
+            "Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat."
+          );
           }
-          alert("Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat.");
         }
     };
 

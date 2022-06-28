@@ -1,5 +1,7 @@
 import { useEffect, useState, useContext, FC } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 
 import { Grid, TextField, TextFieldProps } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -49,6 +51,7 @@ const MainMeals: IMainMeal[] = [
 interface IHomeContentProps {}
 
 const HomeContent:FC<IHomeContentProps> = () => {
+  const navigate = useNavigate();
   const [appBarSize, setAppBarSize] = useState(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
 
   useEffect(() => {
@@ -66,7 +69,7 @@ const HomeContent:FC<IHomeContentProps> = () => {
     setAppBarSize(document.getElementById("CustomAppBar") ? document.getElementById("CustomAppBar")!.clientHeight * (100 / document.documentElement.clientHeight) : 0);
   })
   // @ts-ignore
-  const { auth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [showAddFoodModal, setShowAddFoodModal] = useState(false);
   const [selectedFoodType, setSelectedFoodType] =
@@ -124,10 +127,14 @@ const HomeContent:FC<IHomeContentProps> = () => {
         fiber = Math.round(fiber);
         setEaten({ calories, proteins, carbs, fats, fiber });
       })
-      .catch(() => {
-        alert(
-          "Nastala chyba při načítání jídla, prosím, zkuste obnovit stránku"
-        );
+      .catch((err) => {
+        if (err.response.status === 401) {
+          setAuth({});
+          localStorage.removeItem("auth");
+          navigate("/login");
+        } else {
+          alert("Nastala chyba, prosím, zkuste obnovit stránku");
+        }
       });
   };
 
@@ -141,8 +148,15 @@ const HomeContent:FC<IHomeContentProps> = () => {
       .then((res) => {
         setGoals(res.data.data.goals);
       })
-      .catch(() => {
+      .catch((err) => {
+        if (err.response.status === 401) {
+          setAuth({});
+          localStorage.removeItem("auth");
+          navigate("/login");
+        } else {
         alert("Nastala chyba, prosím, zkuste obnovit stránku");
+
+        }
       });
   };
 

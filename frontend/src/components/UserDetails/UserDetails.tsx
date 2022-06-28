@@ -349,9 +349,10 @@ import {
           setAuth({});
           localStorage.removeItem("auth");
           setGoHome(true);
+        } else {
+          alert("Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat.");
+          getDetails();
         }
-        alert("Vyskytla se neočekávaná chyba na naší straně. Zkuste akci zopakovat.");
-        getDetails();
       }
     };
 

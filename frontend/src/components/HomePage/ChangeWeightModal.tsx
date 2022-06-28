@@ -39,7 +39,6 @@ const ChangeWeightModal:FC<IChangeWeightModalProps> = ({
         grams: +data.get("grams")!,
         mealType: type,
       });
-      console.log(body);
       axios
         .put("/diary", body, {
           headers: {
