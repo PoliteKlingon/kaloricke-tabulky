@@ -91,7 +91,7 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
             direction={{ xs: "column", md: "row" }}
             alignItems={{ xs: "center", md: "center" }}
           >
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={withSearch ? 4 : 5}>
               <Grid
                 container
                 direction={"row"}
@@ -138,14 +138,16 @@ const CustomAppBar: FC<ICustomAppBarProps> = ({ withSearch }) => {
               </Grid>
             </Grid>
 
+            {withSearch ?
             <Grid item xs={12} md={4}>
               <Grid container justifyContent="center">
-                {withSearch && (
                   <SearchBar/>
-                )}
               </Grid>
             </Grid>
-            <Grid item xs={12} md={4}>
+            :
+            <Grid item xs={12} md={1} />
+            }
+            <Grid item xs={12} md={withSearch ? 4 : 6}>
               <Grid
                 container
                 
