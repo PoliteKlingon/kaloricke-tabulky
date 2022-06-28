@@ -58,10 +58,11 @@ const InfoDiv = styled("div")({
   flexDirection: "column",
 });
 
-// const FoodImg = styled("img")({
-//   maxHeight: "10rem",
-//   width: "auto",
-// });
+const FoodImg = styled("img")({
+  maxHeight: "10rem",
+  height: "10rem",
+  width: "auto",
+});
 
 const ValuesDiv = styled("div")({
   fontSize: "1.25rem",
@@ -236,7 +237,8 @@ const FoodDetails:FoodDetailsType = ({food}) => {
         }}
       >
         {(auth.ssid == null || auth.ssid == "") && <Navigate to="/login" />}
-        <InfoDiv>
+        <InfoDiv sx={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
+          <TableDiv sx={{display: "flex", flexDirection:"column"}}>
           <PaddedDiv>
             <Typography
               sx={{
@@ -306,7 +308,8 @@ const FoodDetails:FoodDetailsType = ({food}) => {
               </Dialog>
             </PaddedDiv>
           </PaddedDiv>
-          {/*<FoodImg src={food.photo} alt={food.name}/>*/}
+          </TableDiv>
+          {isDesktop && <FoodImg src={food.imageUrl} alt={food.name}/>}
         </InfoDiv>
         <PaddedDiv>
           <Grid container>
