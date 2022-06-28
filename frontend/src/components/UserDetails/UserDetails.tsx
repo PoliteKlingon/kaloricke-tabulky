@@ -221,7 +221,6 @@ import {
 
     const onSubmitGoals = (data: any) => {
       setGoals(data);
-      console.log(goals);
       setCustomGoals(!customGoals);
       updateDetails({
         goals: {

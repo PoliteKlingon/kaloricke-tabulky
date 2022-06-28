@@ -10,7 +10,6 @@ import AuthContext from "../../context/AuthProvider";
 const UserDetailsPage = () => {
   // @ts-ignore
   const { auth, setAuth } = useContext(AuthContext);
-  console.log(auth)
 
   return (
     <>

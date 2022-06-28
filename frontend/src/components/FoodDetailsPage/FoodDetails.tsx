@@ -127,7 +127,6 @@ const DetailsWindow = ({amount, food, handleClose}) => {
   const { auth } = useContext(AuthContext);
 
   const saveFood = async (food:Food, grams:number, mealType: string, date: string) => {
-    console.log(auth);
     try {
       const body = JSON.stringify({
         foodId: food.id,
@@ -143,7 +142,6 @@ const DetailsWindow = ({amount, food, handleClose}) => {
           }
         })
         .then((result) => {
-          console.log(body)
           handleClose();
           // setFoodName("");
         }).catch((e) => {

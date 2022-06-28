@@ -27,8 +27,6 @@ const FoodDetailsPage = () => {
       axios
         .get(`/food/${id}`)
         .then((response) => {
-          // console.log(response.data)
-          console.log(response?.data?.data);
           setFood(response?.data?.data)
         }).catch((_) => {
           navigate("/not-found");
